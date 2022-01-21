@@ -72,4 +72,8 @@ class Splash : AppCompatActivity() {
         })
         }
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        System.exit(1)
+    }
 }
