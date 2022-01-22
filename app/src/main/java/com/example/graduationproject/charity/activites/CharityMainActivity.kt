@@ -40,6 +40,8 @@ class CharityMainActivity : AppCompatActivity() {
             }
         }
 
+        //test
+
 
         replaceFragment(HomeFragment())
         nav_bottom.setOnItemSelectedListener {
