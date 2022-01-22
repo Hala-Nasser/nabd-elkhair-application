@@ -42,7 +42,7 @@ class CharityMainActivity : AppCompatActivity() {
 
         //test
         //noor test
-        //test hala
+        //hala
         //hala
 
         replaceFragment(HomeFragment())
