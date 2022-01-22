@@ -43,6 +43,7 @@ class CharityMainActivity : AppCompatActivity() {
         //test
         //noor test
         //test hala
+        //hala
 
         replaceFragment(HomeFragment())
         nav_bottom.setOnItemSelectedListener {
