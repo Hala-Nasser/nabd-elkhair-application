@@ -57,21 +57,37 @@
             android:text=""
             android:imeOptions="actionSearch"
             android:clickable="false"
-            android:elevation="4dp"
             android:inputType="text"
             android:queryHint="ابحث باسم الجمعية"
             app:searchIcon="@drawable/ic_search"
             android:keyboardNavigationCluster="true"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الحملات الحالية"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_donation_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             />
 
-        <!--test-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الجمعيات الخيرية"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
 
     </LinearLayout>
 

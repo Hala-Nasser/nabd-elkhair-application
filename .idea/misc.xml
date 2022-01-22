@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/drawable/spinner.xml" value="0.16458333333333333" />
+        <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/drawable/white_button.xml" value="0.16458333333333333" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/activity_choice.xml" value="0.15625" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/activity_forgot_password.xml" value="0.2" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/activity_on_boarding.xml" value="0.1480978260869565" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/activity_splash.xml" value="0.15625" />
+        <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/charity_item.xml" value="0.33" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/current_campaigns_item.xml" value="0.33" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/donation_type_item.xml" value="0.16261261261261262" />
         <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/fragment_home.xml" value="0.22" />
