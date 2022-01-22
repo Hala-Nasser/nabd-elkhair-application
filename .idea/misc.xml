@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/drawable/card_view_color.xml" value="0.18076923076923077" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/drawable/nav_background.xml" value="0.2203125" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_charity_complete_signup.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_charity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_choice.xml" value="0.2" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_complete_sign_up.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_donor_main.xml" value="0.2" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_on_boarding.xml" value="0.16" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_sign_up.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/current_campaigns_item.xml" value="0.33" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/donation_type_item.xml" value="0.33" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/donation_type_with_border_item.xml" value="0.67" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_all_donation.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_charity_home.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_charity_notification.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_charity_profile.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_clothes_donation.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_donation.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_food_donation.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_money_donation.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/fragment_notification.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/on_boarding_1.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/layout/tab_content.xml" value="0.2" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-main/app/src/main/res/menu/charity_bottom_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Noor Abd/Desktop/Noor/fourth year/firstTerm/Graduation/project/nabd-elkhair-application-noor-branch/app/src/main/res/layout/charity_item.xml" value="0.25" />
+        <entry key="..\:/all university files/android studio university 4/GraduationProject/app/src/main/res/layout/donation_type_item.xml" value="0.16261261261261262" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/active_dots.xml" value="0.18194444444444444" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/button.xml" value="0.19583333333333333" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/colored_button.xml" value="0.19583333333333333" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/default_dots.xml" value="0.18194444444444444" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.18194444444444444" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.17342342342342343" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/ic_notifications.xml" value="0.1527777777777778" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/ic_profile.xml" value="0.1527777777777778" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/nav_background.xml" value="0.12432432432432433" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/search_edit_text.xml" value="0.17702702702702702" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/white_button.xml" value="0.17702702702702702" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/drawable/white_button_with_border.xml" value="0.19583333333333333" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/font/tauri.xml" value="0.20833333333333334" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_charity_main.xml" value="0.1814814814814815" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_choice.xml" value="0.22" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_complete_sign_up.xml" value="0.18" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_donor_main.xml" value="0.22" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_forgot_password.xml" value="0.17657657657657658" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_on_boarding.xml" value="0.22" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_sign_in.xml" value="0.17657657657657658" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/activity_splash.xml" value="0.22" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/donation_type_item.xml" value="0.2" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/fragment_notification.xml" value="0.17657657657657658" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/fragment_profile.xml" value="0.17657657657657658" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/on_boarding_1.xml" value="0.1814814814814815" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/on_boarding_2.xml" value="0.1814814814814815" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/layout/on_boarding_3.xml" value="0.1814814814814815" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
+        <entry key="..\:/android studio university 4/GraduationProject/app/src/main/res/xml/searchable.xml" value="0.16306306306306306" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

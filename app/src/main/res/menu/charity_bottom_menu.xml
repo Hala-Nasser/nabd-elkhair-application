@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="@color/app_color">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="الرئيسية"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/app_color"/>
+
+    <item
+        android:id="@+id/donation"
+        android:icon="@drawable/ic_donation"
+        android:title="التبرع"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/app_color"/>
+
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/ic_notifications"
+        android:title="الإشعارات"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/app_color"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_profile"
+        android:title="الملف الشخصي"
+        app:cnb_iconColor="@color/white"
+        app:cnb_backgroundColor="@color/app_color"/>
+
+</menu>

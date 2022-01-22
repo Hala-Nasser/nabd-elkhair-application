@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:paddingHorizontal="32dp"
+    android:background="@drawable/background"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layoutDirection="rtl"
+        tools:context=".charity.activites.CompleteSignupActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:layout_marginTop="90dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/black"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="أكمل المتطلبات"
+                android:gravity="center"
+                android:fontFamily="@font/tajawal_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/choose_charity_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/app_color_transparent">
+
+            <ImageView
+                android:id="@+id/charity_image"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_camera"
+                android:layout_gravity="center"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="إضافة صورة الملف الشخصي"
+            android:textColor="@color/app_color"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/tajawal_medium"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="عن الجمعية"
+            android:paddingStart="6dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:fontFamily="@font/tajawal_medium"
+            android:layout_marginTop="50dp"/>
+
+
+         <EditText
+             android:id="@+id/et_charity_about"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:inputType="textMultiLine"
+             android:lines="4"
+             android:ellipsize="end"
+             android:fontFamily="@font/tajawal_medium"
+             android:textSize="15sp"
+             android:textColor="@color/grey"
+             android:hint="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
+إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع.
+ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم ليظهر للعميل الشكل كاملاً،دور مولد النص العربى أن يوفر على المصمم عناء البحث عن نص بديل لا علاقة له بالموضوع الذى يتحدث عنه التصميم فيظهر بشكل لا يليق."
+             />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="نوع التبرعات"
+            android:paddingStart="6dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:fontFamily="@font/tajawal_medium"
+            android:layout_marginTop="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_complete_signup_donation_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            tools:listitem="@layout/donation_type_item"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/charity_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/colored_button"
+            android:gravity="center"
+            android:text="تسجيل"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/tajawal_bold"/>
+
+
+
+
+
+    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
