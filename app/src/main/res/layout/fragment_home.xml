@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".charity.fragments.HomeFragment"
+    tools:context=".donor.fragments.HomeFragment"
     android:layoutDirection="rtl"
     android:background="@color/white_background"
     android:paddingHorizontal="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="90dp"
-        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +21,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/title"
@@ -47,28 +47,69 @@
 
         </RelativeLayout>
 
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/search_edit_text"
-            android:iconifiedByDefault="true"
-            android:text=""
-            android:imeOptions="actionSearch"
-            android:clickable="false"
-            android:inputType="text"
-            android:queryHint="ابحث باسم الجمعية"
-            app:searchIcon="@drawable/ic_search"
-            android:keyboardNavigationCluster="true"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_donation_type"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            app:cardPreventCornerOverlap="false">
+
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:iconifiedByDefault="true"
+                android:text=""
+                android:imeOptions="actionSearch"
+                android:clickable="false"
+                android:inputType="text"
+                android:queryHint="ابحث باسم الجمعية"
+                app:searchIcon="@drawable/ic_search"
+                android:background="@drawable/search_edit_text"
+                android:keyboardNavigationCluster="true"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الحملات الحالية"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
+        <include layout="@layout/tab_content"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/charities_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الجمعيات الخيرية"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_all_charities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/charity_item" />
+
 
     </LinearLayout>
 
