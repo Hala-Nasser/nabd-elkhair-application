@@ -13,6 +13,9 @@
         android:theme="@style/Theme.GraduationProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".charity.activites.AddCampaignActivity"
+            android:exported="false" />
+        <activity
             android:name=".charity.activites.CompleteSignupActivity"
             android:exported="false" />
         <activity

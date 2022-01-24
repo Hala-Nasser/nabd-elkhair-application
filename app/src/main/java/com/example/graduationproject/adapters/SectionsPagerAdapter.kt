@@ -1,4 +1,4 @@
-package com.example.graduationproject.donor.adapters
+package com.example.graduationproject.adapters
 
 import android.content.Context
 import androidx.fragment.app.Fragment

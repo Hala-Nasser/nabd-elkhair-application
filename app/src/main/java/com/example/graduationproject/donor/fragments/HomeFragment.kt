@@ -31,7 +31,7 @@ import com.example.mystory2.api.story.StoryJson
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
 import kotlinx.android.synthetic.main.fragment_charity_home.view.*
-import kotlinx.android.synthetic.main.fragment_charity_home.view.charities_viewpager
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
@@ -80,11 +80,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
         root.charities_viewpager.adapter = sectionsPagerAdapter
 //        root.charities_viewpager.rotationY = 180F
 
-        root.donation_all.setCardBackgroundColor(resources.getColor(R.color.app_color))
-        DrawableCompat.setTint(
-            DrawableCompat.wrap(root.all_img.drawable),
-            ContextCompat.getColor(this.requireContext(), R.color.white)
-        )
+
         root.charities_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 

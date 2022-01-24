@@ -35,8 +35,9 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignsAdapter.MyViewHolder {
-        var View: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
-        val myHolder:MyViewHolder = MyViewHolder(View)
+        var view: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
+        view.rotationY = 180F
+        val myHolder:MyViewHolder = MyViewHolder(view)
         return myHolder
     }
 

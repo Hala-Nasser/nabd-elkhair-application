@@ -1,5 +1,6 @@
 package com.example.graduationproject.charity.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
+import com.example.graduationproject.adapters.SectionsPagerAdapter
+import com.example.graduationproject.charity.activites.AddCampaignActivity
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
-import com.example.graduationproject.donor.adapters.SectionsPagerAdapter
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.DonationType
+import com.ramotion.circlemenu.CircleMenuView
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.rv_complete_signup_donation_type
 import kotlinx.android.synthetic.main.fragment_charity_home.*
@@ -51,15 +54,31 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         fragments.add(ClothesDonationFragment())
 
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
-        root.charities_viewpager.adapter = sectionsPagerAdapter
-//        root.charities_viewpager.rotationY = 180F
+        root.campaign_viewpager.adapter = sectionsPagerAdapter
+        root.campaign_viewpager.rotationY = 180F
 
-        root.donation_all.setCardBackgroundColor(resources.getColor(R.color.app_color))
-        DrawableCompat.setTint(
-            DrawableCompat.wrap(root.all_img.drawable),
-            ContextCompat.getColor(this.requireContext(), R.color.white)
-        )
-        root.charities_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        root.circleMenu.eventListener = object : CircleMenuView.EventListener() {
+            override fun onMenuOpenAnimationStart(view: CircleMenuView) {
+                super.onMenuOpenAnimationStart(view)
+            }
+
+            override fun onButtonClickAnimationStart(view: CircleMenuView, buttonIndex: Int) {
+                super.onButtonClickAnimationStart(view, buttonIndex)
+                when(buttonIndex){
+                    0 -> {
+                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
+                        startActivity(i)
+                    }
+                    1 -> {
+                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
+                        startActivity(i)
+                    }
+
+                }
+            }
+        }
+
+        root.campaign_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -121,28 +140,28 @@ class HomeFragment : Fragment() ,View.OnClickListener{
                 foodDonationChecked = false
                 clothesDonationChecked = false
 
-                charities_viewpager.currentItem = 0
+                campaign_viewpager.currentItem = 0
             }
             R.id.donation_money -> {
                 allDonationChecked = false
                 moneyDonationChecked = true
                 foodDonationChecked = false
                 clothesDonationChecked = false
-                charities_viewpager.currentItem = 1
+                campaign_viewpager.currentItem = 1
             }
             R.id.donation_food -> {
                 allDonationChecked = false
                 moneyDonationChecked = false
                 foodDonationChecked = true
                 clothesDonationChecked = false
-                charities_viewpager.currentItem = 2
+                campaign_viewpager.currentItem = 2
             }
             R.id.donation_clothes -> {
                 allDonationChecked = false
                 moneyDonationChecked = false
                 foodDonationChecked = false
                 clothesDonationChecked = true
-                charities_viewpager.currentItem = 3
+                campaign_viewpager.currentItem = 3
 
             }
         }
