@@ -20,6 +20,9 @@ import com.example.graduationproject.donor.models.DonationType
 import com.ramotion.circlemenu.CircleMenuView
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.rv_complete_signup_donation_type
+import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.activity_donor_main.*
+import kotlinx.android.synthetic.main.activity_donor_main.nav_bottom
 import kotlinx.android.synthetic.main.fragment_charity_home.*
 import kotlinx.android.synthetic.main.fragment_charity_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
@@ -40,6 +43,8 @@ class HomeFragment : Fragment() ,View.OnClickListener{
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_home, container, false)
+
+        requireActivity().charity_nav_bottom.visibility=View.VISIBLE
 
         root.donation_all.setOnClickListener(this)
         root.donation_money.setOnClickListener(this)
@@ -66,12 +71,16 @@ class HomeFragment : Fragment() ,View.OnClickListener{
                 super.onButtonClickAnimationStart(view, buttonIndex)
                 when(buttonIndex){
                     0 -> {
-                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
-                        startActivity(i)
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,AddCampaignFragment()).addToBackStack(null).commit()
+                        requireActivity().charity_nav_bottom.visibility=View.GONE
+//                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
+//                        startActivity(i)
                     }
                     1 -> {
-                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
-                        startActivity(i)
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,AddCampaignFragment()).addToBackStack(null).commit()
+                        requireActivity().charity_nav_bottom.visibility=View.GONE
+//                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
+//                        startActivity(i)
                     }
 
                 }

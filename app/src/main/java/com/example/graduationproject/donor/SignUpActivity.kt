@@ -52,7 +52,7 @@ class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener 
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         spinner.setSelection(p2)
-        //(spinner.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black_transparent_62))
+        (spinner.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black_transparent_62))
 
     }
 

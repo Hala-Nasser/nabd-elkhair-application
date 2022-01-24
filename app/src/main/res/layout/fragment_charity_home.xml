@@ -7,76 +7,74 @@
     android:background="@color/white_background"
     android:layoutDirection="rtl"
     android:paddingHorizontal="10dp"
-    tools:context=".charity.fragments.HomeFragment"
-    >
+    tools:context=".charity.fragments.HomeFragment">
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:gravity="center"
-                    android:text="الرئيسية"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/charity_image"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="3dp" />
-
-            </RelativeLayout>
-
-
-            <include
-                layout="@layout/tab_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" />
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:fontFamily="@font/tajawal_bold"
-                android:gravity="start"
-                android:paddingHorizontal="5dp"
-                android:text="حملاتنا"
-                android:textAlignment="textStart"
+                android:gravity="center"
+                android:text="الرئيسية"
+                android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/campaign_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:ignore="SpeakableTextPresentCheck" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/charity_image"
+                app:civ_border_color="#fff"
+                app:civ_border_width="3dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
+
+        <include
+            layout="@layout/tab_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tajawal_bold"
+            android:gravity="start"
+            android:paddingHorizontal="5dp"
+            android:text="حملاتنا"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/campaign_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
 
 
     <com.ramotion.circlemenu.CircleMenuView
@@ -85,12 +83,12 @@
         android:layout_height="wrap_content"
         app:button_colors="@array/colors"
         app:button_icons="@array/icons"
-        app:tint="@color/white"
-        app:distance="50dp"
+        app:distance="60dp"
         app:icon_color="@color/app_color"
         app:icon_menu="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
