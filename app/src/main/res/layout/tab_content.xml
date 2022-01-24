@@ -122,6 +122,7 @@
                         android:layout_width="30dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
+                        app:tint="@color/black"
                         android:src="@drawable/money" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -136,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="@color/app_color"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="0dp"
                     android:divider="@android:color/transparent"
@@ -153,7 +154,7 @@
                         android:id="@+id/all_img"                        android:layout_width="30dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        app:tint="@color/black"
+                        app:tint="@color/white"
                         android:src="@drawable/all" />
 
                 </com.google.android.material.card.MaterialCardView>

@@ -17,7 +17,8 @@ import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.current_campaigns_item.view.*
 
-class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var from:String) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
+class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var from:String,
+                        var clickListener: onCampaignItemClickListener) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val image  =itemView.campaign_image
@@ -26,17 +27,22 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
         val charity  =itemView.campaign_charity
         val card  =itemView.campaign_card
 
-        fun initialize(data: Campaigns) {
+        fun initialize(data: Campaigns, action: onCampaignItemClickListener) {
             image.setImageResource(data.campaignImg!!)
             name.text = data.campaignName
             date.text = data.campaignDate
-            charity.text = data.campaignCharity
+            charity.text = data.campaignCharity.charityName
+
+            itemView.setOnClickListener {
+                action.onItemClick(data, adapterPosition)
+            }
         }
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignsAdapter.MyViewHolder {
-        var View: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
-        val myHolder:MyViewHolder = MyViewHolder(View)
+        var view: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
+        view.rotationY = 180F
+        val myHolder:MyViewHolder = MyViewHolder(view)
         return myHolder
     }
 
@@ -46,7 +52,7 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
 
     override fun onBindViewHolder(holder: CampaignsAdapter.MyViewHolder, position: Int) {
         // holder.photo.setImageResource(data[position].photo)
-        holder.initialize(data[position])
+        holder.initialize(data[position], clickListener)
         when(from){
             "CharityHome" -> {
                 holder.charity.visibility = View.GONE
@@ -55,6 +61,10 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
                 holder.charity.visibility = View.VISIBLE
             }
         }
+    }
+
+    interface onCampaignItemClickListener {
+        fun onItemClick(data: Campaigns, position: Int)
     }
 
 }

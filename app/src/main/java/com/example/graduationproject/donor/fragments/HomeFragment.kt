@@ -1,5 +1,6 @@
 package com.example.graduationproject.donor.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
+import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.api.category.CategoryJson
 import com.example.graduationproject.api.category.Data
 import com.example.graduationproject.charity.fragments.AllDonationFragment
@@ -21,17 +23,17 @@ import com.example.graduationproject.charity.fragments.MoneyDonationFragment
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.adapters.CharitiesAdapter
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
-import com.example.graduationproject.donor.adapters.SectionsPagerAdapter
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
 import com.example.graduationproject.network.ApiRequests
 import com.example.graduationproject.network.RetrofitInstance
 import com.example.mystory2.api.story.StoryJson
+import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
 import kotlinx.android.synthetic.main.fragment_charity_home.view.*
-import kotlinx.android.synthetic.main.fragment_charity_home.view.charities_viewpager
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
@@ -64,6 +66,8 @@ class HomeFragment : Fragment(),View.OnClickListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
+        requireActivity().nav_bottom.visibility=View.VISIBLE
+
         root.donation_all.setOnClickListener(this)
         root.donation_money.setOnClickListener(this)
         root.donation_food.setOnClickListener(this)
@@ -80,11 +84,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
         root.charities_viewpager.adapter = sectionsPagerAdapter
 //        root.charities_viewpager.rotationY = 180F
 
-        root.donation_all.setCardBackgroundColor(resources.getColor(R.color.app_color))
-        DrawableCompat.setTint(
-            DrawableCompat.wrap(root.all_img.drawable),
-            ContextCompat.getColor(this.requireContext(), R.color.white)
-        )
+
         root.charities_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 

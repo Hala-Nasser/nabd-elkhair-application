@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,16 +7,10 @@
     android:background="@color/white_background"
     android:layoutDirection="rtl"
     android:paddingHorizontal="10dp"
-    tools:context=".charity.fragments.HomeFragment"
-    >
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutDirection="rtl"
-        >
+    tools:context=".charity.fragments.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
@@ -54,44 +48,47 @@
 
         </RelativeLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:visibility="gone"
+
+        <include
+            layout="@layout/tab_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:tabIndicatorColor="#AFAFAF"
-            app:tabIndicatorHeight="2dp"
-            app:tabSelectedTextColor="@color/app_color"
-            app:tabTextColor="#AFAFAF"
-            tools:targetApi="jelly_bean_mr1" />
-
-        <include layout="@layout/tab_content"
-            android:layout_marginTop="30dp"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            />
+            android:layout_marginTop="30dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/tajawal_bold"
-            android:text="حملاتنا"
-            android:paddingHorizontal="5dp"
             android:gravity="start"
+            android:paddingHorizontal="5dp"
+            android:text="حملاتنا"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/charities_viewpager"
-            android:layout_marginTop="10dp"
+            android:id="@+id/campaign_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
-
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <com.ramotion.circlemenu.CircleMenuView
+        android:id="@+id/circleMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:button_colors="@array/colors"
+        app:button_icons="@array/icons"
+        app:distance="60dp"
+        app:icon_color="@color/app_color"
+        app:icon_menu="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

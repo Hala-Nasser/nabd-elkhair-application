@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="icons">
+        <item>@drawable/food</item>
+        <item>@drawable/clothes</item>
+
+    </array>
+
+
+    <array name="colors">
+        <item>@color/app_color</item>
+        <item>@color/app_color</item>
+    </array>
+
+</resources>
