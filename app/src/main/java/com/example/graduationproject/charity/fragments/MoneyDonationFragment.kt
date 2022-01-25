@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.donor.DonorMainActivity
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.fragments.CampaignDetailsFragment
 import com.example.graduationproject.donor.models.Campaigns
@@ -42,12 +45,20 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
             , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
         ))
 
-
-        root.rv_money_donation.layoutManager = GridLayoutManager(this.context,2)
-        root.rv_money_donation.setHasFixedSize(true)
-        val campaignsAdapter =
-            CampaignsAdapter(this.activity, campaignsList,"CharityHome", this)
-        root.rv_money_donation.adapter = campaignsAdapter
+        if (activity!!::class.java.name == DonorMainActivity::class.java.name){
+            root.rv_money_donation.layoutManager = LinearLayoutManager(activity,
+                RecyclerView.HORIZONTAL,false)
+            root.rv_money_donation.setHasFixedSize(true)
+            val campaignsAdapter =
+                CampaignsAdapter(this.activity, campaignsList,"DonorHome", this)
+            root.rv_money_donation.adapter = campaignsAdapter
+        }else{
+            root.rv_money_donation.layoutManager = GridLayoutManager(this.context,2)
+            root.rv_money_donation.setHasFixedSize(true)
+            val campaignsAdapter =
+                CampaignsAdapter(this.activity, campaignsList,"CharityHome", this)
+            root.rv_money_donation.adapter = campaignsAdapter
+        }
 
         return root
     }

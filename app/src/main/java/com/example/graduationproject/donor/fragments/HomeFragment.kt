@@ -1,8 +1,10 @@
 package com.example.graduationproject.donor.fragments
 
+import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Xml
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +47,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.awaitResponse
+import android.widget.LinearLayout
+
+
+
 
 class HomeFragment : Fragment(),View.OnClickListener {
 
@@ -81,11 +87,12 @@ class HomeFragment : Fragment(),View.OnClickListener {
         fragments.add(ClothesDonationFragment())
 
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
-        root.charities_viewpager.adapter = sectionsPagerAdapter
+        root.campaigns_viewpager.adapter = sectionsPagerAdapter
+
 //        root.charities_viewpager.rotationY = 180F
 
 
-        root.charities_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        root.campaigns_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -165,28 +172,28 @@ class HomeFragment : Fragment(),View.OnClickListener {
                 foodDonationChecked = false
                 clothesDonationChecked = false
 
-                charities_viewpager.currentItem = 0
+                campaigns_viewpager.currentItem = 0
             }
             R.id.donation_money -> {
                 allDonationChecked = false
                 moneyDonationChecked = true
                 foodDonationChecked = false
                 clothesDonationChecked = false
-                charities_viewpager.currentItem = 1
+                campaigns_viewpager.currentItem = 1
             }
             R.id.donation_food -> {
                 allDonationChecked = false
                 moneyDonationChecked = false
                 foodDonationChecked = true
                 clothesDonationChecked = false
-                charities_viewpager.currentItem = 2
+                campaigns_viewpager.currentItem = 2
             }
             R.id.donation_clothes -> {
                 allDonationChecked = false
                 moneyDonationChecked = false
                 foodDonationChecked = false
                 clothesDonationChecked = true
-                charities_viewpager.currentItem = 3
+                campaigns_viewpager.currentItem = 3
 
             }
         }

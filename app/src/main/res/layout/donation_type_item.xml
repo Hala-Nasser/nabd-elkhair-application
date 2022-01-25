@@ -23,20 +23,15 @@
             android:layout_gravity="center"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="5dp"
-            app:cardElevation="0dp"
+            app:cardElevation="5dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="0.0px"
             android:clipToPadding="false"
             android:clipChildren="false"
             app:strokeWidth="1.5dp"
             app:strokeColor="@color/white"
-            android:layout_marginLeft="10dp"
             app:cardPreventCornerOverlap="false"
-            >
-
-
-            <!--            android:layout_width="35dp"-->
-            <!--            android:layout_height="25dp"-->
+            android:layout_margin="5dp">
 
             <ImageView
                 android:id="@+id/donation_type_image"
