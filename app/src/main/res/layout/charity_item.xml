@@ -15,7 +15,9 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="15dp"
         app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -24,10 +26,14 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="10dp"
+                android:layout_margin="3dp"
+                app:cardElevation="2dp"
+
+                >
 
                 <ImageView
                     android:id="@+id/charity_image"
@@ -35,53 +41,53 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
                     android:src="@drawable/charity_image" />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:orientation="vertical"
+                android:layout_marginRight="20dp"
                 android:gravity="center_vertical"
-                android:layout_marginRight="20dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/charity_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="جمعية الاحسان التطوعية"
-                    android:textSize="18sp"
                     android:lines="1"
-                    android:textColor="@color/black"/>
+                    android:text="جمعية الاحسان التطوعية"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginTop="10dp"
-                    android:layout_gravity="center_vertical">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="10dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/ic_location"/>
+                        android:src="@drawable/ic_location" />
 
                     <TextView
                         android:id="@+id/charity_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="فلسطين , غزة"
-                        android:textSize="12sp"
-                        android:lines="1"
                         android:layout_marginRight="5dp"
-                        android:textColor="@color/black_transparent_43"/>
+                        android:lines="1"
+                        android:text="فلسطين , غزة"
+                        android:textColor="@color/black_transparent_43"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
 
             </LinearLayout>
 
-            </LinearLayout>
+        </LinearLayout>
 
 
     </androidx.cardview.widget.CardView>

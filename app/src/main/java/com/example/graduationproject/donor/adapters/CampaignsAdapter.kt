@@ -36,13 +36,18 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
             itemView.setOnClickListener {
                 action.onItemClick(data, adapterPosition)
             }
+
         }
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignsAdapter.MyViewHolder {
         var view: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
-        view.rotationY = 180F
         val myHolder:MyViewHolder = MyViewHolder(view)
+        when(from){
+            "CharityHome" -> {
+                view.rotationY = 180F
+            }
+        }
         return myHolder
     }
 

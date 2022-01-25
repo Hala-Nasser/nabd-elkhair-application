@@ -1,14 +1,17 @@
 package com.example.graduationproject.charity.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.donor.DonorMainActivity
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.donor.fragments.CampaignDetailsFragment
@@ -17,6 +20,11 @@ import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
+import kotlinx.android.synthetic.main.fragment_clothes_donation.view.*
+import androidx.core.app.ShareCompat.getCallingActivity
+
+
+
 
 
 class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickListener {
@@ -39,12 +47,20 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
             , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
         ))
 
+        if (activity!!::class.java.name == DonorMainActivity::class.java.name){
+            root.rv_all_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
+            root.rv_all_donation.setHasFixedSize(true)
+            val campaignsAdapter =
+                CampaignsAdapter(this.activity, campaignsList,"DonorHome",this)
+            root.rv_all_donation.adapter = campaignsAdapter
+        }else{
+            root.rv_all_donation.layoutManager = GridLayoutManager(this.context,2)
+            root.rv_all_donation.setHasFixedSize(true)
+            val campaignsAdapter =
+                CampaignsAdapter(this.activity, campaignsList,"CharityHome", this)
+            root.rv_all_donation.adapter = campaignsAdapter
+        }
 
-        root.rv_all_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
-        root.rv_all_donation.setHasFixedSize(true)
-        val campaignsAdapter =
-            CampaignsAdapter(this.activity, campaignsList,"DonorHome",this)
-        root.rv_all_donation.adapter = campaignsAdapter
         return root
     }
 

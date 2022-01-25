@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,12 +93,11 @@
             android:layout_gravity="center"/>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/charities_viewpager"
+            android:id="@+id/campaigns_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="190dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
-
 
         <TextView
             android:layout_width="match_parent"

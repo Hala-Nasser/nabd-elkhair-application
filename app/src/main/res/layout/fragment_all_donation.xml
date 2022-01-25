@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
-    tools:context=".charity.fragments.AllDonationFragment"
-    android:layout_gravity="center_horizontal">
+    tools:context=".charity.fragments.AllDonationFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_all_donation"
