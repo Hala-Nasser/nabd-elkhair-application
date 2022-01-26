@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
+import com.example.graduationproject.donor.adapters.lastCheckedPos
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
 import com.google.android.material.snackbar.Snackbar
@@ -61,17 +63,21 @@ class CampaignDetailsFragment : Fragment() {
             getDialog()
 
             v.close.setOnClickListener {
+                lastCheckedPos = -1
                 dialog.dismiss()
             }
             v.choose.setOnClickListener {
+                Log.e("item selected position", lastCheckedPos.toString())
+                lastCheckedPos = -1
+
                 dialog.dismiss()
             }
 
-            v.rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL,false)
-            v.rv_complete_signup_donation_type.setHasFixedSize(true)
-            val storyAdapter =
+            v.rv_donation_type.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL,false)
+            v.rv_donation_type.setHasFixedSize(true)
+            val donationAdapter =
                 DonationTypeAdapter(activity, donationTypeList,"CampaignDetailsFragment")
-            v.rv_complete_signup_donation_type.adapter = storyAdapter
+            v.rv_donation_type.adapter = donationAdapter
 
         }
 

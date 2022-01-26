@@ -19,7 +19,7 @@ import com.example.graduationproject.donor.models.DonationType
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
-private var lastCheckedPos = -1
+var lastCheckedPos = -1
 
 class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>, var from: String) :
     RecyclerView.Adapter<DonationTypeAdapter.MyViewHolder>() {
@@ -104,7 +104,6 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>, 
                     holder.cardView.apply {
                         strokeColor = resources.getColor(R.color.app_color)
                     }
-                    lastCheckedPos = -1
                 } else {
                     holder.cardView.apply {
                         strokeColor = resources.getColor(R.color.white)
