@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 
 
@@ -22,9 +23,9 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager,var
         return fragment[position]
     }
 
-
-
     override fun getCount(): Int {
         return fragment.size
     }
+
+
 }

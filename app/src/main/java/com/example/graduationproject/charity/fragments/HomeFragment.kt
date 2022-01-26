@@ -1,6 +1,9 @@
 package com.example.graduationproject.charity.fragments
 
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,25 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
-import com.example.graduationproject.charity.activites.AddCampaignActivity
-import com.example.graduationproject.donor.adapters.DonationTypeAdapter
-import com.example.graduationproject.donor.models.Campaigns
-import com.example.graduationproject.donor.models.DonationType
 import com.ramotion.circlemenu.CircleMenuView
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
-import kotlinx.android.synthetic.main.activity_charity_complete_signup.rv_complete_signup_donation_type
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
-import kotlinx.android.synthetic.main.activity_donor_main.nav_bottom
 import kotlinx.android.synthetic.main.fragment_charity_home.*
-import kotlinx.android.synthetic.main.fragment_charity_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
+import android.view.View.OnTouchListener
+import kotlinx.android.synthetic.main.campaign_added_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_charity_home.view.*
 
 
 class HomeFragment : Fragment() ,View.OnClickListener{
@@ -37,6 +34,7 @@ class HomeFragment : Fragment() ,View.OnClickListener{
 
     lateinit var fragments : ArrayList<Fragment>
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +43,12 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         var root = inflater.inflate(R.layout.fragment_charity_home, container, false)
 
         requireActivity().charity_nav_bottom.visibility=View.VISIBLE
-
+        if (arguments!=null) {
+            var addCampaign = requireArguments().getBoolean("addCampaign")
+            if (addCampaign) {
+                getDialog()
+            }
+        }
         root.donation_all.setOnClickListener(this)
         root.donation_money.setOnClickListener(this)
         root.donation_food.setOnClickListener(this)
@@ -60,8 +63,32 @@ class HomeFragment : Fragment() ,View.OnClickListener{
 
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
         root.campaign_viewpager.adapter = sectionsPagerAdapter
-        root.campaign_viewpager.rotationY = 180F
+//        root.campaign_viewpager.rotationY = 180F
 
+        root.campaign_viewpager.setOnTouchListener(OnTouchListener { v, event ->
+            when (root.campaign_viewpager.currentItem) {
+                0 -> {
+                    root.campaign_viewpager.setCurrentItem(-1, false)
+                    return@OnTouchListener true
+                }
+                1 -> {
+                    root.campaign_viewpager.setCurrentItem(1-1, false)
+                    root.campaign_viewpager.setCurrentItem(1, false)
+                    return@OnTouchListener true
+                }
+                2 -> {
+                    root.campaign_viewpager.setCurrentItem(2-1, false)
+                    root.campaign_viewpager.setCurrentItem(2, false)
+                    return@OnTouchListener true
+                }
+                3 -> {
+                    root.campaign_viewpager.setCurrentItem(3-1, false)
+                    root.campaign_viewpager.setCurrentItem(3, false)
+                    return@OnTouchListener true
+                }
+                else -> true
+            }
+        })
         root.circleMenu.eventListener = object : CircleMenuView.EventListener() {
             override fun onMenuOpenAnimationStart(view: CircleMenuView) {
                 super.onMenuOpenAnimationStart(view)
@@ -71,14 +98,21 @@ class HomeFragment : Fragment() ,View.OnClickListener{
                 super.onButtonClickAnimationStart(view, buttonIndex)
                 when(buttonIndex){
                     0 -> {
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,AddCampaignFragment()).addToBackStack(null).commit()
-                        requireActivity().charity_nav_bottom.visibility=View.GONE
+                         var bundle = Bundle()
+                        bundle.putString("donationType","food")
+                        var fragment = AddCampaignFragment()
+                        fragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
+
 //                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
 //                        startActivity(i)
                     }
                     1 -> {
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,AddCampaignFragment()).addToBackStack(null).commit()
-                        requireActivity().charity_nav_bottom.visibility=View.GONE
+                        var bundle = Bundle()
+                        bundle.putString("donationType","clothes")
+                        var fragment = AddCampaignFragment()
+                        fragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
 //                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
 //                        startActivity(i)
                     }
@@ -87,6 +121,7 @@ class HomeFragment : Fragment() ,View.OnClickListener{
             }
         }
 
+        //root.campaign_viewpager.swipeLocked =false
         root.campaign_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -235,4 +270,15 @@ class HomeFragment : Fragment() ,View.OnClickListener{
     }
 
 
+    fun getDialog(){
+        var view= layoutInflater.inflate(R.layout.campaign_added_dialog,null)
+        val campaignDialog = Dialog(this.requireContext())
+        campaignDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        campaignDialog.setContentView(view)
+        view.close_dialog.setOnClickListener {
+            campaignDialog.dismiss()
+        }
+        campaignDialog.setCancelable(true)
+        campaignDialog.show()
+    }
 }
