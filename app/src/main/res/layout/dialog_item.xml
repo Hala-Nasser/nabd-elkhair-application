@@ -66,7 +66,7 @@
 <!--            android:layout_marginTop="20dp"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_complete_signup_donation_type"
+            android:id="@+id/rv_donation_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
