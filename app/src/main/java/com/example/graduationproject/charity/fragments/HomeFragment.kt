@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_charity_home.view.*
 
 
 class HomeFragment : Fragment() ,View.OnClickListener{
-     var allDonationChecked = false
+     var allDonationChecked = true
      var moneyDonationChecked = false
      var foodDonationChecked = false
      var clothesDonationChecked = false

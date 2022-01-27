@@ -20,6 +20,7 @@ import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 var lastCheckedPos = -1
+var typeSelected : DonationType? = null
 
 class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>, var from: String) :
     RecyclerView.Adapter<DonationTypeAdapter.MyViewHolder>() {
@@ -94,6 +95,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>, 
             "CampaignDetailsFragment" -> {
                 holder.itemView.setOnClickListener {
                     lastCheckedPos = position
+                    typeSelected = data[position]
                     this.notifyDataSetChanged()
                 }
 

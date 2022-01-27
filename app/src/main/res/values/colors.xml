@@ -12,11 +12,14 @@
     <color name="app_color_transparent">#2110B1B1</color>
     <color name="grey">#707070</color>
     <color name="grey_details">#A0A0A0</color>
+    <color name="grey_bottom_dialog">#969696</color>
     <color name="black_transparent_62">#9E000000</color>
     <color name="black_transparent_49">#7D000000</color>
     <color name="black_transparent_72">#B8000000</color>
     <color name="black_transparent_56">#8F000000</color>
     <color name="black_transparent_43">#6E000000</color>
+    <color name="black_transparent_27">#45000000</color>
+    <color name="black_transparent_4">#0A000000</color>
     <color name="date_color">#005959</color>
     <color name="time_color">#F6F6F6</color>
     <color name="date_btn_color">#DEF2F2</color>

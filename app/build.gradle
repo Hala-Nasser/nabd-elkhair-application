@@ -36,7 +36,6 @@ android {
         experimental = true
     }
 }
-
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -69,4 +68,5 @@ dependencies {
         force = true //API 19 support
     }
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.12'
+
 }

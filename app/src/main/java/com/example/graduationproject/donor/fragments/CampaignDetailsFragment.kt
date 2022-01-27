@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.donor.adapters.lastCheckedPos
+import com.example.graduationproject.donor.adapters.typeSelected
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
 import com.google.android.material.snackbar.Snackbar
@@ -64,12 +65,19 @@ class CampaignDetailsFragment : Fragment() {
 
             v.close.setOnClickListener {
                 lastCheckedPos = -1
+                typeSelected = null
                 dialog.dismiss()
             }
             v.choose.setOnClickListener {
                 Log.e("item selected position", lastCheckedPos.toString())
-                lastCheckedPos = -1
+                if (typeSelected != null){
+                    if (typeSelected!!.photo == R.drawable.money){
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,FirstStepViewDonationFragment()).addToBackStack(null).commit()
+                    }
+                }
 
+                lastCheckedPos = -1
+                typeSelected = null
                 dialog.dismiss()
             }
 

@@ -1,10 +1,7 @@
 package com.example.graduationproject.donor.fragments
 
-import android.app.ActionBar
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import android.util.Xml
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
-import com.example.graduationproject.api.category.CategoryJson
-import com.example.graduationproject.api.category.Data
 import com.example.graduationproject.charity.fragments.AllDonationFragment
 import com.example.graduationproject.charity.fragments.ClothesDonationFragment
 import com.example.graduationproject.charity.fragments.FoodDonationFragment
 import com.example.graduationproject.charity.fragments.MoneyDonationFragment
-import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.adapters.CharitiesAdapter
-import com.example.graduationproject.donor.adapters.DonationTypeAdapter
-import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
-import com.example.graduationproject.network.ApiRequests
-import com.example.graduationproject.network.RetrofitInstance
-import com.example.mystory2.api.story.StoryJson
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
@@ -39,33 +28,20 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.awaitResponse
-import android.widget.LinearLayout
-
-
-
+import android.view.View.OnTouchListener
 
 class HomeFragment : Fragment(),View.OnClickListener {
 
-    lateinit var rv_donation_type: RecyclerView
-    var categoriesList = listOf<DonationType>()
-
     private lateinit var  charitiesList: MutableList<Charity>
 
-    var allDonationChecked = false
+    var allDonationChecked = true
     var moneyDonationChecked = false
     var foodDonationChecked = false
     var clothesDonationChecked = false
 
     lateinit var fragments : ArrayList<Fragment>
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,7 +65,30 @@ class HomeFragment : Fragment(),View.OnClickListener {
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
         root.campaigns_viewpager.adapter = sectionsPagerAdapter
 
-//        root.charities_viewpager.rotationY = 180F
+        root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->
+            when (root.campaigns_viewpager.currentItem) {
+                0 -> {
+                    root.campaigns_viewpager.setCurrentItem(-1, false)
+                    return@OnTouchListener true
+                }
+                1 -> {
+                    root.campaigns_viewpager.setCurrentItem(1-1, false)
+                    root.campaigns_viewpager.setCurrentItem(1, false)
+                    return@OnTouchListener true
+                }
+                2 -> {
+                    root.campaigns_viewpager.setCurrentItem(2-1, false)
+                    root.campaigns_viewpager.setCurrentItem(2, false)
+                    return@OnTouchListener true
+                }
+                3 -> {
+                    root.campaigns_viewpager.setCurrentItem(3-1, false)
+                    root.campaigns_viewpager.setCurrentItem(3, false)
+                    return@OnTouchListener true
+                }
+                else -> true
+            }
+        })
 
 
         root.campaigns_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -147,8 +146,6 @@ class HomeFragment : Fragment(),View.OnClickListener {
         charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
         charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
         charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
-
-
 
 
         root.rv_all_charities.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
@@ -256,34 +253,5 @@ class HomeFragment : Fragment(),View.OnClickListener {
             )
         }
     }
-
-
-//    fun getCategories(){
-//        Log.e("TAG", "stories")
-//
-//        val response = RetrofitInstance.create().getCategories()
-//
-//        response.enqueue(object : Callback<CategoryJson> {
-//            override fun onResponse(call: Call<CategoryJson>, response: Response<CategoryJson>) {
-//                if (response.isSuccessful) {
-//                    val data = response.body()
-//                    Log.e("TAG", "Stories success")
-////                    categoriesList = data!!.data
-//                    rv_donation_type.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
-//                    rv_donation_type.setHasFixedSize(true)
-//                    val storyAdapter =
-//                        DonationTypeAdapter(activity, categoriesList,"DonorHome")
-//                    rv_donation_type.adapter = storyAdapter
-//                } else {
-//                    Log.e("TAG", "Stories unsuccess")
-//                }
-//
-//            }
-//
-//            override fun onFailure(call: Call<CategoryJson>, t: Throwable) {
-//                Log.e("TAG", t.message!!)
-//            }
-//        })
-//    }
 
 }
