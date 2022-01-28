@@ -62,7 +62,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
         fragments.add(FoodDonationFragment())
         fragments.add(ClothesDonationFragment())
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager ,fragments)
         root.campaigns_viewpager.adapter = sectionsPagerAdapter
 
         root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->

@@ -7,23 +7,24 @@ import android.view.MotionEvent
 import android.R
 
 import android.content.res.TypedArray
+import android.view.View
+import android.view.View.MeasureSpec
 import androidx.viewpager.widget.PagerAdapter
 
 
 public class LockableViewPager(context: Context, attrs: AttributeSet) : ViewPager(context) {
 
-     var swipeLocked = false
-
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return !swipeLocked && super.onTouchEvent(event)
-    }
-
-    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
-        return !swipeLocked && super.onInterceptTouchEvent(event)
-    }
-
-    override fun canScrollHorizontally(direction: Int): Boolean {
-        return !swipeLocked && super.canScrollHorizontally(direction)
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        var heightMeasureSpec = heightMeasureSpec
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        var height = 0
+        for (i in 0 until childCount) {
+            val child: View = getChildAt(i)
+            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+            val h: Int = child.measuredHeight
+            if (h > height) height = h
+        }
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 }

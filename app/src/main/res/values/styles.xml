@@ -9,4 +9,24 @@
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/progress_bar_circle</item>
     </style>
+
+    <style name="DonationWithCampaignTextStyle">
+        <item name="android:fontFamily">@font/tajawal_bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="DonationWithoutCampaignTextStyle">
+        <item name="android:fontFamily">@font/tajawal_medium</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/layout_rounded</item>
+    </style>
 </resources>

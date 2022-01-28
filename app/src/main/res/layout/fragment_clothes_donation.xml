@@ -7,6 +7,17 @@
     android:layoutDirection="rtl"
     tools:context=".charity.fragments.ClothesDonationFragment">
 
+    <ImageView
+        android:id="@+id/clothes_no_campaign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        android:src="@drawable/no_campaign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_clothes_donation"
         android:layout_width="match_parent"

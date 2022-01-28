@@ -10,14 +10,14 @@ import com.example.graduationproject.R
 
 
 private val TAB_TITLES = arrayOf(
-    R.id.donation_all,
-    R.id.donation_food,
-    R.id.donation_money,
-    R.id.donation_clothes
+    "تبرع بحملة",
+    "تبرع بدون حملة"
 )
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager,var fragment : ArrayList<Fragment>) :
+class SectionsPagerAdapter(fm: FragmentManager,var fragment : ArrayList<Fragment>) :
     FragmentPagerAdapter(fm) {
+
+
 
     override fun getItem(position: Int): Fragment {
         return fragment[position]
@@ -26,6 +26,11 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager,var
     override fun getCount(): Int {
         return fragment.size
     }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return TAB_TITLES[position]
+    }
+
 
 
 }

@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         tools:context=".charity.fragments.AddCampaignFragment"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
         >
 
         <LinearLayout
@@ -40,14 +39,14 @@
                     android:id="@+id/add_campaign_pager"
                     android:layout_width="match_parent"
                     android:nestedScrollingEnabled="true"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="700dp" />
 
                 <LinearLayout
                     android:id="@+id/add_campaign_next"
                     android:layout_width="match_parent"
                     android:background="@drawable/white_button"
                     android:backgroundTint="@color/app_color"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginHorizontal="30dp"
                     android:gravity="center"
                     android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"

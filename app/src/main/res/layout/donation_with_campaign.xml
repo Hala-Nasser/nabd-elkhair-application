@@ -3,22 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="rtl">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/charity_card_view"
+        android:id="@+id/donation_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:padding="20dp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="18dp"
         app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,18 +36,18 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 android:layout_margin="3dp"
                 app:cardElevation="2dp"
 
                 >
 
                 <ImageView
-                    android:id="@+id/charity_image"
+                    android:id="@+id/donation_campaign_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/charity_image" />
+                    android:src="@drawable/campaign_image" />
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
@@ -51,46 +58,61 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/charity_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="جمعية الاحسان التطوعية"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/donation_campaign_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:layout_weight="0.2"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="تقديم الاكل للعائلات المحتاجة"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
                     <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_location" />
+                        android:id="@+id/arrow_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="end"
+                        app:tint="@color/grey_bold"
+                        android:src="@drawable/ic_arrow_down"
+                        />
+
+                </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/charity_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:lines="1"
+                        android:layout_gravity="center_vertical"
+                        android:text="منذ ساعة"
                         android:fontFamily="@font/tajawal_medium"
-                        android:text="فلسطين , غزة"
-                        android:textColor="@color/black_transparent_37"
+                        android:textColor="@color/black_transparent_43"
                         android:textSize="12sp" />
-
-                </LinearLayout>
 
 
             </LinearLayout>
 
         </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_campaign_donors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginBottom="20dp"
+                />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

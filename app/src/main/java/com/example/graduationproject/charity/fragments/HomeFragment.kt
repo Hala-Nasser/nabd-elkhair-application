@@ -61,9 +61,10 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         fragments.add(FoodDonationFragment())
         fragments.add(ClothesDonationFragment())
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager ,fragments)
         root.campaign_viewpager.adapter = sectionsPagerAdapter
 //        root.campaign_viewpager.rotationY = 180F
+
 
         root.campaign_viewpager.setOnTouchListener(OnTouchListener { v, event ->
             when (root.campaign_viewpager.currentItem) {
