@@ -34,13 +34,13 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
 
         campaignsList = mutableListOf()
         campaignsList.add(Campaigns("1",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
         ))
         campaignsList.add(Campaigns("2",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
         ))
         campaignsList.add(Campaigns("3",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
         ))
 
         if (campaignsList.isEmpty()){
@@ -79,6 +79,7 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
         b.putInt("campaign_image",data.campaignImg!!)
         b.putString("campaign_date",data.campaignDate)
         b.putParcelable("campaign_charity",data.campaignCharity)
+        b.putParcelable("campaign_donation_type", data.campaignDonationType)
 
         fragment.arguments=b
 
