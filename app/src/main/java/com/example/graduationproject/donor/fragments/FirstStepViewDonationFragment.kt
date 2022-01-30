@@ -1,12 +1,10 @@
 package com.example.graduationproject.donor.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.graduationproject.R
 import kotlinx.android.synthetic.main.fragment_first_step_view_donation.view.*
 
@@ -41,7 +39,9 @@ class FirstStepViewDonationFragment : Fragment() {
 
         root.next.setOnClickListener {
             if (selected_type != null && selected_type == "electronic"){
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,SecondStepViewDonationFragment()).addToBackStack(null).commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,SecondStepViewDonationElectronicFragment()).addToBackStack(null).commit()
+            }else if (selected_type != null && selected_type == "manual"){
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,SecondStepViewDonationManualFragment()).addToBackStack(null).commit()
             }
         }
 

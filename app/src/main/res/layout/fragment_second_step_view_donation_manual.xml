@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_background"
+    android:layoutDirection="rtl"
+    android:paddingHorizontal="30dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        tools:context=".donor.fragments.SecondStepViewDonationManualFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="بيانات الاستلام"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/progress_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar1"
+                        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:max="50"
+                        android:progress="0"
+                        android:progressTint="@color/app_color" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white"
+                        app:cardCornerRadius="25dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/app_color"
+                            android:textSize="16sp" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar2"
+                        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:max="50"
+                        android:progress="50"
+                        android:progressTint="@color/app_color" />
+
+                    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white"
+                        app:cardCornerRadius="25dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="2"
+                            android:textAlignment="center"
+                            android:textColor="@color/app_color"
+                            android:textSize="16sp" />
+                    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <com.github.florent37.expansionpanel.ExpansionHeader
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:expansion_headerIndicator="@id/headerIndicator1"
+                app:expansion_layout="@id/expansion_layout_one"
+                app:expansion_toggleOnClick="true"
+                android:layout_marginTop="20dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl">
+
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/residential_district_grey"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="حدد المحافظة"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:layout_marginRight="20dp"
+                        app:layout_constraintRight_toLeftOf="@id/image1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/headerIndicator1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="16dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv1_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="قم بتحديد محافظتك"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintRight_toLeftOf="@id/image1"
+                        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+            <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/expansion_layout_one"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/app_color_transparent"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp"
+                        android:divider="@android:color/transparent"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp">
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/radioGroup"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp">
+
+                            <RadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="الشمال"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/tajawal_bold"
+                                android:textSize="16sp"
+                                android:paddingRight="10dp"/>
+
+                            <RadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="غزة"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/tajawal_bold"
+                                android:textSize="16sp"
+                                android:paddingRight="10dp" />
+
+                            <RadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="الوسطى"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/tajawal_bold"
+                                android:textSize="16sp"
+                                android:paddingRight="10dp" />
+
+                            <RadioButton
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="الجنوب"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/tajawal_bold"
+                                android:textSize="16sp"
+                                android:paddingRight="10dp" />
+                        </RadioGroup>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+            <com.github.florent37.expansionpanel.ExpansionHeader
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:expansion_headerIndicator="@id/headerIndicator2"
+                app:expansion_layout="@id/expansion_layout_two"
+                app:expansion_toggleOnClick="true"
+                android:layout_marginTop="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl">
+
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/city_grey"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="حدد المدينة"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:layout_marginRight="20dp"
+                        app:layout_constraintRight_toLeftOf="@id/image2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/headerIndicator2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="16dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv2_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="قم بتحديد مدينتك"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintRight_toLeftOf="@id/image2"
+                        app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+            <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/expansion_layout_two"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/app_color_transparent"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="13dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp">
+
+                        <EditText
+                            android:id="@+id/city"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/white_button_with_border"
+                            android:text=""
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/tajawal_medium"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+
+            <com.github.florent37.expansionpanel.ExpansionHeader
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:expansion_headerIndicator="@id/headerIndicator3"
+                app:expansion_layout="@id/expansion_layout_three"
+                app:expansion_toggleOnClick="true"
+                android:layout_marginTop="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl">
+
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/location_grey"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="أدخل العنوان"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:layout_marginRight="20dp"
+                        app:layout_constraintRight_toLeftOf="@id/image3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/headerIndicator3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="16dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv2_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="قم بإدخال عنوانك بالتحديد"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintRight_toLeftOf="@id/image3"
+                        app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+            <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/expansion_layout_three"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/app_color_transparent"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="13dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp">
+
+                        <EditText
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/white_button_with_border"
+                            android:text=""
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/tajawal_medium"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+
+            <com.github.florent37.expansionpanel.ExpansionHeader
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:expansion_headerIndicator="@id/headerIndicator4"
+                app:expansion_layout="@id/expansion_layout_four"
+                app:expansion_toggleOnClick="true"
+                android:layout_marginTop="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl">
+
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/phone_grey"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="أدخل رقم الهاتف"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:layout_marginRight="20dp"
+                        app:layout_constraintRight_toLeftOf="@id/image4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/headerIndicator4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="16dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv2_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="قم بإدخال رقم هاتفك"
+                        android:textColor="@color/light_grey"
+                        android:textSize="15sp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintRight_toLeftOf="@id/image4"
+                        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.github.florent37.expansionpanel.ExpansionHeader>
+
+            <com.github.florent37.expansionpanel.ExpansionLayout
+                android:id="@+id/expansion_layout_four"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="13dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp">
+
+                        <EditText
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/white_button_with_border"
+                            android:text=""
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/tajawal_medium"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </com.github.florent37.expansionpanel.ExpansionLayout>
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/confirm_donation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="40dp"
+                android:background="@drawable/colored_button"
+                android:gravity="center"
+                android:text="تأكيد التبرع"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

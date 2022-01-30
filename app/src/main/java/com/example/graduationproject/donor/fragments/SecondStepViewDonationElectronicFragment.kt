@@ -4,23 +4,20 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.widget.Button
 import com.example.graduationproject.R
-import kotlinx.android.synthetic.main.fragment_first_step_view_donation.view.*
 import kotlinx.android.synthetic.main.fragment_first_step_view_donation.view.radioGroup
-import kotlinx.android.synthetic.main.fragment_second_step_view_donation.view.*
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.*
-import android.widget.Toast
-import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
-import kotlinx.android.synthetic.main.fragment_second_step_view_donation.view.confirm_donation
+
+import android.view.LayoutInflater
+import kotlinx.android.synthetic.main.fragment_second_step_view_donation_electronic.view.*
 
 
-class SecondStepViewDonationFragment : Fragment() {
+class SecondStepViewDonationElectronicFragment : Fragment() {
 
     var selected_type : String? = null
-    var bottomsheet: Button? = null
     lateinit var dialog :Dialog
     lateinit var v :View
 
@@ -29,7 +26,7 @@ class SecondStepViewDonationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root = inflater.inflate(R.layout.fragment_second_step_view_donation, container, false)
+        val root = inflater.inflate(R.layout.fragment_second_step_view_donation_electronic, container, false)
 
         val radioGroup=root.radioGroup
 
@@ -57,7 +54,6 @@ class SecondStepViewDonationFragment : Fragment() {
             v.confirm.setOnClickListener {
                 dialog.dismiss()
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ConfirmationFragment()).addToBackStack(null).commit()
-
             }
 
         }

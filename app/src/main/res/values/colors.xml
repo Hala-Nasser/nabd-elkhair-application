@@ -23,4 +23,6 @@
     <color name="date_color">#005959</color>
     <color name="time_color">#F6F6F6</color>
     <color name="date_btn_color">#DEF2F2</color>
+    <color name="light_grey">#CBCBCB</color>
+    <color name="grey_transparent_55">#C7C7C7</color>
 </resources>
