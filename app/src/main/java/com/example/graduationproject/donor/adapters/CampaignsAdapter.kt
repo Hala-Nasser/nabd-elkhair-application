@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.current_campaigns_item.view.*
 
 class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var from:String,
                         var clickListener: onCampaignItemClickListener) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
+
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val image  =itemView.campaign_image

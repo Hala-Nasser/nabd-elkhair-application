@@ -147,5 +147,4 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
 
     }
 
-
 }

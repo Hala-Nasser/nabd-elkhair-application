@@ -39,7 +39,6 @@ class HomeFragment : Fragment(),View.OnClickListener {
     var foodDonationChecked = false
     var clothesDonationChecked = false
 
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

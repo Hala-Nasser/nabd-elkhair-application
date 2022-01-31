@@ -11,3 +11,4 @@ data class Donation(var donors:Donor?=null,
                     var donorPhoneNumber:String, var donorPrefecture:String,
                     var donorCity:String, var donorAddress:String,
                     var donationAmount:String): Parcelable
+

@@ -34,7 +34,6 @@ class DonationWithoutCampaignFragment : Fragment() {
         donationList.add(Donation(donor2,null,"025896542","غزة","غزة","غزة","200 شيكل"))
         donationList.add(Donation(donor3,null,"025896542","غزة","غزة","غزة","200 شيكل"))
 
-
         root.rv_donation_without_campaign.layoutManager = LinearLayoutManager(
             activity,
             RecyclerView.VERTICAL, false

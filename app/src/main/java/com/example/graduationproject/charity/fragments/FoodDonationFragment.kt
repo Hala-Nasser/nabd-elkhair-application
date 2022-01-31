@@ -144,4 +144,5 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
 
     }
 
+
 }

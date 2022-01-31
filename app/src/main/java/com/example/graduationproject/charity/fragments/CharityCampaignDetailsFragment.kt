@@ -109,6 +109,7 @@ class CharityCampaignDetailsFragment : Fragment() {
 
     }
 
+
     override fun onResume() {
         super.onResume()
         requireActivity().charity_nav_bottom.visibility=View.GONE

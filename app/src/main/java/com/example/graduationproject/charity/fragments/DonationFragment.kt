@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_donation.view.*
 
 class DonationFragment : Fragment() {
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

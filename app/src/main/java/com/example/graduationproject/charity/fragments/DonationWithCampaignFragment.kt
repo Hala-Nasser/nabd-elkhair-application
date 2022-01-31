@@ -38,7 +38,6 @@ class DonationWithCampaignFragment : Fragment() {
 
         donationList1.add(Donation(donor1,"1","025896542","غزة","غزة","غزة","200 شيكل"))
 
-
         donationList.add(Donation(donor1,"1","025896542","غزة","غزة","غزة","200 شيكل"))
         donationList.add(Donation(donor2,"2","025896542","غزة","غزة","غزة","200 شيكل"))
         donationList.add(Donation(donor3,"3","025896542","غزة","غزة","غزة","200 شيكل"))

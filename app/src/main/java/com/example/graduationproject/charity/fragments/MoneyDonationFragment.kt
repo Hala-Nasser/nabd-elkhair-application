@@ -144,4 +144,5 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
 
     }
 
+
 }

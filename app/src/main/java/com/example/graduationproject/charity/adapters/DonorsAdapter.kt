@@ -26,7 +26,6 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var f
     var campaignName:String?=null
     var campaignImg:Int?=null
 
-
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image  =itemView.donor_image
         val name  =itemView.donor_name
