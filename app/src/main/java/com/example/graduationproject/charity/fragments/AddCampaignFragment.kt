@@ -111,7 +111,6 @@ class AddCampaignFragment : Fragment() {
         root.add_campaign_subtitle.text = subtitle
     }
 
-
     override fun onResume() {
         super.onResume()
         requireActivity().charity_nav_bottom.visibility=View.GONE

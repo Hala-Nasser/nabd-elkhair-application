@@ -134,4 +134,5 @@ class ClothesDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClick
 
     }
 
+
 }

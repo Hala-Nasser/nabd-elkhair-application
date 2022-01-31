@@ -7,3 +7,4 @@ import kotlinx.android.parcel.Parcelize
 data class Donor(var donorImg:Int?, var donorName:String, var donorLocation:String):
     Parcelable
 
+
