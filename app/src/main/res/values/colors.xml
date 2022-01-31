@@ -11,6 +11,7 @@
     <color name="app_color">#10B1B1</color>
     <color name="app_color_transparent">#2110B1B1</color>
     <color name="grey">#707070</color>
+    <color name="grey_transparent_15">#26707070</color>
     <color name="grey_white">#A1A1A1</color>
     <color name="grey_bold">#5C5C5C</color>
     <color name="grey_transparent_55">#8C707070</color>
@@ -33,4 +34,9 @@
     <color name="donor_card">#EBF5F5</color>
     <color name="light_grey">#CBCBCB</color>
     <color name="light_grey_transparent_55">#8CC7C7C7</color>
+    <color name="settings_grey">#F0747474</color>
+    <color name="settings_grey_transparent_55">#8C747474</color>
+    <color name="settings_grey_arrow">#C5C5C5</color>
+
+
 </resources>

@@ -30,6 +30,7 @@
                 android:src="@drawable/ic_close" />
 
             <TextView
+                android:id="@+id/title_electronic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
@@ -154,13 +155,14 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="5dp"
-            android:background="@color/black_transparent_19" />
+            android:background="@color/black_transparent_19"
+            android:layout_marginBottom="40dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/confirm"
+            android:id="@+id/confirm_electronic"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginVertical="40dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/colored_button"
             android:gravity="center"
             android:text="تأكيد"

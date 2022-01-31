@@ -28,7 +28,11 @@ import com.example.graduationproject.charity.models.Donor
 import com.example.graduationproject.donor.fragments.ConfirmationFragment
 import com.example.graduationproject.donor.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
 import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.*
+import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.close
+import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.confirm
+import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.title
 import kotlinx.android.synthetic.main.fragment_charity_home.*
 
 
@@ -45,7 +49,6 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_all_donation, container, false)
-
 
         var donor1 = Donor(R.drawable.campaign_image,"Mary Ann Vargas","غزة")
         var donor2 = Donor(R.drawable.campaign_image,"Harry Ann Vargas","غزة")
@@ -86,10 +89,8 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
             root.rv_all_donation.visibility = View.VISIBLE
 
             if (activity!!::class.java.name == DonorMainActivity::class.java.name){
-                Log.e("parent", requireParentFragment()::class.java.name)
 
                 if (requireParentFragment()::class.java.name == ProfileFragment()::class.java.name){
-                    Log.e("prof","yes")
                     root.rv_all_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
                     root.rv_all_donation.setHasFixedSize(true)
                     val campaignsAdapter =
@@ -131,15 +132,9 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
             requireActivity().nav_bottom.visibility=View.GONE
 
         }else if (from == "DonorProfile"){
-            showDialog()
+            showDialog(data.campaignDonationType, "electronic")
             v.close.setOnClickListener {
                 dialog.dismiss()
-            }
-            v.confirm.setOnClickListener {
-                dialog.dismiss()
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,
-                    ConfirmationFragment()
-                ).addToBackStack(null).commit()
             }
         }else{
             val fragment = CharityCampaignDetailsFragment()
@@ -163,16 +158,35 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
 
     }
 
-    private fun showDialog() {
+    private fun showDialog(donationType: DonationType, donationMethod:String) {
         dialog = Dialog(this.requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        v= layoutInflater.inflate(R.layout.bottom_dialog_item_manual,null)
+        if (donationType.photo == R.drawable.money && donationMethod == "electronic"){
+            v = layoutInflater.inflate(R.layout.bottom_dialog_item, null)
+            v.title_electronic.text = "تفاصيل التبرع"
+            v.confirm_electronic.visibility = View.GONE
+
+        }else{
+            v= layoutInflater.inflate(R.layout.bottom_dialog_item_manual,null)
+            if (donationType.photo != R.drawable.money){
+                v.amount_linear.visibility = View.GONE
+                v.amount_view.visibility = View.GONE
+
+            }
+            v.title.text = "تفاصيل التبرع"
+            v.confirm.visibility = View.GONE
+        }
+
         dialog.setContentView(v)
         dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
         dialog.setCancelable(false)
+
+
+
+
 
         dialog.show()
 

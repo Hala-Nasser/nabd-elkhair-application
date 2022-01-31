@@ -51,7 +51,7 @@ class SecondStepViewDonationElectronicFragment : Fragment() {
             v.close.setOnClickListener {
                 dialog.dismiss()
             }
-            v.confirm.setOnClickListener {
+            v.confirm_electronic.setOnClickListener {
                 dialog.dismiss()
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ConfirmationFragment()).addToBackStack(null).commit()
             }

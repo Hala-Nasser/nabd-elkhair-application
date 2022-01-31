@@ -15,7 +15,6 @@ import com.github.florent37.expansionpanel.ExpansionLayout
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.amount
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.close
-import kotlinx.android.synthetic.main.bottom_dialog_item.view.confirm
 import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.*
 import kotlinx.android.synthetic.main.fragment_second_step_view_donation_manual.view.*
 

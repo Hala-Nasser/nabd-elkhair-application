@@ -31,6 +31,10 @@ class ProfileFragment : Fragment() {
         root.campaigns_profile_viewpager.adapter = sectionsPagerAdapter
         root.profile_tab_layout.setupWithViewPager(root.campaigns_profile_viewpager)
 
+        root.settings.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,SettingsFragment()).addToBackStack(null).commit()
+        }
+
         return root
     }
 

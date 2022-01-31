@@ -24,6 +24,8 @@ import com.example.graduationproject.donor.models.DonationType
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
+import kotlinx.android.synthetic.main.bottom_dialog_item.view.close
+import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_food_donation.view.*
 import kotlinx.android.synthetic.main.fragment_money_donation.view.*
@@ -83,10 +85,8 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
             root.rv_food_donation.visibility = View.VISIBLE
 
             if (activity!!::class.java.name == DonorMainActivity::class.java.name) {
-                Log.e("parent", requireParentFragment()::class.java.name)
 
                 if (requireParentFragment()::class.java.name == ProfileFragment()::class.java.name){
-                    Log.e("prof","yes")
                     root.rv_food_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
                     root.rv_food_donation.setHasFixedSize(true)
                     val campaignsAdapter =
@@ -133,12 +133,6 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
             v.close.setOnClickListener {
                 dialog.dismiss()
             }
-            v.confirm.setOnClickListener {
-                dialog.dismiss()
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,
-                    ConfirmationFragment()
-                ).addToBackStack(null).commit()
-            }
         }else{
             val fragment = CharityCampaignDetailsFragment()
             val b = Bundle()
@@ -170,6 +164,11 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
         dialog.setCancelable(false)
+
+        v.title.text = "تفاصيل التبرع"
+        v.amount_linear.visibility = View.GONE
+        v.amount_view.visibility = View.GONE
+        v.confirm.visibility = View.GONE
 
         dialog.show()
 
