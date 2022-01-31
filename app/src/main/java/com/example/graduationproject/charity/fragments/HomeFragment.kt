@@ -32,7 +32,6 @@ class HomeFragment : Fragment() ,View.OnClickListener{
      var foodDonationChecked = false
      var clothesDonationChecked = false
 
-    lateinit var fragments : ArrayList<Fragment>
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -54,16 +53,16 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         root.donation_food.setOnClickListener(this)
         root.donation_clothes.setOnClickListener(this)
 
-        fragments = ArrayList<Fragment>()
 
-        fragments.add(AllDonationFragment())
-        fragments.add(MoneyDonationFragment())
-        fragments.add(FoodDonationFragment())
-        fragments.add(ClothesDonationFragment())
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
+        sectionsPagerAdapter.addFragments(AllDonationFragment())
+        sectionsPagerAdapter.addFragments(MoneyDonationFragment())
+        sectionsPagerAdapter.addFragments(FoodDonationFragment())
+        sectionsPagerAdapter.addFragments(ClothesDonationFragment())
         root.campaign_viewpager.adapter = sectionsPagerAdapter
 //        root.campaign_viewpager.rotationY = 180F
+
 
         root.campaign_viewpager.setOnTouchListener(OnTouchListener { v, event ->
             when (root.campaign_viewpager.currentItem) {

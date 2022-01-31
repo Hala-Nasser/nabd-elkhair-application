@@ -17,11 +17,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="10dp">
+            android:layout_marginVertical="20dp">
 
             <ImageView
                 android:id="@+id/close"
@@ -32,28 +33,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
                 android:fontFamily="@font/tajawal_bold"
                 android:gravity="center"
-                android:text="تأكيد التبرع"
+
+                android:text="قبول التبرع"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black_transparent_4"
-            android:layout_marginBottom="20dp"/>
 
         <include
-            layout="@layout/campaign_item_in_donation_screen"
+            android:id="@+id/bs_campaign_card"
+            layout="@layout/bottom_donation_with_campaign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
              />
 
 
@@ -69,17 +66,51 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
+                android:text="اسم المتبرع"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/bs_donor_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="Mary Ann Vargas"
+                android:textDirection="rtl"
+                android:textColor="@color/app_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_19" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
                 android:text="المبلغ"
                 android:textColor="@color/grey_bottom_dialog"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/bs_donation_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="70 شيكل"
+                android:text="شيكل 70"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -102,17 +133,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="رقم الحساب"
+                android:text="المحافظة"
                 android:textColor="@color/grey_bottom_dialog"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/account_number"
+                android:id="@+id/bs_donor_prefecture"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="(224)893-7083"
+                android:text="غزة"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -135,17 +166,85 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="الايبان"
+                android:text="المدينة"
                 android:textColor="@color/grey_bottom_dialog"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/ipan"
+                android:id="@+id/bs_donor_city"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="7358786969007654"
+                android:text="غزة"
+                android:textColor="@color/app_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_19" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="العنوان"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/bs_donor_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="غزة"
+                android:textColor="@color/app_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_19" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="رقم الهاتف"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/bs_donor_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="(077)112-1645"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -157,17 +256,18 @@
             android:background="@color/black_transparent_19" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/confirm"
+            android:id="@+id/accept_donation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginVertical="40dp"
             android:background="@drawable/colored_button"
             android:gravity="center"
-            android:text="تأكيد"
+            android:text="قبول"
+            android:fontFamily="@font/tajawal_bold"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+             />
 
 
     </LinearLayout>

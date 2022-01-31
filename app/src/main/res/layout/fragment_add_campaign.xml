@@ -8,11 +8,11 @@
     android:fillViewport="true"
     >
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         tools:context=".charity.fragments.AddCampaignFragment"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
         >
 
         <LinearLayout
@@ -36,18 +36,76 @@
                 android:textSize="18sp" />
 
 
-                <androidx.viewpager.widget.ViewPager
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/CircularDeterminateProgressBar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/progress_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="4 من 4"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar"
+                    app:layout_constraintStart_toStartOf="@+id/progressBar"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/progressBar"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/add_campaign_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="تاكيد الحملة"
+                        android:textColor="@color/app_color"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/add_campaign_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:text="التالي : تاريخ انتهاء الحملة"
+                        android:textColor="@color/grey_details"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <androidx.viewpager.widget.ViewPager
                     android:id="@+id/add_campaign_pager"
                     android:layout_width="match_parent"
                     android:nestedScrollingEnabled="true"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="700dp" />
 
                 <LinearLayout
                     android:id="@+id/add_campaign_next"
                     android:layout_width="match_parent"
                     android:background="@drawable/white_button"
                     android:backgroundTint="@color/app_color"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginHorizontal="30dp"
                     android:gravity="center"
                     android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"

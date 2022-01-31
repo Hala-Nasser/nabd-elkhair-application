@@ -59,23 +59,36 @@ class AddCampaignFragment : Fragment() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
-                if (position == layouts.size - 1) {
-                    //LAST PAGE
-                    root.btn_txt.text = "اضافة حملة"
-                    root.btn_img.visibility = View.GONE
+                when (position) {
+                    layouts.size - 1 -> {
+                        //LAST PAGE
+                        changeProgressData(root,"اضافة حملة",View.GONE,"4 من 4","تاكيد الحملة","")
+                    }
+                    0 -> {
+                        changeProgressData(root,"التالي",View.VISIBLE,"1 من 4","معلومات الحملة","التالي : تاريخ انتهاء الحملة")
 
-                } else {
-                    root.btn_txt.text = "التالي"
-                    root.btn_img.visibility = View.VISIBLE
+                    }
+                    1 -> {
+
+                        changeProgressData(root,"التالي",View.VISIBLE,"2 من 4","تاريخ انتهاء الحملة","التالي : إضافة وقت الانتهاء")
+
+                    }
+                    2 -> {
+
+                        changeProgressData(root,"التالي",View.VISIBLE,"3 من 4","إضافة وقت الانتهاء","التالي : تاكيد الحملة")
+
+                    }
                 }
+
             }
 
         })
         root.add_campaign_next.setOnClickListener {
-            val currentPage = add_campaign_pager.currentItem + 1
+            val currentPage = root.add_campaign_pager.currentItem + 1
             if (currentPage < layouts.size) {
                 //move to next page
-                add_campaign_pager.currentItem = currentPage
+                root.add_campaign_pager.currentItem = currentPage
+                root.progressBar.progress += 25
             } else {
                 var bundle = Bundle()
                 bundle.putBoolean("addCampaign",true)
@@ -86,6 +99,16 @@ class AddCampaignFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun changeProgressData(root: View,
+                                   btn_txt:String,btn_img:Int,
+                                   progress_rate:String,title:String,subtitle:String) {
+        root.btn_txt.text = btn_txt
+        root.btn_img.visibility = btn_img
+        root.progress_rate.text = progress_rate
+        root.add_campaign_title.text = title
+        root.add_campaign_subtitle.text = subtitle
     }
 
 
