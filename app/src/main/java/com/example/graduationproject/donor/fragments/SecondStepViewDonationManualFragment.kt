@@ -128,16 +128,5 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
     }
 
-    private fun getCallerFragment(): String? {
-        val fm = fragmentManager
-        val count = requireActivity().fragmentManager!!.backStackEntryCount
-
-        if (fm!!.getBackStackEntryAt(count - 2).name != null){
-            return fm!!.getBackStackEntryAt(count - 2).name
-        }else{
-            return "nothing"
-        }
-
-    }
 
 }

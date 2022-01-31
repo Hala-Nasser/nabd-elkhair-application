@@ -1,11 +1,12 @@
 package com.example.graduationproject.charity.fragments
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,12 +16,14 @@ import com.example.graduationproject.charity.models.Donor
 import com.example.graduationproject.donor.DonorMainActivity
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.fragments.CampaignDetailsFragment
+import com.example.graduationproject.donor.fragments.ConfirmationFragment
 import com.example.graduationproject.donor.fragments.ProfileFragment
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
+import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_food_donation.view.*
 import kotlinx.android.synthetic.main.fragment_money_donation.view.*
@@ -31,6 +34,8 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
     private lateinit var  campaignsList: MutableList<Campaigns>
     private  var  donationList = ArrayList<Donation>()
     private  var  donationList1 = ArrayList<Donation>()
+    lateinit var dialog : Dialog
+    lateinit var v :View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,15 +57,15 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
 
 
         var cam1 =Campaigns("1",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022","05:00"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
             ,donationList1
         )
 
-        var cam2 =  Campaigns("2",R.drawable.campaign_image,"تقديم الملابس للعائلات المحتاجة","22/2/2022","05:00"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+        var cam2 =  Campaigns("2",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022","05:00"
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
             ,null )
-        var cam3 = Campaigns("3",R.drawable.campaign_image,"تقديم الدواء للعائلات المحتاجة","22/2/2022","05:00"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+        var cam3 = Campaigns("3",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022","05:00"
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
             ,donationList
         )
 
@@ -123,6 +128,17 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
 
             requireActivity().nav_bottom.visibility=View.GONE
 
+        }else if (from == "DonorProfile"){
+            showDialog()
+            v.close.setOnClickListener {
+                dialog.dismiss()
+            }
+            v.confirm.setOnClickListener {
+                dialog.dismiss()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,
+                    ConfirmationFragment()
+                ).addToBackStack(null).commit()
+            }
         }else{
             val fragment = CharityCampaignDetailsFragment()
             val b = Bundle()
@@ -141,6 +157,21 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
                 .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
             requireActivity().charity_nav_bottom.visibility=View.GONE
         }
+
+    }
+
+    private fun showDialog() {
+        dialog = Dialog(this.requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        v= layoutInflater.inflate(R.layout.bottom_dialog_item_manual,null)
+        dialog.setContentView(v)
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        dialog.window!!.setGravity(Gravity.BOTTOM)
+        dialog.setCancelable(false)
+
+        dialog.show()
 
     }
 
