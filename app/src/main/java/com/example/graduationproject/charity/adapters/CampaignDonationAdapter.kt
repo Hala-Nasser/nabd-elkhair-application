@@ -92,7 +92,7 @@ class CampaignDonationAdapter(
                         for (element in donation) {
                             if (data[position].campaignId == element.campaignId) {
                                 val donorAdapter =
-                                    DonorsAdapter(activity, donation)
+                                    DonorsAdapter(activity, donation,"CampaignDonationAdapter")
 
                                 donorAdapter.campaignName = data[position].campaignName
                                 donorAdapter.campaignImg = data[position].campaignImg

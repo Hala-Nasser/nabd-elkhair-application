@@ -27,14 +27,15 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
         val charity  =itemView.campaign_charity
         val card  =itemView.campaign_card
 
-        fun initialize(data: Campaigns, action: onCampaignItemClickListener) {
+
+        fun initialize(data: Campaigns, action: onCampaignItemClickListener,from: String) {
             image.setImageResource(data.campaignImg!!)
             name.text = data.campaignName
             date.text = data.campaignDate
             charity.text = data.campaignCharity.charityName
 
             itemView.setOnClickListener {
-                action.onItemClick(data, adapterPosition)
+                action.onItemClick(data, adapterPosition,from)
             }
         }
 
@@ -51,7 +52,8 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
 
     override fun onBindViewHolder(holder: CampaignsAdapter.MyViewHolder, position: Int) {
         // holder.photo.setImageResource(data[position].photo)
-        holder.initialize(data[position], clickListener)
+        holder.initialize(data[position], clickListener,from)
+
         when(from){
             "CharityHome" -> {
                 holder.charity.visibility = View.GONE
@@ -63,7 +65,7 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
     }
 
     interface onCampaignItemClickListener {
-        fun onItemClick(data: Campaigns, position: Int)
+        fun onItemClick(data: Campaigns, position: Int,from: String)
     }
 
 }

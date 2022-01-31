@@ -58,7 +58,6 @@ class DonationAdapter(
     }
 
 
-
     override fun onBindViewHolder(holder: WithoutCampaignViewHolder, position: Int) {
 
                 var withoutCampaignHolder =  holder

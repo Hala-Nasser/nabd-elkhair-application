@@ -30,4 +30,5 @@
     <color name="date_color">#005959</color>
     <color name="time_color">#F6F6F6</color>
     <color name="date_btn_color">#DEF2F2</color>
+    <color name="donor_card">#EBF5F5</color>
 </resources>

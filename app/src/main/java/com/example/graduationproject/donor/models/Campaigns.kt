@@ -12,6 +12,7 @@ data class Campaigns(
                      var campaignImg:Int?,
                      var campaignName:String,
                      var campaignDate:String,
+                     var campaignTime:String?=null,
                      var campaignDescription:String,
                      var campaignDonationType: DonationType,
                      var campaignCharity:Charity,

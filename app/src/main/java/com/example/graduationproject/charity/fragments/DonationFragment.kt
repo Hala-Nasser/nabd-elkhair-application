@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_donation.view.*
 
 class DonationFragment : Fragment() {
 
-    lateinit var fragments : ArrayList<Fragment>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,11 +22,10 @@ class DonationFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_donation, container, false)
 
-        fragments = ArrayList<Fragment>()
-        fragments.add(DonationWithCampaignFragment())
-        fragments.add(DonationWithoutCampaignFragment())
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager ,fragments)
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
+        sectionsPagerAdapter.addFragmentsAndTitles(DonationWithCampaignFragment(),"تبرع بحملة")
+        sectionsPagerAdapter.addFragmentsAndTitles(DonationWithoutCampaignFragment(),"تبرع بدون حملة")
         root.donation_viewpager.adapter = sectionsPagerAdapter
         root.tab_layout.setupWithViewPager(root.donation_viewpager)
         root.donation_viewpager.setPageTransformer(true, ZoomOutPageTransformer())

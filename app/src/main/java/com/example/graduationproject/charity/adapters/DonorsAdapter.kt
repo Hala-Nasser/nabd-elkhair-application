@@ -2,6 +2,7 @@ package com.example.graduationproject.charity.adapters
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,19 +21,21 @@ import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_campa
 import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_campaign_name
 import kotlinx.android.synthetic.main.donors_item.view.*
 
-class DonorsAdapter(var activity: Context?, var data :List<Donation>?) : RecyclerView.Adapter<DonorsAdapter.MyViewHolder>(){
+class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var from:String) : RecyclerView.Adapter<DonorsAdapter.MyViewHolder>(){
 
     var campaignName:String?=null
     var campaignImg:Int?=null
+
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image  =itemView.donor_image
         val name  =itemView.donor_name
         val details_btn  =itemView.donation_details_btn
+        val card  =itemView.donor_card_view
 
         fun initialize(data: Donor?) {
                      image.setImageResource(data!!.donorImg!!)
-                     name.text = data!!.donorName
+                     name.text = data.donorName
         }
     }
 
@@ -47,8 +50,21 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?) : Recycle
         return data!!.size
     }
 
+
     override fun onBindViewHolder(holder: DonorsAdapter.MyViewHolder, position: Int) {
         holder.initialize(data!![position].donors)
+
+        if (from=="CampaignDonationAdapter"){
+            holder.card.apply {
+                strokeColor = resources.getColor(R.color.app_color)
+                setCardBackgroundColor(resources.getColor(R.color.white))
+            }
+        }else{
+            holder.card.apply {
+                strokeColor = resources.getColor(R.color.white)
+                setCardBackgroundColor(resources.getColor(R.color.donor_card))
+            }
+        }
         holder.details_btn.setOnClickListener {
             bottomSheet(activity as Activity,position)
         }

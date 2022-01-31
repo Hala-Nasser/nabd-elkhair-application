@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.fragment_donation_with_campaign.view.*
 
 class DonationWithCampaignFragment : Fragment() {
 
-    private lateinit var  donationList: MutableList<Donation>
-    private lateinit var  donationList1: MutableList<Donation>
+    private  var  donationList = ArrayList<Donation>()
+    private  var  donationList1 = ArrayList<Donation>()
     private lateinit var  campaignsList: MutableList<Campaigns>
 
     override fun onCreateView(
@@ -35,25 +35,24 @@ class DonationWithCampaignFragment : Fragment() {
         var donor1 = Donor(R.drawable.campaign_image,"Mary Ann Vargas","غزة")
         var donor2 = Donor(R.drawable.campaign_image,"Harry Ann Vargas","غزة")
         var donor3 = Donor(R.drawable.campaign_image,"Mary Ann Vargas","غزة")
-        donationList1 = mutableListOf()
+
         donationList1.add(Donation(donor1,"1","025896542","غزة","غزة","غزة","200 شيكل"))
 
-        donationList = mutableListOf()
 
         donationList.add(Donation(donor1,"1","025896542","غزة","غزة","غزة","200 شيكل"))
         donationList.add(Donation(donor2,"2","025896542","غزة","غزة","غزة","200 شيكل"))
         donationList.add(Donation(donor3,"3","025896542","غزة","غزة","غزة","200 شيكل"))
 
 
-        var cam1 =Campaigns("1",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022"
+        var cam1 =Campaigns("1",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة","22/2/2022","05:00"
             , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
         ,donationList1
         )
 
-       var cam2 =  Campaigns("2",R.drawable.campaign_image,"تقديم الملابس للعائلات المحتاجة","22/2/2022"
+       var cam2 =  Campaigns("2",R.drawable.campaign_image,"تقديم الملابس للعائلات المحتاجة","22/2/2022","05:00"
             , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
        ,null )
-       var cam3 = Campaigns("3",R.drawable.campaign_image,"تقديم الدواء للعائلات المحتاجة","22/2/2022"
+       var cam3 = Campaigns("3",R.drawable.campaign_image,"تقديم الدواء للعائلات المحتاجة","22/2/2022","05:00"
             , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
        ,donationList
        )
