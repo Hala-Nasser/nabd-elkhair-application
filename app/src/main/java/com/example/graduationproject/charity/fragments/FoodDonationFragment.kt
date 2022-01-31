@@ -1,6 +1,7 @@
 package com.example.graduationproject.charity.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.graduationproject.R
 import com.example.graduationproject.donor.DonorMainActivity
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.fragments.CampaignDetailsFragment
+import com.example.graduationproject.donor.fragments.ProfileFragment
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
@@ -44,12 +46,24 @@ class FoodDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLis
         ))
 
         if (activity!!::class.java.name == DonorMainActivity::class.java.name){
-            root.rv_food_donation.layoutManager = LinearLayoutManager(activity,
-                RecyclerView.HORIZONTAL,false)
-            root.rv_food_donation.setHasFixedSize(true)
-            val campaignsAdapter =
-                CampaignsAdapter(this.activity, campaignsList,"DonorHome", this)
-            root.rv_food_donation.adapter = campaignsAdapter
+
+            Log.e("parent", requireParentFragment()::class.java.name)
+
+            if (requireParentFragment()::class.java.name == ProfileFragment()::class.java.name){
+                Log.e("prof","yes")
+                root.rv_food_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                root.rv_food_donation.setHasFixedSize(true)
+                val campaignsAdapter =
+                    CampaignsAdapter(this.activity, campaignsList,"DonorProfile", this)
+                root.rv_food_donation.adapter = campaignsAdapter
+            }else{
+                root.rv_food_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
+                root.rv_food_donation.setHasFixedSize(true)
+                val campaignsAdapter =
+                    CampaignsAdapter(this.activity, campaignsList,"DonorHome",this)
+                root.rv_food_donation.adapter = campaignsAdapter
+            }
+
         }else{
             root.rv_food_donation.layoutManager = GridLayoutManager(this.context,2)
             root.rv_food_donation.setHasFixedSize(true)
