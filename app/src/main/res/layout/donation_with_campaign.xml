@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="rtl">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/donation_card_view"
         android:layout_width="match_parent"
