@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_clothes_donation.view.*
 import androidx.core.app.ShareCompat.getCallingActivity
 import com.example.graduationproject.charity.models.Donation
 import com.example.graduationproject.charity.models.Donor
+import com.example.graduationproject.donor.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
 
@@ -80,11 +81,22 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
             root.rv_all_donation.visibility = View.VISIBLE
 
             if (activity!!::class.java.name == DonorMainActivity::class.java.name){
-                root.rv_all_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
-                root.rv_all_donation.setHasFixedSize(true)
-                val campaignsAdapter =
-                    CampaignsAdapter(this.activity, campaignsList,"DonorHome",this)
-                root.rv_all_donation.adapter = campaignsAdapter
+                Log.e("parent", requireParentFragment()::class.java.name)
+
+                if (requireParentFragment()::class.java.name == ProfileFragment()::class.java.name){
+                    Log.e("prof","yes")
+                    root.rv_all_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                    root.rv_all_donation.setHasFixedSize(true)
+                    val campaignsAdapter =
+                        CampaignsAdapter(this.activity, campaignsList,"DonorProfile", this)
+                    root.rv_all_donation.adapter = campaignsAdapter
+                }else{
+                    root.rv_all_donation.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
+                    root.rv_all_donation.setHasFixedSize(true)
+                    val campaignsAdapter =
+                        CampaignsAdapter(this.activity, campaignsList,"DonorHome",this)
+                    root.rv_all_donation.adapter = campaignsAdapter
+                }
             }else{
                 root.rv_all_donation.layoutManager = GridLayoutManager(this.context,2)
                 root.rv_all_donation.setHasFixedSize(true)

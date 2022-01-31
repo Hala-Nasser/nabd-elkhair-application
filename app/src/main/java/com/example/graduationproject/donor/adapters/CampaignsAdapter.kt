@@ -1,13 +1,10 @@
 package com.example.graduationproject.donor.adapters
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.category.Data
@@ -29,10 +26,21 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
 
 
         fun initialize(data: Campaigns, action: onCampaignItemClickListener,from: String) {
-            image.setImageResource(data.campaignImg!!)
-            name.text = data.campaignName
-            date.text = data.campaignDate
-            charity.text = data.campaignCharity.charityName
+            when(from){
+                "DonorProfile" -> {
+                    image.setImageResource(data.campaignImg!!)
+                    name.text = data.campaignName
+                    date.text = data.campaignDate
+                }
+
+                else -> {
+                    image.setImageResource(data.campaignImg!!)
+                    name.text = data.campaignName
+                    date.text = data.campaignDate
+                    charity.text = data.campaignCharity.charityName
+                }
+
+            }
 
             itemView.setOnClickListener {
                 action.onItemClick(data, adapterPosition,from)
@@ -41,6 +49,14 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignsAdapter.MyViewHolder {
+        when(from){
+            "DonorProfile" -> {
+                var view: View = LayoutInflater.from(activity).inflate(R.layout.profile_campaign_item ,parent ,false)
+                val myHolder:MyViewHolder = MyViewHolder(view)
+                return myHolder
+            }
+        }
+
         var view: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
         val myHolder:MyViewHolder = MyViewHolder(view)
         return myHolder

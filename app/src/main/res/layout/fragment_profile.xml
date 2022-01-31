@@ -141,7 +141,7 @@
                 <View
                     android:layout_width="1.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/grey_transparent_55"/>
+                    android:background="@color/light_grey_transparent_55"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -177,7 +177,7 @@
                 android:layout_gravity="center"/>
 
             <androidx.viewpager.widget.ViewPager
-                android:id="@+id/campaigns_viewpager"
+                android:id="@+id/campaigns_profile_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"

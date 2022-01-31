@@ -16,11 +16,11 @@ import com.example.graduationproject.charity.fragments.ClothesDonationFragment
 import com.example.graduationproject.charity.fragments.FoodDonationFragment
 import com.example.graduationproject.charity.fragments.MoneyDonationFragment
 import kotlinx.android.synthetic.main.activity_donor_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
 import android.view.View.OnTouchListener
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment(),View.OnClickListener {
 
@@ -28,8 +28,6 @@ class ProfileFragment : Fragment(),View.OnClickListener {
     var moneyDonationChecked = false
     var foodDonationChecked = false
     var clothesDonationChecked = false
-
-    lateinit var fragments : ArrayList<Fragment>
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -46,42 +44,39 @@ class ProfileFragment : Fragment(),View.OnClickListener {
         root.donation_food.setOnClickListener(this)
         root.donation_clothes.setOnClickListener(this)
 
-        fragments = ArrayList<Fragment>()
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
+        sectionsPagerAdapter.addFragments(AllDonationFragment())
+        sectionsPagerAdapter.addFragments(MoneyDonationFragment())
+        sectionsPagerAdapter.addFragments(FoodDonationFragment())
+        sectionsPagerAdapter.addFragments(ClothesDonationFragment())
+        root.campaigns_profile_viewpager.adapter = sectionsPagerAdapter
 
-        fragments.add(AllDonationFragment())
-        fragments.add(MoneyDonationFragment())
-        fragments.add(FoodDonationFragment())
-        fragments.add(ClothesDonationFragment())
-
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
-        root.campaigns_viewpager.adapter = sectionsPagerAdapter
-
-        root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->
-            when (root.campaigns_viewpager.currentItem) {
+        root.campaigns_profile_viewpager.setOnTouchListener(OnTouchListener { v, event ->
+            when (root.campaigns_profile_viewpager.currentItem) {
                 0 -> {
-                    root.campaigns_viewpager.setCurrentItem(-1, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(-1, false)
                     return@OnTouchListener true
                 }
                 1 -> {
-                    root.campaigns_viewpager.setCurrentItem(1-1, false)
-                    root.campaigns_viewpager.setCurrentItem(1, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(1-1, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(1, false)
                     return@OnTouchListener true
                 }
                 2 -> {
-                    root.campaigns_viewpager.setCurrentItem(2-1, false)
-                    root.campaigns_viewpager.setCurrentItem(2, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(2-1, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(2, false)
                     return@OnTouchListener true
                 }
                 3 -> {
-                    root.campaigns_viewpager.setCurrentItem(3-1, false)
-                    root.campaigns_viewpager.setCurrentItem(3, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(3-1, false)
+                    root.campaigns_profile_viewpager.setCurrentItem(3, false)
                     return@OnTouchListener true
                 }
                 else -> true
             }
         })
 
-        root.campaigns_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        root.campaigns_profile_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -143,28 +138,28 @@ class ProfileFragment : Fragment(),View.OnClickListener {
                 foodDonationChecked = false
                 clothesDonationChecked = false
 
-                campaigns_viewpager.currentItem = 0
+                campaigns_profile_viewpager.currentItem = 0
             }
             R.id.donation_money -> {
                 allDonationChecked = false
                 moneyDonationChecked = true
                 foodDonationChecked = false
                 clothesDonationChecked = false
-                campaigns_viewpager.currentItem = 1
+                campaigns_profile_viewpager.currentItem = 1
             }
             R.id.donation_food -> {
                 allDonationChecked = false
                 moneyDonationChecked = false
                 foodDonationChecked = true
                 clothesDonationChecked = false
-                campaigns_viewpager.currentItem = 2
+                campaigns_profile_viewpager.currentItem = 2
             }
             R.id.donation_clothes -> {
                 allDonationChecked = false
                 moneyDonationChecked = false
                 foodDonationChecked = false
                 clothesDonationChecked = true
-                campaigns_viewpager.currentItem = 3
+                campaigns_profile_viewpager.currentItem = 3
 
             }
         }
