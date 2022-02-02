@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
 import android.view.View.OnTouchListener
 
-class HomeFragment : Fragment(),View.OnClickListener {
+class HomeFragment : Fragment(),View.OnClickListener, CharitiesAdapter.onCharityItemClickListener {
 
     private lateinit var  charitiesList: MutableList<Charity>
 
@@ -148,7 +148,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
         root.rv_all_charities.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         root.rv_all_charities.setHasFixedSize(true)
         val charitiesAdapter =
-            CharitiesAdapter(this.activity, charitiesList)
+            CharitiesAdapter(this.activity, charitiesList, this)
         root.rv_all_charities.adapter = charitiesAdapter
         root.rv_all_charities
 
@@ -249,6 +249,20 @@ class HomeFragment : Fragment(),View.OnClickListener {
                 ContextCompat.getColor(this.requireContext(), R.color.black)
             )
         }
+    }
+
+    override fun onItemClick(data: Charity, position: Int) {
+        val fragment = CharityDetailsFragment()
+        val b = Bundle()
+        b.putString("campaign_name", data.charityName)
+        b.putInt("campaign_image", data.charityImg!!)
+        b.putString("campaign_date", data.charityLocation)
+
+        fragment.arguments = b
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
+        requireActivity().nav_bottom.visibility=View.GONE
     }
 
 }

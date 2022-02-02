@@ -34,7 +34,7 @@
                 app:cardElevation="2dp">
 
                 <ImageView
-                    android:id="@+id/charity_image"
+                    android:id="@+id/campaign_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
@@ -42,7 +42,7 @@
             </com.google.android.material.card.MaterialCardView>
 
                 <TextView
-                    android:id="@+id/charity_name"
+                    android:id="@+id/campaign_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:lines="1"

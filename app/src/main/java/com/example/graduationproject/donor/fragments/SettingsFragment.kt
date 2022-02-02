@@ -1,11 +1,15 @@
 package com.example.graduationproject.donor.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.graduationproject.PrivacyPolicyActivity
 import com.example.graduationproject.R
+import com.example.graduationproject.donor.SignInActivity
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 class SettingsFragment : Fragment() {
 
@@ -15,6 +19,25 @@ class SettingsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        root.edit_profile.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,EditProfileFragment()).addToBackStack(null).commit()
+        }
+
+        root.change_password.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ChangePasswordFragment()).addToBackStack(null).commit()
+        }
+
+        root.privacy_policy.setOnClickListener {
+            val i = Intent(requireActivity(), PrivacyPolicyActivity()::class.java)
+            startActivity(i)
+        }
+
+        root.sign_out.setOnClickListener {
+            val i = Intent(requireActivity(), SignInActivity()::class.java)
+            startActivity(i)
+            requireActivity().finish()
+        }
 
         return root
     }

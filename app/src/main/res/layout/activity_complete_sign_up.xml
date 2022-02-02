@@ -22,8 +22,7 @@
             android:layout_height="wrap_content"
             android:text="أكمل المتطلبات"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="22sp"/>
+            android:textAppearance="@style/title"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/choose_image"
@@ -49,8 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="إضافة صورة الملف الشخصي"
-            android:textColor="@color/app_color"
-            android:textSize="18sp"
+            android:textColor="@color/app_color_transparent_86"
+            android:textSize="15sp"
+            android:fontFamily="@font/tajawal_medium"
             android:textAlignment="center"
             android:layout_marginTop="30dp"/>
 
@@ -59,14 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginVertical="60dp"
             android:background="@drawable/colored_button"
             android:gravity="center"
             android:text="تسجيل"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:fontFamily="@font/tajawal_bold" />
 
     </LinearLayout>
 

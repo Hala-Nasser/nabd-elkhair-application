@@ -33,6 +33,10 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
                     name.text = data.campaignName
                     date.text = data.campaignDate
                 }
+                "CharityCampaigns" -> {
+                    image.setImageResource(data.campaignImg!!)
+                    name.text = data.campaignName
+                }
 
                 else -> {
                     image.setImageResource(data.campaignImg!!)
@@ -53,6 +57,12 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
         when(from){
             "DonorProfile" -> {
                 var view: View = LayoutInflater.from(activity).inflate(R.layout.profile_campaign_item ,parent ,false)
+                val myHolder:MyViewHolder = MyViewHolder(view)
+                return myHolder
+            }
+            "CharityCampaigns" -> {
+
+                var view: View = LayoutInflater.from(activity).inflate(R.layout.campaign_item_in_donation_screen ,parent ,false)
                 val myHolder:MyViewHolder = MyViewHolder(view)
                 return myHolder
             }

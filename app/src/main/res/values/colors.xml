@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_background">#FFF</color>
     <color name="app_color">#10B1B1</color>
+    <color name="app_color_transparent_86">#DB10B1B1</color>
     <color name="app_color_transparent">#2110B1B1</color>
     <color name="grey">#707070</color>
     <color name="grey_transparent_15">#26707070</color>
@@ -19,12 +20,14 @@
     <color name="grey_bottom_dialog">#969696</color>
     <color name="black_transparent_62">#9E000000</color>
     <color name="black_transparent_94">#F0000000</color>
+    <color name="black_transparent_86">#DB000000</color>
     <color name="black_transparent_49">#7D000000</color>
     <color name="black_transparent_72">#B8000000</color>
     <color name="black_transparent_76">#C2000000</color>
     <color name="black_transparent_56">#8F000000</color>
     <color name="black_transparent_43">#6E000000</color>
     <color name="black_transparent_37">#5E000000</color>
+    <color name="black_transparent_30">#4D000000</color>
     <color name="black_transparent_27">#45000000</color>
     <color name="black_transparent_19">#30000000</color>
     <color name="black_transparent_4">#0A000000</color>
@@ -37,6 +40,9 @@
     <color name="settings_grey">#F0747474</color>
     <color name="settings_grey_transparent_55">#8C747474</color>
     <color name="settings_grey_arrow">#C5C5C5</color>
+    <color name="transparency">#4D000000</color>
+    <color name="edit_profile_grey">#B9B9B9</color>
+    <color name="blue">#3B5998</color>
 
 
 </resources>

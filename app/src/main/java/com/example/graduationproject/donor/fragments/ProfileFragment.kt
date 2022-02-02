@@ -1,6 +1,6 @@
 package com.example.graduationproject.donor.fragments
 
-import android.os.Bundle
+import  android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,6 @@ import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import com.example.graduationproject.charity.fragments.*
-import com.example.graduationproject.classes.ZoomOutPageTransformer
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment() {
@@ -33,6 +32,7 @@ class ProfileFragment : Fragment() {
 
         root.settings.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,SettingsFragment()).addToBackStack(null).commit()
+            requireActivity().nav_bottom.visibility=View.GONE
         }
 
         return root

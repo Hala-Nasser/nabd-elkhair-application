@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:layoutDirection="rtl"
-    android:paddingHorizontal="20dp">
+    android:layoutDirection="rtl">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layoutDirection="rtl"
-        tools:context=".donor.SignUpActivity">
+        tools:context=".donor.SignUpActivity"
+        android:background="@drawable/background"
+        android:paddingHorizontal="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,8 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="تسجيل"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="22sp"/>
+                android:textAppearance="@style/title"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,8 +51,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black"
-                >
+                app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username"
@@ -62,8 +60,9 @@
                     android:background="@color/white"
                     android:inputType="text"
                     android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textColor="@color/black_transparent_30"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,8 +84,9 @@
                     android:background="@color/white"
                     android:inputType="textEmailAddress"
                     android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/black_transparent_30"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,8 +108,9 @@
                     android:background="@color/white"
                     android:inputType="phone"
                     android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/black_transparent_30"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,8 +132,9 @@
                     android:background="@color/white"
                     android:inputType="textPassword"
                     android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/black_transparent_30"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,8 +156,9 @@
                     android:background="@color/white"
                     android:inputType="textPassword"
                     android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textColor="@color/black_transparent_30"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,8 +166,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="تحديد الموقع"
-                android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="15sp"
+                android:fontFamily="@font/tajawal_medium"
+                android:textColor="@color/black_transparent_86"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="5dp"/>
 
@@ -187,8 +191,8 @@
                 android:text="التالي"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:fontFamily="@font/tajawal_bold" />
 
             <TextView
                 android:id="@+id/privacy_policy"
@@ -199,8 +203,8 @@
                 android:text="سياسة الخصوصية"
                 android:textAlignment="center"
                 android:textColor="@color/app_color"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="14sp"
+                android:fontFamily="@font/tajawal_bold" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -221,8 +225,8 @@
                     android:layout_gravity="right"
                     android:text="هل لديك حساب؟"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium" />
 
                 <View
                     android:layout_width="5dp"
@@ -235,8 +239,8 @@
                     android:layout_gravity="left"
                     android:text="تسجيل الدخول"
                     android:textColor="@color/app_color"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium" />
 
             </LinearLayout>
 
