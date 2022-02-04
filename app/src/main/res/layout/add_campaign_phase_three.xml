@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
-    android:paddingHorizontal="30dp">
+    >
 
 
     <LinearLayout
@@ -20,12 +20,14 @@
 
             <TimePicker
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
                 android:timePickerMode="spinner"
+                android:theme="@style/TimePickerTheme"
                 android:background="@drawable/white_button"
                 android:backgroundTint="@color/time_color"
-                android:layout_height="wrap_content"/>
+                />
 
 
 

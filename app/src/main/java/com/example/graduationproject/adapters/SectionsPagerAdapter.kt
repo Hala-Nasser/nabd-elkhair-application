@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 
 
-class SectionsPagerAdapter(fm: FragmentManager,) :
+class SectionsPagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
     var fragments = ArrayList<Fragment>()
     var titles = ArrayList<String>()

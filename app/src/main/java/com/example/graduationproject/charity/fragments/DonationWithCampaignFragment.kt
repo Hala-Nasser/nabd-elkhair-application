@@ -1,6 +1,7 @@
 package com.example.graduationproject.charity.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +17,18 @@ import com.example.graduationproject.charity.models.Donor
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
+import kotlinx.android.synthetic.main.fragment_donation_with_campaign.*
 import kotlinx.android.synthetic.main.fragment_donation_with_campaign.view.*
+import net.cachapa.expandablelayout.ExpandableLayout
 
 
-class DonationWithCampaignFragment : Fragment() {
+class DonationWithCampaignFragment : Fragment(){
 
     private  var  donationList = ArrayList<Donation>()
     private  var  donationList1 = ArrayList<Donation>()
     private lateinit var  campaignsList: MutableList<Campaigns>
 
+    lateinit var donationAdapter: CampaignDonationAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,11 +72,13 @@ class DonationWithCampaignFragment : Fragment() {
             RecyclerView.VERTICAL, false
         )
         root.rv_donation_with_campaign.setHasFixedSize(true)
-        val donationAdapter =
+         donationAdapter =
             CampaignDonationAdapter(this.activity, campaignsList)
         root.rv_donation_with_campaign.adapter = donationAdapter
         return root
 
     }
+
+
 
 }

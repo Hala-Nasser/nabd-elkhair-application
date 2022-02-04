@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:fillViewport="true"
+    android:id="@+id/scroll"
+    tools:context=".charity.fragments.AddCampaignFragment"
+    android:paddingHorizontal="30dp"
     >
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        tools:context=".charity.fragments.AddCampaignFragment"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
         >
 
         <LinearLayout
@@ -45,6 +47,7 @@
                     style="@style/CircularDeterminateProgressBar"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:progress="25"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/tajawal_bold"
-                    android:text="4 من 4"
+                    android:text="1 من 4"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar"
@@ -75,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/tajawal_bold"
-                        android:text="تاكيد الحملة"
+                        android:text="معلومات الحملة"
                         android:textColor="@color/app_color"
                         android:textSize="16sp" />
 
@@ -97,8 +100,8 @@
             <androidx.viewpager.widget.ViewPager
                     android:id="@+id/add_campaign_pager"
                     android:layout_width="match_parent"
-                    android:nestedScrollingEnabled="true"
-                    android:layout_height="700dp" />
+                    android:layout_height="wrap_content"
+                />
 
                 <LinearLayout
                     android:id="@+id/add_campaign_next"
@@ -108,10 +111,6 @@
                     android:layout_marginHorizontal="30dp"
                     android:gravity="center"
                     android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_height="55dp">
 
                     <TextView

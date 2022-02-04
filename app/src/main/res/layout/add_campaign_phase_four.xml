@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
-    android:paddingHorizontal="20dp">
+    >
 
 
     <LinearLayout
@@ -17,30 +17,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:cardCornerRadius="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/campaign_image"
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/dashed_border"
-                        />
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/campaign_image"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:layout_marginTop="30dp"
+            app:riv_corner_radius="10dp"
+            android:background="@drawable/rectangle_dashed_border"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -59,13 +45,13 @@
             android:layout_marginTop="15sp"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:textAlignment="textStart"
             android:lineSpacingExtra="5dp"
+            android:justificationMode="inter_word"
             android:text="@string/hint"
             android:textSize="15sp"
             android:fontFamily="@font/tajawal_medium"
             android:textColor="@color/black_transparent_56"
-            />
+             />
 
 
         <LinearLayout

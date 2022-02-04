@@ -147,7 +147,6 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
-            requireActivity().charity_nav_bottom.visibility=View.GONE
         }
 
     }

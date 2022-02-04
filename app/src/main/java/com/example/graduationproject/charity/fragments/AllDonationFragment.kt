@@ -140,7 +140,6 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
             val fragment = CharityCampaignDetailsFragment()
             val b = Bundle()
             b.putString("from", "AllDonation")
-            b.putInt("all_position", position)
             b.putString("all_campaign_id", data.campaignId)
             b.putString("all_campaign_name", data.campaignName)
             b.putInt("all_campaign_image", data.campaignImg!!)
@@ -153,7 +152,6 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
-            requireActivity().charity_nav_bottom.visibility=View.GONE
         }
 
     }

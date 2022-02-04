@@ -22,8 +22,13 @@ import kotlinx.android.synthetic.main.fragment_charity_home.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
 import android.view.View.OnTouchListener
+import androidx.activity.OnBackPressedCallback
 import kotlinx.android.synthetic.main.campaign_added_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.view.*
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import net.cachapa.expandablelayout.ExpandableLayout
 
 
 class HomeFragment : Fragment() ,View.OnClickListener{
@@ -31,7 +36,7 @@ class HomeFragment : Fragment() ,View.OnClickListener{
      var moneyDonationChecked = false
      var foodDonationChecked = false
      var clothesDonationChecked = false
-
+     var addCampaign = false
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +47,7 @@ class HomeFragment : Fragment() ,View.OnClickListener{
 
         requireActivity().charity_nav_bottom.visibility=View.VISIBLE
         if (arguments!=null) {
-            var addCampaign = requireArguments().getBoolean("addCampaign")
+             addCampaign = requireArguments().getBoolean("addCampaign")
             if (addCampaign) {
                 getDialog()
             }
@@ -87,36 +92,36 @@ class HomeFragment : Fragment() ,View.OnClickListener{
                 else -> true
             }
         })
-        root.circleMenu.eventListener = object : CircleMenuView.EventListener() {
-            override fun onMenuOpenAnimationStart(view: CircleMenuView) {
-                super.onMenuOpenAnimationStart(view)
+
+        root.home_expandable_layout.isExpanded = false
+        root.edit_campaign_btn.setOnClickListener {
+            if (root.home_expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
+                root.edit_campaign_btn.setImageResource(R.drawable.ic_close)
+                root.edit_campaign_btn.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.card_view_color));
+
+                root.home_expandable_layout.isExpanded = true
+            } else if (root.home_expandable_layout.state == ExpandableLayout.State.EXPANDED) {
+                root.edit_campaign_btn.setImageResource(R.drawable.ic_add)
+
+                root.home_expandable_layout.isExpanded = false
             }
+        }
 
-            override fun onButtonClickAnimationStart(view: CircleMenuView, buttonIndex: Int) {
-                super.onButtonClickAnimationStart(view, buttonIndex)
-                when(buttonIndex){
-                    0 -> {
-                         var bundle = Bundle()
-                        bundle.putString("donationType","food")
-                        var fragment = AddCampaignFragment()
-                        fragment.arguments = bundle
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
+        root.food_fab.setOnClickListener {
+            var bundle = Bundle()
+            bundle.putString("donationType","food")
+            var fragment = AddCampaignFragment()
+            fragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
+        }
 
-//                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
-//                        startActivity(i)
-                    }
-                    1 -> {
-                        var bundle = Bundle()
-                        bundle.putString("donationType","clothes")
-                        var fragment = AddCampaignFragment()
-                        fragment.arguments = bundle
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
-//                        var i = Intent(this@HomeFragment.context, AddCampaignActivity::class.java)
-//                        startActivity(i)
-                    }
-
-                }
-            }
+        root.clothes_fab.setOnClickListener {
+            var bundle = Bundle()
+            bundle.putString("donationType","clothes")
+            var fragment = AddCampaignFragment()
+            fragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
         }
 
         //root.campaign_viewpager.swipeLocked =false
@@ -169,6 +174,7 @@ class HomeFragment : Fragment() ,View.OnClickListener{
             }
 
         })
+
 
         return root
     }
@@ -276,7 +282,8 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         view.close_dialog.setOnClickListener {
             campaignDialog.dismiss()
         }
-        campaignDialog.setCancelable(true)
+        campaignDialog.setCancelable(false)
         campaignDialog.show()
     }
+
 }

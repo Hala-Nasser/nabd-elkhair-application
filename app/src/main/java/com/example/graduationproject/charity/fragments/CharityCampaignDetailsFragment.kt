@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.fragment_charity_campaign_details.*
 import kotlinx.android.synthetic.main.fragment_charity_campaign_details.view.*
 import kotlin.math.log
+import kotlin.system.exitProcess
 
 
 class CharityCampaignDetailsFragment : Fragment() {
@@ -24,7 +26,6 @@ class CharityCampaignDetailsFragment : Fragment() {
     lateinit var campaignName:String
     lateinit var campaignDesc:String
      var campaignImage = 0
-     var position = 0
     lateinit var campaignDate:String
     lateinit var campaignTime:String
     var campaignDonation : ArrayList<Donation> = ArrayList()
@@ -36,6 +37,7 @@ class CharityCampaignDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_campaign_details, container, false)
 
+        requireActivity().charity_nav_bottom.visibility=View.GONE
         donorAdapter =
             DonorsAdapter(activity, campaignDonation, "CampaignDetails")
 
@@ -60,6 +62,26 @@ class CharityCampaignDetailsFragment : Fragment() {
 
         }
 
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                var bundle = Bundle()
+                bundle.putBoolean("addCampaign",false)
+                var fragment = HomeFragment()
+                fragment.arguments = bundle
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).commit()
+            }
+        })
+
+        root.edit_campaign_btn.setOnClickListener {
+            val fragment = EditCampaignFragment()
+            val b = Bundle()
+            b.putString("campaignDate", campaignDate)
+            b.putString("campaignTime", campaignTime)
+            fragment.arguments = b
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+        }
 
 
 
@@ -73,9 +95,8 @@ class CharityCampaignDetailsFragment : Fragment() {
         campaignImage =  b.getInt("${donationType}_campaign_image")
         campaignDate =  b.getString("${donationType}_campaign_date")!!
         campaignTime =  b.getString("${donationType}_campaign_time")!!
-        position =  b.getInt("${donationType}_position")!!
 
-        root.campaign_img_details.setBackgroundResource(campaignImage)
+        root.campaign_img_details.setImageResource(campaignImage)
         root.campaign_name_details.text = campaignName
         root.campaign_desc_details.text = campaignDesc
         root.campaign_date_details.text = campaignDate
@@ -108,6 +129,7 @@ class CharityCampaignDetailsFragment : Fragment() {
         }
 
     }
+
 
 
     override fun onResume() {

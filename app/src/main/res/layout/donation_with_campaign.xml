@@ -105,14 +105,23 @@
 
         </LinearLayout>
 
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/donors_expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="500"
+                app:el_expanded="false"
+                app:el_parallax="0.5"
+                >
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_campaign_donors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginBottom="20dp"
                 />
 
+            </net.cachapa.expandablelayout.ExpandableLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

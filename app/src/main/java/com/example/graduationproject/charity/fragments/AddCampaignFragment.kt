@@ -2,6 +2,7 @@ package com.example.graduationproject.charity.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.MyPagerAdapter
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.add_campaign_phase_one.*
+import kotlinx.android.synthetic.main.add_campaign_phase_one.view.*
 import kotlinx.android.synthetic.main.fragment_add_campaign.*
 import kotlinx.android.synthetic.main.fragment_add_campaign.view.*
 import java.util.*
@@ -59,6 +62,7 @@ class AddCampaignFragment : Fragment() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
+                root.progressBar.progress += 25
                 when (position) {
                     layouts.size - 1 -> {
                         //LAST PAGE
@@ -66,7 +70,7 @@ class AddCampaignFragment : Fragment() {
                     }
                     0 -> {
                         changeProgressData(root,"التالي",View.VISIBLE,"1 من 4","معلومات الحملة","التالي : تاريخ انتهاء الحملة")
-
+                       // Log.d("data",campaign_title.text.toString())
                     }
                     1 -> {
 
@@ -85,6 +89,10 @@ class AddCampaignFragment : Fragment() {
         })
         root.add_campaign_next.setOnClickListener {
             val currentPage = root.add_campaign_pager.currentItem + 1
+
+            if (root.add_campaign_pager.currentItem==0){
+                Log.d("data",campaign_title.text.toString())
+            }
             if (currentPage < layouts.size) {
                 //move to next page
                 root.add_campaign_pager.currentItem = currentPage

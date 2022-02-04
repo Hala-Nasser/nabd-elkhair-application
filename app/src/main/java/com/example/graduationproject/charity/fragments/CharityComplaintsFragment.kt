@@ -8,16 +8,14 @@ import android.view.ViewGroup
 import com.example.graduationproject.R
 
 
-class NotificationFragment : Fragment() {
+class CharityComplaintsFragment : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var root = inflater.inflate(R.layout.fragment_charity_notification, container, false)
-
-        return root
+        return inflater.inflate(R.layout.fragment_charity_complaints, container, false)
     }
-
 }

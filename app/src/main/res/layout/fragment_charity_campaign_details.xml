@@ -30,37 +30,24 @@
                 android:textSize="18sp" />
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:cardCornerRadius="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_gravity="center">
-
-                <LinearLayout
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/campaign_img_details"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/campaign_image"
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/dashed_border"
-                        />
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
+                    android:layout_height="180dp"
+                    android:src="@drawable/campaign_image"
+                    android:scaleType="fitXY"
+                    android:padding="5dp"
+                    android:layout_marginTop="30dp"
+                    app:riv_corner_radius="10dp"
+                    android:background="@drawable/rectangle_dashed_border"
+                    />
 
 
             <TextView
                 android:id="@+id/campaign_name_details"
                 android:layout_width="match_parent"
                 android:paddingStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:text="تقديم الاكل للعائلات المحتاجة"
                 android:textSize="16sp"
@@ -87,7 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
@@ -144,13 +131,15 @@
                 </LinearLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
+                    android:id="@+id/edit_campaign_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="true"
                     android:src="@drawable/ic_edit"
-                    app:fabSize="mini" />
+                    app:fabSize="mini"
+                    android:backgroundTint="@color/app_color"
+                    app:elevation="0dp"
+                     />
             </LinearLayout>
 
 

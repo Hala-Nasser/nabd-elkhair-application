@@ -120,20 +120,22 @@
                 android:id="@+id/charity_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                app:tabTextAppearance="@style/tab_text"
+                app:tabTextColor="@color/grey_white"
+                app:tabSelectedTextColor="@color/app_color"
+                >
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="عن الجمعية"
-                    style="@style/DonationWithCampaignTextStyle"
                     />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="الحملات"
-                    style="@style/DonationWithoutCampaignTextStyle"
                     />
 
             </com.google.android.material.tabs.TabLayout>

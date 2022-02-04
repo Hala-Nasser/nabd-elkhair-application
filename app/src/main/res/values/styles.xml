@@ -21,16 +21,6 @@
     </style>
 
 
-    <style name="DonationWithCampaignTextStyle">
-        <item name="android:fontFamily">@font/tajawal_bold</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="DonationWithoutCampaignTextStyle">
-        <item name="android:fontFamily">@font/tajawal_medium</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
     <style name="AppBottomSheetDialogTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
@@ -39,5 +29,37 @@
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/layout_rounded</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/tajawal_bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TimePickerTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/tajawal_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+        <item name="android:colorAccent">@color/app_color</item>
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/app_color</item>
+        <item name="android:calendarTextColor">@color/white</item>
+        <item name="android:dayOfWeekBackground">@color/app_color</item>
+        <item name="android:yearListSelectorColor">@color/app_color</item>
+        <item name="android:datePickerMode">calendar</item>
+        <item name="android:fontFamily">@font/tajawal_bold</item>
     </style>
 </resources>

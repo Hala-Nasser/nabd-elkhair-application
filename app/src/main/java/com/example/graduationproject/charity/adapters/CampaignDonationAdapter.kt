@@ -1,5 +1,6 @@
 package com.example.graduationproject.charity.adapters
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -21,15 +22,19 @@ import android.view.animation.LinearInterpolator
 
 import android.animation.ObjectAnimator
 import android.app.Activity
+import androidx.core.view.get
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_sheet_manually.view.*
 import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_card_view
 import kotlinx.android.synthetic.main.donation_without_campaign.view.*
+import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
+import net.cachapa.expandablelayout.ExpandableLayout
 
 
 class CampaignDonationAdapter(
     var activity: Context?, var data: List<Campaigns>,
 ) : RecyclerView.Adapter<CampaignDonationAdapter.CampaignViewHolder>(){
+
 
     class CampaignViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -37,12 +42,12 @@ class CampaignDonationAdapter(
         val name  =itemView.donation_campaign_name
         val arrow  =itemView.arrow_down
         val donors  =itemView.rv_campaign_donors
+        val expandable_layout  =itemView.donors_expandable_layout
         val card  =itemView.donation_card_view
 
         fun initialize(campaigns: Campaigns) {
                 image.setImageResource(campaigns.campaignImg!!)
                 name.text = campaigns.campaignName
-
         }
 
     }
@@ -66,47 +71,47 @@ class CampaignDonationAdapter(
 
     override fun onBindViewHolder(holder: CampaignViewHolder, position: Int) {
 
-               var campaignHolder =  holder
+                holder.initialize(data[position])
 
-                campaignHolder.initialize(data[position])
+                  holder.arrow.setOnClickListener {
 
-                campaignHolder.arrow.setOnClickListener {
-                    if (campaignHolder.donors.visibility == View.GONE) {
-                        campaignHolder.arrow.setImageResource(R.drawable.ic_arrow_up)
-                        TransitionManager.beginDelayedTransition(
-                            campaignHolder.card,
-                            AutoTransition()
-                        )
-                        campaignHolder.donors.visibility = View.VISIBLE
-
-                    } else {
-                        campaignHolder.arrow.setImageResource(R.drawable.ic_arrow_down)
-                        //TransitionManager.beginDelayedTransition(campaignHolder.card,AutoTransition())
-                        campaignHolder.donors.visibility = View.GONE
+                    if (holder.expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
+                        holder.arrow.setImageResource(R.drawable.ic_arrow_up)
+                        holder.expandable_layout.isExpanded = true
+                    } else if (holder.expandable_layout.state == ExpandableLayout.State.EXPANDED) {
+                        holder.arrow.setImageResource(R.drawable.ic_arrow_down)
+                        holder.expandable_layout.isExpanded = false
                     }
 
-                    if (data[position].donation == null) {
-                        campaignHolder.donors.visibility = View.GONE
-                    }else{
-                        val donation = data[position].donation!!
-                        for (element in donation) {
-                            if (data[position].campaignId == element.campaignId) {
-                                val donorAdapter =
-                                    DonorsAdapter(activity, donation,"CampaignDonationAdapter")
 
-                                donorAdapter.campaignName = data[position].campaignName
-                                donorAdapter.campaignImg = data[position].campaignImg
-                                campaignHolder.donors.layoutManager = LinearLayoutManager(
-                                    activity,
-                                    RecyclerView.VERTICAL, false
-                                )
-                                campaignHolder.donors.setHasFixedSize(true)
-                                campaignHolder.donors.adapter = donorAdapter
-                            }
-                        }
-                    }
+                      if (data[position].donation == null) {
+                          holder.donors.visibility = View.GONE
+                      } else {
+                          holder.donors.visibility = View.VISIBLE
 
-                }
-                    }
+                          val donation = data[position].donation!!
+                          for (element in donation) {
+                              if (data[position].campaignId == element.campaignId) {
+                                  val donorAdapter =
+                                      DonorsAdapter(activity, donation, "CampaignDonationAdapter")
+
+                                  donorAdapter.campaignName = data[position].campaignName
+                                  donorAdapter.campaignImg = data[position].campaignImg
+                                  holder.donors.layoutManager = LinearLayoutManager(
+                                      activity,
+                                      RecyclerView.VERTICAL, false
+                                  )
+                                  holder.donors.setHasFixedSize(true)
+                                  holder.donors.adapter = donorAdapter
+                              }
+                          }
+                      }
+
+                  }
+
+
+    }
+
+
 
 }
