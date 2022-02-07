@@ -87,10 +87,46 @@
             android:textColor="@color/black"
             android:layout_marginTop="15dp"/>
 
-        <include layout="@layout/tab_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/donor_home_tab_layout"
             android:layout_width="match_parent"
-            android:layout_gravity="center"/>
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
+            app:tabIndicatorGravity="stretch"
+            app:tabIconTint="@color/tab_icon_color"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicator="@color/tab_background_color"
+            app:tabBackground="@drawable/profile_tab_style"
+            >
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/all"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/money"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/food"
+                />
+
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/clothes"
+                />
+
+
+        </com.google.android.material.tabs.TabLayout>
+
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/campaigns_viewpager"

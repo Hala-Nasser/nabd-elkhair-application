@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.MyPagerAdapter
@@ -105,6 +106,17 @@ class AddCampaignFragment : Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
             }
         }
+
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                var bundle = Bundle()
+                bundle.putBoolean("addCampaign",false)
+                var fragment = HomeFragment()
+                fragment.arguments = bundle
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).commit()
+            }
+        })
 
         return root
     }

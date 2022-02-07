@@ -25,7 +25,12 @@ class SettingsFragment : Fragment() {
         }
 
         root.change_password.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ChangePasswordFragment()).addToBackStack(null).commit()
+            var bundle = Bundle()
+            bundle.putBoolean("Donor", true)
+            var fragment = ChangePasswordFragment()
+            fragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
         }
 
         root.privacy_policy.setOnClickListener {
@@ -35,6 +40,7 @@ class SettingsFragment : Fragment() {
 
         root.sign_out.setOnClickListener {
             val i = Intent(requireActivity(), SignInActivity()::class.java)
+            i.putExtra("Donor",true)
             startActivity(i)
             requireActivity().finish()
         }

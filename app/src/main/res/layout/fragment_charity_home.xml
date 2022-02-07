@@ -58,18 +58,52 @@
             </RelativeLayout>
 
 
-            <include
-                layout="@layout/tab_content"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/charity_home_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" />
+                android:layout_marginVertical="30dp"
+                app:tabIndicatorGravity="stretch"
+                app:tabIconTint="@color/tab_icon_color"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabBackground="@drawable/profile_tab_style"
+                app:tabIndicator="@color/tab_background_color"
+                >
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/all"
+                    />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/money"
+                    />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/food"
+                    />
+
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/clothes"
+                    />
+
+
+            </com.google.android.material.tabs.TabLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/tajawal_bold"
                 android:gravity="start"
-                android:layout_marginTop="20dp"
                 android:paddingHorizontal="5dp"
                 android:text="حملاتنا"
                 android:textAlignment="textStart"
@@ -95,8 +129,8 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_add"
             app:fabSize="normal"
-            android:backgroundTint="@color/app_color"
-            app:elevation="0dp"
+            app:backgroundTint="@color/app_color"
+            app:elevation="1dp"
             app:borderWidth="0dp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -106,41 +140,41 @@
         <net.cachapa.expandablelayout.ExpandableLayout
             android:id="@+id/home_expandable_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             app:el_expanded="false"
+            app:el_duration="500"
             app:layout_constraintBottom_toBottomOf="@+id/edit_campaign_btn"
             app:layout_constraintEnd_toEndOf="@+id/edit_campaign_btn"
             app:layout_constraintTop_toTopOf="@+id/edit_campaign_btn">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginBottom="60dp"
+                android:gravity="end"
+                android:paddingTop="100dp"
                 >
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/food_fab"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/app_color"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="40dp"
                     android:src="@drawable/food"
+                    android:layout_marginEnd="40dp"
                     app:borderWidth="0dp"
-                    app:elevation="0dp"
+                    app:elevation="3dp"
                     app:fabSize="mini"
                     />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/clothes_fab"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/app_color"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="70dp"
                     android:src="@drawable/clothes"
-                    app:elevation="0dp"
+                    android:layout_marginEnd="80dp"
+                    app:elevation="3dp"
                     app:borderWidth="0dp"
                     app:fabSize="mini"
                     />

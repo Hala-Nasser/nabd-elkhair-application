@@ -10,7 +10,9 @@ import android.widget.LinearLayout
 
 import android.view.Display
 import com.example.graduationproject.adapters.SectionsPagerAdapter
+import com.example.graduationproject.classes.TabLayoutSettings
 import com.example.graduationproject.classes.ZoomOutPageTransformer
+import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*
@@ -27,6 +29,8 @@ class ProfileFragment : Fragment(){
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_profile, container, false)
 
+        requireActivity().charity_nav_bottom.visibility=View.VISIBLE
+
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         sectionsPagerAdapter.addFragmentsAndTitles(AboutCharityFragment(),"عن الجمعية")
         sectionsPagerAdapter.addFragmentsAndTitles(CharityComplaintsFragment(),"شكاوي")
@@ -37,18 +41,15 @@ class ProfileFragment : Fragment(){
         root.charity_profile_tab_layout.setupWithViewPager(root.charity_profile_view_pager)
         root.charity_profile_view_pager.setPageTransformer(true, ZoomOutPageTransformer())
 
-        val tabs = root.charity_profile_tab_layout.getChildAt(0) as ViewGroup
+        var tabLayout = TabLayoutSettings()
+        tabLayout.setTabMargin(root.charity_profile_tab_layout,12,12,270)
 
-        for (i in 0 until tabs.childCount ) {
-            val tab = tabs.getChildAt(i)
-            val layoutParams = tab.layoutParams as LinearLayout.LayoutParams
-            layoutParams.weight = 0f
-            layoutParams.marginEnd = 12
-            layoutParams.marginStart = 12
-            layoutParams.width = 270
-            tab.layoutParams = layoutParams
-            root.charity_profile_tab_layout.requestLayout()
+
+        root.charity_settings_icon.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.charityContainer, CharitySettingsFragment()).addToBackStack(null).commit()
         }
+
         return root
     }
 

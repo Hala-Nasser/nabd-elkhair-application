@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Donation(var donors:Donor?=null,
                     var campaignId:String?,
-                    var donorPhoneNumber:String, var donorPrefecture:String,
+                    var donorPhoneNumber:String, var donorDistrict:String,
                     var donorCity:String, var donorAddress:String,
                     var donationAmount:String): Parcelable
 

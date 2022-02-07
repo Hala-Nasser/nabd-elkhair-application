@@ -31,6 +31,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/charity_settings_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_settings"
@@ -149,8 +150,8 @@
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/app_color"
                 app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicator="@color/tab_background_color"
                 app:tabBackground="@drawable/profile_tab_style"
-                app:tabIndicator="@drawable/profile_tab_style"
                 app:tabTextAppearance="@style/tab_text"
                 >
 

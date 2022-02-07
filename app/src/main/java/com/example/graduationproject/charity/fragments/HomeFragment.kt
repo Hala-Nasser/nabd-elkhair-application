@@ -28,14 +28,25 @@ import kotlinx.android.synthetic.main.fragment_charity_home.view.*
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
+import android.widget.LinearLayout
+import com.example.graduationproject.classes.TabLayoutSettings
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_charity_main.view.*
+import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
+import kotlinx.android.synthetic.main.fragment_donation.view.*
 import net.cachapa.expandablelayout.ExpandableLayout
 
 
-class HomeFragment : Fragment() ,View.OnClickListener{
-     var allDonationChecked = true
-     var moneyDonationChecked = false
-     var foodDonationChecked = false
-     var clothesDonationChecked = false
+
+
+class HomeFragment : Fragment(){
+
+        private val TAB_ICONS = arrayOf(
+            R.drawable.all,
+            R.drawable.money,
+            R.drawable.food,
+            R.drawable.clothes,
+        )
      var addCampaign = false
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -50,14 +61,11 @@ class HomeFragment : Fragment() ,View.OnClickListener{
              addCampaign = requireArguments().getBoolean("addCampaign")
             if (addCampaign) {
                 getDialog()
+            }else{
+                requireActivity().charity_nav_bottom.alpha = 1f
+                root.home_expandable_layout.isExpanded = false
             }
         }
-        root.donation_all.setOnClickListener(this)
-        root.donation_money.setOnClickListener(this)
-        root.donation_food.setOnClickListener(this)
-        root.donation_clothes.setOnClickListener(this)
-
-
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         sectionsPagerAdapter.addFragments(AllDonationFragment())
@@ -65,8 +73,11 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         sectionsPagerAdapter.addFragments(FoodDonationFragment())
         sectionsPagerAdapter.addFragments(ClothesDonationFragment())
         root.campaign_viewpager.adapter = sectionsPagerAdapter
-//        root.campaign_viewpager.rotationY = 180F
+        root.charity_home_tab_layout.setupWithViewPager(root.campaign_viewpager)
 
+        var tabLayout = TabLayoutSettings()
+        tabLayout.setupTabIcons(root.charity_home_tab_layout,TAB_ICONS)
+        tabLayout.setTabMargin(root.charity_home_tab_layout,10,10,100)
 
         root.campaign_viewpager.setOnTouchListener(OnTouchListener { v, event ->
             when (root.campaign_viewpager.currentItem) {
@@ -93,186 +104,69 @@ class HomeFragment : Fragment() ,View.OnClickListener{
             }
         })
 
-        root.home_expandable_layout.isExpanded = false
-        root.edit_campaign_btn.setOnClickListener {
-            if (root.home_expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
-                root.edit_campaign_btn.setImageResource(R.drawable.ic_close)
-                root.edit_campaign_btn.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.card_view_color));
+        getExpandedfab(root)
 
-                root.home_expandable_layout.isExpanded = true
-            } else if (root.home_expandable_layout.state == ExpandableLayout.State.EXPANDED) {
-                root.edit_campaign_btn.setImageResource(R.drawable.ic_add)
-
-                root.home_expandable_layout.isExpanded = false
-            }
-        }
-
-        root.food_fab.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putString("donationType","food")
-            var fragment = AddCampaignFragment()
-            fragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
-        }
-
-        root.clothes_fab.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putString("donationType","clothes")
-            var fragment = AddCampaignFragment()
-            fragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
-        }
-
-        //root.campaign_viewpager.swipeLocked =false
-        root.campaign_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-
-                when (position){
-                    0 -> {
-                        allDonationChecked = true
-                        moneyDonationChecked = false
-                        foodDonationChecked = false
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    1 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = true
-                        foodDonationChecked = false
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    2 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = false
-                        foodDonationChecked = true
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    3 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = false
-                        foodDonationChecked = false
-                        clothesDonationChecked = true
-                        changeTabBarItem()
-                    }
-                }
-
-            }
-
-        })
 
 
         return root
     }
 
-    override fun onClick(p0: View?) {
-        changeTabBarItem()
-        when(p0!!.id){
-            R.id.donation_all -> {
-                allDonationChecked = true
-                moneyDonationChecked = false
-                foodDonationChecked = false
-                clothesDonationChecked = false
+    private fun getExpandedfab(root: View) {
 
-                campaign_viewpager.currentItem = 0
-            }
-            R.id.donation_money -> {
-                allDonationChecked = false
-                moneyDonationChecked = true
-                foodDonationChecked = false
-                clothesDonationChecked = false
-                campaign_viewpager.currentItem = 1
-            }
-            R.id.donation_food -> {
-                allDonationChecked = false
-                moneyDonationChecked = false
-                foodDonationChecked = true
-                clothesDonationChecked = false
-                campaign_viewpager.currentItem = 2
-            }
-            R.id.donation_clothes -> {
-                allDonationChecked = false
-                moneyDonationChecked = false
-                foodDonationChecked = false
-                clothesDonationChecked = true
-                campaign_viewpager.currentItem = 3
+        root.edit_campaign_btn.setOnClickListener {
+            if (root.home_expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
+                changeFabStyle(root,R.drawable.ic_close,R.color.white,0.5f,R.color.grey_white,true)
+                expendFABMenu(root)
+            } else if (root.home_expandable_layout.state == ExpandableLayout.State.EXPANDED) {
 
+                changeFabStyle(root,R.drawable.ic_add,R.color.app_color,1f,R.color.white,false)
+                collapseFABMenu(root)
             }
+        }
+
+        root.food_fab.setOnClickListener {
+            var bundle = Bundle()
+            bundle.putString("donationType", "food")
+            var fragment = AddCampaignFragment()
+            fragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+        }
+
+        root.clothes_fab.setOnClickListener {
+            var bundle = Bundle()
+            bundle.putString("donationType", "clothes")
+            var fragment = AddCampaignFragment()
+            fragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
         }
     }
 
-    private fun changeTabBarItem() {
-        if (allDonationChecked) {
-            donation_all.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(all_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_all.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(all_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-        if (moneyDonationChecked) {
-            donation_money.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(money_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_money.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(money_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-
-        if (foodDonationChecked) {
-            donation_food.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(food_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_food.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(food_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-
-
-        if (clothesDonationChecked) {
-            donation_clothes.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(clothes_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_clothes.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(clothes_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
+    private fun changeFabStyle(root: View,icon:Int,color:Int,alpha:Float,tint:Int,isExpanded:Boolean) {
+        root.edit_campaign_btn.setImageResource(icon)
+        root.edit_campaign_btn.backgroundTintList =
+            ColorStateList.valueOf(resources.getColor(color))
+        root.linearLayout2.alpha = alpha
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(root.edit_campaign_btn.drawable),
+            ContextCompat.getColor(requireContext(), tint)
+        )
+        requireActivity().charity_nav_bottom.alpha = alpha
+        root.home_expandable_layout.isExpanded = isExpanded
     }
 
+    private fun expendFABMenu(root: View) {
+        root.edit_campaign_btn.animate().rotationBy(90F)
+        root.food_fab.animate().translationY(0f)
+        root.clothes_fab.animate().translationY(0f)
+    }
+
+    private fun collapseFABMenu(root: View) {
+        root.edit_campaign_btn.animate().rotationBy(90F)
+        root.food_fab.animate().translationY(-55f)
+        root.clothes_fab.animate().translationY(-105f)
+    }
 
     fun getDialog(){
         var view= layoutInflater.inflate(R.layout.campaign_added_dialog,null)
@@ -285,5 +179,6 @@ class HomeFragment : Fragment() ,View.OnClickListener{
         campaignDialog.setCancelable(false)
         campaignDialog.show()
     }
+
 
 }

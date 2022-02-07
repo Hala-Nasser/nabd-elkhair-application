@@ -29,15 +29,17 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
 import android.view.View.OnTouchListener
+import com.example.graduationproject.classes.TabLayoutSettings
 
-class HomeFragment : Fragment(),View.OnClickListener, CharitiesAdapter.onCharityItemClickListener {
+class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
     private lateinit var  charitiesList: MutableList<Charity>
-
-    var allDonationChecked = true
-    var moneyDonationChecked = false
-    var foodDonationChecked = false
-    var clothesDonationChecked = false
+    private val TAB_ICONS = arrayOf(
+        R.drawable.all,
+        R.drawable.money,
+        R.drawable.food,
+        R.drawable.clothes,
+    )
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -48,10 +50,6 @@ class HomeFragment : Fragment(),View.OnClickListener, CharitiesAdapter.onCharity
 
         requireActivity().nav_bottom.visibility=View.VISIBLE
 
-        root.donation_all.setOnClickListener(this)
-        root.donation_money.setOnClickListener(this)
-        root.donation_food.setOnClickListener(this)
-        root.donation_clothes.setOnClickListener(this)
 
 
 
@@ -61,6 +59,11 @@ class HomeFragment : Fragment(),View.OnClickListener, CharitiesAdapter.onCharity
         sectionsPagerAdapter.addFragments(FoodDonationFragment())
         sectionsPagerAdapter.addFragments(ClothesDonationFragment())
         root.campaigns_viewpager.adapter = sectionsPagerAdapter
+        root.donor_home_tab_layout.setupWithViewPager(root.campaigns_viewpager)
+
+        var tabLayout = TabLayoutSettings()
+        tabLayout.setupTabIcons(root.donor_home_tab_layout,TAB_ICONS)
+        tabLayout.setTabMargin(root.donor_home_tab_layout,10,10,100)
 
         root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->
             when (root.campaigns_viewpager.currentItem) {
@@ -88,55 +91,6 @@ class HomeFragment : Fragment(),View.OnClickListener, CharitiesAdapter.onCharity
         })
 
 
-        root.campaigns_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-
-                when (position){
-                    0 -> {
-                        allDonationChecked = true
-                        moneyDonationChecked = false
-                        foodDonationChecked = false
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    1 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = true
-                        foodDonationChecked = false
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    2 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = false
-                        foodDonationChecked = true
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    3 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = false
-                        foodDonationChecked = false
-                        clothesDonationChecked = true
-                        changeTabBarItem()
-                    }
-                }
-
-            }
-
-        })
 
         charitiesList = mutableListOf()
         charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
@@ -157,99 +111,7 @@ class HomeFragment : Fragment(),View.OnClickListener, CharitiesAdapter.onCharity
     }
 
 
-    override fun onClick(p0: View?) {
-        changeTabBarItem()
-        when(p0!!.id){
-            R.id.donation_all -> {
-                allDonationChecked = true
-                moneyDonationChecked = false
-                foodDonationChecked = false
-                clothesDonationChecked = false
 
-                campaigns_viewpager.currentItem = 0
-            }
-            R.id.donation_money -> {
-                allDonationChecked = false
-                moneyDonationChecked = true
-                foodDonationChecked = false
-                clothesDonationChecked = false
-                campaigns_viewpager.currentItem = 1
-            }
-            R.id.donation_food -> {
-                allDonationChecked = false
-                moneyDonationChecked = false
-                foodDonationChecked = true
-                clothesDonationChecked = false
-                campaigns_viewpager.currentItem = 2
-            }
-            R.id.donation_clothes -> {
-                allDonationChecked = false
-                moneyDonationChecked = false
-                foodDonationChecked = false
-                clothesDonationChecked = true
-                campaigns_viewpager.currentItem = 3
-
-            }
-        }
-    }
-
-    private fun changeTabBarItem() {
-        if (allDonationChecked) {
-            donation_all.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(all_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_all.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(all_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-        if (moneyDonationChecked) {
-            donation_money.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(money_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_money.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(money_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-
-        if (foodDonationChecked) {
-            donation_food.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(food_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_food.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(food_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-
-
-        if (clothesDonationChecked) {
-            donation_clothes.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(clothes_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_clothes.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(clothes_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-    }
 
     override fun onItemClick(data: Charity, position: Int) {
         val fragment = CharityDetailsFragment()

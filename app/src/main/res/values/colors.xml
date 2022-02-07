@@ -47,4 +47,6 @@
     <color name="edit_profile_grey">#B9B9B9</color>
     <color name="blue">#3B5998</color>
     <color name="campaign_blue">#5075A7</color>
+    <color name="green">#4CD964</color>
+    <color name="radio_btn_color">#414242</color>
 </resources>

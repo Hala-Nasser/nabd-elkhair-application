@@ -10,6 +10,8 @@ import com.example.graduationproject.R
 
 class SectionsPagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
+
+
     var fragments = ArrayList<Fragment>()
     var titles = ArrayList<String>()
 
@@ -32,6 +34,9 @@ class SectionsPagerAdapter(fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
+        if (titles.isEmpty()){
+           return null
+        }
         return titles[position]
     }
 

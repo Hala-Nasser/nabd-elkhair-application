@@ -82,7 +82,7 @@ class DonationAdapter(
         val donation  =data[position]
         view.bs_donor_name.text = donation.donors!!.donorName
         view.bs_donation_amount.text = donation.donationAmount
-        view.bs_donor_prefecture.text = donation.donorPrefecture
+        view.bs_donor_prefecture.text = donation.donorDistrict
         view.bs_donor_city.text = donation.donorCity
         view.bs_donor_address.text = donation.donorAddress
         view.bs_donor_phone.text = donation.donorPhoneNumber

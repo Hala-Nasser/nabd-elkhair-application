@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".charity.fragments.CharitySettingsFragment"
+    android:layoutDirection="rtl"
+    android:fillViewport="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/app_color"
+                android:paddingHorizontal="30dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="90dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:tint="@color/white"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="اعدادات"
+                        android:gravity="center"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="جمعية الاحسان التطوعية"
+                            android:paddingStart="10dp"
+                            android:fontFamily="@font/tajawal_medium"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Patrick.Cunningham@Mail.Com"
+                            android:fontFamily="@font/tajawal_medium"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"/>
+
+                    </LinearLayout>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/setting_profile_image"
+                        android:layout_width="73dp"
+                        android:layout_height="73dp"
+                        android:src="@drawable/charity_image"
+                        android:padding="5dp"
+                        android:layout_gravity="end"
+                        android:background="@drawable/setting_dashed_border"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/charity_settings_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabTextAppearance="@style/tab_text"
+                android:elevation="5dp"
+                app:tabGravity="start"
+                app:tabIndicatorColor="@color/white"
+                app:tabInlineLabel="true"
+                >
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الاعدادات"
+                    android:icon="@drawable/ic_settings"
+                    />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الدفع"
+                    android:icon="@drawable/ic_payment"
+                    />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الاشعارات"
+                    android:icon="@drawable/ic_notifications"
+                    />
+
+            </com.google.android.material.tabs.TabLayout>
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/charity_settings_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="20dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
