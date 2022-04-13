@@ -69,6 +69,8 @@ class CompleteSignUpActivity : AppCompatActivity() {
             // بدي اخد منها ايدي اليوزر
             // بدي اخزن الايدي بالشيرد بريفيرنس
 
+          var  donor = Donor(name,email,phone,address,imageURI.toString(),1,password,confirm_password)
+          registerToApp(donor,this)
 
         }
 
