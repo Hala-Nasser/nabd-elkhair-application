@@ -28,7 +28,11 @@ class CompleteSignUpActivity : AppCompatActivity() {
         image = findViewById(R.id.image)
 
         findViewById<AppCompatButton>(R.id.sign_up).setOnClickListener {
+            // api لفحص الرجستر و التخزين
+            // بدي اخد منها ايدي اليوزر
+            // بدي اخزن الايدي بالشيرد بريفيرنس
             GeneralChanges().prepareFadeTransition(this, DonorMainActivity())
+            finish()
         }
 
         findViewById<CardView>(R.id.choose_image).setOnClickListener {
@@ -41,6 +45,10 @@ class CompleteSignUpActivity : AppCompatActivity() {
             image.layoutParams.width = MATCH_PARENT
             val param = image.layoutParams as ViewGroup.MarginLayoutParams
             image.layoutParams = param
+        }
+
+        findViewById<ImageView>(R.id.back).setOnClickListener {
+            onBackPressed()
         }
     }
 

@@ -12,13 +12,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".donor.fragments.ProfileFragment"
         android:layoutDirection="rtl">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="65dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,9 +47,7 @@
                     android:gravity="center"
                     android:text="الملف الشخصي"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/title" />
 
 
             </RelativeLayout>
@@ -179,8 +178,7 @@
                 android:layout_marginTop="20dp"
                 app:tabTextAppearance="@style/tab_text"
                 app:tabTextColor="@color/grey_white"
-                app:tabSelectedTextColor="@color/app_color"
-                >
+                app:tabSelectedTextColor="@color/app_color">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"

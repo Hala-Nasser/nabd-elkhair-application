@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="65dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,6 +48,14 @@
                     android:text="حملة الإحسان التطوعية"
                     android:textAlignment="center"
                     android:textAppearance="@style/title"/>
+
+                <ImageView
+                    android:id="@+id/complaint"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/complaint" />
 
             </RelativeLayout>
 
@@ -121,6 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layoutDirection="rtl"
                 app:tabTextAppearance="@style/tab_text"
                 app:tabTextColor="@color/grey_white"
                 app:tabSelectedTextColor="@color/app_color"
@@ -144,6 +153,7 @@
                 android:id="@+id/charity_campaigns_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layoutDirection="rtl"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:ignore="SpeakableTextPresentCheck"
                 android:layout_marginBottom="20dp"/>

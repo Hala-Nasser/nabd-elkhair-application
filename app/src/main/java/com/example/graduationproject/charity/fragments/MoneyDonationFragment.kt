@@ -21,6 +21,7 @@ import com.example.graduationproject.donor.fragments.ProfileFragment
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
@@ -33,7 +34,7 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
     private lateinit var  campaignsList: MutableList<Campaigns>
     private  var  donationList = ArrayList<Donation>()
     private  var  donationList1 = ArrayList<Donation>()
-    lateinit var dialog : Dialog
+    lateinit var dialog : BottomSheetDialog
     lateinit var v :View
 
     override fun onCreateView(
@@ -152,8 +153,7 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
     }
 
     private fun showDialog(donationMethod:String) {
-        dialog = Dialog(this.requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog = BottomSheetDialog(this.requireContext())
         if (donationMethod == "electronic"){
             v = layoutInflater.inflate(R.layout.bottom_dialog_item, null)
             v.title_electronic.text = "تفاصيل التبرع"
@@ -165,16 +165,7 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
             v.confirm.visibility = View.GONE
         }
         dialog.setContentView(v)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.setCancelable(false)
-
-
-
-
-
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
 
     }

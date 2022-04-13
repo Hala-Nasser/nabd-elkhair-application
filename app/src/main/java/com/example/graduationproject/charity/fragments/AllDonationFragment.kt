@@ -27,6 +27,7 @@ import com.example.graduationproject.charity.models.Donation
 import com.example.graduationproject.charity.models.Donor
 import com.example.graduationproject.donor.fragments.ConfirmationFragment
 import com.example.graduationproject.donor.fragments.ProfileFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
 import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.*
@@ -40,7 +41,7 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
     private lateinit var  campaignsList: MutableList<Campaigns>
     private  var  donationList = ArrayList<Donation>()
     private  var  donationList1 = ArrayList<Donation>()
-    lateinit var dialog :Dialog
+    lateinit var dialog :BottomSheetDialog
     lateinit var v :View
 
     override fun onCreateView(
@@ -157,8 +158,7 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
     }
 
     private fun showDialog(donationType: DonationType, donationMethod:String) {
-        dialog = Dialog(this.requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog = BottomSheetDialog(this.requireContext())
         if (donationType.photo == R.drawable.money && donationMethod == "electronic"){
             v = layoutInflater.inflate(R.layout.bottom_dialog_item, null)
             v.title_electronic.text = "تفاصيل التبرع"
@@ -176,16 +176,7 @@ class AllDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickList
         }
 
         dialog.setContentView(v)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.setCancelable(false)
-
-
-
-
-
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
 
     }
