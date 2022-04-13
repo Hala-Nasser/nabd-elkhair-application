@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GraduationProject"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".charity.activites.PaymentsMethodActivity"
             android:exported="false" />
@@ -55,6 +56,24 @@
         <activity
             android:name=".donor.DonorMainActivity"
             android:exported="false" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <!--        <service-->
+<!--            android:name=".MyFirebaseInstanceIDService"-->
+<!--            android:exported="false"-->
+<!--            android:stopWithTask="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
         <meta-data
             android:name="preloaded_fonts"

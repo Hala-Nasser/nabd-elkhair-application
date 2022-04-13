@@ -6,11 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.charity.fragments.AllDonationFragment
@@ -19,7 +16,6 @@ import com.example.graduationproject.charity.fragments.FoodDonationFragment
 import com.example.graduationproject.charity.fragments.MoneyDonationFragment
 import com.example.graduationproject.donor.adapters.CharitiesAdapter
 import com.example.graduationproject.donor.models.Charity
-import com.example.graduationproject.donor.models.DonationType
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
@@ -65,6 +61,13 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         tabLayout.setupTabIcons(root.donor_home_tab_layout,TAB_ICONS)
         tabLayout.setTabMargin(root.donor_home_tab_layout,10,10,100)
 
+        root.search.setOnSearchClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, SearchResultsFragment()).addToBackStack(null).commit()
+            requireActivity().nav_bottom.visibility=View.GONE
+        }
+
+
         root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->
             when (root.campaigns_viewpager.currentItem) {
                 0 -> {
@@ -104,8 +107,6 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         val charitiesAdapter =
             CharitiesAdapter(this.activity, charitiesList, this)
         root.rv_all_charities.adapter = charitiesAdapter
-        root.rv_all_charities
-
 
         return root
     }

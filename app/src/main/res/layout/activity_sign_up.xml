@@ -5,22 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    android:paddingHorizontal="20dp"
-    tools:context=".donor.SignUpActivity"
     android:background="@drawable/background"
-    >
+    android:paddingHorizontal="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layoutDirection="rtl"
-        >
+        tools:context=".donor.SignUpActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="65dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +39,8 @@
                 android:text="أنشئ حساب!"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"
+                android:fontFamily="@font/tajawal_bold"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/username"
@@ -231,9 +229,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="هل لديك حساب؟"
-                    android:textColor="@color/black"
+                    android:textColor="#585858"
                     android:textSize="15sp"
-                    android:fontFamily="@font/tajawal_medium" />
+                    android:fontFamily="@font/roboto_medium" />
 
                 <View
                     android:layout_width="5dp"
@@ -244,10 +242,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="تسجيل الدخول"
                     android:textColor="@color/app_color"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/tajawal_medium" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 

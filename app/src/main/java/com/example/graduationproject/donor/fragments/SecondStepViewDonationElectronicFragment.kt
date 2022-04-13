@@ -12,13 +12,17 @@ import android.view.*
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
 
 import android.view.LayoutInflater
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.bottom_dialog_item.view.close
+import kotlinx.android.synthetic.main.bottom_donation_with_campaign.view.*
+import kotlinx.android.synthetic.main.bottom_sheet_manually.view.*
 import kotlinx.android.synthetic.main.fragment_second_step_view_donation_electronic.view.*
 
 
 class SecondStepViewDonationElectronicFragment : Fragment() {
 
     var selected_type : String? = null
-    lateinit var dialog :Dialog
+    lateinit var dialog :BottomSheetDialog
     lateinit var v :View
 
     override fun onCreateView(
@@ -62,15 +66,10 @@ class SecondStepViewDonationElectronicFragment : Fragment() {
     }
 
     private fun showDialog() {
-        dialog = Dialog(this.requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog = BottomSheetDialog(this.requireContext())
         v= layoutInflater.inflate(R.layout.bottom_dialog_item,null)
         dialog.setContentView(v)
-        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
-        dialog.window!!.setGravity(Gravity.BOTTOM)
-        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
 
     }

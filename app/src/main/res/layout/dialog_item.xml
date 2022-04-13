@@ -84,8 +84,8 @@
             android:text="اختيار"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:fontFamily="@font/tajawal_bold" />
     </LinearLayout>
 
 
