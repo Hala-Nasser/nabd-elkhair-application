@@ -23,6 +23,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/donation_confirmation"
+                android:layout_gravity="center"
+                android:layout_marginTop="90dp"/>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,7 +45,10 @@
                 android:layout_marginTop="70dp"
                 android:fontFamily="@font/tajawal_bold"
                 android:text="تم تأكيد عملية التبرع بنجاح"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="تم ارسال طلب تبرعك الي الجمعية و سيتم اشعارك بقبول طلبك او رفضه"
                 android:textAlignment="center"
+                android:lineSpacingExtra="5dp"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -58,6 +70,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/confirmed" />
+                android:textSize="16sp"
+                android:layout_marginTop="30dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/go_to_main"
@@ -67,10 +81,12 @@
                 android:background="@drawable/colored_button"
                 android:gravity="center"
                 android:text="الرجوع إلى الرئيسية"
-                android:textAlignment="center"
+                android:fontFamily="@font/tajawal_bold"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/tajawal_bold" />
+                 />
+
 
 
         </LinearLayout>

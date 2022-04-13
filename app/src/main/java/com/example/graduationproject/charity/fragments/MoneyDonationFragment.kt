@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,16 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.charity.models.Donation
-import com.example.graduationproject.charity.models.Donor
 import com.example.graduationproject.donor.DonorMainActivity
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.fragments.CampaignDetailsFragment
-import com.example.graduationproject.donor.fragments.ConfirmationFragment
 import com.example.graduationproject.donor.fragments.ProfileFragment
 import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.graduationproject.donor.models.Donor
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
@@ -44,9 +42,9 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_money_donation, container, false)
 
-        var donor1 = Donor(R.drawable.campaign_image,"Mary Ann Vargas","غزة")
-        var donor2 = Donor(R.drawable.campaign_image,"Harry Ann Vargas","غزة")
-        var donor3 = Donor(R.drawable.campaign_image,"Mary Ann Vargas","غزة")
+        var donor1 = Donor(null,null,"Mary Ann Vargas","غزة",null,null,null,null)
+        var donor2 = Donor(null,null,"Mary Ann Vargas","غزة",null,null,null,null)
+        var donor3 = Donor(null,null,"Mary Ann Vargas","غزة",null,null,null,null)
 
         donationList1.add(Donation(donor1,"1","025896542","غزة","غزة","غزة","200 شيكل"))
 
@@ -56,16 +54,16 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
         donationList.add(Donation(donor3,"3","025896542","غزة","غزة","غزة","200 شيكل"))
 
 
-        var cam1 =Campaigns("1",R.drawable.campaign_image,"تقديم المال للعائلات المحتاجة","22/2/2022","05:00"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.money), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+        var cam1 =Campaigns("1",R.drawable.campaign_image,"تقديم الأكل للعائلات المحتاجة للفقراء و المساكين","22/2/2022","05:00"
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.food,"طعام"), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
             ,donationList1
         )
 
-        var cam2 =  Campaigns("2",R.drawable.campaign_image,"تقديم المال للعائلات المحتاجة","22/2/2022","05:00"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.money), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+        var cam2 =  Campaigns("2",R.drawable.campaign_image,"تقديم الملابس للعائلات المحتاجة","22/2/2022","05:00"
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.clothes,"ملابس"), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
             ,null )
         var cam3 = Campaigns("3",R.drawable.campaign_image,"تقديم المال للعائلات المحتاجة","22/2/2022","05:00"
-            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.money), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
+            , "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت \n", DonationType(R.drawable.money,"مال"), Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة")
             ,donationList
         )
 
@@ -157,7 +155,7 @@ class MoneyDonationFragment : Fragment(), CampaignsAdapter.onCampaignItemClickLi
         if (donationMethod == "electronic"){
             v = layoutInflater.inflate(R.layout.bottom_dialog_item, null)
             v.title_electronic.text = "تفاصيل التبرع"
-            v.confirm_electronic.visibility = View.GONE
+//            v.confirm_electronic.visibility = View.GONE
 
         }else{
             v= layoutInflater.inflate(R.layout.bottom_dialog_item_manual,null)

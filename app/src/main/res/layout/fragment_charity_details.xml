@@ -47,7 +47,15 @@
                     android:gravity="center"
                     android:text="حملة الإحسان التطوعية"
                     android:textAlignment="center"
-                    android:textAppearance="@style/title"/>
+                    android:textAppearance="@style/title" />
+
+                <ImageView
+                    android:id="@+id/donor_add_complaint"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/complaint" />
 
                 <ImageView
                     android:id="@+id/complaint"

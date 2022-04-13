@@ -8,7 +8,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/donation_card_view"
+        android:id="@+id/cv_donation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -97,6 +97,15 @@
                             />
                     </com.google.android.material.card.MaterialCardView>
 
+                    <CheckBox
+                        android:id="@+id/donation_received"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:buttonTint="@color/radio_button_color"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:textSize="15sp"
+                        android:visibility="gone"
+                        />
 
                 </LinearLayout>
 

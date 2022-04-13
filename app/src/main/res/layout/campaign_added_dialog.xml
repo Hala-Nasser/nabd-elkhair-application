@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layoutDirection="rtl"
-    android:background="@drawable/dialog_charity_card_style"
+    android:background="@drawable/bottom_dialog"
     android:layout_height="wrap_content">
 
 
     <LinearLayout
-        android:layout_width="307dp"
-        android:layout_height="170dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -24,22 +24,37 @@
             android:src="@drawable/ic_close_black_24dp"
             app:tint="@color/black_transparent_49" />
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/check_home"
+            android:layout_gravity="center"
+            app:tint="@color/app_color" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/tajawal_bold"
-            android:text="تم إضافة الطلب"
+            android:text="تم إضافة الحملة بنجاح"
             android:textColor="@color/black_transparent_72"
             android:textSize="15sp" />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            app:tint="@color/app_color" />
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/home_dialog_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/white_button_with_border"
+            android:gravity="center"
+            android:text="الرئيسية"
+            android:textColor="@color/app_color"
+            android:textSize="17sp"
+            android:fontFamily="@font/tajawal_bold" />
 
     </LinearLayout>
 

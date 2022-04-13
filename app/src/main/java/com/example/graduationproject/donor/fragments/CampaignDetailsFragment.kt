@@ -58,7 +58,7 @@ class CampaignDetailsFragment : Fragment() {
             val donation_type : DonationType = b.getParcelable("campaign_donation_type")!!
             campaign_donation_type.add(donation_type)
             if (donation_type.photo != R.drawable.money){
-                campaign_donation_type.add(DonationType(R.drawable.money))
+                campaign_donation_type.add(DonationType(R.drawable.money,"المال"))
             }
 
             root.campaign_name.text = campaign_name

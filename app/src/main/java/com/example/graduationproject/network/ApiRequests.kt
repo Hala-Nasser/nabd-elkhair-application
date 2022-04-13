@@ -1,16 +1,18 @@
 package com.example.graduationproject.network
 
 import com.example.graduationproject.api.category.CategoryJson
+import com.example.graduationproject.api.donor.DonorJson
+import com.example.graduationproject.donor.models.Donor
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiRequests {
 
-    @GET("guest/category2")
-    fun getCategories(): Call<CategoryJson>
+//    @GET("guest/category2")
+//    fun getCategories(): Call<CategoryJson>
 
-//    @POST("/WS/Register")
-//    fun register(@Body user: User): Call<UserJson>
+    @POST("donor/register")
+    fun donorRegister(@Body user: Donor): Call<DonorJson>
 //
 //    @POST("/WS/userLogin")
 //    fun logIn(@Body user: LoginUser): Call<LoginUserJson>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -27,12 +28,14 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>, 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image = itemView.findViewById<ImageView>(R.id.donation_type_image)
+        val title = itemView.findViewById<TextView>(R.id.donation_type_title)
         val cardView = itemView.findViewById<MaterialCardView>(R.id.donation_type_card_view)
         var clicked = true
 
         fun initialize(data: DonationType, activity: Context?) {
             //Picasso.get().load("http://192.168.203.17/storage/uploads/images/"+data.image).into(image)
             image.setImageResource(data.photo!!)
+            title.text = data.name
 
         }
 
@@ -88,7 +91,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>, 
                     R.color.app_color,
                     R.color.app_color,
                     R.color.white,
-                    10f,
+                    3f,
                     R.color.white
                 )
             }

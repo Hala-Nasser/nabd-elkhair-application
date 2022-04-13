@@ -33,13 +33,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:fontFamily="@font/tajawal_bold"
                 android:gravity="center"
-
-                android:text="قبول التبرع"
+                android:text="تفاصيل التبرع"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/add_complaint_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="gone"
+                android:src="@drawable/complaint" />
 
         </LinearLayout>
 
@@ -79,7 +86,7 @@
                 android:text="Mary Ann Vargas"
                 android:textDirection="rtl"
                 android:textColor="@color/app_color"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <View
@@ -255,19 +262,19 @@
             android:layout_marginTop="5dp"
             android:background="@color/black_transparent_19" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/accept_donation"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginVertical="40dp"
-            android:background="@drawable/colored_button"
-            android:gravity="center"
-            android:text="قبول"
-            android:fontFamily="@font/tajawal_bold"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-             />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/accept_donation"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginVertical="40dp"-->
+<!--            android:background="@drawable/colored_button"-->
+<!--            android:gravity="center"-->
+<!--            android:text="قبول"-->
+<!--            android:fontFamily="@font/tajawal_bold"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"-->
+<!--             />-->
 
 
     </LinearLayout>
