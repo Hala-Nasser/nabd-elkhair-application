@@ -8,6 +8,13 @@
         <item>خارج قطاع غزة</item>
     </string-array>
 
+    <string-array name="charity_location_array">
+        <item>غزة</item>
+        <item>الوسطى</item>
+        <item>خانيونس</item>
+        <item>رفح</item>
+    </string-array>
+
     <string name="hint">هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
 .</string>
 

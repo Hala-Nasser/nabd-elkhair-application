@@ -30,6 +30,7 @@ import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.widget.LinearLayout
 import com.example.graduationproject.classes.TabLayoutSettings
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_charity_main.view.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
@@ -67,11 +68,17 @@ class HomeFragment : Fragment(){
             }
         }
 
+        root.donation_requests_image.setOnClickListener {
+            var fragment = DonationRequestsFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+        }
+
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         sectionsPagerAdapter.addFragments(AllDonationFragment())
-        sectionsPagerAdapter.addFragments(MoneyDonationFragment())
-        sectionsPagerAdapter.addFragments(FoodDonationFragment())
-        sectionsPagerAdapter.addFragments(ClothesDonationFragment())
+        sectionsPagerAdapter.addFragmentsAndTitles(MoneyDonationFragment(),"مال")
+        sectionsPagerAdapter.addFragmentsAndTitles(FoodDonationFragment(),"طعام")
+        sectionsPagerAdapter.addFragmentsAndTitles(ClothesDonationFragment(),"ملابس")
         root.campaign_viewpager.adapter = sectionsPagerAdapter
         root.charity_home_tab_layout.setupWithViewPager(root.campaign_viewpager)
 
@@ -170,14 +177,17 @@ class HomeFragment : Fragment(){
 
     fun getDialog(){
         var view= layoutInflater.inflate(R.layout.campaign_added_dialog,null)
-        val campaignDialog = Dialog(this.requireContext())
-        campaignDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        campaignDialog.setContentView(view)
+        val campaignBottomSheet = BottomSheetDialog(this.requireContext())
+        //campaignDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        campaignBottomSheet.setContentView(view)
+        campaignBottomSheet.setCanceledOnTouchOutside(false)
         view.close_dialog.setOnClickListener {
-            campaignDialog.dismiss()
+            campaignBottomSheet.dismiss()
         }
-        campaignDialog.setCancelable(false)
-        campaignDialog.show()
+        view.home_dialog_btn.setOnClickListener {
+            campaignBottomSheet.dismiss()
+        }
+        campaignBottomSheet.show()
     }
 
 

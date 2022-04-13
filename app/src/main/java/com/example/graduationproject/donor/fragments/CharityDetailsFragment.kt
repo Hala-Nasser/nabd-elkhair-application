@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
+import com.example.graduationproject.charity.fragments.AddComplaintFragment
 import kotlinx.android.synthetic.main.fragment_charity_details.view.*
 
 
@@ -29,6 +30,13 @@ class CharityDetailsFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
+        root.donor_add_complaint.setOnClickListener {
+            val f = AddComplaintFragment()
+            val b= Bundle()
+            b.putString("from","Donor")
+            f.arguments=b
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,f).commit()
+        }
         return root
     }
 

@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="بيانات الدفع"
+                android:text="طريقة الدفع"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="22sp"
@@ -108,125 +108,135 @@
 
             </LinearLayout>
 
-
-            <RadioGroup
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioGroup"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp">
-
-                <RadioButton
-                    android:id="@+id/radio_paypal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Paypal"
-                    android:textAlignment="viewStart"
-                    android:background="@drawable/unchecked_radio_button"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:textSize="16sp"
-                    android:paddingRight="10dp"
-                    android:drawableLeft="@drawable/paypal"
-                    android:paddingLeft="20dp"
-                    android:elevation="3dp"/>
-
-                <RadioButton
-                    android:id="@+id/radio_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Card"
-                    android:textAlignment="viewStart"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/unchecked_radio_button"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/master_card"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="20dp"
-                    android:elevation="3dp"/>
-            </RadioGroup>
+                android:src="@drawable/payment_logo"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                />
+             <include layout="@layout/tab_content"
+                />
 
 
+<!--            <RadioGroup-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/radioGroup"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:layout_marginTop="10dp">-->
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/radio_paypal"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Paypal"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    android:background="@drawable/unchecked_radio_button"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:fontFamily="@font/tajawal_bold"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:drawableLeft="@drawable/paypal"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:elevation="3dp"/>-->
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/radio_card"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Card"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:background="@drawable/unchecked_radio_button"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:fontFamily="@font/tajawal_bold"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:drawableLeft="@drawable/master_card"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:elevation="3dp"/>-->
+<!--            </RadioGroup>-->
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/black_transparent_27" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="سجل البيانات"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/black_transparent_27" />
-            </LinearLayout>
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/black_transparent_27" />-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:hint="رقم الحساب"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black"
-                >
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="15dp"-->
+<!--                    android:fontFamily="@font/tajawal_bold"-->
+<!--                    android:text="سجل البيانات"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp" />-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/account_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="text"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/black_transparent_27" />-->
+<!--            </LinearLayout>-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:hint="رقم الحساب"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHint="@color/black"-->
+<!--                app:hintTextAppearance="@style/TextLabel"-->
+<!--                app:hintTextColor="@color/black"-->
+<!--                >-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:hint="الايبان"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black">
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/account_number"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:inputType="text"-->
+<!--                    android:paddingTop="25dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp"/>-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ipan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="textEmailAddress"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:hint="الايبان"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHint="@color/black"-->
+<!--                app:hintTextAppearance="@style/TextLabel"-->
+<!--                app:hintTextColor="@color/black">-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/ipan"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:inputType="textEmailAddress"-->
+<!--                    android:paddingTop="25dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp" />-->
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/confirm_donation"

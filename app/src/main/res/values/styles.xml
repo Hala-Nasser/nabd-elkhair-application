@@ -42,6 +42,11 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="home_tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/tajawal_bold</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
     <style name="TimePickerTheme">
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/tajawal_bold</item>

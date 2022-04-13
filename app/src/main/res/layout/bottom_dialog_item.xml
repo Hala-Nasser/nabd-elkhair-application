@@ -36,7 +36,7 @@
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/tajawal_bold"
                 android:gravity="center"
-                android:text="تأكيد التبرع"
+                android:text="تفاصيل التبرع"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="المبلغ"
+                android:text="اسم المتبرع"
                 android:textColor="@color/grey_bottom_dialog"
                 android:textSize="15sp" />
 
@@ -79,6 +79,41 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingEnd="10dp"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="Mary Ann Vargas"
+                android:textColor="@color/app_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_19" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="المبلغ"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/account_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="70 شيكل"
                 android:textColor="@color/app_color"
@@ -103,40 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="رقم الحساب"
-                android:textColor="@color/grey_bottom_dialog"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/account_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="(224)893-7083"
-                android:textColor="@color/app_color"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/black_transparent_19" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="الايبان"
+                android:text="رابط الدفع"
                 android:textColor="@color/grey_bottom_dialog"
                 android:textSize="15sp" />
 
@@ -144,9 +146,9 @@
                 android:id="@+id/ipan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="7358786969007654"
+                android:text="Paypal.Me/Nadaelrayes389"
                 android:textColor="@color/app_color"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -158,18 +160,18 @@
             android:background="@color/black_transparent_19"
             android:layout_marginBottom="40dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/confirm_electronic"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/colored_button"
-            android:gravity="center"
-            android:text="تأكيد"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/confirm_electronic"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginBottom="40dp"-->
+<!--            android:background="@drawable/colored_button"-->
+<!--            android:gravity="center"-->
+<!--            android:text="تأكيد"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold" />-->
 
 
     </LinearLayout>

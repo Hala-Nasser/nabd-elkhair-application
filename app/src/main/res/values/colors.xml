@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black_transparency">#262727</color>
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#D96C9E</color>
     <color name="white_background">#FFF</color>
@@ -17,6 +18,8 @@
     <color name="grey_bold">#5C5C5C</color>
     <color name="grey_transparent_55">#8C707070</color>
     <color name="grey_transparent_15">#26707070</color>
+    <color name="grey_transparent_32">#52E6E6E6</color>
+    <color name="grey_transparent_41">#69F5F5F5</color>
     <color name="grey_transparent_94">#F0B6B6B6</color>
     <color name="grey_details">#A0A0A0</color>
     <color name="grey_bottom_dialog">#969696</color>
@@ -35,6 +38,7 @@
     <color name="black_transparent_30">#4D000000</color>
     <color name="date_color">#005959</color>
     <color name="time_color">#F6F6F6</color>
+    <color name="payment_color">#F7F7F7</color>
     <color name="date_btn_color">#DEF2F2</color>
     <color name="donor_card">#EBF5F5</color>
     <color name="light_grey">#CBCBCB</color>
@@ -47,6 +51,8 @@
     <color name="edit_profile_grey">#B9B9B9</color>
     <color name="blue">#3B5998</color>
     <color name="campaign_blue">#5075A7</color>
+    <color name="complaint_blue">#99A2DF</color>
     <color name="green">#4CD964</color>
     <color name="radio_btn_color">#414242</color>
+    <color name="red_color">#CC222D</color>
 </resources>

@@ -39,7 +39,7 @@ class CharityCampaignDetailsFragment : Fragment() {
 
         requireActivity().charity_nav_bottom.visibility=View.GONE
         donorAdapter =
-            DonorsAdapter(activity, campaignDonation, "CampaignDetails")
+            DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
 
         val b = arguments
         if (b != null) {
@@ -117,7 +117,7 @@ class CharityCampaignDetailsFragment : Fragment() {
             campaignDonation.addAll(linkedHashSet)
 
             donorAdapter =
-                DonorsAdapter(activity, campaignDonation, "CampaignDetails")
+                DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
             donorAdapter.campaignName = campaignName
             donorAdapter.campaignImg = campaignImage
             root.rv_donors.layoutManager = LinearLayoutManager(

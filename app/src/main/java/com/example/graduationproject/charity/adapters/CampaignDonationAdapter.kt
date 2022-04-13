@@ -1,38 +1,22 @@
 package com.example.graduationproject.charity.adapters
 
-import android.animation.LayoutTransition
 import android.content.Context
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.charity.models.Donation
-import com.example.graduationproject.charity.models.Donor
-import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.models.Campaigns
-import kotlinx.android.synthetic.main.current_campaigns_item.view.*
 import kotlinx.android.synthetic.main.donation_with_campaign.view.*
-import kotlinx.android.synthetic.main.donors_item.view.*
-import kotlinx.android.synthetic.main.fragment_clothes_donation.view.*
-import android.view.animation.LinearInterpolator
 
-import android.animation.ObjectAnimator
-import android.app.Activity
-import androidx.core.view.get
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.bottom_sheet_manually.view.*
 import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_card_view
-import kotlinx.android.synthetic.main.donation_without_campaign.view.*
-import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
 import net.cachapa.expandablelayout.ExpandableLayout
 
 
 class CampaignDonationAdapter(
-    var activity: Context?, var data: List<Campaigns>,
+    var activity: Context?, var data: List<Campaigns>, var fragment: FragmentManager
 ) : RecyclerView.Adapter<CampaignDonationAdapter.CampaignViewHolder>(){
 
 
@@ -73,7 +57,7 @@ class CampaignDonationAdapter(
 
                 holder.initialize(data[position])
 
-                  holder.arrow.setOnClickListener {
+                  holder.itemView.setOnClickListener {
 
                     if (holder.expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
                         holder.arrow.setImageResource(R.drawable.ic_arrow_up)
@@ -93,7 +77,7 @@ class CampaignDonationAdapter(
                           for (element in donation) {
                               if (data[position].campaignId == element.campaignId) {
                                   val donorAdapter =
-                                      DonorsAdapter(activity, donation, "CampaignDonationAdapter")
+                                      DonorsAdapter(activity, donation, "CampaignDonationAdapter",fragment)
 
                                   donorAdapter.campaignName = data[position].campaignName
                                   donorAdapter.campaignImg = data[position].campaignImg

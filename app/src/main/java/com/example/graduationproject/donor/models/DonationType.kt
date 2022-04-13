@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class DonationType(var photo:Int?): Parcelable
+data class DonationType(var photo:Int?,var name:String): Parcelable

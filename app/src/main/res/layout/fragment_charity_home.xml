@@ -46,14 +46,12 @@
                     android:textColor="@color/black_transparent_94"
                     android:textSize="16sp" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                <ImageView
+                    android:id="@+id/donation_requests_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/charity_image"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="3dp" />
+                    android:src="@drawable/donation_requests" />
 
             </RelativeLayout>
 
@@ -64,10 +62,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="30dp"
                 app:tabIndicatorGravity="stretch"
+                app:tabTextAppearance="@style/home_tab_text"
                 app:tabIconTint="@color/tab_icon_color"
+                app:tabTextColor="@color/tab_icon_color"
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabBackground="@drawable/profile_tab_style"
                 app:tabIndicator="@color/tab_background_color"
+                app:tabInlineLabel="true"
                 >
 
                 <com.google.android.material.tabs.TabItem
@@ -80,12 +81,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/money"
+                    android:text="مال"
                     />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/food"
+                    android:text="طعام"
                     />
 
 
@@ -93,6 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/clothes"
+                    android:text="ملابس"
                     />
 
 

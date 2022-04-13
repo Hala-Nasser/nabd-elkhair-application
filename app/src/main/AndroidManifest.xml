@@ -13,6 +13,9 @@
         android:theme="@style/Theme.GraduationProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".charity.activites.PaymentsMethodActivity"
+            android:exported="false" />
+        <activity
             android:name=".PrivacyPolicyActivity"
             android:exported="false" />
         <activity
@@ -33,8 +36,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".charity.activites.CharityMainActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".ChoiceActivity"
             android:exported="false" />

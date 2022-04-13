@@ -197,7 +197,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/donate"
+                android:id="@+id/charity_donate"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginVertical="40dp"

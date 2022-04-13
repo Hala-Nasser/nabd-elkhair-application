@@ -2,26 +2,24 @@ package com.example.graduationproject.charity.adapters
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.charity.fragments.AddComplaintFragment
 import com.example.graduationproject.charity.models.Donation
-import com.example.graduationproject.charity.models.Donor
-import com.example.graduationproject.donor.models.Campaigns
-import com.example.graduationproject.donor.models.Charity
+import com.example.graduationproject.donor.models.Donor
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_donation_with_campaign.view.*
 import kotlinx.android.synthetic.main.bottom_sheet_manually.view.*
 import kotlinx.android.synthetic.main.charity_item.view.*
 import kotlinx.android.synthetic.main.donation_with_campaign.view.*
-import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_campaign_image
-import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_campaign_name
 import kotlinx.android.synthetic.main.donors_item.view.*
 
-class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var from:String) : RecyclerView.Adapter<DonorsAdapter.MyViewHolder>(){
+class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var from:String,var fragment : FragmentManager) : RecyclerView.Adapter<DonorsAdapter.MyViewHolder>(){
 
     var campaignName:String?=null
     var campaignImg:Int?=null
@@ -33,8 +31,8 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var f
         val card  =itemView.donor_card_view
 
         fun initialize(data: Donor?) {
-                     image.setImageResource(data!!.donorImg!!)
-                     name.text = data.donorName
+                     //image.setImageResource(data!!.image!!)
+                     name.text = data!!.name
         }
     }
 
@@ -75,18 +73,32 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var f
         var bottomSheetDialog = BottomSheetDialog(activity)
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.setCanceledOnTouchOutside(false)
-        view.bs_campaign_card.visibility = View.VISIBLE
+        if (from=="CampaignDetails"){
+            view.bs_campaign_card.visibility = View.GONE
+            view.add_complaint_img.visibility = View.VISIBLE
+        }else {
+            view.add_complaint_img.visibility = View.GONE
+            view.bs_campaign_card.visibility = View.VISIBLE
+        }
+
+        view.add_complaint_img.setOnClickListener {
+            val f = AddComplaintFragment()
+            val b= Bundle()
+            b.putString("from","Charity")
+            f.arguments=b
+            fragment.beginTransaction().replace(R.id.charityContainer,f).commit()
+        }
         view.close.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
-        view.accept_donation.setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
+//        view.accept_donation.setOnClickListener {
+//            bottomSheetDialog.dismiss()
+//        }
         val donation  = data!![position]
 
         view.bs_campaign_image.setImageResource(campaignImg!!)
         view.bs_campaign_name.text = campaignName
-        view.bs_donor_name.text = donation.donors!!.donorName
+        view.bs_donor_name.text = donation.donors!!.name
         view.bs_donation_amount.text = donation.donationAmount
         view.bs_donor_prefecture.text = donation.donorDistrict
         view.bs_donor_city.text =donation.donorCity

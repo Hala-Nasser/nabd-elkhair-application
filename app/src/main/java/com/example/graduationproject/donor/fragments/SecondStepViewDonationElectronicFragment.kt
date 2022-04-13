@@ -31,30 +31,30 @@ class SecondStepViewDonationElectronicFragment : Fragment() {
         val radioGroup=root.radioGroup
 
 
-        radioGroup.setOnCheckedChangeListener { _, i ->
-            when (i) {
-                R.id.radio_paypal -> {
-                    root.radio_paypal.setBackgroundResource(R.drawable.checked_radio_button)
-                    root.radio_card.setBackgroundResource(R.drawable.unchecked_radio_button)
-                    selected_type = "paypal"
-                }
-                R.id.radio_card -> {
-                    root.radio_card.setBackgroundResource(R.drawable.checked_radio_button)
-                    root.radio_paypal.setBackgroundResource(R.drawable.unchecked_radio_button)
-                    selected_type = "card"
-                }
-            }
-        }
+//        radioGroup.setOnCheckedChangeListener { _, i ->
+//            when (i) {
+//                R.id.radio_paypal -> {
+//                    root.radio_paypal.setBackgroundResource(R.drawable.checked_radio_button)
+//                    root.radio_card.setBackgroundResource(R.drawable.unchecked_radio_button)
+//                    selected_type = "paypal"
+//                }
+//                R.id.radio_card -> {
+//                    root.radio_card.setBackgroundResource(R.drawable.checked_radio_button)
+//                    root.radio_paypal.setBackgroundResource(R.drawable.unchecked_radio_button)
+//                    selected_type = "card"
+//                }
+//            }
+//        }
 
         root.confirm_donation.setOnClickListener {
             showDialog()
             v.close.setOnClickListener {
                 dialog.dismiss()
             }
-            v.confirm_electronic.setOnClickListener {
-                dialog.dismiss()
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ConfirmationFragment()).addToBackStack(null).commit()
-            }
+//            v.confirm_electronic.setOnClickListener {
+//                dialog.dismiss()
+//                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ConfirmationFragment()).addToBackStack(null).commit()
+//            }
 
         }
 

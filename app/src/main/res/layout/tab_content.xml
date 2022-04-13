@@ -6,6 +6,7 @@
     android:layoutDirection="rtl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
     android:gravity="center">
 
     <FrameLayout
@@ -13,7 +14,6 @@
         android:layout_margin="10dp"
         android:layoutDirection="ltr"
         android:layout_height="wrap_content"
-        tools:targetApi="jelly_bean_mr1"
         >
 
         <LinearLayout
@@ -29,135 +29,134 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="50dp">
+                android:gravity="end"
+                android:layout_height="match_parent">
+
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/donation_clothes"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/jawalPal"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/payment_color"
+                    app:cardCornerRadius="30dp"
                     app:cardElevation="0dp"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
                     android:clipChildren="false"
-                    app:strokeWidth="1.5dp"
-                    app:strokeColor="@color/app_color"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/payment_color"
                     app:cardPreventCornerOverlap="false"
-                    >
+                    android:layout_margin="5dp">
 
                     <ImageView
-                        android:id="@+id/clothes_img"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:tint="@color/black"
-                        android:src="@drawable/clothes" />
+                        android:src="@drawable/pay_logo" />
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:id="@+id/jawalPal_checked"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    app:tint="@color/app_color"
+                    android:visibility="gone"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="-25dp"
+                    />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_height="50dp">
+                android:layout_gravity="center"
+                android:layout_height="60dp">
+
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/donation_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/visa"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/payment_color"
+                    app:cardCornerRadius="30dp"
                     app:cardElevation="0dp"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
                     android:clipChildren="false"
-                    app:strokeWidth="1.5dp"
-                    app:strokeColor="@color/app_color"
-                    android:layout_marginLeft="10dp"
                     app:cardPreventCornerOverlap="false"
-                    >
+                    android:layout_margin="5dp">
 
                     <ImageView
-                        android:id="@+id/food_img"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:tint="@color/black"
-                        android:src="@drawable/food" />
+                        android:src="@drawable/visa" />
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:id="@+id/visa_checked"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    app:tint="@color/app_color"
+                    android:visibility="gone"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="-25dp"
+                    />
+
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="50dp">
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_height="60dp">
+
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/donation_money"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/payPal"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="@color/payment_color"
+                    app:cardCornerRadius="30dp"
                     app:cardElevation="0dp"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="0.0px"
                     android:clipToPadding="false"
                     android:clipChildren="false"
-                    app:strokeWidth="1.5dp"
-                    app:strokeColor="@color/app_color"
-                    android:layout_marginLeft="10dp"
                     app:cardPreventCornerOverlap="false"
-                    >
+                    android:layout_margin="5dp">
 
                     <ImageView
-                        android:id="@+id/money_img"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        app:tint="@color/black"
-                        android:src="@drawable/money" />
+                        android:src="@drawable/paypal_logo" />
 
                 </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="50dp">
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/donation_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/app_color"
-                    app:cardCornerRadius="5dp"
-                    app:cardElevation="0dp"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="0.0px"
-                    android:clipToPadding="false"
-                    android:clipChildren="false"
-                    app:strokeWidth="1.5dp"
-                    app:strokeColor="@color/app_color"
-                    android:layout_marginLeft="10dp"
-                    app:cardPreventCornerOverlap="false"
-                    >
 
-                    <ImageView
-                        android:id="@+id/all_img"                        android:layout_width="30dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        app:tint="@color/white"
-                        android:src="@drawable/all" />
+                <ImageView
+                    android:id="@+id/paypal_checked"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_baseline_check_circle_24"
+                    app:tint="@color/app_color"
+                    android:visibility="gone"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="-25dp"
+                    />
 
-                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
         </LinearLayout>
