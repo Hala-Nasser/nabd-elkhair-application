@@ -3,17 +3,35 @@ package com.example.graduationproject.network
 import com.example.graduationproject.api.category.CategoryJson
 import com.example.graduationproject.api.donor.DonorJson
 import com.example.graduationproject.donor.models.Donor
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
+import okhttp3.RequestBody
+
+import okhttp3.ResponseBody
+
+import retrofit2.http.POST
+
+import retrofit2.http.Multipart
+
+import android.R.id
+import android.database.Observable
+import retrofit2.Response
+
 
 interface ApiRequests {
 
 //    @GET("guest/category2")
 //    fun getCategories(): Call<CategoryJson>
 
-    @POST("donor/register")
-    fun donorRegister(@Body user: Donor): Call<DonorJson>
+//    @Multipart
+//    @POST("donor/register")
+//    fun donorRegister(@Part ("user_id") RequestBody id,@Part imagePart: MultipartBody.Part): Call<DonorJson>
 //
+
+
+    @POST("donor/register")
+    fun donorRegister(@Body body: RequestBody): Call<DonorJson>
 //    @POST("/WS/userLogin")
 //    fun logIn(@Body user: LoginUser): Call<LoginUserJson>
 //
