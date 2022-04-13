@@ -55,9 +55,9 @@ class CompleteSignUpActivity : AppCompatActivity() {
             // api لفحص الرجستر و التخزين
             // بدي اخد منها ايدي اليوزر
             // بدي اخزن الايدي بالشيرد بريفيرنس
-            GeneralChanges().prepareFadeTransition(this, DonorMainActivity())
-            finish()
-          var  donor = Donor(name,email,phone,address,imageURI.toString(),0,password,confirm_password)
+//            GeneralChanges().prepareFadeTransition(this, DonorMainActivity())
+//            finish()
+          var  donor = Donor(name,email,phone,address,imageURI.toString(),1,password,confirm_password)
           registerToApp(donor,this)
 
         }
