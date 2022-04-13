@@ -5,78 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    android:paddingHorizontal="20dp">
+    >
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="@style/CircularDeterminateProgressBar"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:progress="30"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/tajawal_bold"
-                android:text="1 من 4"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-                app:layout_constraintEnd_toEndOf="@+id/progressBar"
-                app:layout_constraintStart_toStartOf="@+id/progressBar"
-                app:layout_constraintTop_toTopOf="@+id/progressBar" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/progressBar"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:text="معلومات الحملة"
-                    android:textColor="@color/app_color"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/tajawal_medium"
-                    android:text="التالي : تاريخ انتهاء الحملة"
-                    android:textColor="@color/grey_details"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:background="@drawable/dashed_border"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/rectangle_dashed_border"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -102,50 +51,87 @@
             android:layout_marginTop="20dp"
             android:background="@color/white"
             android:hint="عنوان الحملة"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             app:hintTextAppearance="@style/TextLabel"
             app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/title"
+                android:id="@+id/campaign_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:text="تقديم الاكل للعائلات المحتاجة"
                 android:inputType="textEmailAddress"
                 android:paddingTop="25dp"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:fontFamily="@font/tajawal_medium"
+                android:textColor="@color/grey"
+                android:textSize="15sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/white"
-            android:hint="تفاصيل الحملة"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            app:hintTextAppearance="@style/TextLabel"
-            app:hintTextColor="@color/black">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/description"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="top|right"
-                android:inputType="textMultiLine"
-                android:lines="8"
-                android:maxLines="8"
-                android:minLines="1"
-                android:paddingTop="25dp"
-                android:scrollbars="vertical"
+                android:hint="تفاصيل الحملة"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textColorHint="@color/black"
+                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextColor="@color/black"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:paddingTop="25dp"
+                    android:lines="5"
+                    android:text="@string/hint"
+                    android:gravity="top"
+                    android:textAlignment="gravity"
+                    android:overScrollMode="always"
+                    android:scrollbars="vertical"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollHorizontally="false"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textSize="15sp"
+                     />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:hint="تفاصيل الحملة"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            app:hintTextAppearance="@style/TextLabel"-->
+<!--            app:hintTextColor="@color/black">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/description"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="top|right"-->
+<!--                android:inputType="textMultiLine"-->
+<!--                android:lines="8"-->
+<!--                android:maxLines="8"-->
+<!--                android:minLines="1"-->
+<!--                android:paddingTop="25dp"-->
+<!--                android:scrollbars="vertical"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18sp" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

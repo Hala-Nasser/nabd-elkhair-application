@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:paddingHorizontal="30dp"
+        tools:context=".charity.fragments.CharityCampaignDetailsFragment"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/tajawal_bold"
+                android:text="تفاصيل الحملة"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/campaign_img_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:src="@drawable/campaign_image"
+                    android:scaleType="fitXY"
+                    android:padding="5dp"
+                    android:layout_marginTop="30dp"
+                    app:riv_corner_radius="10dp"
+                    android:background="@drawable/rectangle_dashed_border"
+                    />
+
+
+            <TextView
+                android:id="@+id/campaign_name_details"
+                android:layout_width="match_parent"
+                android:paddingStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="تقديم الاكل للعائلات المحتاجة"
+                android:textSize="16sp"
+                android:fontFamily="@font/tajawal_bold"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/campaign_desc_details"
+                android:layout_width="match_parent"
+                android:paddingHorizontal="10dp"
+                android:layout_marginTop="15sp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textAlignment="textStart"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/hint"
+                android:textSize="15sp"
+                android:fontFamily="@font/tajawal_medium"
+                android:textColor="@color/black_transparent_56"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/date_button"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_calendar"
+                        />
+
+                    <TextView
+                        android:id="@+id/campaign_date_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14 فبراير"
+                        android:paddingStart="5dp"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:textColor="@color/app_color"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/date_button"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_alarm"
+                        />
+
+                    <TextView
+                        android:id="@+id/campaign_time_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="05:00"
+                        android:paddingStart="5dp"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:textColor="@color/app_color"
+                        />
+
+
+                </LinearLayout>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/edit_campaign_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_edit"
+                    app:fabSize="mini"
+                    android:backgroundTint="@color/app_color"
+                    app:elevation="0dp"
+                     />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="المتبرعين"
+                android:textSize="16sp"
+                android:fontFamily="@font/tajawal_bold"
+                android:textColor="@color/black"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_donors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                 />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

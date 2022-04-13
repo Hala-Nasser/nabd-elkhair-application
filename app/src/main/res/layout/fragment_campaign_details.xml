@@ -117,6 +117,7 @@
             android:layout_marginTop="20dp"/>
 
         <include layout="@layout/charity_item"
+            android:id="@+id/campaign_charity"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_gravity="center"/>

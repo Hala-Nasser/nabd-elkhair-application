@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layoutDirection="rtl">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/charity_card_view"
         android:layout_width="match_parent"
@@ -56,9 +57,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
+                    android:fontFamily="@font/tajawal_bold"
                     android:text="جمعية الاحسان التطوعية"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,8 +80,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:lines="1"
+                        android:fontFamily="@font/tajawal_medium"
                         android:text="فلسطين , غزة"
-                        android:textColor="@color/black_transparent_43"
+                        android:textColor="@color/black_transparent_37"
                         android:textSize="12sp" />
 
                 </LinearLayout>

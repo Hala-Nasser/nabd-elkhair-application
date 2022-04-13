@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/campaign_image"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:layout_marginTop="30dp"
+            app:riv_corner_radius="10dp"
+            android:background="@drawable/rectangle_dashed_border"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:paddingStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:text="تقديم الاكل للعائلات المحتاجة"
+            android:textSize="16sp"
+            android:fontFamily="@font/tajawal_bold"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="15sp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:lineSpacingExtra="5dp"
+            android:justificationMode="inter_word"
+            android:text="@string/hint"
+            android:textSize="15sp"
+            android:fontFamily="@font/tajawal_medium"
+            android:textColor="@color/black_transparent_56"
+             />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/date_button"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_height="50dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calendar"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14 فبراير"
+                    android:paddingStart="5dp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textColor="@color/app_color"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/date_button"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_height="50dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_alarm"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00"
+                    android:paddingStart="5dp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textColor="@color/app_color"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="طرق الدفع"
+            android:textSize="16sp"
+            android:fontFamily="@font/tajawal_bold"
+            android:textColor="@color/black"
+            />
+
+
+
+    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:paddingHorizontal="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".charity.fragments.CharityEditProfileFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+
+                <ImageView
+                    android:id="@+id/charity_settings_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                    app:tint="@color/black"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تعديل الملف الشخصي"
+                    android:gravity="center"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:textColor="@color/black_transparent_94"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/charity_image"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dashed_border"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/edit_profile_border"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add"
+                        android:layout_centerInParent="true"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
+                android:hint="اسم المستخدم"
+                android:textColor="@color/edit_profile_grey"
+                android:textColorHint="@color/edit_profile_grey"
+                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextColor="@color/edit_profile_grey">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="text"
+                    android:text="جمعية الاحسان التطوعية"
+                    android:paddingTop="25dp"
+                    android:textColor="@color/black_transparent_94"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:hint="البريد الالكتروني"
+                android:textColor="@color/edit_profile_grey"
+                android:textColorHint="@color/edit_profile_grey"
+                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextColor="@color/edit_profile_grey">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="textEmailAddress"
+                    android:text="Patrick.Cunningham@Mail.Com"
+                    android:textDirection="rtl"
+                    android:paddingTop="25dp"
+                    android:textColor="@color/black_transparent_94"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:hint="رقم الهاتف"
+                android:textColor="@color/edit_profile_grey"
+                android:textColorHint="@color/edit_profile_grey"
+                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextColor="@color/edit_profile_grey">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="phone"
+                    android:text="(077)112-1645"
+                    android:gravity="right"
+                    android:paddingTop="25dp"
+                    android:textColor="@color/black_transparent_94"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="موقع الجمعية"
+                android:textSize="13sp"
+                android:fontFamily="@font/tajawal_medium"
+                android:textColor="@color/edit_profile_grey"
+                android:layout_marginTop="15dp"
+                android:paddingStart="15dp"/>
+
+
+            <LinearLayout
+                android:id="@+id/edit_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="غزة"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textColor="@color/black_transparent_94"
+                    android:layout_marginTop="15dp"
+                    android:paddingStart="15dp"/>
+
+                <ImageView
+                    android:id="@+id/edit_profile_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_down"
+                    android:layout_gravity="end"
+                    app:tint="@color/app_color"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                />
+
+
+
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/edit_profile_expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                app:el_expanded="false"
+                app:el_duration="500"
+                >
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="غزة"
+                        android:buttonTint="@color/radio_button_color"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:textSize="15sp"
+                        android:textColor="@color/radio_button_color"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="خانيونس"
+                        android:buttonTint="@color/radio_button_color"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:textSize="15sp"
+                        android:textColor="@color/radio_button_color"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="رفح"
+                        android:buttonTint="@color/radio_button_color"
+                        android:fontFamily="@font/tajawal_medium"
+                        android:textSize="15sp"
+                        android:textColor="@color/radio_button_color"
+                        />
+                </RadioGroup>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="عن الجمعية"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/edit_profile_grey"
+                app:hintTextAppearance="@style/TextLabel"
+                app:hintTextColor="@color/edit_profile_grey"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:paddingTop="25dp"
+                    android:lines="5"
+                    android:text="@string/hint"
+                    android:gravity="top"
+                    android:textAlignment="gravity"
+                    android:overScrollMode="always"
+                    android:scrollbars="vertical"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollHorizontally="false"
+                    android:textColor="@color/black_transparent_94"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textSize="15sp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/colored_button"
+                android:gravity="center"
+                android:text="حفظ"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/tajawal_bold" />
+
+
+
+
+
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.os.Parcelable
 import android.transition.TransitionInflater
 import android.view.View
 import android.view.WindowManager
@@ -17,7 +18,7 @@ class GeneralChanges {
             activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             val window = activity.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.argb(100,16,177,177)
+            window.statusBarColor = Color.rgb(16,177,177)
         }
     }
 

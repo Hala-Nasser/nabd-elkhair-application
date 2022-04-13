@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_background"
+    android:layoutDirection="rtl"
+    android:paddingHorizontal="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".donor.fragments.AboutCharityFragment"
+        android:layoutDirection="rtl">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/campaign_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tajawal_medium"
+                android:textColor="@color/grey_bold"
+                android:textSize="14sp"
+                android:text="@string/default_text"
+                android:layout_marginTop="10dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/charity_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:padding="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="التبرعات"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/tajawal_bold"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal"
+                        android:gravity="right"
+                        android:weightSum="10">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            app:cardBackgroundColor="@color/app_color"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="2"
+                            app:cardElevation="2dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_gravity="center"
+                                android:text="مال"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/tajawal_medium"
+                                />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".5"/>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            app:cardBackgroundColor="@color/app_color"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="2"
+                            app:cardElevation="2dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_gravity="center"
+                                android:text="ملابس"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/tajawal_medium"
+                                />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".5"/>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/donation_details_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            app:cardBackgroundColor="@color/app_color"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="2"
+                            app:cardElevation="2dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_gravity="center"
+                                android:text="غذاء"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/tajawal_medium"
+                                />
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="التواصل"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/tajawal_bold"
+                android:layout_marginTop="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layoutDirection="rtl">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:text="Ruth Mendoza"
+                    android:drawableStart="@drawable/facebook"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textColor="@color/blue"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:text="(291)771-2416"
+                    android:drawableStart="@drawable/phone_icon"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:textColor="@color/black_transparent_49"
+                    android:drawablePadding="10dp"/>
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/charity_donate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginVertical="40dp"
+                android:background="@drawable/colored_button"
+                android:gravity="center"
+                android:text="تبرع الآن"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

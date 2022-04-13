@@ -1,10 +1,7 @@
 package com.example.graduationproject.donor.fragments
 
-import android.app.ActionBar
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import android.util.Xml
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
-import com.example.graduationproject.api.category.CategoryJson
-import com.example.graduationproject.api.category.Data
 import com.example.graduationproject.charity.fragments.AllDonationFragment
 import com.example.graduationproject.charity.fragments.ClothesDonationFragment
 import com.example.graduationproject.charity.fragments.FoodDonationFragment
 import com.example.graduationproject.charity.fragments.MoneyDonationFragment
-import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.donor.adapters.CharitiesAdapter
-import com.example.graduationproject.donor.adapters.DonationTypeAdapter
-import com.example.graduationproject.donor.models.Campaigns
 import com.example.graduationproject.donor.models.Charity
 import com.example.graduationproject.donor.models.DonationType
-import com.example.graduationproject.network.ApiRequests
-import com.example.graduationproject.network.RetrofitInstance
-import com.example.mystory2.api.story.StoryJson
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_all_donation.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
@@ -39,33 +28,20 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.awaitResponse
-import android.widget.LinearLayout
+import android.view.View.OnTouchListener
+import com.example.graduationproject.classes.TabLayoutSettings
 
-
-
-
-class HomeFragment : Fragment(),View.OnClickListener {
-
-    lateinit var rv_donation_type: RecyclerView
-    var categoriesList = listOf<DonationType>()
+class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
     private lateinit var  charitiesList: MutableList<Charity>
+    private val TAB_ICONS = arrayOf(
+        R.drawable.all,
+        R.drawable.money,
+        R.drawable.food,
+        R.drawable.clothes,
+    )
 
-    var allDonationChecked = false
-    var moneyDonationChecked = false
-    var foodDonationChecked = false
-    var clothesDonationChecked = false
-
-    lateinit var fragments : ArrayList<Fragment>
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,73 +50,47 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
         requireActivity().nav_bottom.visibility=View.VISIBLE
 
-        root.donation_all.setOnClickListener(this)
-        root.donation_money.setOnClickListener(this)
-        root.donation_food.setOnClickListener(this)
-        root.donation_clothes.setOnClickListener(this)
 
-        fragments = ArrayList<Fragment>()
 
-        fragments.add(AllDonationFragment())
-        fragments.add(MoneyDonationFragment())
-        fragments.add(FoodDonationFragment())
-        fragments.add(ClothesDonationFragment())
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager ,fragments)
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
+        sectionsPagerAdapter.addFragments(AllDonationFragment())
+        sectionsPagerAdapter.addFragments(MoneyDonationFragment())
+        sectionsPagerAdapter.addFragments(FoodDonationFragment())
+        sectionsPagerAdapter.addFragments(ClothesDonationFragment())
         root.campaigns_viewpager.adapter = sectionsPagerAdapter
+        root.donor_home_tab_layout.setupWithViewPager(root.campaigns_viewpager)
 
-//        root.charities_viewpager.rotationY = 180F
+        var tabLayout = TabLayoutSettings()
+        tabLayout.setupTabIcons(root.donor_home_tab_layout,TAB_ICONS)
+        tabLayout.setTabMargin(root.donor_home_tab_layout,10,10,100)
 
-
-        root.campaigns_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-
-                when (position){
-                    0 -> {
-                        allDonationChecked = true
-                        moneyDonationChecked = false
-                        foodDonationChecked = false
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    1 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = true
-                        foodDonationChecked = false
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    2 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = false
-                        foodDonationChecked = true
-                        clothesDonationChecked = false
-                        changeTabBarItem()
-                    }
-                    3 -> {
-                        allDonationChecked = false
-                        moneyDonationChecked = false
-                        foodDonationChecked = false
-                        clothesDonationChecked = true
-                        changeTabBarItem()
-                    }
+        root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->
+            when (root.campaigns_viewpager.currentItem) {
+                0 -> {
+                    root.campaigns_viewpager.setCurrentItem(-1, false)
+                    return@OnTouchListener true
                 }
-
+                1 -> {
+                    root.campaigns_viewpager.setCurrentItem(1-1, false)
+                    root.campaigns_viewpager.setCurrentItem(1, false)
+                    return@OnTouchListener true
+                }
+                2 -> {
+                    root.campaigns_viewpager.setCurrentItem(2-1, false)
+                    root.campaigns_viewpager.setCurrentItem(2, false)
+                    return@OnTouchListener true
+                }
+                3 -> {
+                    root.campaigns_viewpager.setCurrentItem(3-1, false)
+                    root.campaigns_viewpager.setCurrentItem(3, false)
+                    return@OnTouchListener true
+                }
+                else -> true
             }
-
         })
+
+
 
         charitiesList = mutableListOf()
         charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
@@ -149,12 +99,10 @@ class HomeFragment : Fragment(),View.OnClickListener {
         charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
 
 
-
-
         root.rv_all_charities.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
         root.rv_all_charities.setHasFixedSize(true)
         val charitiesAdapter =
-            CharitiesAdapter(this.activity, charitiesList)
+            CharitiesAdapter(this.activity, charitiesList, this)
         root.rv_all_charities.adapter = charitiesAdapter
         root.rv_all_charities
 
@@ -163,127 +111,20 @@ class HomeFragment : Fragment(),View.OnClickListener {
     }
 
 
-    override fun onClick(p0: View?) {
-        changeTabBarItem()
-        when(p0!!.id){
-            R.id.donation_all -> {
-                allDonationChecked = true
-                moneyDonationChecked = false
-                foodDonationChecked = false
-                clothesDonationChecked = false
 
-                campaigns_viewpager.currentItem = 0
-            }
-            R.id.donation_money -> {
-                allDonationChecked = false
-                moneyDonationChecked = true
-                foodDonationChecked = false
-                clothesDonationChecked = false
-                campaigns_viewpager.currentItem = 1
-            }
-            R.id.donation_food -> {
-                allDonationChecked = false
-                moneyDonationChecked = false
-                foodDonationChecked = true
-                clothesDonationChecked = false
-                campaigns_viewpager.currentItem = 2
-            }
-            R.id.donation_clothes -> {
-                allDonationChecked = false
-                moneyDonationChecked = false
-                foodDonationChecked = false
-                clothesDonationChecked = true
-                campaigns_viewpager.currentItem = 3
 
-            }
-        }
+    override fun onItemClick(data: Charity, position: Int) {
+        val fragment = CharityDetailsFragment()
+        val b = Bundle()
+        b.putString("campaign_name", data.charityName)
+        b.putInt("campaign_image", data.charityImg!!)
+        b.putString("campaign_date", data.charityLocation)
+
+        fragment.arguments = b
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
+        requireActivity().nav_bottom.visibility=View.GONE
     }
-
-    private fun changeTabBarItem() {
-        if (allDonationChecked) {
-            donation_all.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(all_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_all.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(all_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-        if (moneyDonationChecked) {
-            donation_money.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(money_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_money.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(money_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-
-        if (foodDonationChecked) {
-            donation_food.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(food_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_food.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(food_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-
-
-        if (clothesDonationChecked) {
-            donation_clothes.setCardBackgroundColor(resources.getColor(R.color.app_color))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(clothes_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.white)
-            )
-        }else {
-            donation_clothes.setCardBackgroundColor(resources.getColor(R.color.white))
-            DrawableCompat.setTint(
-                DrawableCompat.wrap(clothes_img.drawable),
-                ContextCompat.getColor(this.requireContext(), R.color.black)
-            )
-        }
-    }
-
-
-//    fun getCategories(){
-//        Log.e("TAG", "stories")
-//
-//        val response = RetrofitInstance.create().getCategories()
-//
-//        response.enqueue(object : Callback<CategoryJson> {
-//            override fun onResponse(call: Call<CategoryJson>, response: Response<CategoryJson>) {
-//                if (response.isSuccessful) {
-//                    val data = response.body()
-//                    Log.e("TAG", "Stories success")
-////                    categoriesList = data!!.data
-//                    rv_donation_type.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
-//                    rv_donation_type.setHasFixedSize(true)
-//                    val storyAdapter =
-//                        DonationTypeAdapter(activity, categoriesList,"DonorHome")
-//                    rv_donation_type.adapter = storyAdapter
-//                } else {
-//                    Log.e("TAG", "Stories unsuccess")
-//                }
-//
-//            }
-//
-//            override fun onFailure(call: Call<CategoryJson>, t: Throwable) {
-//                Log.e("TAG", t.message!!)
-//            }
-//        })
-//    }
 
 }

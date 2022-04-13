@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import com.example.graduationproject.R
+import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
 
 class SignInActivity : AppCompatActivity() {
@@ -15,9 +16,17 @@ class SignInActivity : AppCompatActivity() {
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
 
-        findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
-            GeneralChanges().prepareFadeTransition(this, DonorMainActivity())
-        }
+         var from = intent.getBooleanExtra("Donor",true)
+          if (from){
+              findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
+                  GeneralChanges().prepareFadeTransition(this, DonorMainActivity())
+              }
+          }else{
+              findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
+                  GeneralChanges().prepareFadeTransition(this, CharityMainActivity())
+              }
+          }
+
 
         findViewById<TextView>(R.id.sign_up).setOnClickListener {
             GeneralChanges().prepareFadeTransition(this, SignUpActivity())

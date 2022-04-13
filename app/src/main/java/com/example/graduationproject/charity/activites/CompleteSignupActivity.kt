@@ -21,14 +21,14 @@ class CompleteSignupActivity : AppCompatActivity() {
         GeneralChanges().fadeTransition(this)
 
         charity_sign_up.setOnClickListener {
-            GeneralChanges().prepareFadeTransition(this, CharityMainActivity())
+            GeneralChanges().prepareFadeTransition(this, PaymentsMethodActivity())
         }
         donationTypeList = mutableListOf()
-        donationTypeList.add(DonationType(R.drawable.kitchen_utensils))
-        donationTypeList.add(DonationType(R.drawable.clothes))
-        donationTypeList.add(DonationType(R.drawable.food))
-        donationTypeList.add(DonationType(R.drawable.money))
-        donationTypeList.add(DonationType(R.drawable.furniture))
+        donationTypeList.add(DonationType(R.drawable.kitchen_utensils,"أدوات مطبخ"))
+        donationTypeList.add(DonationType(R.drawable.clothes,"ملابس"))
+        donationTypeList.add(DonationType(R.drawable.food,"طعام"))
+        donationTypeList.add(DonationType(R.drawable.money,"مال"))
+        donationTypeList.add(DonationType(R.drawable.furniture,"أثاث"))
 
         rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL,false)
         rv_complete_signup_donation_type.setHasFixedSize(true)

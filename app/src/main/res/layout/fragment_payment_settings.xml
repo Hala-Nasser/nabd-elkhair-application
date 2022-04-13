@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl"
+    android:paddingHorizontal="20dp"
+    tools:context=".charity.fragments.PaymentSettingsFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tajawal_bold"
+                android:paddingStart="5dp"
+                android:text="الدفع"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_campaign_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_add"
+                app:fabSize="mini"
+                android:visibility="gone"
+                app:backgroundTint="@color/app_color"
+                app:elevation="1dp"
+                app:borderWidth="0dp"
+                android:layout_alignParentLeft="true"
+
+                />
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/empty_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/payment_credit"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="لا يوجد طريقة دفع مضافة الى الان "
+                android:textSize="13sp"
+                android:fontFamily="@font/tajawal_medium"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:paddingEnd="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="بامكانك الإضافة من خلال"
+                    android:textSize="14sp"
+                    android:textColor="@color/black_transparent_94"
+                    android:fontFamily="@font/tajawal_bold"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pen_tool"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add"
+                    android:layout_marginStart="10dp"
+                    app:fabSize="mini"
+                    app:backgroundTint="@color/app_color"
+                    app:elevation="5dp"
+                    app:borderWidth="0dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_payments_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الخصوصية"
+            android:paddingStart="5dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/tajawal_bold"
+            android:textColor="@color/black_transparent_94"
+            android:layout_marginTop="30dp"/>
+
+        <RelativeLayout
+            android:id="@+id/payment_settings_privacy_policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:id="@+id/privacy_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/privacy_icon"
+                app:tint="@color/settings_grey_transparent_55" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toEndOf="@+id/privacy_icon"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="سياسة الخصوصية"
+                android:textColor="@color/settings_grey"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+                app:tint="@color/settings_grey_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey_transparent_15" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تسجيل"
+            android:paddingStart="10dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/tajawal_bold"
+            android:textColor="@color/black_transparent_94"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/payment_settings_sign_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تسجيل خروج"
+            android:paddingStart="10dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/tajawal_bold"
+            android:textColor="@color/app_color"
+            android:layout_marginTop="10dp"/>
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,11 +40,6 @@ class CharityMainActivity : AppCompatActivity() {
             }
         }
 
-        //test
-        //noor test
-        //hala
-        //hala
-
         replaceFragment(HomeFragment())
         nav_bottom.setOnItemSelectedListener {
             when (it) {
@@ -72,4 +67,5 @@ class CharityMainActivity : AppCompatActivity() {
             fragment).commit()
 
     }
+
 }

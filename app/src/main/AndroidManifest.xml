@@ -13,7 +13,10 @@
         android:theme="@style/Theme.GraduationProject"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".charity.activites.AddCampaignActivity"
+            android:name=".charity.activites.PaymentsMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PrivacyPolicyActivity"
             android:exported="false" />
         <activity
             android:name=".charity.activites.CompleteSignupActivity"
