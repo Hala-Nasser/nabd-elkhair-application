@@ -19,21 +19,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="65dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="تفاصيل الحملة"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="تفاصيل الحملة"
+                android:textAlignment="center"
+                android:textAppearance="@style/title" />
+
+        </RelativeLayout>
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -86,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/tajawal_medium"
-                android:textColor="@color/black_transparent_43"
+                android:textColor="@color/black_transparent_37"
                 android:textSize="15sp"
                 android:text="تنتهي الحملة في: " />
 
@@ -94,7 +108,7 @@
                 android:id="@+id/campaign_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/tajawal_medium"
+                android:fontFamily="@font/tajawal_black"
                 android:textColor="@color/date_color"
                 android:textSize="15sp"
                 android:text="22/12/2020"/>
@@ -132,8 +146,8 @@
             android:text="تبرع"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:fontFamily="@font/tajawal_bold" />
 
 
     </LinearLayout>

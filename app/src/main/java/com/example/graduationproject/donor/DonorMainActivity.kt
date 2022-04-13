@@ -2,6 +2,7 @@ package com.example.graduationproject.donor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.graduationproject.MyFirebaseMessagingService
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.R
 import com.example.graduationproject.donor.fragments.HomeFragment
@@ -17,6 +18,8 @@ class DonorMainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_donor_main)
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
+
+        MyFirebaseMessagingService::retrieveToken
 
         nav_bottom = findViewById(R.id.nav_bottom)
 

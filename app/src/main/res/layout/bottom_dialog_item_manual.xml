@@ -16,11 +16,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <View
+            android:layout_width="80dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:background="@drawable/default_dots"
+            android:backgroundTint="@color/black_transparent_43"
+            android:layout_marginVertical="10dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="10dp">
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:id="@+id/close"
@@ -80,7 +88,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="70 شيكل"
-                android:textColor="@color/app_color"
+                android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -114,7 +122,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="الوسطى"
-                android:textColor="@color/app_color"
+                android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -147,7 +155,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="المغازي"
-                android:textColor="@color/app_color"
+                android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -180,7 +188,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="الطريق الاولى- مقابل كتيبة 13"
-                android:textColor="@color/app_color"
+                android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -213,7 +221,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="(077)112-1645"
-                android:textColor="@color/app_color"
+                android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -234,8 +242,8 @@
             android:text="تأكيد"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:fontFamily="@font/tajawal_bold" />
 
 
     </LinearLayout>

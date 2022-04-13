@@ -65,6 +65,10 @@ class CompleteSignUpActivity : AppCompatActivity() {
 
         findViewById<AppCompatButton>(R.id.sign_up).setOnClickListener {
             registerToApp()
+            // api لفحص الرجستر و التخزين
+            // بدي اخد منها ايدي اليوزر
+            // بدي اخزن الايدي بالشيرد بريفيرنس
+
 
         }
 
@@ -89,6 +93,11 @@ class CompleteSignUpActivity : AppCompatActivity() {
 //            val param = image.layoutParams as ViewGroup.MarginLayoutParams
 //            image.layoutParams = param
 //        }
+
+        findViewById<ImageView>(R.id.back).setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
