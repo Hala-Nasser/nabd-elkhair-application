@@ -63,25 +63,27 @@ class AddCampaignFragment : Fragment() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
-                root.progressBar.progress += 25
+                //root.progressBar.progress += 25
                 when (position) {
                     layouts.size - 1 -> {
                         //LAST PAGE
                         changeProgressData(root,"اضافة حملة",View.GONE,"4 من 4","تاكيد الحملة","")
+                        root.progressBar.progress = 100
                     }
                     0 -> {
                         changeProgressData(root,"التالي",View.VISIBLE,"1 من 4","معلومات الحملة","التالي : تاريخ انتهاء الحملة")
                        // Log.d("data",campaign_title.text.toString())
+                        root.progressBar.progress = 25
                     }
                     1 -> {
 
                         changeProgressData(root,"التالي",View.VISIBLE,"2 من 4","تاريخ انتهاء الحملة","التالي : إضافة وقت الانتهاء")
-
+                        root.progressBar.progress = 50
                     }
                     2 -> {
 
                         changeProgressData(root,"التالي",View.VISIBLE,"3 من 4","إضافة وقت الانتهاء","التالي : تاكيد الحملة")
-
+                        root.progressBar.progress = 75
                     }
                 }
 
@@ -97,7 +99,7 @@ class AddCampaignFragment : Fragment() {
             if (currentPage < layouts.size) {
                 //move to next page
                 root.add_campaign_pager.currentItem = currentPage
-                root.progressBar.progress += 25
+                //root.progressBar.progress += 25
             } else {
                 var bundle = Bundle()
                 bundle.putBoolean("addCampaign",true)

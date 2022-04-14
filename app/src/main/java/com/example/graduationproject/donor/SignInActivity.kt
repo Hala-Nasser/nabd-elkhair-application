@@ -19,6 +19,9 @@ class SignInActivity : AppCompatActivity() {
          var from = intent.getBooleanExtra("Donor",true)
           if (from){
               findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
+                  // api لفحص الرجستر و التخزين
+                  // بدي اخد منها ايدي اليوزر
+                  // بدي اخزن الايدي بالشيرد بريفيرنس
                   GeneralChanges().prepareFadeTransition(this, DonorMainActivity())
               }
           }else{
