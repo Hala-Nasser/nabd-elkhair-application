@@ -21,6 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
@@ -41,13 +42,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
             var token = task.result
             Log.e("hala", "Token: $token")
-
             val ref = activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
             val user_id = ref.getInt("user_id",0)
 
             addFcm(user_id, token)
         // api بيخزن التوكن في بيانات اليوزر بناء على الايدي الي حاخدو من الشيرد بريفرينس الي بالرجستر او اللوقن
-
         })
     }
 
@@ -80,6 +79,5 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         })
 
     }
-
 
 }

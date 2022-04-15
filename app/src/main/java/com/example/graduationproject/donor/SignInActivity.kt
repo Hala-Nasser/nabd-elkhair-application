@@ -43,7 +43,6 @@ class SignInActivity : AppCompatActivity() {
                   // بدي اخد منها ايدي اليوزر
                   // بدي اخزن الايدي بالشيرد بريفيرنس
                   loginToApp()
-
               }
           }else{
               findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {

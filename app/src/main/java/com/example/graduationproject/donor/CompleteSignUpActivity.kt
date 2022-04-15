@@ -75,7 +75,6 @@ class CompleteSignUpActivity : AppCompatActivity() {
 
 
         findViewById<AppCompatButton>(R.id.sign_up).setOnClickListener {
-
             Log.e("image click sign up", "image is: $imageURI")
 
             if (imageURI != null){

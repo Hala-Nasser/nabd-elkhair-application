@@ -21,6 +21,7 @@ class DonorMainActivity : AppCompatActivity() {
 
         MyFirebaseMessagingService().retrieveToken(this)
 
+
         nav_bottom = findViewById(R.id.nav_bottom)
 
         openMainFragment()

@@ -17,9 +17,7 @@ import java.lang.Exception
 
 
  object FileUtil {
-    /*
-     * Gets the file path of the given Uri.
-     */
+
     @SuppressLint("NewApi")
     fun getPath(uri: Uri, context: Context): String? {
         var uri: Uri = uri
