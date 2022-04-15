@@ -19,7 +19,7 @@ class DonorMainActivity : AppCompatActivity() {
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
 
-        MyFirebaseMessagingService::retrieveToken
+        MyFirebaseMessagingService().retrieveToken(this)
 
         nav_bottom = findViewById(R.id.nav_bottom)
 

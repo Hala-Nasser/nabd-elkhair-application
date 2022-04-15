@@ -1,22 +1,14 @@
 package com.example.graduationproject.network
 
-import com.example.graduationproject.api.category.CategoryJson
 import com.example.graduationproject.api.donor.DonorJson
-import com.example.graduationproject.donor.models.Donor
-import okhttp3.MultipartBody
+import com.example.graduationproject.api.donorLogin.loginJson
+import com.example.graduationproject.api.fcm.FCM
+import com.example.graduationproject.api.fcm.fcmJson
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
 
-import okhttp3.ResponseBody
-
 import retrofit2.http.POST
-
-import retrofit2.http.Multipart
-
-import android.R.id
-import android.database.Observable
-import retrofit2.Response
 
 
 interface ApiRequests {
@@ -32,8 +24,13 @@ interface ApiRequests {
 
     @POST("donor/register")
     fun donorRegister(@Body body: RequestBody): Call<DonorJson>
-//    @POST("/WS/userLogin")
-//    fun logIn(@Body user: LoginUser): Call<LoginUserJson>
+
+    @POST("donor/login")
+    fun logIn(@Body body: RequestBody): Call<loginJson>
+
+    @POST("donor/store/fcm")
+    fun fcmToken(@Query("user_id") userId: Int,
+        @Query("fcm") fcm: String): Call<fcmJson>
 //
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")
