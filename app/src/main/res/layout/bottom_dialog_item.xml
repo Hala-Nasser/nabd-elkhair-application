@@ -89,7 +89,7 @@
                 android:layout_weight="1"
                 android:paddingEnd="10dp"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="70 شيكل"
+                android:text="hala hala"
                 android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -123,10 +123,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="(224)893-7083"
                 android:textColor="@color/app_color_transparent_86"
                 android:text="70 شيكل"
-                android:textColor="@color/app_color"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -158,10 +156,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:fontFamily="@font/tajawal_medium"
-                android:text="7358786969007654"
                 android:textColor="@color/app_color_transparent_86"
                 android:text="Paypal.Me/Nadaelrayes389"
-                android:textColor="@color/app_color"
                 android:textSize="16sp" />
         </LinearLayout>
 

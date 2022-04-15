@@ -43,8 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                android:fontFamily="@font/tajawal_bold"
-                android:text="تم تأكيد عملية التبرع بنجاح"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="تم ارسال طلب تبرعك الي الجمعية و سيتم اشعارك بقبول طلبك او رفضه"
                 android:textAlignment="center"
@@ -83,8 +81,7 @@
                 android:text="الرجوع إلى الرئيسية"
                 android:fontFamily="@font/tajawal_bold"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:fontFamily="@font/tajawal_bold" />
+                android:textSize="18sp" />
                  />
 
 
