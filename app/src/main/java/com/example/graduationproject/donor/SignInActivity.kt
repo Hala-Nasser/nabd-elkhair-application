@@ -95,12 +95,10 @@ class SignInActivity : AppCompatActivity() {
 
 
                     }
-                    // else {
-//                        Toast.makeText(this@SignInActivity, data., Toast.LENGTH_LONG)
-//                            .show()
-//                    }
+
                 }else{
-                    Log.e("errorBody", response.message())
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                    Log.e("errorBody", response.body().toString())
                 }
 
             }
