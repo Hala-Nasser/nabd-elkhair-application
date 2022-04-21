@@ -9,8 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.graduationproject.R
-import com.example.graduationproject.api.donorLogin.loginJson
-import com.example.graduationproject.api.fcm.fcmJson
+import com.example.graduationproject.api.donorApi.login.LoginJson
 import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
@@ -71,13 +70,13 @@ class SignInActivity : AppCompatActivity() {
             RetrofitInstance.create()
         val response = retrofitInstance.logIn(body)
 
-        response.enqueue(object : Callback<loginJson> {
-            override fun onResponse(call: Call<loginJson>, response: Response<loginJson>) {
+        response.enqueue(object : Callback<LoginJson> {
+            override fun onResponse(call: Call<LoginJson>, response: Response<LoginJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("TAG", data.toString())
 
-                    if (data!!.success) {
+                    if (data!!.status) {
 
                         val user_id = data.data.id
                         val sharedPref = this@SignInActivity.getSharedPreferences(
@@ -103,7 +102,7 @@ class SignInActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<loginJson>, t: Throwable) {
+            override fun onFailure(call: Call<LoginJson>, t: Throwable) {
                 Log.e("TAG", t.message!!)
             }
         })
