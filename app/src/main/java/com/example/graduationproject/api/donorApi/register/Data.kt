@@ -1,6 +1,7 @@
-package com.example.graduationproject.api.donor
+package com.example.graduationproject.api.donorApi.register
 
-data class DonorJson(
+
+data class Data(
     val activation_status: String,
     val created_at: String,
     val email: String,

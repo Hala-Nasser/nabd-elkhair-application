@@ -55,4 +55,6 @@
     <color name="green">#4CD964</color>
     <color name="radio_btn_color">#414242</color>
     <color name="red_color">#CC222D</color>
+    <color name="snackbar_background">#9AFF002E</color>
+    <color name="mtrl_textinput_default_box_stroke_color">@color/app_color</color>
 </resources>

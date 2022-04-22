@@ -2,6 +2,7 @@ package com.example.graduationproject.classes
 
 import android.app.Activity
 import android.app.ActivityOptions
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -9,6 +10,7 @@ import android.os.Parcelable
 import android.transition.TransitionInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import com.example.graduationproject.R
 
 class GeneralChanges {
@@ -38,5 +40,16 @@ class GeneralChanges {
         var option = ActivityOptions.makeSceneTransitionAnimation(currentActivity)
         var intent = Intent(currentActivity, activity::class.java)
         currentActivity.startActivity(intent,option.toBundle())
+    }
+
+    fun showDialog(progressDialog:ProgressDialog, message:String) {
+        progressDialog.setMessage(message)
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+    }
+
+    fun hideDialog(progressDialog:ProgressDialog,){
+        if(progressDialog.isShowing)
+            progressDialog.dismiss()
     }
 }

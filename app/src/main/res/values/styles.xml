@@ -61,4 +61,15 @@
         <item name="android:datePickerMode">calendar</item>
         <item name="android:fontFamily">@font/tajawal_bold</item>
     </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/app_color</item>
+        <item name="hintTextAppearance">@style/TextLabel</item>
+        <item name="boxStrokeErrorColor">@color/red_color</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="errorEnabled">true</item>
+    </style>
 </resources>
