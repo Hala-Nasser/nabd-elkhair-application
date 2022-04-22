@@ -1,38 +1,42 @@
 package com.example.graduationproject
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
-import androidx.annotation.NonNull
-import com.example.graduationproject.api.fcm.FCM
-import com.example.graduationproject.api.fcm.fcmJson
+import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.network.RetrofitInstance
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.content.Intent
+import com.example.graduationproject.R
+import android.app.PendingIntent
+import android.graphics.Color
+import android.os.Build
+import android.widget.RemoteViews
+import androidx.core.app.NotificationCompat
+import com.example.graduationproject.donor.DonorMainActivity
+import com.google.firebase.messaging.RemoteMessage
+import java.text.SimpleDateFormat
+import java.util.*
+import android.text.format.DateUtils
 
 
-
+const val channelId = "notification_channel"
+const val channelName = "com.example.graduationproject"
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onNewToken(token: String) {
-        Log.d("TAG", "Refreshed token: $token")
 
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // FCM registration token to your app server.
-
-        //sendRegistrationToServer(token)
+    override fun onNewToken(s: String) {
+        super.onNewToken(s)
+        Log.i("DEBUG_TAG", "New token: $s")
     }
+
 
     fun retrieveToken(activity: Activity){
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -46,7 +50,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val user_id = ref.getInt("user_id",0)
 
             addFcm(user_id, token)
-        // api بيخزن التوكن في بيانات اليوزر بناء على الايدي الي حاخدو من الشيرد بريفرينس الي بالرجستر او اللوقن
         })
     }
 
@@ -61,11 +64,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.e("hala fcm", fcm)
         val response = retrofitInstance.fcmToken(user_id, fcm)
 
-        response.enqueue(object : Callback<fcmJson> {
-            override fun onResponse(call: Call<fcmJson>, response: Response<fcmJson>) {
+        response.enqueue(object : Callback<FCMJson> {
+            override fun onResponse(call: Call<FCMJson>, response: Response<FCMJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()
-                    Log.e("TAG", data.toString())
+                    Log.e("TAG", data!!.status.toString())
                 }
                 else{
                     Log.e("errorBody", response.message())
@@ -73,10 +76,71 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             }
 
-            override fun onFailure(call: Call<fcmJson>, t: Throwable) {
+            override fun onFailure(call: Call<FCMJson>, t: Throwable) {
                 Log.e("TAG", t.message!!)
             }
         })
+
+    }
+
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        if (remoteMessage.notification != null){
+            Log.e("title", remoteMessage.notification!!.title!!)
+            //remoteMessage.notification!!.eventTime
+//            val notificationDate = Date(remoteMessage.sentTime)
+//            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+//            val formateDate = format.format(notificationDate)
+//            val date: Date = format.parse(formateDate)
+//            val niceDate = DateUtils.getRelativeTimeSpanString(date.time, Calendar.getInstance().timeInMillis, DateUtils.MINUTE_IN_MILLIS)
+
+            generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!
+                //, niceDate.toString()
+            )
+        }
+
+    }
+
+    fun getRemoteView(title: String, message: String
+//                      , time:String
+    ): RemoteViews {
+        val remoteView = RemoteViews("com.example.graduationproject", R.layout.notification)
+        remoteView.setTextColor(R.id.notification_title, Color.BLACK)
+        remoteView.setTextViewText(R.id.notification_title, title)
+        //remoteView.setTextViewText(R.id.notification_time, time)
+        remoteView.setTextViewText(R.id.notification_message, message)
+        remoteView.setImageViewResource(R.id.notification_app_logo, R.drawable.logo)
+
+        return remoteView
+    }
+
+    fun generateNotification(title:String, message:String
+                             //, time: String
+    ){
+        val intent = Intent(this, DonorMainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+        var builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelId)
+            .setSmallIcon(R.drawable.logo)
+            .setAutoCancel(true)
+            .setVibrate(longArrayOf(1000, 1000, 1000, 1000))
+            .setOnlyAlertOnce(true)
+            .setContentIntent(pendingIntent)
+
+        builder = builder.setContent(getRemoteView(title, message
+           // , time
+            ))
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+        }
+
+        notificationManager.notify(0, builder.build())
 
     }
 

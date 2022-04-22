@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
+    android:id="@+id/parent_layout"
     android:background="@drawable/background"
     android:paddingHorizontal="20dp">
 
@@ -43,125 +44,102 @@
                 android:fontFamily="@font/tajawal_bold"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/username"
+                android:id="@+id/username_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
+                android:layout_height="65dp"
+                android:layout_marginTop="20dp"
                 android:hint="اسم المستخدم"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black">
+                style="@style/TextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="55dp"
                     android:inputType="text"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black_transparent_30"
+                    android:textColor="@color/black_transparent_86"
                     android:textSize="15sp"
                     android:fontFamily="@font/tajawal_medium"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/email"
+                android:id="@+id/email_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
                 android:hint="البريد الالكتروني"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black">
+                style="@style/TextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="55dp"
                     android:inputType="textEmailAddress"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black_transparent_30"
+                    android:textColor="@color/black_transparent_86"
                     android:textSize="15sp"
                     android:fontFamily="@font/tajawal_medium"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phone"
+                android:id="@+id/phone_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
                 android:hint="رقم الهاتف"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black">
+                style="@style/TextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="55dp"
                     android:inputType="phone"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black_transparent_30"
+                    android:textColor="@color/black_transparent_86"
                     android:textSize="15sp"
                     android:fontFamily="@font/tajawal_medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password"
+                android:id="@+id/password_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:hint="كلمة المرور"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black">
+                style="@style/TextInputLayoutStyle"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="55dp"
                     android:inputType="textPassword"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black_transparent_30"
+                    android:textColor="@color/black_transparent_86"
                     android:textSize="15sp"
                     android:fontFamily="@font/tajawal_medium" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirm_password"
+                android:id="@+id/confirm_password_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
                 android:hint="تأكيد كلمة المرور"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                app:hintTextAppearance="@style/TextLabel"
-                app:hintTextColor="@color/black">
-
+                app:passwordToggleEnabled="true"
+                style="@style/TextInputLayoutStyle">
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/confirm_password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="55dp"
                     android:inputType="textPassword"
-                    android:paddingTop="25dp"
-                    android:textColor="@color/black_transparent_30"
+                    android:textColor="@color/black_transparent_86"
                     android:textSize="15sp"
                     android:fontFamily="@font/tajawal_medium" />
 
@@ -174,13 +152,13 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/tajawal_medium"
                 android:textColor="@color/black_transparent_86"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"/>
 
             <Spinner
                 android:id="@+id/location_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/spinner"
                 tools:ignore="SpeakableTextPresentCheck" />

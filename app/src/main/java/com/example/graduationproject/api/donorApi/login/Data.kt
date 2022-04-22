@@ -1,4 +1,4 @@
-package com.example.graduationproject.api.donorLogin
+package com.example.graduationproject.api.donorApi.login
 
 data class Data(
     val activation_status: Int,
@@ -6,7 +6,7 @@ data class Data(
     val deleted_at: Any,
     val email: String,
     val email_verified_at: Any,
-    val fcm_token: Any,
+    val fcm_token: String,
     val id: Int,
     val image: String,
     val location: String,
