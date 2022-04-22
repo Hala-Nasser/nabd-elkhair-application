@@ -23,10 +23,9 @@ import kotlinx.android.synthetic.main.activity_sign_up.email
 import kotlinx.android.synthetic.main.activity_sign_up.password
 
 
-class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener {
+class SignUpActivity : AppCompatActivity(){
 
-    lateinit var spinner: Spinner
-     var user_address: String?=null
+    var user_address: String?=null
     var isAllFieldsChecked = false
 
     lateinit var user_name:String
@@ -91,41 +90,19 @@ class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener 
             }
         }
 
-        spinner = findViewById(R.id.location_spinner)
-        spinner.onItemSelectedListener = this
+
         if (intent=="donor"){
-            ArrayAdapter.createFromResource(
-                this,
-                R.array.donor_location_array,
-                android.R.layout.simple_spinner_item
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-            }
+            val locations = resources.getStringArray(R.array.donor_location_array)
+            val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, locations)
+            autoCompleteTextView.setAdapter(arrayAdapter)
+            user_address = autoCompleteTextView.text.toString()
+
         }else{
-            ArrayAdapter.createFromResource(
-                this,
-                R.array.charity_location_array,
-                android.R.layout.simple_spinner_item
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-            }
+            val locations = resources.getStringArray(R.array.charity_location_array)
+            val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, locations)
+            autoCompleteTextView.setAdapter(arrayAdapter)
         }
 
-
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        spinner.setSelection(p2)
-        user_address = p0!!.getItemAtPosition(p2).toString()
-        (spinner.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black_transparent_62))
-
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        spinner.setSelection(0)
-        (spinner.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black_transparent_62))
 
     }
 
@@ -138,21 +115,10 @@ class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener 
 
         if (!Validation().validatePassword(password, password_layout, findViewById(R.id.parent_layout))) return false
 
-        if (!Validation().validateConfirmPassword(password, password_layout, findViewById(R.id.parent_layout))) return false
+        if (!Validation().validateConfirmPassword(confirm_password, confirm_password_layout, findViewById(R.id.parent_layout), password.text.toString())) return false
+
+        if (!Validation().validateLocation(autoCompleteTextView, location_layout)) return false
         return true
-//        if (user_email.trim().isEmpty()) {
-//            email.error = "الايميل مطلوب"
-//            return false
-//        }
-//        if (!user_email.isValidEmail()){
-//            email.error = "الايميل غير صحيح"
-//            return false
-//        }
-//        if (user_password.isEmpty()) {
-//            password.error = "كلمة المرور مطلوبة"
-//            return false
-//        }
-//        return true
     }
 
 
