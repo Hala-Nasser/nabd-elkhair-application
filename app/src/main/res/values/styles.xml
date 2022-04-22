@@ -70,6 +70,5 @@
         <item name="boxCornerRadiusBottomStart">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
-        <item name="errorEnabled">true</item>
     </style>
 </resources>
