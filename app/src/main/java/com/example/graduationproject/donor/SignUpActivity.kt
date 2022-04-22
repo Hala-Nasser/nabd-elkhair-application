@@ -1,6 +1,7 @@
 package com.example.graduationproject.donor
 
 import android.app.ActivityOptions
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,20 +17,23 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.R
 import com.example.graduationproject.charity.activites.CompleteSignupActivity
-import com.example.graduationproject.donor.models.Donor
-import com.example.graduationproject.network.ApiRequests
-import com.example.graduationproject.network.RetrofitInstance
+import com.example.graduationproject.classes.Validation
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.awaitResponse
+import kotlinx.android.synthetic.main.activity_sign_up.email
+import kotlinx.android.synthetic.main.activity_sign_up.password
+
 
 class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener {
 
     lateinit var spinner: Spinner
-     var address: String?=null
+     var user_address: String?=null
+    var isAllFieldsChecked = false
+
+    lateinit var user_name:String
+    lateinit var user_email:String
+    lateinit var user_phone:String
+    lateinit var user_password:String
+    lateinit var user_confirm_password:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,29 +46,49 @@ class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener 
 
         findViewById<AppCompatButton>(R.id.next).setOnClickListener {
 
-            var name = username.editText!!.text.toString()
-            var email = email.editText!!.text.toString()
-            var phone = phone.editText!!.text.toString()
-            var password = password.editText!!.text.toString()
-            var confirm_password = confirm_password.editText!!.text.toString()
+            user_name = username.text.toString()
+            user_email = email.text.toString()
+            user_phone = phone.text.toString()
+            user_password = password.text.toString()
+            user_confirm_password = confirm_password.text.toString()
 
-            if (intent=="donor"){
-                var option = ActivityOptions.makeSceneTransitionAnimation(this)
-                var intent = Intent(this, CompleteSignUpActivity::class.java)
-                intent.putExtra("name",name)
-                intent.putExtra("email",email)
-                intent.putExtra("phone",phone)
-                intent.putExtra("address",address)
-                intent.putExtra("password",password)
-                intent.putExtra("confirm_password",confirm_password)
-                startActivity(intent,option.toBundle())
-            }else{
-                GeneralChanges().prepareFadeTransition(this, CompleteSignupActivity())
+            isAllFieldsChecked = CheckAllFields()
+
+            if (isAllFieldsChecked) {
+                if (intent=="donor"){
+                    var option = ActivityOptions.makeSceneTransitionAnimation(this)
+                    var intent = Intent(this, CompleteSignUpActivity::class.java)
+                    intent.putExtra("name",user_name)
+                    intent.putExtra("email",user_email)
+                    intent.putExtra("phone",user_phone)
+                    intent.putExtra("address",user_address)
+                    intent.putExtra("password",user_password)
+                    intent.putExtra("confirm_password",user_confirm_password)
+                    startActivity(intent,option.toBundle())
+                }else{
+                    GeneralChanges().prepareFadeTransition(this, CompleteSignupActivity())
+                }
             }
+
+
         }
 
         findViewById<TextView>(R.id.sign_in).setOnClickListener {
-            GeneralChanges().prepareFadeTransition(this, SignInActivity())
+            if (intent=="donor") {
+                GeneralChanges().prepareFadeTransitionWithData(
+                    this,
+                    SignInActivity(),
+                    "signup",
+                    "donor"
+                )
+            }else{
+                GeneralChanges().prepareFadeTransitionWithData(
+                    this,
+                    SignInActivity(),
+                    "signup",
+                    "charity"
+                )
+            }
         }
 
         spinner = findViewById(R.id.location_spinner)
@@ -94,7 +118,7 @@ class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener 
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         spinner.setSelection(p2)
-       address = p0!!.getItemAtPosition(p2).toString()
+        user_address = p0!!.getItemAtPosition(p2).toString()
         (spinner.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black_transparent_62))
 
     }
@@ -103,6 +127,32 @@ class SignUpActivity : AppCompatActivity() , AdapterView.OnItemSelectedListener 
         spinner.setSelection(0)
         (spinner.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black_transparent_62))
 
+    }
+
+    private fun CheckAllFields(): Boolean {
+        if (!Validation().validateUsername(username, username_layout, findViewById(R.id.parent_layout))) return false
+
+        if (!Validation().validateEmail(email, email_layout, findViewById(R.id.parent_layout))) return false
+
+        if (!Validation().validatePhoneNumber(phone, phone_layout, findViewById(R.id.parent_layout))) return false
+
+        if (!Validation().validatePassword(password, password_layout, findViewById(R.id.parent_layout))) return false
+
+        if (!Validation().validateConfirmPassword(password, password_layout, findViewById(R.id.parent_layout))) return false
+        return true
+//        if (user_email.trim().isEmpty()) {
+//            email.error = "الايميل مطلوب"
+//            return false
+//        }
+//        if (!user_email.isValidEmail()){
+//            email.error = "الايميل غير صحيح"
+//            return false
+//        }
+//        if (user_password.isEmpty()) {
+//            password.error = "كلمة المرور مطلوبة"
+//            return false
+//        }
+//        return true
     }
 
 

@@ -1,8 +1,8 @@
 package com.example.graduationproject.network
 
-import com.example.graduationproject.api.donor.DonorJson
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
+import com.example.graduationproject.api.donorApi.register.RegisterJson
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
@@ -22,7 +22,7 @@ interface ApiRequests {
 
 
     @POST("donor/register")
-    fun donorRegister(@Body body: RequestBody): Call<DonorJson>
+    fun donorRegister(@Body body: RequestBody): Call<RegisterJson>
 
     @POST("donor/login")
     fun logIn(@Body body: RequestBody): Call<LoginJson>
