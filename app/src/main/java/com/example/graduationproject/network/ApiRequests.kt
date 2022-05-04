@@ -1,8 +1,10 @@
 package com.example.graduationproject.network
 
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
+import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
 import com.example.graduationproject.api.donorApi.register.RegisterJson
+import com.example.graduationproject.api.donorApi.resetPassword.ResetPasswordJson
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
@@ -11,15 +13,6 @@ import retrofit2.http.POST
 
 
 interface ApiRequests {
-
-//    @GET("guest/category2")
-//    fun getCategories(): Call<CategoryJson>
-
-//    @Multipart
-//    @POST("donor/register")
-//    fun donorRegister(@Part ("user_id") RequestBody id,@Part imagePart: MultipartBody.Part): Call<DonorJson>
-//
-
 
     @POST("donor/register")
     fun donorRegister(@Body body: RequestBody): Call<RegisterJson>
@@ -30,7 +23,14 @@ interface ApiRequests {
     @POST("donor/store/fcm")
     fun fcmToken(@Query("user_id") userId: Int,
         @Query("fcm") fcm: String): Call<FCMJson>
-//
+
+    @POST("donor/forgotPassword")
+    fun forgotPassword(@Query("email") email: String): Call<ForgotPasswordJson>
+
+    @POST("donor/resetPassword")
+    fun resetPassword(@Query("token") token: String, @Query("password") password: String, @Query("password_confirmation") password_confirmation: String): Call<ResetPasswordJson>
+
+
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")
 //    fun editProfile(

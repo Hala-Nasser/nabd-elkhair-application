@@ -16,11 +16,9 @@ import com.example.graduationproject.api.donorApi.login.LoginJson
 import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,15 +31,16 @@ import com.example.graduationproject.classes.Validation
 import com.google.android.material.snackbar.BaseTransientBottomBar
 
 import com.google.android.material.snackbar.Snackbar
-
-
+import kotlinx.android.synthetic.main.activity_reset_password.*
+import kotlinx.android.synthetic.main.activity_sign_in.password
+import kotlinx.android.synthetic.main.activity_sign_in.password_layout
 
 
 class SignInActivity : AppCompatActivity() {
-    lateinit var user_email:String
-    lateinit var user_password:String
+    lateinit var user_email: String
+    lateinit var user_password: String
     var isAllFieldsChecked = false
-    var progressDialog: ProgressDialog?=null
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,39 +48,51 @@ class SignInActivity : AppCompatActivity() {
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
 
-         var from = intent.getBooleanExtra("Donor",true)
-          if (from){
-              findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
+        val intent = intent.getStringExtra("signup")
 
-                  user_email = email.text.toString()
-                  user_password = password.text.toString()
+        if (intent == "donor") {
+            findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
 
-                  isAllFieldsChecked = CheckAllFields()
+                user_email = email.text.toString()
+                user_password = password.text.toString()
 
-                  if (isAllFieldsChecked) {
-                      progressDialog = ProgressDialog(this)
-                      GeneralChanges().showDialog(progressDialog!!,"جاري التحميل ....")
-                      loginToApp()
-                  }
+                isAllFieldsChecked = CheckAllFields()
+
+                if (isAllFieldsChecked) {
+                    progressDialog = ProgressDialog(this)
+                    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                    loginToApp()
+                }
 
 
-
-              }
-          }else{
-              findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
-                  GeneralChanges().prepareFadeTransition(this, CharityMainActivity())
-              }
-          }
+            }
+        } else {
+            findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
+                GeneralChanges().prepareFadeTransition(this, CharityMainActivity())
+            }
+        }
 
 
         findViewById<TextView>(R.id.sign_up).setOnClickListener {
-            val intent = intent.getStringExtra("signup")
-
-            GeneralChanges().prepareFadeTransitionWithData(this, SignUpActivity(),"signup",intent)
+            GeneralChanges().prepareFadeTransitionWithData(this, SignUpActivity(), "signup", intent)
         }
 
         findViewById<TextView>(R.id.forgot_password).setOnClickListener {
             GeneralChanges().prepareFadeTransition(this, ForgotPasswordActivity())
+            if (intent == "donor")
+                GeneralChanges().prepareFadeTransitionWithData(
+                    this,
+                    ForgotPasswordActivity(),
+                    "forgot password",
+                    "donor"
+                )
+            else
+                GeneralChanges().prepareFadeTransitionWithData(
+                    this,
+                    ForgotPasswordActivity(),
+                    "forgot password",
+                    "charity"
+                )
         }
     }
 
@@ -106,7 +117,8 @@ class SignInActivity : AppCompatActivity() {
 
                         val user_id = data.data.id
                         val sharedPref = this@SignInActivity.getSharedPreferences(
-                            "sharedPref", Context.MODE_PRIVATE)
+                            "sharedPref", Context.MODE_PRIVATE
+                        )
 
                         val editor = sharedPref.edit()
                         editor.putInt("user_id", user_id)
@@ -119,13 +131,13 @@ class SignInActivity : AppCompatActivity() {
                             DonorMainActivity()
                         )
 
-                    }else{
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
 
                     }
 
-                }else{
+                } else {
                     GeneralChanges().hideDialog(progressDialog!!)
                     Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
                     Log.e("errorBody", response.body().toString())
@@ -143,16 +155,11 @@ class SignInActivity : AppCompatActivity() {
 
 
     private fun CheckAllFields(): Boolean {
-        if (!Validation().validateEmail(email, email_layout, findViewById(R.id.parent_layout))) return false
+        if (!Validation().validateEmail(email, email_layout)) return false
 
-        if (user_password.isEmpty()) {
-            Validation().showSnackBar(findViewById(R.id.parent_layout), "كلمة المرور مطلوبة")
-            return false
-        }
+        if (!Validation().validatePassword(password, password_layout)) return false
         return true
     }
-
-
 
 
 }

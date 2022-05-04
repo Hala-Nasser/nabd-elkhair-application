@@ -1,4 +1,4 @@
-package com.example.graduationproject
+package com.example.graduationproject.remote
 
 import android.app.Activity
 import android.app.NotificationChannel
@@ -86,36 +86,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (remoteMessage.notification != null){
             Log.e("title", remoteMessage.notification!!.title!!)
-            //remoteMessage.notification!!.eventTime
-//            val notificationDate = Date(remoteMessage.sentTime)
-//            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-//            val formateDate = format.format(notificationDate)
-//            val date: Date = format.parse(formateDate)
-//            val niceDate = DateUtils.getRelativeTimeSpanString(date.time, Calendar.getInstance().timeInMillis, DateUtils.MINUTE_IN_MILLIS)
-
-            generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!
-                //, niceDate.toString()
-            )
+            generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!)
         }
 
     }
 
-    fun getRemoteView(title: String, message: String
-//                      , time:String
-    ): RemoteViews {
+    fun getRemoteView(title: String, message: String): RemoteViews {
         val remoteView = RemoteViews("com.example.graduationproject", R.layout.notification)
         remoteView.setTextColor(R.id.notification_title, Color.BLACK)
         remoteView.setTextViewText(R.id.notification_title, title)
-        //remoteView.setTextViewText(R.id.notification_time, time)
         remoteView.setTextViewText(R.id.notification_message, message)
         remoteView.setImageViewResource(R.id.notification_app_logo, R.drawable.logo)
 
         return remoteView
     }
 
-    fun generateNotification(title:String, message:String
-                             //, time: String
-    ){
+    fun generateNotification(title:String, message:String){
         val intent = Intent(this, DonorMainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
@@ -128,9 +114,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setOnlyAlertOnce(true)
             .setContentIntent(pendingIntent)
 
-        builder = builder.setContent(getRemoteView(title, message
-           // , time
-            ))
+        builder = builder.setContent(getRemoteView(title, message))
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
