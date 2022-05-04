@@ -2,12 +2,12 @@ package com.example.graduationproject.donor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.graduationproject.MyFirebaseMessagingService
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.R
 import com.example.graduationproject.donor.fragments.HomeFragment
 import com.example.graduationproject.donor.fragments.NotificationFragment
 import com.example.graduationproject.donor.fragments.ProfileFragment
+import com.example.graduationproject.remote.MyFirebaseMessagingService
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class DonorMainActivity : AppCompatActivity() {

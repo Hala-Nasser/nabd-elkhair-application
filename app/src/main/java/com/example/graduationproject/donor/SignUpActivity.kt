@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import com.example.graduationproject.PrivacyPolicyActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.R
 import com.example.graduationproject.charity.activites.CompleteSignupActivity
@@ -41,6 +42,7 @@ class SignUpActivity : AppCompatActivity(){
         GeneralChanges().fadeTransition(this)
 
         val intent = intent.getStringExtra("signup")
+        Log.e("signup intent", intent!!)
 
 
         findViewById<AppCompatButton>(R.id.next).setOnClickListener {
@@ -73,13 +75,14 @@ class SignUpActivity : AppCompatActivity(){
         }
 
         findViewById<TextView>(R.id.sign_in).setOnClickListener {
-            if (intent=="donor") {
+            if (intent == "donor") {
                 GeneralChanges().prepareFadeTransitionWithData(
                     this,
                     SignInActivity(),
                     "signup",
                     "donor"
                 )
+                Log.e("sign up", "donor")
             }else{
                 GeneralChanges().prepareFadeTransitionWithData(
                     this,
@@ -88,6 +91,10 @@ class SignUpActivity : AppCompatActivity(){
                     "charity"
                 )
             }
+        }
+
+        privacy_policy.setOnClickListener {
+            GeneralChanges().prepareFadeTransition(this, PrivacyPolicyActivity())
         }
 
 
@@ -107,15 +114,15 @@ class SignUpActivity : AppCompatActivity(){
     }
 
     private fun CheckAllFields(): Boolean {
-        if (!Validation().validateUsername(username, username_layout, findViewById(R.id.parent_layout))) return false
+        if (!Validation().validateUsername(username, username_layout)) return false
 
-        if (!Validation().validateEmail(email, email_layout, findViewById(R.id.parent_layout))) return false
+        if (!Validation().validateEmail(email, email_layout)) return false
 
-        if (!Validation().validatePhoneNumber(phone, phone_layout, findViewById(R.id.parent_layout))) return false
+        if (!Validation().validatePhoneNumber(phone, phone_layout)) return false
 
-        if (!Validation().validatePassword(password, password_layout, findViewById(R.id.parent_layout))) return false
+        if (!Validation().validatePassword(password, password_layout)) return false
 
-        if (!Validation().validateConfirmPassword(confirm_password, confirm_password_layout, findViewById(R.id.parent_layout), password.text.toString())) return false
+        if (!Validation().validateConfirmPassword(confirm_password, confirm_password_layout, password.text.toString())) return false
 
         if (!Validation().validateLocation(autoCompleteTextView, location_layout)) return false
         return true

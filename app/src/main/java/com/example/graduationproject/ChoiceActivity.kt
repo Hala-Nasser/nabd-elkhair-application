@@ -2,6 +2,7 @@ package com.example.graduationproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.widget.AppCompatButton
 import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
@@ -16,6 +17,7 @@ class ChoiceActivity : AppCompatActivity() {
 
         findViewById<AppCompatButton>(R.id.donor).setOnClickListener {
             GeneralChanges().prepareFadeTransitionWithData(this, SignUpActivity(),"signup","donor")
+            Log.e("choice", "donor")
         }
 
         findViewById<AppCompatButton>(R.id.charity).setOnClickListener {

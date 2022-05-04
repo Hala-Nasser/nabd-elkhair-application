@@ -1,11 +1,15 @@
 package com.example.graduationproject.donor
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.loader.content.CursorLoader
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.register.RegisterJson
 import com.example.graduationproject.classes.GeneralChanges
@@ -19,6 +23,7 @@ import retrofit2.Response
 import okhttp3.RequestBody
 import java.io.File
 import com.example.graduationproject.classes.FileUtil
+import com.example.graduationproject.classes.Validation
 import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
 import org.json.JSONObject
@@ -27,9 +32,6 @@ import org.json.JSONObject
 class CompleteSignUpActivity : AppCompatActivity() {
 
     lateinit var image: ImageView
-//    private var progressDialog: ProgressDialog?=null
-//    private var fileURI: Uri? = null
-//    private val PICK_IMAGE_REQUEST = 111
     var imageURI: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,24 +54,18 @@ class CompleteSignUpActivity : AppCompatActivity() {
                     registerToApp()
 
                 }
+            }else{
+                Validation().showSnackBar(parent_layout, "قم باختيار صورة")
             }
-
 
         }
 
-//        choose_image.setOnClickListener {
-//            val intent = Intent()
-//            intent.action = Intent.ACTION_PICK
-//            intent.type = "image/*"
-//            startActivityForResult(intent, PICK_IMAGE_REQUEST)
-//        }
 
         choose_image.setOnClickListener {
             PickImageDialog.build(PickSetup())
                 .setOnPickResult { r ->
                     imageURI = r.uri
                     image.setImageBitmap(r.bitmap)
-                    // uploadImage(r.uri)
                 }
                 .setOnPickCancel{
                 }.show(supportFragmentManager)
@@ -80,14 +76,6 @@ class CompleteSignUpActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-//            imageURI = data!!.data
-//            Log.e("TAG", imageURI.toString())
-//            image.setImageURI(imageURI)
-//        }
-//    }
 
     fun registerToApp() {
 

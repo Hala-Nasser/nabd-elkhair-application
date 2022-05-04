@@ -1,8 +1,6 @@
 package com.example.graduationproject.classes
 
-import android.R.attr
 import com.google.android.material.textfield.TextInputEditText
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.util.Log
 import android.util.Patterns
@@ -16,23 +14,19 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import java.lang.NumberFormatException
-import android.R.attr.password
-import android.R.attr.phoneNumber
 import android.widget.AutoCompleteTextView
 
 
 class Validation {
 
-    fun validateUsername(usernameEt: TextInputEditText, usernameTL: TextInputLayout, view: View): Boolean {
+    fun validateUsername(usernameEt: TextInputEditText, usernameTL: TextInputLayout): Boolean {
         val username = usernameEt.text.toString()
         if (username.trim().isNullOrEmpty()) {
-            //showSnackBar(view, "اسم المستخدم مطلوب")
             usernameTL.error = "اسم المستخدم مطلوب"
             usernameTL.errorIconDrawable = null
             usernameTL.isFocusable = true
             return false
         } else if (username.length > 25) {
-            //showSnackBar(view, "اسم المستخدم طويل جدا")
             usernameTL.error = "اسم المستخدم طويل جدا"
             usernameTL.errorIconDrawable = null
             usernameTL.isFocusable = true
@@ -40,7 +34,6 @@ class Validation {
         }
         try {
             var intValue = username.toInt()
-            //showSnackBar(view, "يجب أن يحتوي اسم المستخدم على حروف")
             usernameTL.error = "يجب أن يحتوي اسم المستخدم على حروف"
             usernameTL.errorIconDrawable = null
             usernameTL.isFocusable = true
@@ -57,16 +50,14 @@ class Validation {
 
     fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-    fun validateEmail(emailEt: TextInputEditText, emailTL:TextInputLayout, view: View): Boolean {
+    fun validateEmail(emailEt: TextInputEditText, emailTL:TextInputLayout): Boolean {
         val email = emailEt.text.toString()
         return if (email.trim().isEmpty()) {
-            //showSnackBar(view, "البريد الالكتروني مطلوب")
             emailTL.error = "البريد الالكتروني مطلوب"
             emailTL.errorIconDrawable = null
             emailTL.isFocusable = true
             false
         } else if (!email.isValidEmail()) {
-            //showSnackBar(view, "البريد الالكتروني غير صحيح")
             emailTL.error = "البريد الالكتروني غير صحيح"
             emailTL.errorIconDrawable = null
             emailTL.isFocusable = true
@@ -79,23 +70,14 @@ class Validation {
         }
     }
 
-//    fun validCellPhone(number: String?): Boolean {
-//        return Patterns.PHONE.matcher(number).matches()
-//    }
-
-    fun CharSequence?.isValidPhone() = !isNullOrEmpty() && Patterns.PHONE.matcher(this).matches()
-
-    fun validatePhoneNumber(phoneEt: TextInputEditText, phoneTL:TextInputLayout, view: View): Boolean {
+    fun validatePhoneNumber(phoneEt: TextInputEditText, phoneTL:TextInputLayout): Boolean {
         val phone = phoneEt.text.toString()
-       // val checkPhone = "^\\+[0-9]{10,13}\$"
         return if (phone.trim().isEmpty()) {
-            //showSnackBar(view, "رقم الهاتف مطلوب")
             phoneTL.error = "رقم الهاتف مطلوب"
             phoneTL.errorIconDrawable = null
             phoneTL.isFocusable = true
             false
         } else if (phone.length > 13 || phone.length < 10) {
-            //showSnackBar(view, "رقم الهاتف غير صحيح")
             phoneTL.error = "رقم الهاتف غير صحيح"
             phoneTL.errorIconDrawable = null
             phoneTL.isFocusable = true
@@ -108,17 +90,15 @@ class Validation {
         }
     }
 
-    fun validatePassword(passwordEt: TextInputEditText, passwordTL:TextInputLayout, view: View): Boolean {
+    fun validatePassword(passwordEt: TextInputEditText, passwordTL:TextInputLayout): Boolean {
         val password = passwordEt.text.toString()
 
         return if (password.trim().isEmpty()) {
-            //showSnackBar(view, "كلمة المرور مطلوبة")
             passwordTL.error = "كلمة المرور مطلوبة"
             passwordTL.errorIconDrawable = null
             passwordTL.isFocusable = true
             false
         } else if (password.length < 8) {
-            //showSnackBar(view, "يجب أن تكون كلمة المرور 8 خانات على الأقل")
             passwordTL.error = "يجب أن تكون كلمة المرور 8 خانات على الأقل"
             passwordTL.errorIconDrawable = null
             passwordTL.isFocusable = true
@@ -131,17 +111,15 @@ class Validation {
         }
     }
 
-    fun validateConfirmPassword(c_passwordEt: TextInputEditText, c_passwordTL:TextInputLayout, view: View, password:String): Boolean {
+    fun validateConfirmPassword(c_passwordEt: TextInputEditText, c_passwordTL:TextInputLayout, password:String): Boolean {
         val c_password = c_passwordEt.text.toString()
 
         return if (c_password.trim().isEmpty()) {
-            //showSnackBar(view, "تأكيد كلمة المرور مطلوبة")
             c_passwordTL.error = "تأكيد كلمة المرور مطلوبة"
             c_passwordTL.errorIconDrawable = null
             c_passwordTL.isFocusable = true
             false
         } else if (c_password != password) {
-            //showSnackBar(view, "كلمتا المرور غير متطابقتين")
             c_passwordTL.error = "كلمتا المرور غير متطابقتين"
             c_passwordTL.errorIconDrawable = null
             c_passwordTL.isFocusable = true
@@ -166,6 +144,27 @@ class Validation {
             locationTL.error = null
             locationTL.errorIconDrawable = null
             locationTL.isFocusable = false
+            true
+        }
+    }
+
+    fun validateCode(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+        val code = codeEt.text.toString()
+
+        return if (code.trim().isEmpty()) {
+            codeTL.error = "رمز التحقق مطلوب"
+            codeTL.errorIconDrawable = null
+            codeTL.isFocusable = true
+            false
+        } else if (code.length != 10) {
+            codeTL.error = "قم بإدخال رمز تحقق صحيح"
+            codeTL.errorIconDrawable = null
+            codeTL.isFocusable = true
+            false
+        } else {
+            codeTL.error = null
+            codeTL.isFocusable = false
+            codeTL.isErrorEnabled = false
             true
         }
     }
