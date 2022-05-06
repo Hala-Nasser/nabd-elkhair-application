@@ -1,5 +1,6 @@
 package com.example.graduationproject.donor
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,13 +22,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot_password)
         GeneralChanges().fadeTransition(this)
 
-        val intent = intent.getStringExtra("forgot password")
+        val sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val isDonor = sharedPref.getBoolean("isDonor", false)
 
         send.setOnClickListener {
             if (Validation().validateEmail(email, email_layout)){
-                Log.e("intent", intent!!)
-                if (intent == "donor"){
-                    // تنفيذ الapi
+                if (isDonor){
                     forgotPassword(email.text.toString())
                 }
             }

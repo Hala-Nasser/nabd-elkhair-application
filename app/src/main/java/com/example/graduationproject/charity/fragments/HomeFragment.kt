@@ -1,9 +1,6 @@
 package com.example.graduationproject.charity.fragments
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
-import com.ramotion.circlemenu.CircleMenuView
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
@@ -22,16 +17,11 @@ import kotlinx.android.synthetic.main.fragment_charity_home.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
 import android.view.View.OnTouchListener
-import androidx.activity.OnBackPressedCallback
 import kotlinx.android.synthetic.main.campaign_added_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.view.*
-import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
-import android.widget.LinearLayout
 import com.example.graduationproject.classes.TabLayoutSettings
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_charity_main.view.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*

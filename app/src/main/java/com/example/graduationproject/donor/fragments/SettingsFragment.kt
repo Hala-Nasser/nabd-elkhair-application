@@ -25,12 +25,8 @@ class SettingsFragment : Fragment() {
         }
 
         root.change_password.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putBoolean("Donor", true)
-            var fragment = ChangePasswordFragment()
-            fragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
+                .replace(R.id.mainContainer, ChangePasswordFragment()).addToBackStack(null).commit()
         }
 
         root.privacy_policy.setOnClickListener {
