@@ -2,6 +2,7 @@ package com.example.graduationproject.donor.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,12 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.tab_content.*
 import kotlinx.android.synthetic.main.tab_content.view.*
 import android.view.View.OnTouchListener
+import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.classes.TabLayoutSettings
+import com.example.graduationproject.network.RetrofitInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
@@ -37,6 +43,8 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         R.drawable.clothes,
     )
 
+    private var TAB_LABEL = arrayOf<String>()
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +54,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
         requireActivity().nav_bottom.visibility=View.VISIBLE
 
-
-
+        getDonationType()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         sectionsPagerAdapter.addFragments(AllDonationFragment())
@@ -59,6 +66,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
         var tabLayout = TabLayoutSettings()
         tabLayout.setupTabIcons(root.donor_home_tab_layout,TAB_ICONS)
+        tabLayout.setupTabLabels(root.donor_home_tab_layout, TAB_LABEL)
         tabLayout.setTabMargin(root.donor_home_tab_layout,10,10,100)
 
         root.search.setOnSearchClickListener {
@@ -126,6 +134,35 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
         requireActivity().nav_bottom.visibility=View.GONE
+    }
+
+    fun getDonationType() {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.getDonationType()
+
+        response.enqueue(object : Callback<DonationTypeJson> {
+            override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()!!.data
+
+                    for (donation_type in data){
+                        TAB_LABEL.plus(donation_type.name)
+                        Log.e("tab labels", donation_type.name)
+                    }
+                    TabLayoutSettings().setupTabLabels(donor_home_tab_layout, TAB_LABEL)
+
+                } else {
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<DonationTypeJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
     }
 
 }

@@ -6,7 +6,7 @@ data class Data(
     val created_at: String,
     val email: String,
     val id: Int,
-    val image: Image,
+    val image: String,
     val location: String,
     val name: String,
     val phone: String,

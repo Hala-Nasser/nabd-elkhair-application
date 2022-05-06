@@ -15,7 +15,6 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.api.category.Data
 import com.example.graduationproject.donor.models.DonationType
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso

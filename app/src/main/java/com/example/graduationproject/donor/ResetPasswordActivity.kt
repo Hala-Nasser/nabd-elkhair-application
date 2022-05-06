@@ -57,11 +57,13 @@ class ResetPasswordActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("TAG", data!!.status.toString())
-                    if (data.status)
-                        GeneralChanges().prepareFadeTransitionWithData(
+                    if (data.status) {
+                        GeneralChanges().prepareFadeTransition(
                             this@ResetPasswordActivity,
-                            SignInActivity(), "signup", "donor"
+                            SignInActivity()
                         )
+                        GeneralChanges().hideDialog(progressDialog!!)
+                    }
                     else {
                         Validation().showSnackBar(parent_layout, data.message)
                         GeneralChanges().hideDialog(progressDialog!!)

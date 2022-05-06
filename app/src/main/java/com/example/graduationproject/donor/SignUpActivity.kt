@@ -41,8 +41,8 @@ class SignUpActivity : AppCompatActivity(){
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
 
-        val intent = intent.getStringExtra("signup")
-        Log.e("signup intent", intent!!)
+        val sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val isDonor = sharedPref.getBoolean("isDonor", false)
 
 
         findViewById<AppCompatButton>(R.id.next).setOnClickListener {
@@ -52,11 +52,13 @@ class SignUpActivity : AppCompatActivity(){
             user_phone = phone.text.toString()
             user_password = password.text.toString()
             user_confirm_password = confirm_password.text.toString()
+            user_address = autoCompleteTextView.text.toString()
+            Log.e("location", user_address!!)
 
             isAllFieldsChecked = CheckAllFields()
 
             if (isAllFieldsChecked) {
-                if (intent=="donor"){
+                if (isDonor){
                     var option = ActivityOptions.makeSceneTransitionAnimation(this)
                     var intent = Intent(this, CompleteSignUpActivity::class.java)
                     intent.putExtra("name",user_name)
@@ -75,20 +77,16 @@ class SignUpActivity : AppCompatActivity(){
         }
 
         findViewById<TextView>(R.id.sign_in).setOnClickListener {
-            if (intent == "donor") {
-                GeneralChanges().prepareFadeTransitionWithData(
+            if (isDonor) {
+                GeneralChanges().prepareFadeTransition(
                     this,
-                    SignInActivity(),
-                    "signup",
-                    "donor"
+                    SignInActivity()
                 )
                 Log.e("sign up", "donor")
             }else{
-                GeneralChanges().prepareFadeTransitionWithData(
+                GeneralChanges().prepareFadeTransition(
                     this,
-                    SignInActivity(),
-                    "signup",
-                    "charity"
+                    SignInActivity()
                 )
             }
         }
@@ -98,11 +96,11 @@ class SignUpActivity : AppCompatActivity(){
         }
 
 
-        if (intent=="donor"){
+        if (isDonor){
             val locations = resources.getStringArray(R.array.donor_location_array)
             val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, locations)
             autoCompleteTextView.setAdapter(arrayAdapter)
-            user_address = autoCompleteTextView.text.toString()
+
 
         }else{
             val locations = resources.getStringArray(R.array.charity_location_array)

@@ -5,15 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.classes.TabLayoutSettings
 import com.example.graduationproject.classes.ZoomOutPageTransformer
 import kotlinx.android.synthetic.main.activity_charity_main.*
-import kotlinx.android.synthetic.main.fragment_charity_home.view.*
-import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
-import kotlinx.android.synthetic.main.fragment_charity_profile.view.charity_profile_tab_layout
 import kotlinx.android.synthetic.main.fragment_charity_settings.view.*
 
 class CharitySettingsFragment : Fragment() {
