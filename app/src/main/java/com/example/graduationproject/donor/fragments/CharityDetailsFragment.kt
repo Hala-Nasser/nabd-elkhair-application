@@ -22,7 +22,7 @@ class CharityDetailsFragment : Fragment() {
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         sectionsPagerAdapter.addFragmentsAndTitles(AboutCharityFragment(), "عن الجمعية")
-        sectionsPagerAdapter.addFragmentsAndTitles(CharityCampaignsFragment(), "الحملات")
+        //sectionsPagerAdapter.addFragmentsAndTitles(CharityCampaignsFragment(), "الحملات")
         root.charity_campaigns_viewpager.adapter = sectionsPagerAdapter
         root.charity_tab_layout.setupWithViewPager(root.charity_campaigns_viewpager)
 

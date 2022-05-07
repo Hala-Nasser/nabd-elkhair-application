@@ -1,6 +1,7 @@
 package com.example.graduationproject.network
 
 import android.database.Observable
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
@@ -39,6 +40,9 @@ interface ApiRequests {
 
     @GET("donor/donationtype")
     fun getDonationType(): Call<DonationTypeJson>
+
+    @GET("donor/CampaignsAccordingToDonationType/{donation_type}")
+    fun getCampaignsAccordingToDonationType(@Path("donation_type") donation_type: Int): Call<CampaignsDonationTypeJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")

@@ -1,5 +1,6 @@
 package com.example.graduationproject.donor
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -33,6 +34,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
 
     lateinit var image: ImageView
     var imageURI: Uri? = null
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,8 @@ class CompleteSignUpActivity : AppCompatActivity() {
                 if (path != null){
                     var file = File((imageURI!!.path)!!)
                     Log.e("file click sign up", "file is: $file")
+                    progressDialog = ProgressDialog(this)
+                    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                     registerToApp()
 
                 }
@@ -92,7 +96,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("location", address)
                 .addFormDataPart(
-                    "image", "donor images",
+                    "image", File(FileUtil.getPath(imageURI!!, this)).extension ,
                     RequestBody.create(
                         MediaType.parse("application/octet-stream"),
                         File(FileUtil.getPath(imageURI!!, this))
@@ -121,24 +125,30 @@ class CompleteSignUpActivity : AppCompatActivity() {
 
                             val editor = sharedPref.edit()
                             editor.putInt("user_id", user_id)
+                            editor.putString("user_image", data.data.image)
                             Log.e("id in signup", user_id.toString())
                             editor.apply()
 
+                            GeneralChanges().hideDialog(progressDialog!!)
                             GeneralChanges().prepareFadeTransition(
                                 this@CompleteSignUpActivity,
                                 DonorMainActivity()
                             )
 
+                        }else{
+                            GeneralChanges().hideDialog(progressDialog!!)
+                            Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
                         }
 
                     } else {
+                        GeneralChanges().hideDialog(progressDialog!!)
                         Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
-//                        Log.e("errorBody", response.body().toString())
                     }
 
                 }
 
                 override fun onFailure(call: Call<RegisterJson>, t: Throwable) {
+                    GeneralChanges().hideDialog(progressDialog!!)
                     Log.e("failure", t.message!!)
                 }
             })
