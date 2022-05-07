@@ -41,7 +41,7 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
                     name.text = data.name
                     date.text = data.expiry_date
-                    charity.text = data.charity_id.toString()
+                    charity.text = data.charity.name
                 }
 
             }

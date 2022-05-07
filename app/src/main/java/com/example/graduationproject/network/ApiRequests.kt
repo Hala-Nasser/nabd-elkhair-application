@@ -3,12 +3,14 @@ package com.example.graduationproject.network
 import android.database.Observable
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
+import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
 import com.example.graduationproject.api.donorApi.register.RegisterJson
 import com.example.graduationproject.api.donorApi.resetPassword.ResetPasswordJson
+import com.example.graduationproject.api.donorApi.staticPages.StaticPagesJson
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
@@ -43,6 +45,12 @@ interface ApiRequests {
 
     @GET("donor/CampaignsAccordingToDonationType/{donation_type}")
     fun getCampaignsAccordingToDonationType(@Path("donation_type") donation_type: Int): Call<CampaignsDonationTypeJson>
+
+    @GET("donor/static/{id}")
+    fun getStaticPages(@Path("id") id: Int): Call<StaticPagesJson>
+
+    @GET("donor/charities")
+    fun getCharities(): Call<CharitiesJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")
