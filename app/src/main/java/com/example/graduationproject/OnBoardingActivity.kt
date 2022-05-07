@@ -1,18 +1,31 @@
 package com.example.graduationproject
 
+import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.adapters.MyPagerAdapter
 import android.content.Intent
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.contentValuesOf
+import com.example.graduationproject.api.donorApi.staticPages.StaticPagesJson
 import com.example.graduationproject.classes.GeneralChanges
+import com.example.graduationproject.network.RetrofitInstance
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.on_boarding_1.*
+import kotlinx.android.synthetic.main.on_boarding_2.*
+import kotlinx.android.synthetic.main.on_boarding_3.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class OnBoardingActivity : AppCompatActivity() {
@@ -23,12 +36,15 @@ class OnBoardingActivity : AppCompatActivity() {
     lateinit var pagerAdapter: MyPagerAdapter
     lateinit var layoutDot: LinearLayout
     lateinit var dots: Array<ImageView?>
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
+
+        progressDialog = ProgressDialog(this)
 
         viewPager = findViewById(R.id.pager)
         layoutDot = findViewById(R.id.dotLayout)
@@ -40,6 +56,7 @@ class OnBoardingActivity : AppCompatActivity() {
         viewPager.adapter = pagerAdapter
 
         viewPager.rotationY = 180F
+        getStaticPage(3)
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
@@ -47,14 +64,35 @@ class OnBoardingActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
-                if (position == layouts.size - 1) {
-                    //LAST PAGE
-                    btnNext.text = "هيا بنا"
-                    tvSkip.visibility = View.GONE
-                } else {
-                    btnNext.text = "التالي"
-                    tvSkip.visibility = View.VISIBLE
+                Log.e("pos", position.toString())
+                when (position) {
+                    0 -> {
+//                        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                        getStaticPage(3)
+                        btnNext.text = "التالي"
+                        tvSkip.visibility = View.VISIBLE
+                    }
+                    1 -> {
+//                        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                        getStaticPage(4)
+                        btnNext.text = "التالي"
+                        tvSkip.visibility = View.VISIBLE
+                    }
+                    layouts.size - 1 -> {
+//                        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                        getStaticPage(5)
+                        btnNext.text = "هيا بنا"
+                        tvSkip.visibility = View.GONE
+                    }
                 }
+//                if (position == layouts.size - 1) {
+//                    //LAST PAGE
+//                    btnNext.text = "هيا بنا"
+//                    tvSkip.visibility = View.GONE
+//                } else {
+//                    btnNext.text = "التالي"
+//                    tvSkip.visibility = View.VISIBLE
+//                }
                 createDote(position)
             }
 
@@ -93,5 +131,47 @@ class OnBoardingActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun getStaticPage(id:Int) {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.getStaticPages(id)
+
+        response.enqueue(object : Callback<StaticPagesJson> {
+            override fun onResponse(call: Call<StaticPagesJson>, response: Response<StaticPagesJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()!!.data
+
+                    when (id) {
+                        3 -> {
+                            content_1.text = data.content
+                            onboarding_title_1.text = data.title
+                            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image_1)
+                        }
+                        4 -> {
+                            content_2.text = data.content
+                            onboarding_title_2.text = data.title
+                            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image_2)
+                        }
+                        5 -> {
+                            content_3.text = data.content
+                            onboarding_title_3.text = data.title
+                            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image_3)
+                        }
+                    }
+//                    GeneralChanges().hideDialog(progressDialog!!)
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
+//                    GeneralChanges().hideDialog(progressDialog!!)
+                }
+            }
+
+            override fun onFailure(call: Call<StaticPagesJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+//                GeneralChanges().hideDialog(progressDialog!!)
+            }
+        })
     }
 }

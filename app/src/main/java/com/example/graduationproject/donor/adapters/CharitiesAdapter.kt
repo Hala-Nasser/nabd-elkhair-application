@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.donorApi.charities.Data
 import com.example.graduationproject.donor.models.Charity
+import com.example.graduationproject.network.RetrofitInstance
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.charity_item.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class CharitiesAdapter(var activity: Context?, var data :List<Charity>,
+class CharitiesAdapter(var activity: Context?, var data :List<Data>,
                        var clickListener: CharitiesAdapter.onCharityItemClickListener
 ) : RecyclerView.Adapter<CharitiesAdapter.MyViewHolder>(){
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -17,10 +21,10 @@ class CharitiesAdapter(var activity: Context?, var data :List<Charity>,
         val name  =itemView.charity_name
         val location  =itemView.charity_location
 
-        fun initialize(data: Charity, action: CharitiesAdapter.onCharityItemClickListener) {
-            image.setImageResource(data.charityImg!!)
-            name.text = data.charityName
-            location.text = data.charityLocation
+        fun initialize(data: Data, action: CharitiesAdapter.onCharityItemClickListener) {
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+image).into(image)
+            name.text = data.name
+            location.text = data.address
             itemView.setOnClickListener {
                 action.onItemClick(data, adapterPosition)
             }
@@ -43,7 +47,7 @@ class CharitiesAdapter(var activity: Context?, var data :List<Charity>,
     }
 
     interface onCharityItemClickListener {
-        fun onItemClick(data: Charity, position: Int)
+        fun onItemClick(data: Data, position: Int)
     }
 
 

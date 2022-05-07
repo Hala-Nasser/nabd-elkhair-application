@@ -74,7 +74,7 @@ class ChangePasswordFragment : Fragment() {
         val retrofitInstance =
             RetrofitInstance.create()
         Log.e("token", token)
-        val response = retrofitInstance.changePassword(token, new_password, password, confirm_password)
+        val response = retrofitInstance.changePassword("Bearer $token", new_password, password, confirm_password)
 
         response.enqueue(object : Callback<ChangePasswordJson> {
             override fun onResponse(
@@ -92,7 +92,7 @@ class ChangePasswordFragment : Fragment() {
                         Validation().showSnackBar(parent_layout, data.message)
                     }
                 } else {
-                    Log.e("errorBody", response.errorBody().toString())
+                    Log.e("errorBody", response.message())
                     GeneralChanges().hideDialog(progressDialog!!)
                 }
 

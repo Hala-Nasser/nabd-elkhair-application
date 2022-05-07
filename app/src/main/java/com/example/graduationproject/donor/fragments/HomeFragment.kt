@@ -37,15 +37,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.os.Build
-
-
-
+import com.example.graduationproject.api.donorApi.charities.CharitiesJson
+import com.example.graduationproject.api.donorApi.charities.Data
 
 
 class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
-    private lateinit var  charitiesList: MutableList<Charity>
-//    private var donation_type_ids = arrayOf<Int>()
     var donation_type_ids = ArrayList<Int>()
     lateinit var sharedPref : SharedPreferences
     lateinit var editor : SharedPreferences.Editor
@@ -67,11 +64,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         Picasso.get().load(RetrofitInstance.IMAGE_URL+user_image).into(root.profile_image)
 
         getDonationType()
-
-//        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-//        sectionsPagerAdapter.addFragments(CampaignsAccordingToDonationTypeFragment())
-//        root.campaigns_viewpager.adapter = sectionsPagerAdapter
-//        root.donor_home_tab_layout.setupWithViewPager(root.campaigns_viewpager)
+        getCharities()
 
         root.search.setOnSearchClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -89,107 +82,32 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
                 root.campaigns_viewpager.currentItem = tab.position
 
+
                 Log.e("donation type", donation_type.toString())
+                val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+                if (Build.VERSION.SDK_INT >= 26) {
+                    transaction.setReorderingAllowed(false)
+                }
+
+                transaction.detach(CampaignsAccordingToDonationTypeFragment()).attach(CampaignsAccordingToDonationTypeFragment()).commit()
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-
-//        root.donor_home_tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                var mSelectedPosition = root.donor_home_tab_layout.selectedTabPosition
-//                editor.putInt("selected home donation type", donation_type_ids[mSelectedPosition])
-//                editor.apply()
-//                adapter.notifyDataSetChanged()
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {}
-//            override fun onTabReselected(tab: TabLayout.Tab) {}
-//        })
-
-//        root.donor_home_tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                val position = tab.position
-//                val sharedPref = activity!!.getSharedPreferences(
-//                    "sharedPref", Context.MODE_PRIVATE)
-//
-//                val editor = sharedPref.edit()
-//                editor.putInt("selected home donation type", donation_type_ids[position])
-//                editor.apply()
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                TODO()
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                root.donor_home_tab_layout.selectTab(tab)
-//            }
-//        })
-
-
-//        root.campaigns_viewpager.setOnTouchListener(OnTouchListener { v, event ->
-//
-//            val position = root.campaigns_viewpager.currentItem
-//
-//            editor.putInt("selected home donation type", donation_type_ids[position])
-//            editor.apply()
-//
-//            root.campaigns_viewpager.setCurrentItem(position-1, false)
-//            return@OnTouchListener true
-//
-////            when (root.campaigns_viewpager.currentItem) {
-////                0 -> {
-////                    root.campaigns_viewpager.setCurrentItem(-1, false)
-////                    return@OnTouchListener true
-////                }
-////                1 -> {
-////                    root.campaigns_viewpager.setCurrentItem(1-1, false)
-////                    root.campaigns_viewpager.setCurrentItem(1, false)
-////                    return@OnTouchListener true
-////                }
-////                2 -> {
-////                    root.campaigns_viewpager.setCurrentItem(2-1, false)
-////                    root.campaigns_viewpager.setCurrentItem(2, false)
-////                    return@OnTouchListener true
-////                }
-////                3 -> {
-////                    root.campaigns_viewpager.setCurrentItem(3-1, false)
-////                    root.campaigns_viewpager.setCurrentItem(3, false)
-////                    return@OnTouchListener true
-////                }
-////                else -> true
-////            }
-//        })
-
-
-
-        charitiesList = mutableListOf()
-        charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
-        charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
-        charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
-        charitiesList.add(Charity(R.drawable.charity_image,"جمعية الاحسان الخيرية","فلسطين, غزة"))
-
-
-        root.rv_all_charities.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
-        root.rv_all_charities.setHasFixedSize(true)
-        val charitiesAdapter =
-            CharitiesAdapter(this.activity, charitiesList, this)
-        root.rv_all_charities.adapter = charitiesAdapter
-
         return root
     }
 
 
 
-    override fun onItemClick(data: Charity, position: Int) {
+    override fun onItemClick(data: Data, position: Int) {
         val fragment = CharityDetailsFragment()
         val b = Bundle()
-        b.putString("campaign_name", data.charityName)
-        b.putInt("campaign_image", data.charityImg!!)
-        b.putString("campaign_date", data.charityLocation)
+        b.putString("campaign_name", data.name)
+        b.putString("campaign_image", data.image)
+        b.putString("campaign_date", data.address)
 
         fragment.arguments = b
 
@@ -231,6 +149,36 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
             }
 
             override fun onFailure(call: Call<DonationTypeJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
+    }
+
+
+    fun getCharities() {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.getCharities()
+
+        response.enqueue(object : Callback<CharitiesJson> {
+            override fun onResponse(call: Call<CharitiesJson>, response: Response<CharitiesJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()!!.data
+
+                    rv_all_charities.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                    rv_all_charities.setHasFixedSize(true)
+                    val charitiesAdapter =
+                        CharitiesAdapter(activity, data, this@HomeFragment)
+                    rv_all_charities.adapter = charitiesAdapter
+
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<CharitiesJson>, t: Throwable) {
                 Log.e("failure", t.message!!)
             }
         })
