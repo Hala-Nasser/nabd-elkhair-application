@@ -23,10 +23,10 @@ class ProfileFragment : Fragment() {
         requireActivity().nav_bottom.visibility=View.VISIBLE
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragmentsAndTitles(AllDonationFragment(), "الكل")
-        sectionsPagerAdapter.addFragmentsAndTitles(MoneyDonationFragment(), "المال")
-        sectionsPagerAdapter.addFragmentsAndTitles(FoodDonationFragment(), "الغذاء")
-        sectionsPagerAdapter.addFragmentsAndTitles(ClothesDonationFragment(), "الملابس")
+//        sectionsPagerAdapter.addFragmentsAndTitles(AllDonationFragment(), "الكل")
+//        sectionsPagerAdapter.addFragmentsAndTitles(MoneyDonationFragment(), "المال")
+//        sectionsPagerAdapter.addFragmentsAndTitles(FoodDonationFragment(), "الغذاء")
+//        sectionsPagerAdapter.addFragmentsAndTitles(ClothesDonationFragment(), "الملابس")
         root.campaigns_profile_viewpager.adapter = sectionsPagerAdapter
         root.profile_tab_layout.setupWithViewPager(root.campaigns_profile_viewpager)
 

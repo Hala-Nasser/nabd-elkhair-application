@@ -31,7 +31,7 @@ class TabLayoutSettings {
             val layoutParams = tab.layoutParams as LinearLayout.LayoutParams
             layoutParams.marginEnd = marginEnd
             layoutParams.marginStart = marginStart
-            layoutParams.width = width
+            //layoutParams.width = width
             tab.layoutParams = layoutParams
             tabLayout.requestLayout()
         }

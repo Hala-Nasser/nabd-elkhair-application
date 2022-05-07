@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.donor.models.Campaigns
+import com.example.graduationproject.network.RetrofitInstance
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.donation_with_campaign.view.*
 
 import kotlinx.android.synthetic.main.donation_with_campaign.view.donation_card_view
@@ -30,8 +32,8 @@ class CampaignDonationAdapter(
         val card  =itemView.donation_card_view
 
         fun initialize(campaigns: Campaigns) {
-                image.setImageResource(campaigns.campaignImg!!)
-                name.text = campaigns.campaignName
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+campaigns.image).into(image)
+                name.text = campaigns.name
         }
 
     }
@@ -68,28 +70,28 @@ class CampaignDonationAdapter(
                     }
 
 
-                      if (data[position].donation == null) {
-                          holder.donors.visibility = View.GONE
-                      } else {
-                          holder.donors.visibility = View.VISIBLE
-
-                          val donation = data[position].donation!!
-                          for (element in donation) {
-                              if (data[position].campaignId == element.campaignId) {
-                                  val donorAdapter =
-                                      DonorsAdapter(activity, donation, "CampaignDonationAdapter",fragment)
-
-                                  donorAdapter.campaignName = data[position].campaignName
-                                  donorAdapter.campaignImg = data[position].campaignImg
-                                  holder.donors.layoutManager = LinearLayoutManager(
-                                      activity,
-                                      RecyclerView.VERTICAL, false
-                                  )
-                                  holder.donors.setHasFixedSize(true)
-                                  holder.donors.adapter = donorAdapter
-                              }
-                          }
-                      }
+//                      if (data[position].donation == null) {
+//                          holder.donors.visibility = View.GONE
+//                      } else {
+//                          holder.donors.visibility = View.VISIBLE
+//
+//                          val donation = data[position].donation!!
+//                          for (element in donation) {
+//                              if (data[position].campaignId == element.campaignId) {
+//                                  val donorAdapter =
+//                                      DonorsAdapter(activity, donation, "CampaignDonationAdapter",fragment)
+//
+//                                  donorAdapter.campaignName = data[position].campaignName
+//                                  donorAdapter.campaignImg = data[position].campaignImg
+//                                  holder.donors.layoutManager = LinearLayoutManager(
+//                                      activity,
+//                                      RecyclerView.VERTICAL, false
+//                                  )
+//                                  holder.donors.setHasFixedSize(true)
+//                                  holder.donors.adapter = donorAdapter
+//                              }
+//                          }
+//                      }
 
                   }
 

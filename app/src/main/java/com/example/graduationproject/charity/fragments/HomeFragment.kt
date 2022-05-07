@@ -65,10 +65,10 @@ class HomeFragment : Fragment(){
         }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragments(AllDonationFragment())
-        sectionsPagerAdapter.addFragmentsAndTitles(MoneyDonationFragment(),"مال")
-        sectionsPagerAdapter.addFragmentsAndTitles(FoodDonationFragment(),"طعام")
-        sectionsPagerAdapter.addFragmentsAndTitles(ClothesDonationFragment(),"ملابس")
+//        sectionsPagerAdapter.addFragments(AllDonationFragment())
+//        sectionsPagerAdapter.addFragmentsAndTitles(MoneyDonationFragment(),"مال")
+//        sectionsPagerAdapter.addFragmentsAndTitles(FoodDonationFragment(),"طعام")
+//        sectionsPagerAdapter.addFragmentsAndTitles(ClothesDonationFragment(),"ملابس")
         root.campaign_viewpager.adapter = sectionsPagerAdapter
         root.charity_home_tab_layout.setupWithViewPager(root.campaign_viewpager)
 

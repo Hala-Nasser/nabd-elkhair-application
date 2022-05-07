@@ -120,6 +120,7 @@ class SignInActivity : AppCompatActivity() {
                         val editor = sharedPref.edit()
                         editor.putInt("user_id", user_id)
                         editor.putString("user_token", data.data.token)
+                        editor.putString("user_image", data.data.image)
                         Log.e("id in signin", user_id.toString())
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)

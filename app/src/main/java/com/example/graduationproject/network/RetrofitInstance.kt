@@ -9,6 +9,7 @@ class RetrofitInstance {
 
     companion object {
         val BASE_URL = "http://192.168.1.137:80/api/"
+        val IMAGE_URL = "http://192.168.1.137:80/storage/uploads/images/"
 
         var gson: Gson = GsonBuilder()
             .setLenient()
