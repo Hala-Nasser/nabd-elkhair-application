@@ -4,15 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.api.category.Data
 import com.example.graduationproject.donor.models.Campaigns
-import com.example.graduationproject.donor.models.DonationType
-import com.google.android.material.card.MaterialCardView
+import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.current_campaigns_item.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var from:String,
                         var clickListener: onCampaignItemClickListener) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
@@ -29,20 +27,21 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
         fun initialize(data: Campaigns, action: onCampaignItemClickListener,from: String) {
             when(from){
                 "DonorProfile" -> {
-                    image.setImageResource(data.campaignImg!!)
-                    name.text = data.campaignName
-                    date.text = data.campaignDate
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                    name.text = data.name
+                    date.text = data.expiry_date
                 }
                 "CharityCampaigns" -> {
-                    image.setImageResource(data.campaignImg!!)
-                    name.text = data.campaignName
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                    name.text = data.name
                 }
 
                 else -> {
-                    image.setImageResource(data.campaignImg!!)
-                    name.text = data.campaignName
-                    date.text = data.campaignDate
-                    charity.text = data.campaignCharity.charityName
+                    //image.setImageResource(data.campaignImg!!)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                    name.text = data.name
+                    date.text = data.expiry_date
+                    charity.text = data.charity_id.toString()
                 }
 
             }

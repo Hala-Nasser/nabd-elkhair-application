@@ -1,4 +1,4 @@
-package com.example.graduationproject.api.category
+package com.example.graduationproject.api.donorApi.donationType
 
 data class Data(
     val created_at: String,

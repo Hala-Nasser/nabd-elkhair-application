@@ -24,7 +24,7 @@ class DonationFragment : Fragment() {
 
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragmentsAndTitles(DonationWithCampaignFragment(),"تبرع بحملة")
+        //sectionsPagerAdapter.addFragmentsAndTitles(DonationWithCampaignFragment(),"تبرع بحملة")
         sectionsPagerAdapter.addFragmentsAndTitles(DonationWithoutCampaignFragment(),"تبرع بدون حملة")
         root.donation_viewpager.adapter = sectionsPagerAdapter
 

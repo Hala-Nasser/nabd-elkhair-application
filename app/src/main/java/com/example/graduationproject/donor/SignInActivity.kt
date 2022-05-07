@@ -48,9 +48,10 @@ class SignInActivity : AppCompatActivity() {
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
 
-        val intent = intent.getStringExtra("signup")
+        val sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val isDonor = sharedPref.getBoolean("isDonor", false)
 
-        if (intent == "donor") {
+        if (isDonor) {
             findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
 
                 user_email = email.text.toString()
@@ -74,24 +75,20 @@ class SignInActivity : AppCompatActivity() {
 
 
         findViewById<TextView>(R.id.sign_up).setOnClickListener {
-            GeneralChanges().prepareFadeTransitionWithData(this, SignUpActivity(), "signup", intent)
+            GeneralChanges().prepareFadeTransition(this, SignUpActivity())
         }
 
         findViewById<TextView>(R.id.forgot_password).setOnClickListener {
             GeneralChanges().prepareFadeTransition(this, ForgotPasswordActivity())
-            if (intent == "donor")
-                GeneralChanges().prepareFadeTransitionWithData(
+            if (isDonor)
+                GeneralChanges().prepareFadeTransition(
                     this,
-                    ForgotPasswordActivity(),
-                    "forgot password",
-                    "donor"
+                    ForgotPasswordActivity()
                 )
             else
-                GeneralChanges().prepareFadeTransitionWithData(
+                GeneralChanges().prepareFadeTransition(
                     this,
-                    ForgotPasswordActivity(),
-                    "forgot password",
-                    "charity"
+                    ForgotPasswordActivity()
                 )
         }
     }
@@ -122,6 +119,8 @@ class SignInActivity : AppCompatActivity() {
 
                         val editor = sharedPref.edit()
                         editor.putInt("user_id", user_id)
+                        editor.putString("user_token", data.data.token)
+                        editor.putString("user_image", data.data.image)
                         Log.e("id in signin", user_id.toString())
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)

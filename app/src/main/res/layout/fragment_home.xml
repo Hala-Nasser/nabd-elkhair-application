@@ -5,152 +5,136 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_background"
+    android:fillViewport="true"
     android:layoutDirection="rtl"
-    android:paddingHorizontal="20dp"
-    android:fillViewport="true">
+    android:paddingHorizontal="20dp">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".donor.fragments.HomeFragment"
-    android:layoutDirection="rtl">
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="65dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:fitsSystemWindows="true"
+        android:layoutDirection="rtl"
+        tools:context=".donor.fragments.HomeFragment">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="65dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="الرئيسية"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/title" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/profile"
+                    app:civ_border_color="#fff"
+                    app:civ_border_width="3dp" />
+
+            </RelativeLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                app:cardPreventCornerOverlap="false">
+
+                <SearchView
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/search_edit_text"
+                    android:clickable="false"
+                    android:iconifiedByDefault="true"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:keyboardNavigationCluster="true"
+                    android:queryHint="ابحث باسم الجمعية"
+                    android:text=""
+                    app:searchIcon="@drawable/ic_search" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="الرئيسية"
-                android:textAlignment="center"
-                android:textAppearance="@style/title" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/profile"
-                app:civ_border_color="#fff"
-                app:civ_border_width="3dp" />
-
-        </RelativeLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardPreventCornerOverlap="false">
-
-            <SearchView
-                android:id="@+id/search"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:iconifiedByDefault="true"
-                android:text=""
-                android:imeOptions="actionSearch"
-                android:clickable="false"
-                android:inputType="text"
-                android:queryHint="ابحث باسم الجمعية"
-                app:searchIcon="@drawable/ic_search"
-                android:background="@drawable/search_edit_text"
-                android:keyboardNavigationCluster="true"/>
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="الحملات الحالية"
-            android:textSize="15sp"
-            android:fontFamily="@font/tajawal_bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="15dp"/>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/donor_home_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            app:tabIndicatorGravity="stretch"
-            app:tabIconTint="@color/tab_icon_color"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicator="@color/tab_background_color"
-            app:tabBackground="@drawable/profile_tab_style"
-            >
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/all"
-                />
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/tajawal_bold"
+                android:text="الحملات الحالية"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/donor_home_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    app:tabBackground="@drawable/profile_tab_style"
+                    app:tabIconTint="@color/tab_icon_color"
+                    app:tabIndicator="@color/tab_background_color"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorGravity="stretch"
+                    app:tabInlineLabel="true"
+                    app:tabMode="scrollable"
+                    app:tabPaddingStart="10dp"
+                    app:tabPaddingEnd="10dp"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/black">
+
+                </com.google.android.material.tabs.TabLayout>
+            </HorizontalScrollView>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/campaigns_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/money"
-                />
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/tajawal_bold"
+                android:text="الجمعيات الخيرية"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_all_charities"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/food"
-                />
+                tools:listitem="@layout/charity_item" />
 
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/clothes"
-                />
+        </LinearLayout>
 
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/campaigns_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="190dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="الجمعيات الخيرية"
-            android:textSize="15sp"
-            android:fontFamily="@font/tajawal_bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="15dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_all_charities"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/charity_item" />
-
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

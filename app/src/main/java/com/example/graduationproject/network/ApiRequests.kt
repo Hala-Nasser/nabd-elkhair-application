@@ -1,5 +1,9 @@
 package com.example.graduationproject.network
 
+import android.database.Observable
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
+import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
+import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
@@ -8,6 +12,7 @@ import com.example.graduationproject.api.donorApi.resetPassword.ResetPasswordJso
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
+import retrofit2.Response
 
 import retrofit2.http.POST
 
@@ -30,6 +35,14 @@ interface ApiRequests {
     @POST("donor/resetPassword")
     fun resetPassword(@Query("token") token: String, @Query("password") password: String, @Query("password_confirmation") password_confirmation: String): Call<ResetPasswordJson>
 
+    @POST("donor/changePassword")
+    fun changePassword(@Header("Authorization") token: String, @Query("password") password: String,  @Query("new_password") new_password: String, @Query("new_password_confirmation") new_password_confirmation: String): Call<ChangePasswordJson>
+
+    @GET("donor/donationtype")
+    fun getDonationType(): Call<DonationTypeJson>
+
+    @GET("donor/CampaignsAccordingToDonationType/{donation_type}")
+    fun getCampaignsAccordingToDonationType(@Path("donation_type") donation_type: Int): Call<CampaignsDonationTypeJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")

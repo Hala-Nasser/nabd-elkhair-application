@@ -1,12 +1,6 @@
 package com.example.graduationproject.classes
 
-import android.app.Activity
-import android.app.ActivityOptions
-import android.content.Intent
-import android.graphics.Color
-import android.os.Build
-import android.transition.TransitionInflater
-import android.view.View
+import android.util.Log
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -15,10 +9,18 @@ import com.google.android.material.tabs.TabLayout
 
 class TabLayoutSettings {
 
-     fun setupTabIcons(tabLayout: TabLayout,TabIcons:Array<Int>) {
+     fun setupTabIcons(tabLayout: TabLayout, TabIcons: Array<Int>) {
          for (i in TabIcons.indices){
              tabLayout.getTabAt(i)!!.setIcon(TabIcons[i])
          }
+    }
+
+    fun setupTabLabels(tabLayout: TabLayout, TabLabels: Array<String>) {
+        Log.e("tab layout", "enter")
+        tabLayout.setTabTextColors(R.color.black, R.color.white)
+        for (i in TabLabels.indices){
+            tabLayout.getTabAt(i)!!.text = TabLabels[i]
+        }
     }
 
      fun setTabMargin(tabLayout: TabLayout,marginEnd:Int,marginStart:Int,width:Int) {
@@ -29,7 +31,7 @@ class TabLayoutSettings {
             val layoutParams = tab.layoutParams as LinearLayout.LayoutParams
             layoutParams.marginEnd = marginEnd
             layoutParams.marginStart = marginStart
-            layoutParams.width = width
+            //layoutParams.width = width
             tab.layoutParams = layoutParams
             tabLayout.requestLayout()
         }

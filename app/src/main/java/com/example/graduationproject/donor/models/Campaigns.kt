@@ -6,13 +6,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Campaigns(
-                     var campaignId: String?,
-                     var campaignImg:Int?,
-                     var campaignName:String,
-                     var campaignDate:String,
-                     var campaignTime:String?=null,
-                     var campaignDescription:String,
-                     var campaignDonationType: DonationType,
-                     var campaignCharity:Charity,
-                     var donation: List<Donation>?=null
-                     ): Parcelable
+    var charity_id: Int,
+    var created_at: String,
+    var deleted_at: String?,
+    var description: String,
+    var donation_type_id: Int,
+    var expiry_date: String,
+    var expiry_time: String,
+    var id: Int,
+    var image: String,
+    var name: String,
+    var updated_at: String
+    ): Parcelable
