@@ -1,11 +1,13 @@
 package com.example.graduationproject.donor.models
 
 import android.os.Parcelable
-import com.example.graduationproject.charity.models.Donation
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.Charity
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class Campaigns(
+    var charity: @RawValue Charity,
     var charity_id: Int,
     var created_at: String,
     var deleted_at: String?,
