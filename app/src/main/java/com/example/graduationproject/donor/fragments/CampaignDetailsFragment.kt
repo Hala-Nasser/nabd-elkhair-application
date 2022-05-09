@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.donorApi.donationType.Data
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.donor.adapters.lastCheckedPos
 import com.example.graduationproject.donor.adapters.typeSelected
@@ -38,7 +39,7 @@ class CampaignDetailsFragment : Fragment() {
     lateinit var v :View
     //var donation_type_clicked = false
 
-    var  campaign_donation_type= mutableListOf<DonationType>()
+    var  campaign_donation_type= mutableListOf<Data>()
 
 
 
@@ -56,9 +57,9 @@ class CampaignDetailsFragment : Fragment() {
             campaign_date = b.getString("campaign_date")!!
             campaign_charity = b.getParcelable("campaign_charity")!!
             val donation_type : DonationType = b.getParcelable("campaign_donation_type")!!
-            campaign_donation_type.add(donation_type)
+//            campaign_donation_type.add(donation_type)
             if (donation_type.photo != R.drawable.money){
-                campaign_donation_type.add(DonationType(R.drawable.money,"المال"))
+//                campaign_donation_type.add(DonationType(R.drawable.money,"المال"))
             }
 
             root.campaign_name.text = campaign_name
@@ -81,9 +82,9 @@ class CampaignDetailsFragment : Fragment() {
             v.choose.setOnClickListener {
                 Log.e("item selected position", lastCheckedPos.toString())
                 if (typeSelected != null){
-                    if (typeSelected!!.photo == R.drawable.money){
+                    if (typeSelected!!.name == "مال"){
                         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,FirstStepViewDonationFragment()).addToBackStack(null).commit()
-                    }else if (typeSelected!!.photo == R.drawable.clothes || typeSelected!!.photo == R.drawable.food){
+                    }else if (typeSelected!!.name == "ملابس" || typeSelected!!.name == "طعام"){
 
                         val fragment = SecondStepViewDonationManualFragment()
                         val b=Bundle()

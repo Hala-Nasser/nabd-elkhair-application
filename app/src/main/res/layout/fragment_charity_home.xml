@@ -56,12 +56,17 @@
             </RelativeLayout>
 
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/charity_home_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="30dp"
                 app:tabIndicatorGravity="stretch"
+                app:tabMode="scrollable"
                 app:tabTextAppearance="@style/home_tab_text"
                 app:tabIconTint="@color/tab_icon_color"
                 app:tabTextColor="@color/tab_icon_color"
@@ -69,39 +74,8 @@
                 app:tabBackground="@drawable/profile_tab_style"
                 app:tabIndicator="@color/tab_background_color"
                 app:tabInlineLabel="true"
-                >
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/all"
-                    />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/money"
-                    android:text="مال"
-                    />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/food"
-                    android:text="طعام"
-                    />
-
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/clothes"
-                    android:text="ملابس"
-                    />
-
-
-            </com.google.android.material.tabs.TabLayout>
-
+                />
+            </HorizontalScrollView>
 
             <TextView
                 android:layout_width="match_parent"

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:paddingHorizontal="30dp"
+    android:id="@+id/charity_parent_layout"
     android:background="@drawable/background"
     >
 
@@ -124,6 +125,7 @@
                 android:orientation="vertical"
                 >
                 <LinearLayout
+                    android:id="@+id/choose_open_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
@@ -169,6 +171,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <LinearLayout
+                    android:id="@+id/choose_close_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView

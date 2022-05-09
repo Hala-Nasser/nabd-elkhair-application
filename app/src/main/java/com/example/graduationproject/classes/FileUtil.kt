@@ -16,7 +16,7 @@ import android.util.Log
 import java.lang.Exception
 
 
- object FileUtil {
+object FileUtil {
 
     @SuppressLint("NewApi")
     fun getPath(uri: Uri, context: Context): String? {
