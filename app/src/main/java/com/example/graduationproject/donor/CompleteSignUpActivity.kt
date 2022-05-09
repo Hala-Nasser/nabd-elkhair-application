@@ -124,6 +124,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
                                 "sharedPref", Context.MODE_PRIVATE)
 
                             val editor = sharedPref.edit()
+                            editor.putString("from", "donor")
                             editor.putInt("user_id", user_id)
                             editor.putString("user_image", data.data.image)
                             Log.e("id in signup", user_id.toString())

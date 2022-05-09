@@ -1,20 +1,22 @@
 package com.example.graduationproject.network
 
-import android.database.Observable
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
 import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
+import com.example.graduationproject.api.charityApi.fcm.FCMJson as CharityFCMJSon
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
+import com.example.graduationproject.api.charityApi.login.LoginJson as CharityLoginJson
 import com.example.graduationproject.api.donorApi.register.RegisterJson
+import com.example.graduationproject.api.charityApi.register.RegisterJson as CharityRegisterJson
 import com.example.graduationproject.api.donorApi.resetPassword.ResetPasswordJson
 import com.example.graduationproject.api.donorApi.staticPages.StaticPagesJson
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
-import retrofit2.Response
 
 import retrofit2.http.POST
 
@@ -51,6 +53,41 @@ interface ApiRequests {
 
     @GET("donor/charities")
     fun getCharities(): Call<CharitiesJson>
+
+
+
+
+
+   // --------------------------------------------------------------------------------------------------
+
+    @Multipart
+    @POST("charity/register")
+    fun charityRegister(
+        @Part("name") name:RequestBody,
+        @Part("email") email:RequestBody,
+        @Part("password") password:String,
+        @Part("phone") phone:RequestBody,
+        @Part("address") address:RequestBody,
+        @Part("about") about:RequestBody,
+        @Part("open_time") open_time:RequestBody,
+        @Part image: MultipartBody.Part,
+        @Part("activation_status") activation_status:RequestBody,
+        @Part("c_password") c_password:String,
+        @Part("donationTypes[]") donationTypes:ArrayList<Int>,
+    ): Call<CharityRegisterJson>
+
+    @POST("charity/login")
+    fun charityLogIn(@Body body: RequestBody): Call<CharityLoginJson>
+
+    @POST("charity/store/fcm")
+    fun charityFcmToken(@Query("user_id") userId: Int,
+                 @Query("fcm") fcm: String): Call<CharityFCMJSon>
+
+    @GET("charity/getDonationTypes")
+    fun getGeneralDonationType(): Call<DonationTypeJson>
+
+    @GET("charity/getCharityDonationTypes/{id}")
+    fun getCharityDonationTypes(@Path("id") id:Int): Call<DonationTypeJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")

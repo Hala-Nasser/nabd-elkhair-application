@@ -3,6 +3,7 @@ package com.example.graduationproject.donor.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,6 +40,10 @@ import retrofit2.Response
 import android.os.Build
 import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.charities.Data
+import android.graphics.drawable.Drawable
+
+
+
 
 
 class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {

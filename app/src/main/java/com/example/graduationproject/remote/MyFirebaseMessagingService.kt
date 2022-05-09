@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
+import com.example.graduationproject.api.charityApi.fcm.FCMJson as CharityFCMJSon
 import com.example.graduationproject.network.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,12 +48,43 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             var token = task.result
             Log.e("hala", "Token: $token")
             val ref = activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-            val user_id = ref.getInt("user_id",0)
+            if (ref.getString("from","") == "donor"){
+                val user_id = ref.getInt("user_id",0)
+                addFcm(user_id, token)
+            }else{
+                val user_id = ref.getInt("charity_id",0)
+                addFcmToCharity(user_id,token)
+            }
 
-            addFcm(user_id, token)
         })
     }
 
+    fun addFcmToCharity(user_id:Int, fcm:String) {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        Log.e("charity user_id", user_id.toString())
+        Log.e("charity fcm", fcm)
+        val response = retrofitInstance.charityFcmToken(user_id, fcm)
+
+        response.enqueue(object : Callback<CharityFCMJSon> {
+            override fun onResponse(call: Call<CharityFCMJSon>, response: Response<CharityFCMJSon>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("TAG", data!!.status.toString())
+                }
+                else{
+                    Log.e("errorBody", response.message())
+                }
+
+            }
+
+            override fun onFailure(call: Call<CharityFCMJSon>, t: Throwable) {
+                Log.e("TAG", t.message!!)
+            }
+        })
+
+    }
 
     fun addFcm(user_id:Int, fcm:String) {
 

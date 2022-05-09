@@ -11,6 +11,7 @@ import com.example.graduationproject.charity.fragments.NotificationFragment
 import com.example.graduationproject.charity.fragments.ProfileFragment
 import com.example.graduationproject.classes.LuncherManager
 import com.example.graduationproject.classes.NavigationManager
+import com.example.graduationproject.remote.MyFirebaseMessagingService
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class CharityMainActivity : AppCompatActivity() {
@@ -21,6 +22,8 @@ class CharityMainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_charity_main)
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
+
+        MyFirebaseMessagingService().retrieveToken(this)
 
         nav_bottom = findViewById(R.id.charity_nav_bottom)
         navigationManager = NavigationManager(this)

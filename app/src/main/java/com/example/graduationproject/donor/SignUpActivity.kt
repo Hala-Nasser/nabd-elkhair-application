@@ -59,17 +59,9 @@ class SignUpActivity : AppCompatActivity(){
 
             if (isAllFieldsChecked) {
                 if (isDonor){
-                    var option = ActivityOptions.makeSceneTransitionAnimation(this)
-                    var intent = Intent(this, CompleteSignUpActivity::class.java)
-                    intent.putExtra("name",user_name)
-                    intent.putExtra("email",user_email)
-                    intent.putExtra("phone",user_phone)
-                    intent.putExtra("address",user_address)
-                    intent.putExtra("password",user_password)
-                    intent.putExtra("confirm_password",user_confirm_password)
-                    startActivity(intent,option.toBundle())
+                    sendUserData(CompleteSignUpActivity())
                 }else{
-                    GeneralChanges().prepareFadeTransition(this, CompleteSignupActivity())
+                    sendUserData(CompleteSignupActivity())
                 }
             }
 
@@ -109,6 +101,18 @@ class SignUpActivity : AppCompatActivity(){
         }
 
 
+    }
+
+    private fun sendUserData(activity:AppCompatActivity) {
+        var option = ActivityOptions.makeSceneTransitionAnimation(this)
+        var intent = Intent(this, activity::class.java)
+        intent.putExtra("name", user_name)
+        intent.putExtra("email", user_email)
+        intent.putExtra("phone", user_phone)
+        intent.putExtra("address", user_address)
+        intent.putExtra("password", user_password)
+        intent.putExtra("confirm_password", user_confirm_password)
+        startActivity(intent, option.toBundle())
     }
 
     private fun CheckAllFields(): Boolean {

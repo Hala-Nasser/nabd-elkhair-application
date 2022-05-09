@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.login.LoginJson
+import com.example.graduationproject.api.charityApi.login.LoginJson as CharityLoginJson
 import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
@@ -51,7 +52,7 @@ class SignInActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val isDonor = sharedPref.getBoolean("isDonor", false)
 
-        if (isDonor) {
+
             findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
 
                 user_email = email.text.toString()
@@ -62,16 +63,17 @@ class SignInActivity : AppCompatActivity() {
                 if (isAllFieldsChecked) {
                     progressDialog = ProgressDialog(this)
                     GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-                    loginToApp()
+                    if (isDonor) {
+                        loginToApp()
+
+                    }else{
+                        charityLoginToApp()
+                    }
                 }
 
 
             }
-        } else {
-            findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
-                GeneralChanges().prepareFadeTransition(this, CharityMainActivity())
-            }
-        }
+
 
 
         findViewById<TextView>(R.id.sign_up).setOnClickListener {
@@ -118,6 +120,7 @@ class SignInActivity : AppCompatActivity() {
                         )
 
                         val editor = sharedPref.edit()
+                        editor.putString("from", "donor")
                         editor.putInt("user_id", user_id)
                         editor.putString("user_token", data.data.token)
                         editor.putString("user_image", data.data.image)
@@ -151,7 +154,64 @@ class SignInActivity : AppCompatActivity() {
         })
 
     }
+    fun charityLoginToApp() {
 
+        val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("email", user_email)
+            .addFormDataPart("password", user_password)
+            .build()
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.charityLogIn(body)
+
+        response.enqueue(object : Callback<CharityLoginJson> {
+            override fun onResponse(call: Call<CharityLoginJson>, response: Response<CharityLoginJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("Charity", data.toString())
+
+                    if (data!!.status) {
+
+                        val user_id = data.data.id
+                        val sharedPref = this@SignInActivity.getSharedPreferences(
+                            "sharedPref", Context.MODE_PRIVATE
+                        )
+
+                        val editor = sharedPref.edit()
+                        editor.putString("from", "charity")
+                        editor.putInt("charity_id", user_id)
+                        editor.putString("user_token", data.data.token)
+                        Log.e("Charity id in signin", user_id.toString())
+                        editor.apply()
+                        GeneralChanges().hideDialog(progressDialog!!)
+
+                        GeneralChanges().prepareFadeTransition(
+                            this@SignInActivity,
+                            CharityMainActivity()
+                        )
+
+                    } else {
+                        GeneralChanges().hideDialog(progressDialog!!)
+                        Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
+
+                    }
+
+                } else {
+                    GeneralChanges().hideDialog(progressDialog!!)
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                    Log.e("errorBody", response.body().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<CharityLoginJson>, t: Throwable) {
+                Log.e("on failure sign in", t.message!!)
+
+            }
+        })
+
+    }
 
     private fun CheckAllFields(): Boolean {
         if (!Validation().validateEmail(email, email_layout)) return false

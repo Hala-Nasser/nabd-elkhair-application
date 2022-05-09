@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
+            app:cardElevation="3dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="0.0px"
             android:clipToPadding="false"
