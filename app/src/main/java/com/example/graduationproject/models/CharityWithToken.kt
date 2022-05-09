@@ -1,6 +1,6 @@
-package com.example.graduationproject.api.charityApi.login
+package com.example.graduationproject.models
 
-data class Data(
+data class CharityWithToken(
     val about: String,
     val activation_status: Int,
     val address: String,

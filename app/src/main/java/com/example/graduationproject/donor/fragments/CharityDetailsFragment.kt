@@ -8,10 +8,22 @@ import android.view.ViewGroup
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.charity.fragments.AddComplaintFragment
+import com.example.graduationproject.charity.models.Donation
+import com.example.graduationproject.network.RetrofitInstance
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_charity_details.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class CharityDetailsFragment : Fragment() {
+
+    lateinit var charity_name:String
+    lateinit var charity_image:String
+    lateinit var charity_address:String
+    lateinit var charity_description :String
+    lateinit var charity_donation_type:String
+    lateinit var charity_phone:String
+    var campaignDonation : ArrayList<Donation> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,11 +32,36 @@ class CharityDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_charity_details, container, false)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragmentsAndTitles(AboutCharityFragment(), "عن الجمعية")
-        //sectionsPagerAdapter.addFragmentsAndTitles(CharityCampaignsFragment(), "الحملات")
-        root.charity_campaigns_viewpager.adapter = sectionsPagerAdapter
-        root.charity_tab_layout.setupWithViewPager(root.charity_campaigns_viewpager)
+        val b = arguments
+        if (b != null) {
+            charity_name = b.getString("charity_name")!!
+            charity_image = b.getString("charity_image")!!
+            charity_address = b.getString("charity_address")!!
+
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+charity_image).into(root.charity_image)
+            root.charity_name_2.text = charity_name
+            root.charity_name.text = charity_name
+            root.charity_location.text = charity_address
+
+
+            val about_fragment = AboutCharityFragment()
+            b.putString("charity_description", b.getString("charity_description"))
+            //b.putString("charity_donation_type", charity_donation_type)
+            b.putInt("charity_phone", b.getInt("charity_phone"))
+
+            about_fragment.arguments = b
+
+            val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
+            sectionsPagerAdapter.addFragmentsAndTitles(about_fragment, "عن الجمعية")
+            sectionsPagerAdapter.addFragmentsAndTitles(CharityCampaignsFragment(), "الحملات")
+            root.charity_campaigns_viewpager.adapter = sectionsPagerAdapter
+            root.charity_tab_layout.setupWithViewPager(root.charity_campaigns_viewpager)
+
+        }
+
+
+
+
 
         root.back.setOnClickListener {
             requireActivity().onBackPressed()

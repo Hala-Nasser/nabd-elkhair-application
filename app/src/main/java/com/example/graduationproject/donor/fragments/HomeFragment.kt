@@ -110,9 +110,13 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
     override fun onItemClick(data: Data, position: Int) {
         val fragment = CharityDetailsFragment()
         val b = Bundle()
-        b.putString("campaign_name", data.name)
-        b.putString("campaign_image", data.image)
-        b.putString("campaign_date", data.address)
+        b.putString("charity_name", data.name)
+        b.putString("charity_image", data.image)
+        b.putString("charity_address", data.address)
+        b.putString("charity_description", data.about)
+        //b.putString("charity_donation_type", data.donation_type)
+        b.putInt("charity_phone", data.phone)
+        //b.putString("charity_facebook", data.facebook)
 
         fragment.arguments = b
 
@@ -132,6 +136,8 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
+                    donation_type_ids.add(0)
+                    donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setText("الكل"))
 
                     for (donation_type in data){
                         donation_type_ids.add(donation_type.id)

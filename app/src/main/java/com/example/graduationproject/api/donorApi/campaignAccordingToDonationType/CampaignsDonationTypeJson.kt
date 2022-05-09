@@ -1,6 +1,6 @@
 package com.example.graduationproject.api.donorApi.campaignAccordingToDonationType
 
-import com.example.graduationproject.donor.models.Campaigns
+import com.example.graduationproject.models.Campaigns
 
 data class CampaignsDonationTypeJson(
     val `data`: List<Campaigns>,

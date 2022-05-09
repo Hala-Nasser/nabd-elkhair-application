@@ -1,32 +1,23 @@
 package com.example.graduationproject.donor.adapters
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.api.donorApi.donationType.Data
-import com.example.graduationproject.charity.models.Donation
-import com.example.graduationproject.donor.models.DonationType
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.DonationType
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 
 var lastCheckedPos = -1
-var typeSelected : Data? = null
+var typeSelected : DonationType? = null
 
-class DonationTypeAdapter(var activity: Context?, var data: List<Data>?, var from: String,
-                         ) :
+class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?, var from: String) :
     RecyclerView.Adapter<DonationTypeAdapter.MyViewHolder>() {
 
     var list  : ArrayList<Int> = ArrayList()
@@ -37,7 +28,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<Data>?, var fro
         val cardView = itemView.findViewById<MaterialCardView>(R.id.donation_type_card_view)
         var clicked = true
 
-        fun initialize(data: Data) {
+        fun initialize(data: DonationType) {
             Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
             title.text = data.name
 

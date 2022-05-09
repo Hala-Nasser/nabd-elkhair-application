@@ -15,13 +15,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.api.donorApi.donationType.Data
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.DonationType
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.donor.adapters.lastCheckedPos
 import com.example.graduationproject.donor.adapters.typeSelected
-import com.example.graduationproject.donor.models.Charity
-import com.example.graduationproject.donor.models.DonationType
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.Charity
+import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.charity_item.view.*
@@ -32,14 +33,15 @@ import kotlinx.android.synthetic.main.fragment_campaign_details.view.*
 class CampaignDetailsFragment : Fragment() {
 
     var campaign_name = ""
-    var campaign_image = 0
+    var campaign_description = ""
+    var campaign_image = ""
     var campaign_date = ""
     lateinit var campaign_charity: Charity
     lateinit var dialog :Dialog
     lateinit var v :View
     //var donation_type_clicked = false
 
-    var  campaign_donation_type= mutableListOf<Data>()
+    var  campaign_donation_type= mutableListOf<DonationType>()
 
 
 
@@ -53,21 +55,24 @@ class CampaignDetailsFragment : Fragment() {
         val b = arguments
         if (b != null) {
             campaign_name = b.getString("campaign_name")!!
-            campaign_image = b.getInt("campaign_image")
+            campaign_description = b.getString("campaign_description")!!
+            campaign_image = b.getString("campaign_image")!!
             campaign_date = b.getString("campaign_date")!!
             campaign_charity = b.getParcelable("campaign_charity")!!
             val donation_type : DonationType = b.getParcelable("campaign_donation_type")!!
-//            campaign_donation_type.add(donation_type)
-            if (donation_type.photo != R.drawable.money){
-//                campaign_donation_type.add(DonationType(R.drawable.money,"المال"))
-            }
+            campaign_donation_type.add(donation_type)
+//            if (donation_type.name != "مال"){
+//                val timestamp = (System.currentTimeMillis() / 1000).toString()
+//                campaign_donation_type.add(DonationType(timestamp, null, 1, drawable.money,"المال"))
+//            }
 
             root.campaign_name.text = campaign_name
-            root.campaign_image.setImageResource(campaign_image)
+            root.campaign_description.text = campaign_description
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+campaign_image).into(root.campaign_image)
             root.campaign_date.text = campaign_date
-            root.campaign_charity.charity_image.setImageResource(campaign_charity.charityImg!!)
-            root.campaign_charity.charity_name.text = campaign_charity.charityName
-            root.campaign_charity.charity_location.text = campaign_charity.charityLocation
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+campaign_charity.image).into(root.campaign_charity.charity_image)
+            root.campaign_charity.charity_name.text = campaign_charity.name
+            root.campaign_charity.charity_location.text = campaign_charity.address
 
         }
 
@@ -84,7 +89,7 @@ class CampaignDetailsFragment : Fragment() {
                 if (typeSelected != null){
                     if (typeSelected!!.name == "مال"){
                         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,FirstStepViewDonationFragment()).addToBackStack(null).commit()
-                    }else if (typeSelected!!.name == "ملابس" || typeSelected!!.name == "طعام"){
+                    }else{
 
                         val fragment = SecondStepViewDonationManualFragment()
                         val b=Bundle()
@@ -101,8 +106,6 @@ class CampaignDetailsFragment : Fragment() {
                 }
 
             }
-
-
 
             v.rv_donation_type.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL,false)
             v.rv_donation_type.setHasFixedSize(true)
