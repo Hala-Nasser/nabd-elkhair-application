@@ -1,5 +1,6 @@
 package com.example.graduationproject.network
 
+import com.example.graduationproject.api.donorApi.profile.ProfileJson
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
 import com.example.graduationproject.api.donorApi.charities.CharitiesJson
@@ -8,11 +9,14 @@ import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.api.charityApi.fcm.FCMJson as CharityFCMJSon
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
+import com.example.graduationproject.api.donorApi.notifications.NotificationJson
 import com.example.graduationproject.api.charityApi.login.LoginJson as CharityLoginJson
 import com.example.graduationproject.api.donorApi.register.RegisterJson
 import com.example.graduationproject.api.charityApi.register.RegisterJson as CharityRegisterJson
 import com.example.graduationproject.api.donorApi.resetPassword.ResetPasswordJson
+import com.example.graduationproject.api.donorApi.specificDonationType.SpecificDonationTypeJson
 import com.example.graduationproject.api.donorApi.staticPages.StaticPagesJson
+import com.example.graduationproject.api.donorApi.updateProfile.UpdateProfileJson
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -54,7 +58,18 @@ interface ApiRequests {
     @GET("donor/charities")
     fun getCharities(): Call<CharitiesJson>
 
+    @GET("donor/notifications/{reciever_id}")
+    fun getNotifications(@Path("reciever_id") reciever_id: Int): Call<NotificationJson>
 
+    @GET("donor/profile/{id}")
+    fun profile(@Path("id") id: Int): Call<ProfileJson>
+
+    @POST("donor/profile/update")
+    fun updateProfile(@Body body: RequestBody): Call<UpdateProfileJson>
+
+
+    @GET("donor/donationtype/{id}")
+    fun specificDonationType(@Path("id") id: Int): Call<SpecificDonationTypeJson>
 
 
 
@@ -65,14 +80,13 @@ interface ApiRequests {
     fun charityRegister(
         @Part("name") name:RequestBody,
         @Part("email") email:RequestBody,
-        @Part("password") password:String,
+        @Part("password") password:RequestBody,
         @Part("phone") phone:RequestBody,
         @Part("address") address:RequestBody,
         @Part("about") about:RequestBody,
         @Part("open_time") open_time:RequestBody,
         @Part image: MultipartBody.Part,
         @Part("activation_status") activation_status:RequestBody,
-        @Part("c_password") c_password:String,
         @Part("donationTypes[]") donationTypes:ArrayList<Int>,
     ): Call<CharityRegisterJson>
 

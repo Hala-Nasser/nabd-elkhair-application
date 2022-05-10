@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
-    tools:context=".charity.fragments.AllDonationFragment">
+    android:id="@+id/parent_layout"
+    tools:context=".donor.fragments.CampaignsAccordingToDonationTypeFragment">
 
     <ImageView
         android:id="@+id/all_no_campaign"

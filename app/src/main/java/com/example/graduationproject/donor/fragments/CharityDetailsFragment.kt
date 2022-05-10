@@ -21,7 +21,7 @@ class CharityDetailsFragment : Fragment() {
     lateinit var charity_image:String
     lateinit var charity_address:String
     lateinit var charity_description :String
-    lateinit var charity_donation_type:String
+    //lateinit var charity_donation_type:String
     lateinit var charity_phone:String
     var campaignDonation : ArrayList<Donation> = ArrayList()
 
@@ -46,7 +46,7 @@ class CharityDetailsFragment : Fragment() {
 
             val about_fragment = AboutCharityFragment()
             b.putString("charity_description", b.getString("charity_description"))
-            //b.putString("charity_donation_type", charity_donation_type)
+            b.putStringArrayList("charity_donation_type", b.getStringArrayList("charity_donation_type"))
             b.putInt("charity_phone", b.getInt("charity_phone"))
 
             about_fragment.arguments = b

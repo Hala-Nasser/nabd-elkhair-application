@@ -10,11 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.charities.Data
 import com.example.graduationproject.donor.adapters.CharitiesAdapter
-import com.example.graduationproject.donor.models.Charity
-import kotlinx.android.synthetic.main.activity_donor_main.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_home.view.rv_all_charities
-import kotlinx.android.synthetic.main.fragment_search_results.view.*
+import com.example.graduationproject.models.Charity
 
 class SearchResultsFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
@@ -42,7 +38,7 @@ class SearchResultsFragment : Fragment(), CharitiesAdapter.onCharityItemClickLis
         return root
     }
 
-    override fun onItemClick(data: Data, position: Int) {
+    override fun onItemClick(data: Charity, position: Int) {
         TODO("Not yet implemented")
     }
 

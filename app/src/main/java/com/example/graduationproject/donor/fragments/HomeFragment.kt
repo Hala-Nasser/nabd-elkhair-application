@@ -20,7 +20,7 @@ import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.classes.TabLayoutSettings
 import com.example.graduationproject.donor.adapters.CharitiesAdapter
 import com.example.graduationproject.donor.adapters.PageAdapterDonationType
-import com.example.graduationproject.donor.models.Charity
+import com.example.graduationproject.models.Charity
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -41,9 +41,7 @@ import android.os.Build
 import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.charities.Data
 import android.graphics.drawable.Drawable
-
-
-
+import android.os.Parcelable
 
 
 class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
@@ -81,6 +79,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 Log.e("on select tab", "enter")
                 var mSelectedPosition = root.donor_home_tab_layout.selectedTabPosition
+                Log.e("mSelectedPosition", mSelectedPosition.toString())
                 editor.putInt("selected home donation type", donation_type_ids[mSelectedPosition])
                 editor.apply()
                 val donation_type = sharedPref.getInt("selected home donation type", 0)
@@ -107,14 +106,15 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
 
 
-    override fun onItemClick(data: Data, position: Int) {
+    override fun onItemClick(data: Charity, position: Int) {
         val fragment = CharityDetailsFragment()
         val b = Bundle()
         b.putString("charity_name", data.name)
         b.putString("charity_image", data.image)
         b.putString("charity_address", data.address)
         b.putString("charity_description", data.about)
-        //b.putString("charity_donation_type", data.donation_type)
+        b.putStringArrayList("charity_donation_type", data.donationTypes as  ArrayList<String>)
+
         b.putInt("charity_phone", data.phone)
         //b.putString("charity_facebook", data.facebook)
 

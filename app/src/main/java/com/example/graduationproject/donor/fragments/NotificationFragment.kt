@@ -1,60 +1,79 @@
 package com.example.graduationproject.donor.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.donorApi.charities.CharitiesJson
+import com.example.graduationproject.api.donorApi.notifications.NotificationJson
+import com.example.graduationproject.donor.adapters.CharitiesAdapter
+import com.example.graduationproject.donor.adapters.NotificationAdapter
+import com.example.graduationproject.network.RetrofitInstance
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_notification.*
+import kotlinx.android.synthetic.main.fragment_notification.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NotificationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NotificationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false)
+        val root = inflater.inflate(R.layout.fragment_notification, container, false)
+
+        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val user_image = sharedPref.getString("user_image", "")
+        Picasso.get().load(RetrofitInstance.IMAGE_URL+user_image).into(root.profile_image)
+
+        val user_id = sharedPref.getInt("user_id", 0)
+
+        getNotifications(user_id)
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NotificationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NotificationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    fun getNotifications(id: Int) {
+
+        Log.e("noti", "enter")
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.getNotifications(id)
+
+        response.enqueue(object : Callback<NotificationJson> {
+            override fun onResponse(call: Call<NotificationJson>, response: Response<NotificationJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()!!.data
+
+                    Log.e("data", data.toString())
+                    rv_notifications.layoutManager = LinearLayoutManager(activity,
+                        RecyclerView.VERTICAL,false)
+                    rv_notifications.setHasFixedSize(true)
+                    val notificationAdapter =
+                        NotificationAdapter(activity, data)
+                    rv_notifications.adapter = notificationAdapter
+
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }
+
             }
+
+            override fun onFailure(call: Call<NotificationJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
     }
+
+
 }

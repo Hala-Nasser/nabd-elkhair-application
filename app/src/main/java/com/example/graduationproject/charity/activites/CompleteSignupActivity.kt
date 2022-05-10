@@ -135,6 +135,9 @@ class CompleteSignupActivity : AppCompatActivity(){
         val requestEmail = RequestBody.create(
             MediaType.parse("multipart/form-data"), email
         )
+        val requestPassword = RequestBody.create(
+            MediaType.parse("multipart/form-data"), password
+        )
         val requestPhone = RequestBody.create(
             MediaType.parse("multipart/form-data"), phone
         )
@@ -180,9 +183,9 @@ class CompleteSignupActivity : AppCompatActivity(){
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.charityRegister(requestName,requestEmail,password!!,requestPhone,requestAddress,requestAbout,
+        val response = retrofitInstance.charityRegister(requestName,requestEmail,requestPassword,requestPhone,requestAddress,requestAbout,
         requestOpenTime,image,
-            requestActivation,confirm_password!!,donationTypeAdapter.list)
+            requestActivation,donationTypeAdapter.list)
 
         response.enqueue(object : Callback<RegisterJson> {
             override fun onResponse(call: Call<RegisterJson>, response: Response<RegisterJson>) {

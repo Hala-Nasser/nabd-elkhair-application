@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
@@ -36,6 +37,7 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
     var progressDialog: ProgressDialog? = null
     lateinit var dialog: BottomSheetDialog
     lateinit var v: View
+    var donation_type = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,18 +50,25 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
             false
         )
 
+        Toast.makeText(activity, "reload", Toast.LENGTH_LONG).show()
+
         Log.e("campaign fragment", "enter")
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        val donation_type = sharedPref.getInt("selected home donation type", 0)
+        donation_type = sharedPref.getInt("selected home donation type", 0)
 
         Log.e("donation in campaign", donation_type.toString())
 
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-        getCampaignsDonationType(donation_type)
+
 
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getCampaignsDonationType(donation_type)
     }
 
     fun getCampaignsDonationType(donation_type: Int) {
@@ -76,12 +85,17 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
                     Log.e("response", response.body().toString())
+                    Log.e("get donation", "is successful")
                     if (data.isEmpty()) {
+                        Log.e("get donation", data.toString())
+                        Log.e("get donation", "is empty")
                         all_no_campaign.visibility = View.VISIBLE
                         rv_campaigns.visibility = View.GONE
                         GeneralChanges().hideDialog(progressDialog!!)
 
                     } else {
+                        Log.e("get donation", data.toString())
+                        Log.e("get donation", "is not empty")
                         all_no_campaign.visibility = View.GONE
                         rv_campaigns.visibility = View.VISIBLE
 
@@ -90,6 +104,7 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                                 activity,
                                 RecyclerView.VERTICAL, false
                             )
+                            Log.e("data before adapter", data.toString())
                             rv_campaigns.setHasFixedSize(true)
                             val campaignsAdapter =
                                 CampaignsAdapter(
@@ -102,6 +117,7 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                             campaignsAdapter.notifyDataSetChanged()
                             GeneralChanges().hideDialog(progressDialog!!)
                         } else {
+                            Log.e("data before adapter", data.toString())
                             rv_campaigns.layoutManager = LinearLayoutManager(
                                 activity,
                                 RecyclerView.HORIZONTAL, false

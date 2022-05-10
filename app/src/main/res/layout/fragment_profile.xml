@@ -119,6 +119,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/campaign_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="38"
@@ -150,6 +151,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/charity_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="20"

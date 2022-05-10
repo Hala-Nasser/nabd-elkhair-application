@@ -19,7 +19,7 @@ import com.example.graduationproject.api.donorApi.campaignAccordingToDonationTyp
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.donor.adapters.lastCheckedPos
 import com.example.graduationproject.donor.adapters.typeSelected
-import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.Charity
+import com.example.graduationproject.models.Charity
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso

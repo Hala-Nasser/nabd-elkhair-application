@@ -1,6 +1,7 @@
 package com.example.graduationproject.donor.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,6 +78,7 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>, var f
 
     override fun onBindViewHolder(holder: CampaignsAdapter.MyViewHolder, position: Int) {
         // holder.photo.setImageResource(data[position].photo)
+        Log.e("data in adapter", data.toString())
         holder.initialize(data[position], clickListener,from)
 
         when(from){
