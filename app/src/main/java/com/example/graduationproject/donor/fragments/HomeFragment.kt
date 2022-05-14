@@ -109,11 +109,12 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
     override fun onItemClick(data: Charity, position: Int) {
         val fragment = CharityDetailsFragment()
         val b = Bundle()
+        b.putInt("charity_id", data.id)
         b.putString("charity_name", data.name)
         b.putString("charity_image", data.image)
         b.putString("charity_address", data.address)
         b.putString("charity_description", data.about)
-        b.putStringArrayList("charity_donation_type", data.donationTypes as  ArrayList<String>)
+        //b.putStringArrayList("charity_donation_type", data.donationTypes as  ArrayList<String>)
 
         b.putInt("charity_phone", data.phone)
         //b.putString("charity_facebook", data.facebook)
@@ -150,7 +151,10 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
                     // Create adapter after adding the tabs
                     val adapter = PageAdapterDonationType(childFragmentManager, donation_type_ids.size)
+                    campaigns_viewpager.isSaveEnabled = false
+                    Log.e("pager", campaigns_viewpager.isSaveEnabled.toString())
                     campaigns_viewpager.adapter = adapter
+
                     campaigns_viewpager.addOnPageChangeListener(TabLayoutOnPageChangeListener(donor_home_tab_layout))
 
                 } else {

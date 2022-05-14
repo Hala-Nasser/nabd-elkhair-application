@@ -29,9 +29,11 @@ import kotlinx.android.synthetic.main.charity_item.view.*
 import kotlinx.android.synthetic.main.dialog_item.view.*
 import kotlinx.android.synthetic.main.donation_type_item.view.*
 import kotlinx.android.synthetic.main.fragment_campaign_details.view.*
+import java.util.ArrayList
 
 class CampaignDetailsFragment : Fragment() {
 
+    var campaign_id = 0
     var campaign_name = ""
     var campaign_description = ""
     var campaign_image = ""
@@ -41,7 +43,7 @@ class CampaignDetailsFragment : Fragment() {
     lateinit var v :View
     //var donation_type_clicked = false
 
-    var  campaign_donation_type= mutableListOf<DonationType>()
+    var campaign_donation_type= mutableListOf<DonationType>()
 
 
 
@@ -54,17 +56,18 @@ class CampaignDetailsFragment : Fragment() {
 
         val b = arguments
         if (b != null) {
+            campaign_id = b.getInt("campaign_id")
             campaign_name = b.getString("campaign_name")!!
             campaign_description = b.getString("campaign_description")!!
             campaign_image = b.getString("campaign_image")!!
             campaign_date = b.getString("campaign_date")!!
             campaign_charity = b.getParcelable("campaign_charity")!!
-            val donation_type : DonationType = b.getParcelable("campaign_donation_type")!!
-            campaign_donation_type.add(donation_type)
-//            if (donation_type.name != "مال"){
-//                val timestamp = (System.currentTimeMillis() / 1000).toString()
-//                campaign_donation_type.add(DonationType(timestamp, null, 1, drawable.money,"المال"))
-//            }
+//            val donation_type : DonationType = b.getParcelable("campaign_donation_type")!!
+            campaign_donation_type = mutableListOf()
+            campaign_donation_type = b.getParcelableArrayList("campaign_donation_type")!!
+            Log.e("DT get from bundle", campaign_donation_type.toString())
+            //campaign_donation_type.add(donation_type)
+
 
             root.campaign_name.text = campaign_name
             root.campaign_description.text = campaign_description
@@ -88,11 +91,18 @@ class CampaignDetailsFragment : Fragment() {
                 Log.e("item selected position", lastCheckedPos.toString())
                 if (typeSelected != null){
                     if (typeSelected!!.name == "مال"){
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,FirstStepViewDonationFragment()).addToBackStack(null).commit()
+                        val fragment = FirstStepViewDonationFragment()
+                        val b=Bundle()
+                        b.putInt("charity_id", campaign_charity.id)
+                        b.putString("campaign_name", campaign_name)
+                        b.putString("campaign_image", campaign_image)
+                        fragment.arguments=b
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
                     }else{
 
                         val fragment = SecondStepViewDonationManualFragment()
                         val b=Bundle()
+                        b.putInt("charity_id", campaign_charity.id)
                         b.putString("previous_fragment","campaignDetails")
                         fragment.arguments=b
                         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
@@ -113,6 +123,10 @@ class CampaignDetailsFragment : Fragment() {
                 DonationTypeAdapter(activity, campaign_donation_type,"CampaignDetailsFragment")
             v.rv_donation_type.adapter = donationAdapter
 
+        }
+
+        root.back.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
 

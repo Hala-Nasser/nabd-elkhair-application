@@ -12,7 +12,7 @@ data class Campaigns(
     var created_at: String,
     var deleted_at: String?,
     var description: String,
-    val donation_type: DonationType,
+    val donation_type: List<DonationType>,
     var donation_type_id: Int,
     var expiry_date: String,
     var expiry_time: String,

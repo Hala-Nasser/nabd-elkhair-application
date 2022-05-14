@@ -63,10 +63,10 @@
                     android:id="@+id/edit_profile_image"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/profile"
-                    android:padding="3dp"
                     android:background="@drawable/dashed_border"
-                    android:foreground="@drawable/transparent"/>
+                    android:foreground="@drawable/transparent"
+                    android:padding="3dp"
+                    android:src="@drawable/profile" />
 
                 <ImageView
                     android:id="@+id/choose_image"
@@ -98,7 +98,6 @@
                     android:fontFamily="@font/tajawal_medium"
                     android:inputType="text"
                     android:text = "Hala Nasser"
-                    android:enabled="false"
                     android:textColor="@color/black_transparent_86"
                     android:textSize="15sp" />
 
@@ -120,6 +119,7 @@
                     android:fontFamily="@font/tajawal_medium"
                     android:inputType="none"
                     android:text="hala@gmail.com"
+                    android:enabled="false"
                     android:textColor="@color/black_transparent_86"
                     android:textSize="15sp" />
 

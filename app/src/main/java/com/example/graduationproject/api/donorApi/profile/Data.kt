@@ -1,6 +1,7 @@
 package com.example.graduationproject.api.donorApi.profile
 
 data class Data(
+    val notification_status:Int,
     val activation_status: Int,
     val capmaign_donations_count: Int,
     val charity_donations_count: Int,

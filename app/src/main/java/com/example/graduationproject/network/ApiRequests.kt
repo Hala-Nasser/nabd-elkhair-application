@@ -2,6 +2,7 @@ package com.example.graduationproject.network
 
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
+import com.example.graduationproject.api.donorApi.campaignsAccordingToCharity.CampaignsCharityJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
 import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
@@ -9,7 +10,9 @@ import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.api.charityApi.fcm.FCMJson as CharityFCMJSon
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
+import com.example.graduationproject.api.donorApi.logout.LogoutJson
 import com.example.graduationproject.api.donorApi.notifications.NotificationJson
+import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.api.charityApi.login.LoginJson as CharityLoginJson
 import com.example.graduationproject.api.donorApi.register.RegisterJson
 import com.example.graduationproject.api.charityApi.register.RegisterJson as CharityRegisterJson
@@ -67,13 +70,26 @@ interface ApiRequests {
     @POST("donor/profile/update")
     fun updateProfile(@Body body: RequestBody): Call<UpdateProfileJson>
 
-
     @GET("donor/donationtype/{id}")
     fun specificDonationType(@Path("id") id: Int): Call<SpecificDonationTypeJson>
 
+    @GET("donor/CampaignsAccordingToCharity/{charity}")
+    fun getCampaignsAccordingToCharity(@Path("charity") charity: Int): Call<CampaignsCharityJson>
+
+    @GET("donor/paymentLink/{charity_id}")
+    fun getPaymentLinks(@Path("charity_id") charity_id: Int): Call<PaymentLinksJson>
+
+    @POST("donor/enable/{id}")
+    fun enableNotification(@Path("id") id: Int): Call<ProfileJson>
+
+    @POST("donor/disable/{id}")
+    fun disableNotification(@Path("id") id: Int): Call<ProfileJson>
+
+    @GET("donor/logout")
+    fun logout(@Header("Authorization") token: String): Call<LogoutJson>
 
 
-   // --------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------
 
     @Multipart
     @POST("charity/register")

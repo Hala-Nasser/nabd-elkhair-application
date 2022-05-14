@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:clipToPadding="false"
         android:clipChildren="false"
         android:layout_height="50dp"
@@ -23,6 +23,7 @@
             android:layout_gravity="center"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="5dp"
+            android:paddingHorizontal="10dp"
             app:cardElevation="3dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="0.0px"
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginHorizontal="10dp"
                 >
 
                 <ImageView
@@ -46,12 +48,14 @@
                     android:layout_height="20dp"
                     android:src="@drawable/money" />
 
+
+
                 <TextView
                     android:id="@+id/donation_type_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="مال"
-                    android:paddingStart="2dp"
+                    android:layout_marginStart="5dp"
                     android:textSize="11sp"
                     android:fontFamily="@font/tajawal_medium"
                     android:textColor="@color/black"

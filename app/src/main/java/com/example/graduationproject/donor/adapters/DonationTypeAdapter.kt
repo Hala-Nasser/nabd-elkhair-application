@@ -52,6 +52,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
 
     override fun onBindViewHolder(holder: DonationTypeAdapter.MyViewHolder, position: Int) {
         // holder.photo.setImageResource(data[position].photo)
+
         holder.initialize(data!![position])
         when (from) {
             "DonorHome" -> {
@@ -82,15 +83,6 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
             }
             "CompleteSignup" -> {
 
-//               var res = changeCardStyle(
-//                    holder,
-//                    R.color.app_color,
-//                    R.color.app_color,
-//                    R.color.white,
-//                    3f,
-//                    R.color.white
-//                )
-
                 holder.cardView.setOnClickListener {
                     if (holder.clicked) {
                         holder.clicked = false
@@ -114,6 +106,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
 
             }
             "CampaignDetailsFragment" -> {
+                Log.e("DT from adapter", data.toString())
                 holder.itemView.setOnClickListener {
                     lastCheckedPos = position
                     typeSelected = data!![position]
@@ -131,6 +124,19 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
                     holder.cardView.apply {
                         strokeColor = resources.getColor(R.color.white)
                     }
+                }
+            }
+            "about charity" ->{
+                holder.cardView.apply {
+                    strokeColor = resources.getColor(R.color.app_color)
+                    cardElevation = 3f
+                    setCardBackgroundColor(resources.getColor(R.color.app_color))
+                }
+                holder.title.apply {
+                    setTextColor(resources.getColor(R.color.white))
+                }
+                holder.image.apply {
+                    setColorFilter(resources.getColor(R.color.white))
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.example.graduationproject.donor.fragments
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.ArrayList
 
 class CampaignsAccordingToDonationTypeFragment : Fragment(),
     CampaignsAdapter.onCampaignItemClickListener {
@@ -155,12 +157,13 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
             "DonorHome" -> {
                 val fragment = CampaignDetailsFragment()
                 val b = Bundle()
+                b.putInt("campaign_id", data.id)
                 b.putString("campaign_name", data.name)
                 b.putString("campaign_description", data.description)
                 b.putString("campaign_image", data.image)
                 b.putString("campaign_date", data.expiry_date)
                 b.putParcelable("campaign_charity", data.charity)
-                b.putParcelable("campaign_donation_type", data.donation_type)
+                b.putParcelableArrayList("campaign_donation_type", data.donation_type as ArrayList<DonationType>)
 
                 fragment.arguments = b
 
@@ -170,7 +173,7 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
 
             }
             "DonorProfile" -> {
-                showDialog(data.donation_type, "electronic")
+                showDialog(data.donation_type[1], "electronic")
                 v.close.setOnClickListener {
                     dialog.dismiss()
                 }
