@@ -135,6 +135,9 @@ class CompleteSignupActivity : AppCompatActivity(){
         val requestEmail = RequestBody.create(
             MediaType.parse("multipart/form-data"), email
         )
+        val requestPassword = RequestBody.create(
+            MediaType.parse("multipart/form-data"), password
+        )
         val requestPhone = RequestBody.create(
             MediaType.parse("multipart/form-data"), phone
         )
@@ -180,9 +183,9 @@ class CompleteSignupActivity : AppCompatActivity(){
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.charityRegister(requestName,requestEmail,password!!,requestPhone,requestAddress,requestAbout,
+        val response = retrofitInstance.charityRegister(requestName,requestEmail,requestPassword,requestPhone,requestAddress,requestAbout,
         requestOpenTime,image,
-            requestActivation,confirm_password!!,donationTypeAdapter.list)
+            requestActivation,donationTypeAdapter.list)
 
         response.enqueue(object : Callback<RegisterJson> {
             override fun onResponse(call: Call<RegisterJson>, response: Response<RegisterJson>) {
@@ -229,6 +232,8 @@ class CompleteSignupActivity : AppCompatActivity(){
 
     fun getDonationType() {
 
+        Log.e("complete sign up", "enter")
+
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.getGeneralDonationType()
@@ -236,13 +241,21 @@ class CompleteSignupActivity : AppCompatActivity(){
         response.enqueue(object : Callback<DonationTypeJson> {
             override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
                 if (response.isSuccessful) {
-                    val data = response.body()!!.data
 
-                    rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(this@CompleteSignupActivity, RecyclerView.HORIZONTAL,false)
-                    rv_complete_signup_donation_type.setHasFixedSize(true)
-                    donationTypeAdapter =
-                        DonationTypeAdapter(this@CompleteSignupActivity, data,"CompleteSignup")
-                    rv_complete_signup_donation_type.adapter = donationTypeAdapter
+                    val data = response.body()
+                    //val data = response.body()!!.data
+
+                    if (data!!.status){
+                        Log.e("data", data.data.toString())
+                        rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(this@CompleteSignupActivity, RecyclerView.HORIZONTAL,false)
+                        rv_complete_signup_donation_type.setHasFixedSize(true)
+                        donationTypeAdapter =
+                            DonationTypeAdapter(this@CompleteSignupActivity, data.data,"CompleteSignup")
+                        rv_complete_signup_donation_type.adapter = donationTypeAdapter
+                    }else{
+                        Log.e("is successful", "status false")
+                    }
+
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

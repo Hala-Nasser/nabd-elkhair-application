@@ -143,18 +143,23 @@ class SignInActivity : AppCompatActivity() {
                     GeneralChanges().hideDialog(progressDialog!!)
                     Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
                     Log.e("errorBody", response.body().toString())
+                    GeneralChanges().hideDialog(progressDialog!!)
                 }
 
             }
 
             override fun onFailure(call: Call<LoginJson>, t: Throwable) {
                 Log.e("on failure sign in", t.message!!)
+                GeneralChanges().hideDialog(progressDialog!!)
 
             }
         })
 
     }
     fun charityLoginToApp() {
+
+        Log.e("email", user_email)
+        Log.e("password", user_password)
 
         val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("email", user_email)
@@ -167,6 +172,7 @@ class SignInActivity : AppCompatActivity() {
 
         response.enqueue(object : Callback<CharityLoginJson> {
             override fun onResponse(call: Call<CharityLoginJson>, response: Response<CharityLoginJson>) {
+
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("Charity", data.toString())

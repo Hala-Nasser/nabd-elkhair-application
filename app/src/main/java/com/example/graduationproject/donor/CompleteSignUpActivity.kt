@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.loader.content.CursorLoader
 import com.example.graduationproject.R
+import com.example.graduationproject.api.donorApi.login.LoginJson
 import com.example.graduationproject.api.donorApi.register.RegisterJson
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
@@ -104,6 +105,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
                 )
                 .addFormDataPart("activation_status", "0")
                 .addFormDataPart("c_password", confirm_password)
+                .addFormDataPart("notification_status", "1")
                 .build()
 
 
@@ -119,22 +121,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
 
                         if (data!!.status) {
 
-                            val user_id = data.data.id
-                            val sharedPref = this@CompleteSignUpActivity.getSharedPreferences(
-                                "sharedPref", Context.MODE_PRIVATE)
-
-                            val editor = sharedPref.edit()
-                            editor.putString("from", "donor")
-                            editor.putInt("user_id", user_id)
-                            editor.putString("user_image", data.data.image)
-                            Log.e("id in signup", user_id.toString())
-                            editor.apply()
-
-                            GeneralChanges().hideDialog(progressDialog!!)
-                            GeneralChanges().prepareFadeTransition(
-                                this@CompleteSignUpActivity,
-                                DonorMainActivity()
-                            )
+                            loginToApp(email!!, password!!)
 
                         }else{
                             GeneralChanges().hideDialog(progressDialog!!)
@@ -154,5 +141,68 @@ class CompleteSignUpActivity : AppCompatActivity() {
                 }
             })
         }
+
+
+    fun loginToApp(user_email:String, user_password:String) {
+
+        val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("email", user_email)
+            .addFormDataPart("password", user_password)
+            .build()
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.logIn(body)
+
+        response.enqueue(object : Callback<LoginJson> {
+            override fun onResponse(call: Call<LoginJson>, response: Response<LoginJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("TAG", data.toString())
+
+                    if (data!!.status) {
+
+                        val user_id = data.data.id
+                        val sharedPref = this@CompleteSignUpActivity.getSharedPreferences(
+                            "sharedPref", Context.MODE_PRIVATE
+                        )
+
+                        val editor = sharedPref.edit()
+                        editor.putString("from", "donor")
+                        editor.putInt("user_id", user_id)
+                        editor.putString("user_token", data.data.token)
+                        editor.putString("user_image", data.data.image)
+                        Log.e("id in signin", user_id.toString())
+                        editor.apply()
+                        GeneralChanges().hideDialog(progressDialog!!)
+
+                        GeneralChanges().prepareFadeTransition(
+                            this@CompleteSignUpActivity,
+                            DonorMainActivity()
+                        )
+
+                    } else {
+                        GeneralChanges().hideDialog(progressDialog!!)
+                        Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
+
+                    }
+
+                } else {
+                    GeneralChanges().hideDialog(progressDialog!!)
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                    Log.e("errorBody", response.body().toString())
+                    GeneralChanges().hideDialog(progressDialog!!)
+                }
+
+            }
+
+            override fun onFailure(call: Call<LoginJson>, t: Throwable) {
+                Log.e("on failure sign in", t.message!!)
+                GeneralChanges().hideDialog(progressDialog!!)
+
+            }
+        })
+
+    }
 
 }

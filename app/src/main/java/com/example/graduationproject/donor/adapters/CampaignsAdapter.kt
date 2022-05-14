@@ -1,18 +1,19 @@
 package com.example.graduationproject.donor.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.donor.models.Campaigns
+import com.example.graduationproject.models.Campaigns
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.current_campaigns_item.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var from:String,
+class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>, var from:String,
                         var clickListener: onCampaignItemClickListener) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,7 +38,6 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
                 }
 
                 else -> {
-                    //image.setImageResource(data.campaignImg!!)
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
                     name.text = data.name
                     date.text = data.expiry_date
@@ -78,6 +78,7 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>,var fr
 
     override fun onBindViewHolder(holder: CampaignsAdapter.MyViewHolder, position: Int) {
         // holder.photo.setImageResource(data[position].photo)
+        Log.e("data in adapter", data.toString())
         holder.initialize(data[position], clickListener,from)
 
         when(from){

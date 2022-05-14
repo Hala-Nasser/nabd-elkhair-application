@@ -10,11 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.charity.adapters.DonationAdapter
 import com.example.graduationproject.charity.models.Donation
-import com.example.graduationproject.donor.models.Campaigns
-import com.example.graduationproject.donor.models.Charity
-import com.example.graduationproject.donor.models.DonationType
 import com.example.graduationproject.donor.models.Donor
-import kotlinx.android.synthetic.main.fragment_donation_with_campaign.view.*
 import kotlinx.android.synthetic.main.fragment_donation_without_campaign.view.*
 
 

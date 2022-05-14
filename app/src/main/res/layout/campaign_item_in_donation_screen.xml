@@ -49,9 +49,10 @@
                     android:text="تقديم الأكل للعائلات المحتاجة"
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    android:textAlignment="viewStart"
                     android:fontFamily="@font/tajawal_bold"
                     android:layout_marginRight="20dp"
-                    android:gravity="center_vertical"/>
+                    android:gravity="start|center_vertical"/>
 
         </LinearLayout>
 

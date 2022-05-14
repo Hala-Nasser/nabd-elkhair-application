@@ -59,6 +59,7 @@
                     android:lines="1"
                     android:fontFamily="@font/tajawal_bold"
                     android:text="جمعية الاحسان التطوعية"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -82,6 +83,7 @@
                         android:lines="1"
                         android:fontFamily="@font/tajawal_medium"
                         android:text="فلسطين , غزة"
+                        android:textAlignment="viewStart"
                         android:textColor="@color/black_transparent_37"
                         android:textSize="12sp" />
 

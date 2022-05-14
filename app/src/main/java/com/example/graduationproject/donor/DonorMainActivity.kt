@@ -53,4 +53,5 @@ class DonorMainActivity : AppCompatActivity() {
         transaction.replace(R.id.mainContainer, fragment)
         transaction.commit()
     }
+
 }

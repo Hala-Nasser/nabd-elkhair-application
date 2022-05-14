@@ -57,13 +57,6 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/complaint" />
 
-                <ImageView
-                    android:id="@+id/complaint"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/complaint" />
 
             </RelativeLayout>
 
@@ -93,7 +86,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
-                    android:gravity="center_vertical"
+                    android:gravity="start|center_vertical"
                     android:orientation="vertical">
 
                     <TextView
@@ -102,6 +95,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:fontFamily="@font/tajawal_bold"
+                        android:textAlignment="viewStart"
                         android:text="جمعية الاحسان التطوعية"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -126,6 +120,7 @@
                             android:lines="1"
                             android:fontFamily="@font/tajawal_medium"
                             android:text="فلسطين , غزة"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/black_transparent_37"
                             android:textSize="12sp" />
                     </LinearLayout>
