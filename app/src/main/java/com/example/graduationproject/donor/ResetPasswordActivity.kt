@@ -1,6 +1,7 @@
 package com.example.graduationproject.donor
 
 import android.app.ProgressDialog
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,9 @@ class ResetPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 
+        val sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val isDonor = sharedPref.getBoolean("isDonor", false)
+
         save.setOnClickListener {
 
             isAllFieldsChecked = CheckAllFields()
@@ -33,7 +37,9 @@ class ResetPasswordActivity : AppCompatActivity() {
                 val code = code.text.toString()
                 val password = password.text.toString()
                 val confirm_password = confirm_password.text.toString()
+                if (isDonor)
                 resetPassword(code, password, confirm_password)
+                else charityResetPassword(code, password, confirm_password)
             }
         }
 
@@ -84,6 +90,46 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     }
 
+    fun charityResetPassword(code: String, password: String, confirm_password: String) {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.charityResetPassword(code, password, confirm_password)
+
+        response.enqueue(object : Callback<ResetPasswordJson> {
+            override fun onResponse(
+                call: Call<ResetPasswordJson>,
+                response: Response<ResetPasswordJson>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("TAG", data!!.status.toString())
+                    if (data.status) {
+                        GeneralChanges().prepareFadeTransition(
+                            this@ResetPasswordActivity,
+                            SignInActivity()
+                        )
+                        GeneralChanges().hideDialog(progressDialog!!)
+                    }
+                    else {
+                        Validation().showSnackBar(parent_layout, data.message)
+                        GeneralChanges().hideDialog(progressDialog!!)
+                    }
+                } else {
+                    Log.e("errorBody", response.message())
+                    GeneralChanges().hideDialog(progressDialog!!)
+                }
+
+            }
+
+            override fun onFailure(call: Call<ResetPasswordJson>, t: Throwable) {
+                Log.e("on failure reset pass", t.message!!)
+                GeneralChanges().hideDialog(progressDialog!!)
+
+            }
+        })
+
+    }
 
     private fun CheckAllFields(): Boolean {
         if (!Validation().validateCode(code, code_layout)) return false

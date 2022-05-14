@@ -4,8 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PaymentLink(var id:String,
-                       var charityId:String,
-                       var paypal_link:String?, var visa_link:String?,
-                       var creditCard_link:String?): Parcelable
+data class PaymentLink(var id:Int,
+                       var charityId:Int,
+                       var name:String?, var image:Int?,
+                       var link:String?): Parcelable
 

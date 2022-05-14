@@ -10,9 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.DonationType
+import com.example.graduationproject.charity.fragments.CharityEditProfileFragment.Companion.donationTypes
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
+import kotlin.math.log
 
 var lastCheckedPos = -1
 var typeSelected : DonationType? = null
@@ -52,61 +54,44 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
 
     override fun onBindViewHolder(holder: DonationTypeAdapter.MyViewHolder, position: Int) {
         // holder.photo.setImageResource(data[position].photo)
-
         holder.initialize(data!![position])
         when (from) {
-            "DonorHome" -> {
-                changeCardStyle(
-                    holder,
-                    R.color.black,
-                    R.color.app_color,
-                    R.color.app_color,
-                    0f,
-                    R.color.app_color
-                )
-                holder.cardView.apply {
-                    strokeColor = resources.getColor(R.color.app_color)
-                }
-            }
-            "CharityHome" -> {
-                changeCardStyle(
-                    holder,
-                    R.color.black,
-                    R.color.app_color,
-                    R.color.app_color,
-                    0f,
-                    R.color.app_color
-                )
-                holder.cardView.apply {
-                    strokeColor = resources.getColor(R.color.app_color)
-                }
-            }
+           "EditProfile" -> {
+               Log.e("types", donationTypes.toString())
+               for (element in donationTypes){
+                   if (element == data!![position].id){
+                       holder.clicked = false
+                       holder.cardView.apply {
+                           strokeColor = resources.getColor(R.color.app_color)
+                           cardElevation = 3f
+                           setCardBackgroundColor(resources.getColor(R.color.white))
+                       }
+                       list.add(element)
+                   }
+               }
+               changeCardStyle(
+                   holder,
+                   R.color.app_color,
+                   R.color.white,
+                   3f,
+                   R.color.white,
+                   position
+               )
+
+           }
             "CompleteSignup" -> {
 
-                holder.cardView.setOnClickListener {
-                    if (holder.clicked) {
-                        holder.clicked = false
-                        holder.cardView.apply {
-                            strokeColor = resources.getColor(R.color.app_color)
-                            cardElevation = 3f
-                            setCardBackgroundColor(resources.getColor(R.color.white))
-                        }
-                        list.add(data!![position].id)
-                    } else {
-                        holder.clicked = true
-                        holder.cardView.apply {
-                            strokeColor = resources.getColor(R.color.white)
-                            cardElevation = 3f
-                            setCardBackgroundColor(resources.getColor(R.color.white))
-                        }
-                        list.remove(data!![position].id)
-                    }
-                    Log.e("AdData","$list")
-                }
+                changeCardStyle(
+                    holder,
+                    R.color.app_color,
+                    R.color.white,
+                    3f,
+                    R.color.white,
+                    position
+                )
 
             }
             "CampaignDetailsFragment" -> {
-                Log.e("DT from adapter", data.toString())
                 holder.itemView.setOnClickListener {
                     lastCheckedPos = position
                     typeSelected = data!![position]
@@ -126,19 +111,6 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
                     }
                 }
             }
-            "about charity" ->{
-                holder.cardView.apply {
-                    strokeColor = resources.getColor(R.color.app_color)
-                    cardElevation = 3f
-                    setCardBackgroundColor(resources.getColor(R.color.app_color))
-                }
-                holder.title.apply {
-                    setTextColor(resources.getColor(R.color.white))
-                }
-                holder.image.apply {
-                    setColorFilter(resources.getColor(R.color.white))
-                }
-            }
         }
 
     }
@@ -146,13 +118,12 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
 
     private fun changeCardStyle(
         holder: MyViewHolder,
-        tintColor: Int,
         clickedBorderColor: Int,
         unClickedBorderColor: Int,
         clickedCardEvaluation: Float,
         clickedCardBackground: Int,
-    ) : Boolean{
-        var res = false
+        position: Int
+    ) {
 //        DrawableCompat.setTint(
 //            DrawableCompat.wrap(holder.image.drawable),
 //            ContextCompat.getColor(activity!!, tintColor)
@@ -165,7 +136,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
                     cardElevation = clickedCardEvaluation
                     setCardBackgroundColor(resources.getColor(clickedCardBackground))
                 }
-               res = true
+                list.add(data!![position].id)
             } else {
                 holder.clicked = true
                 holder.cardView.apply {
@@ -173,11 +144,11 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
                     cardElevation = 3f
                     setCardBackgroundColor(resources.getColor(R.color.white))
                 }
-                res = false
+                list.remove(data!![position].id)
             }
+            Log.e("donationTypes",list.toString())
 
         }
-       return res
     }
 
 }

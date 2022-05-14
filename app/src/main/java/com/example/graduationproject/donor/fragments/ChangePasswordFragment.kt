@@ -27,6 +27,7 @@ class ChangePasswordFragment : Fragment() {
     var isAllFieldsChecked = false
     var progressDialog: ProgressDialog? = null
     var token = ""
+    var cToken = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +39,9 @@ class ChangePasswordFragment : Fragment() {
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var isDonor = sharedPref.getBoolean("isDonor", false)
         token = sharedPref.getString("user_token", "")!!
+        cToken = sharedPref.getString("charity_token", "")!!
 
-        if (isDonor){
+
             root.save.setOnClickListener {
                 isAllFieldsChecked = CheckAllFields()
 
@@ -53,13 +55,15 @@ class ChangePasswordFragment : Fragment() {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(root.parent_layout, "يجب ان تكون كلمة المرور الجديدة مختلفة عن القديمة")
                     }else{*/
+                    if (isDonor) {
                         changePassword(old_password, password, confirm_password)
+                    }else{
+                        charityChangePassword(old_password, password, confirm_password)
+                    }
                     //}
                 }
             }
-        }else{
-            // تنفيذ api تغيير الباسورد للجمعية
-        }
+
 
         root.back.setOnClickListener {
             requireActivity().onBackPressed()
@@ -107,6 +111,42 @@ class ChangePasswordFragment : Fragment() {
 
     }
 
+    fun charityChangePassword(password: String, new_password: String, confirm_password: String) {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.charityChangePassword("Bearer $cToken", password, new_password, confirm_password)
+
+        response.enqueue(object : Callback<ChangePasswordJson> {
+            override fun onResponse(
+                call: Call<ChangePasswordJson>,
+                response: Response<ChangePasswordJson>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data!!.status){
+                        activity!!.onBackPressed()
+                        GeneralChanges().hideDialog(progressDialog!!)
+                    }
+                    else {
+                        GeneralChanges().hideDialog(progressDialog!!)
+                        Validation().showSnackBar(parent_layout, data.message)
+                    }
+                } else {
+                    Log.e("errorBody", response.message())
+                    GeneralChanges().hideDialog(progressDialog!!)
+                }
+
+            }
+
+            override fun onFailure(call: Call<ChangePasswordJson>, t: Throwable) {
+                Log.e("on failure change pass", t.toString())
+                GeneralChanges().hideDialog(progressDialog!!)
+
+            }
+        })
+
+    }
 
     private fun CheckAllFields(): Boolean {
 

@@ -51,7 +51,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             app:cardCornerRadius="25dp"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/app_color_transparent">
@@ -76,31 +76,48 @@
             android:fontFamily="@font/tajawal_medium"
             android:layout_marginTop="20dp"/>
 
-        <TextView
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/about_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="عن الجمعية"
-            android:paddingStart="6dp"
+            android:hint="عن الجمعية"
+            android:textSize="16sp"
+            android:layout_marginTop="50dp"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:fontFamily="@font/tajawal_medium"
-            android:layout_marginTop="50dp"/>
+            app:hintTextAppearance="@style/TextLabel"
+            app:boxStrokeErrorColor="@color/red_color"
+            app:boxStrokeColor="@color/app_color"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:endIconTint="@color/app_color"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_charity_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:paddingTop="25dp"
+                android:lines="5"
+                android:textDirection="rtl"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/hint"
+                android:gravity="top"
+                android:textAlignment="gravity"
+                android:overScrollMode="always"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="insideInset"
+                android:scrollHorizontally="false"
+                android:textColor="@color/black_transparent_94"
+                android:fontFamily="@font/tajawal_medium"
+                android:textSize="15sp"
+                />
 
-         <EditText
-             android:id="@+id/et_charity_about"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:inputType="textMultiLine"
-             android:lines="4"
-             android:ellipsize="end"
-             android:fontFamily="@font/tajawal_medium"
-             android:textSize="15sp"
-             android:textColor="@color/grey"
-             android:hint="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
-إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع.
-ومن هنا وجب على المصمم أن يضع نصوصا مؤقتة على التصميم ليظهر للعميل الشكل كاملاً،دور مولد النص العربى أن يوفر على المصمم عناء البحث عن نص بديل لا علاقة له بالموضوع الذى يتحدث عنه التصميم فيظهر بشكل لا يليق."
-             />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -110,7 +127,7 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:fontFamily="@font/tajawal_medium"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -217,7 +234,7 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:fontFamily="@font/tajawal_medium"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="15dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_complete_signup_donation_type"

@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.example.graduationproject.R
 import kotlinx.android.synthetic.main.fragment_jawal_pal.view.*
 import kotlinx.android.synthetic.main.fragment_pay_pal.view.*
+import kotlinx.android.synthetic.main.fragment_visa.view.*
 
 
 class JawalPalFragment : Fragment() {
@@ -23,6 +24,7 @@ class JawalPalFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_jawal_pal, container, false)
+
 
         root.jawalPalCopyPin.setOnClickListener {
             val clipboard =

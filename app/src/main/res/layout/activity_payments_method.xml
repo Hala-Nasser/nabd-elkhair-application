@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:id="@+id/payment_layout"
     tools:context=".charity.activites.PaymentsMethodActivity"
     android:background="@drawable/background"
     >
@@ -16,62 +17,75 @@
         android:paddingHorizontal="30dp"
         >
 
+        <TextView
+            android:id="@+id/ignoreLinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tajawal_medium"
+            android:gravity="center"
+            android:text="تجاهل"
+            android:textColor="@color/grey_details"
+            android:textSize="16sp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginTop="90dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:tint="@color/black"-->
-<!--                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
-<!--                    />-->
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/back"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    app:tint="@color/black"-->
+                <!--                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                <!--                    />-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="البيانات الالكترونية"
-                    android:gravity="center"
                     android:fontFamily="@font/tajawal_bold"
+                    android:gravity="center"
+                    android:text="البيانات الالكترونية"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/payment_logo"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                />
-            <include layout="@layout/tab_content"
-                />
+                android:src="@drawable/payment_logo" />
+
+            <include layout="@layout/tab_content" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/tajawal_bold"
                 android:text="قم بادخال رابط الحساب الخاص بك"
                 android:textColor="@color/black"
-                android:textSize="17sp"
-                android:fontFamily="@font/tajawal_bold"
-                />
+                android:textSize="17sp" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/paymentLinksPager"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                />
+                android:layout_height="150dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/charity_payments_save"
@@ -80,11 +94,11 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/colored_button"
+                android:fontFamily="@font/tajawal_bold"
                 android:gravity="center"
                 android:text="حفظ"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:fontFamily="@font/tajawal_bold"/>
+                android:textSize="18sp" />
 
 
         </LinearLayout>

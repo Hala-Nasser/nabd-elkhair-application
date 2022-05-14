@@ -10,7 +10,7 @@ data class Charity(
     val address: String,
     val created_at: String,
     val deleted_at: String?,
-    val donationTypes: List<String>,
+    val donationTypes: List<Int>,
     val email: String,
     val email_verified_at: String?,
     val fcm_token: String,
