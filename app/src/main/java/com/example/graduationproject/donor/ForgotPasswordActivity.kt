@@ -29,6 +29,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if (Validation().validateEmail(email, email_layout)){
                 if (isDonor){
                     forgotPassword(email.text.toString())
+                }else{
+                    charityForgotPassword(email.text.toString())
                 }
             }
         }
@@ -56,6 +58,37 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         this@ForgotPasswordActivity,
                         ResetPasswordActivity()
                     )
+                    else
+                        Validation().showSnackBar(parent_layout, data.message)
+                }
+                else{
+                    Log.e("errorBody", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<ForgotPasswordJson>, t: Throwable) {
+                Log.e("TAG", t.message!!)
+            }
+        })
+
+    }
+
+    fun charityForgotPassword(email:String) {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.charityForgotPassword(email)
+
+        response.enqueue(object : Callback<ForgotPasswordJson> {
+            override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("TAG", data!!.status.toString())
+                    if (data.status)
+                        GeneralChanges().prepareFadeTransition(
+                            this@ForgotPasswordActivity,
+                            ResetPasswordActivity()
+                        )
                     else
                         Validation().showSnackBar(parent_layout, data.message)
                 }

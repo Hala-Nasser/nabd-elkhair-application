@@ -82,16 +82,6 @@ class SignInActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.forgot_password).setOnClickListener {
             GeneralChanges().prepareFadeTransition(this, ForgotPasswordActivity())
-            if (isDonor)
-                GeneralChanges().prepareFadeTransition(
-                    this,
-                    ForgotPasswordActivity()
-                )
-            else
-                GeneralChanges().prepareFadeTransition(
-                    this,
-                    ForgotPasswordActivity()
-                )
         }
     }
 
@@ -187,7 +177,7 @@ class SignInActivity : AppCompatActivity() {
                         val editor = sharedPref.edit()
                         editor.putString("from", "charity")
                         editor.putInt("charity_id", user_id)
-                        editor.putString("user_token", data.data.token)
+                        editor.putString("charity_token", data.data.token)
                         Log.e("Charity id in signin", user_id.toString())
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)
@@ -213,7 +203,7 @@ class SignInActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<CharityLoginJson>, t: Throwable) {
                 Log.e("on failure sign in", t.message!!)
-
+                GeneralChanges().hideDialog(progressDialog!!)
             }
         })
 

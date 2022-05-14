@@ -24,6 +24,17 @@ class VisaFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_visa, container, false)
 
+        var sharedPref = requireActivity().getSharedPreferences("linksPref", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putBoolean("clicked", false)
+
+        var clicked = sharedPref.getBoolean("clicked",false)
+
+        if (clicked) {
+            editor.putString("visa", root.visa_txt.text.toString())
+            editor.apply()
+        }
+
         root.visaCopyPin.setOnClickListener {
             val clipboard =
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager

@@ -169,6 +169,22 @@ class Validation {
         }
     }
 
+    fun validateAboutCharity(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+        val code = codeEt.text.toString()
+
+        return if (code.trim().isEmpty()) {
+            codeTL.error = "يرجى إدخال تفاصيل الجمعية"
+            codeTL.errorIconDrawable = null
+            codeTL.isFocusable = true
+            false
+        } else {
+            codeTL.error = null
+            codeTL.isFocusable = false
+            codeTL.isErrorEnabled = false
+            true
+        }
+    }
+
     fun showSnackBar(view: View, message:String){
         val snackBarView = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         val view = snackBarView.view

@@ -1,5 +1,6 @@
 package com.example.graduationproject.network
 
+
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.campaignsAccordingToCharity.CampaignsCharityJson
@@ -91,19 +92,9 @@ interface ApiRequests {
 
     // --------------------------------------------------------------------------------------------------
 
-    @Multipart
     @POST("charity/register")
     fun charityRegister(
-        @Part("name") name:RequestBody,
-        @Part("email") email:RequestBody,
-        @Part("password") password:RequestBody,
-        @Part("phone") phone:RequestBody,
-        @Part("address") address:RequestBody,
-        @Part("about") about:RequestBody,
-        @Part("open_time") open_time:RequestBody,
-        @Part image: MultipartBody.Part,
-        @Part("activation_status") activation_status:RequestBody,
-        @Part("donationTypes[]") donationTypes:ArrayList<Int>,
+        @Body body: RequestBody
     ): Call<CharityRegisterJson>
 
     @POST("charity/login")
@@ -113,11 +104,47 @@ interface ApiRequests {
     fun charityFcmToken(@Query("user_id") userId: Int,
                  @Query("fcm") fcm: String): Call<CharityFCMJSon>
 
+    @POST("charity/forgotPassword")
+    fun charityForgotPassword(@Query("email") email: String): Call<ForgotPasswordJson>
+
+    @POST("charity/resetPassword")
+    fun charityResetPassword(@Query("token") token: String, @Query("password") password: String, @Query("password_confirmation") password_confirmation: String): Call<ResetPasswordJson>
+
+    @POST("charity/changePassword")
+    fun charityChangePassword(@Header("Authorization") token: String, @Query("password") password: String,  @Query("new_password") new_password: String, @Query("new_password_confirmation") new_password_confirmation: String): Call<ChangePasswordJson>
+
+
+    @GET("charity/getCharity")
+    fun charityProfile(@Header("Authorization") token: String): Call<CharityFCMJSon>
+
     @GET("charity/getDonationTypes")
     fun getGeneralDonationType(): Call<DonationTypeJson>
 
     @GET("charity/getCharityDonationTypes/{id}")
     fun getCharityDonationTypes(@Path("id") id:Int): Call<DonationTypeJson>
+
+    @POST("charity/updateProfile")
+    fun charityUpdateProfile(@Header("Authorization") token: String,
+                             @Body body: RequestBody
+    ): Call<CharityFCMJSon>
+
+    @GET("charity/logout")
+    fun charityLogout(@Header("Authorization") token: String): Call<LogoutJson>
+
+    @POST("charity/addPaymentLinks")
+    fun addPaymentLinks(@Query("charity_id") id: Int,
+                        @Query("paypal_link") paypal_link: String,
+                        @Query("visa_link") visa_link: String,
+                        @Query("creditcard_link") creditCard_link: String): Call<PaymentLinksJson>
+
+    @GET("charity/getPaymentLinks")
+    fun getPaymentLinks(@Header("Authorization") token: String): Call<PaymentLinksJson>
+
+
+    @POST("charity/updatePaymentLinks")
+    fun updatePaymentLinks(@Header("Authorization") token: String,
+                           @Body body: RequestBody
+                        ): Call<PaymentLinksJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")

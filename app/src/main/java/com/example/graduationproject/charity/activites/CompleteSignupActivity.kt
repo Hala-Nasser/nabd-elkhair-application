@@ -22,6 +22,7 @@ import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_complete_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -59,13 +60,12 @@ class CompleteSignupActivity : AppCompatActivity(){
 
 
         charity_sign_up.setOnClickListener {
-
-            if (imageURI != null){
+            if (imageURI != null && Validation().validateAboutCharity(et_charity_about, about_parent) && time_from.text != null && time_to.text != null){
                     progressDialog = ProgressDialog(this)
                     GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                     registerToApp()
             }else{
-                Validation().showSnackBar(charity_parent_layout, "قم باختيار صورة")
+                Validation().showSnackBar(charity_parent_layout, "يرجى ملئ الحقول الفارغة")
             }
 
         }
@@ -125,67 +125,34 @@ class CompleteSignupActivity : AppCompatActivity(){
         val phone = intent.getStringExtra("phone")
         val address = intent.getStringExtra("address")
         val password = intent.getStringExtra("password")
-        val confirm_password = intent.getStringExtra("confirm_password")
         val about = et_charity_about.text.toString()
         val openTime = "${time_from.text}"+"-"+"${time_to.text}"
 
-        val requestName = RequestBody.create(
-            MediaType.parse("multipart/form-data"), name
-        )
-        val requestEmail = RequestBody.create(
-            MediaType.parse("multipart/form-data"), email
-        )
-        val requestPassword = RequestBody.create(
-            MediaType.parse("multipart/form-data"), password
-        )
-        val requestPhone = RequestBody.create(
-            MediaType.parse("multipart/form-data"), phone
-        )
-        val requestAddress = RequestBody.create(
-            MediaType.parse("multipart/form-data"), address
-        )
-        val requestAbout = RequestBody.create(
-            MediaType.parse("multipart/form-data"), about
-        )
-        val requestOpenTime = RequestBody.create(
-            MediaType.parse("multipart/form-data"), openTime
-        )
-        val requestActivation = RequestBody.create(
-            MediaType.parse("multipart/form-data"), "0"
-        )
-
-        val file =File(FileUtil.getPath(imageURI!!, this))
-        val requestFile: RequestBody =
-            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-
-       var image =
-            MultipartBody.Part.createFormData("image", file.extension, requestFile)
-//        val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-//            .addFormDataPart("name", name)
-//            .addFormDataPart("email", email)
-//            .addFormDataPart("password", password)
-//            .addFormDataPart("phone", phone)
-//            .addFormDataPart("address", address)
-//            .addFormDataPart("about", about)
-//            .addFormDataPart("open_time", openTime)
-//            .addFormDataPart(
-//                "image", File(FileUtil.getPath(imageURI!!, this)).extension ,
-//                RequestBody.create(
-//                    MediaType.parse("application/octet-stream"),
-//                    File(FileUtil.getPath(imageURI!!, this))
-//                )
-//            )
-//            .addFormDataPart("activation_status", "0")
-//            .addFormDataPart("c_password", confirm_password)
-//            .addFormDataPart("donationTypes[]", confirm_password)
-//            .build()
+        val body = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("name", name)
+            .addFormDataPart("email", email)
+            .addFormDataPart("phone", phone)
+            .addFormDataPart("password", password)
+            .addFormDataPart("address", address)
+            .addFormDataPart("about", about)
+            .addFormDataPart(
+            "image", File(FileUtil.getPath(imageURI!!, this)).extension ,
+             RequestBody.create(
+                MediaType.parse("application/octet-stream"),
+                File(FileUtil.getPath(imageURI!!, this))
+            )
+            )
+            .addFormDataPart("open_time", openTime)
+            .addFormDataPart("activation_status", "0")
+        for (i in donationTypeAdapter.list){
+            body.addFormDataPart("donationTypes[]", i.toString())
+        }
 
 
+        var requestBody = body.build()
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.charityRegister(requestName,requestEmail,requestPassword,requestPhone,requestAddress,requestAbout,
-        requestOpenTime,image,
-            requestActivation,donationTypeAdapter.list)
+        val response = retrofitInstance.charityRegister(requestBody)
 
         response.enqueue(object : Callback<RegisterJson> {
             override fun onResponse(call: Call<RegisterJson>, response: Response<RegisterJson>) {
@@ -208,7 +175,7 @@ class CompleteSignupActivity : AppCompatActivity(){
                         GeneralChanges().hideDialog(progressDialog!!)
                         GeneralChanges().prepareFadeTransition(
                             this@CompleteSignupActivity,
-                            CharityMainActivity()
+                            PaymentsMethodActivity()
                         )
 
                     }else{
@@ -231,8 +198,6 @@ class CompleteSignupActivity : AppCompatActivity(){
     }
 
     fun getDonationType() {
-
-        Log.e("complete sign up", "enter")
 
         val retrofitInstance =
             RetrofitInstance.create()

@@ -27,7 +27,7 @@
             android:id="@+id/jawalPal_txt"
             android:layout_width="match_parent"
             android:layout_height="51dp"
-            android:inputType="text"
+            android:inputType="textWebEmailAddress"
             android:hint="JawalPal.Me/Example"
             android:background="@android:color/transparent"
             android:gravity="center"

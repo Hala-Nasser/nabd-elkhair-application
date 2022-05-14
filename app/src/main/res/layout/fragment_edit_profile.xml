@@ -97,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/tajawal_medium"
                     android:inputType="text"
+                    android:textDirection="rtl"
                     android:text = "Hala Nasser"
                     android:textColor="@color/black_transparent_86"
                     android:textSize="15sp" />
@@ -118,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/tajawal_medium"
                     android:inputType="none"
+                    android:textDirection="rtl"
                     android:text="hala@gmail.com"
                     android:enabled="false"
                     android:textColor="@color/black_transparent_86"

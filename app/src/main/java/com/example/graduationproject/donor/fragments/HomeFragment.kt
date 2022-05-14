@@ -155,7 +155,8 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                     Log.e("pager", campaigns_viewpager.isSaveEnabled.toString())
                     campaigns_viewpager.adapter = adapter
 
-                    campaigns_viewpager.addOnPageChangeListener(TabLayoutOnPageChangeListener(donor_home_tab_layout))
+                    //campaigns_viewpager.addOnPageChangeListener(TabLayoutOnPageChangeListener(donor_home_tab_layout))
+                    donor_home_tab_layout.setupWithViewPager(campaigns_viewpager)
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
