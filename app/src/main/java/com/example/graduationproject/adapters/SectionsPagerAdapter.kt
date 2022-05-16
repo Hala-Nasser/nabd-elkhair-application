@@ -9,36 +9,36 @@ import com.example.graduationproject.R
 
 
 class SectionsPagerAdapter(fm: FragmentManager) :
-    FragmentPagerAdapter(fm) {
+  FragmentPagerAdapter(fm) {
 
 
-    var fragments = ArrayList<Fragment>()
-    var titles = ArrayList<String>()
+  var fragments = ArrayList<Fragment>()
+  var titles = ArrayList<String>()
 
-    fun addFragments(fragment: Fragment){
-        fragments.add(fragment)
+  fun addFragments(fragment: Fragment){
+    fragments.add(fragment)
+  }
+
+  fun addFragmentsAndTitles(fragment: Fragment,title:String){
+    fragments.add(fragment)
+    titles.add(title)
+  }
+
+
+  override fun getItem(position: Int): Fragment {
+    return fragments[position]
+  }
+
+  override fun getCount(): Int {
+    return fragments.size
+  }
+
+  override fun getPageTitle(position: Int): CharSequence? {
+    if (titles.isEmpty()){
+      return null
     }
-
-    fun addFragmentsAndTitles(fragment: Fragment,title:String){
-        fragments.add(fragment)
-        titles.add(title)
-    }
-
-
-    override fun getItem(position: Int): Fragment {
-        return fragments[position]
-    }
-
-    override fun getCount(): Int {
-        return fragments.size
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        if (titles.isEmpty()){
-           return null
-        }
-        return titles[position]
-    }
+    return titles[position]
+  }
 
 
 

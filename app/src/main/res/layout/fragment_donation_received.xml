@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:paddingHorizontal="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".charity.fragments.DonationReceivedFragment">
 
@@ -48,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            tools:listitem="@layout/donation_without_campaign"
             />
 
 

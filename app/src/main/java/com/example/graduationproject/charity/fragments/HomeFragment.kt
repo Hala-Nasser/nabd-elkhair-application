@@ -8,22 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.example.graduationproject.R
-import com.example.graduationproject.adapters.SectionsPagerAdapter
-import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_charity_main.*
-import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_charity_home.*
-import kotlinx.android.synthetic.main.tab_content.*
-import kotlinx.android.synthetic.main.tab_content.view.*
-import android.view.View.OnTouchListener
 import kotlinx.android.synthetic.main.campaign_added_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_charity_home.view.*
-import android.content.res.ColorStateList
 import android.os.Build
 import android.util.Log
+import android.view.MenuItem
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.classes.TabLayoutSettings
@@ -32,31 +25,23 @@ import com.example.graduationproject.donor.fragments.CampaignsAccordingToDonatio
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_charity_main.view.*
-import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
-import kotlinx.android.synthetic.main.fragment_donation.view.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import net.cachapa.expandablelayout.ExpandableLayout
+import com.nambimobile.widgets.efab.FabOption
+import com.nambimobile.widgets.efab.Orientation
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlinx.android.synthetic.main.donation_type_tab_item.view.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(){
-
-        private val TAB_ICONS = arrayOf(
-            R.drawable.all,
-            R.drawable.money,
-            R.drawable.food,
-            R.drawable.clothes,
-        )
      var addCampaign = false
     var donation_type_ids = ArrayList<Int>()
     lateinit var sharedPref : SharedPreferences
     lateinit var editor : SharedPreferences.Editor
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,56 +59,49 @@ class HomeFragment : Fragment(){
             if (addCampaign) {
                 getDialog()
             }else{
-                requireActivity().charity_nav_bottom.alpha = 1f
-                root.home_expandable_layout.isExpanded = false
+               // requireActivity().charity_nav_bottom.alpha = 1f
+               // root.home_expandable_layout.isExpanded = false
             }
         }
+        getDonationType()
 
+         if (root.expandable_fab_layout.isOpen()){
+             root.expandable_fab.efabColor = resources.getColor(R.color.white)
+         }
+
+//       for (option in root.expandable_fab_layout.portraitConfiguration.fabOptions){
+//           option.setOnClickListener {
+//               var bundle = Bundle()
+//                bundle.putString("donationType", option.label.text.toString())
+//                var fragment = AddCampaignFragment()
+//                fragment.arguments = bundle
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+//           }
+//       }
+
+//        root.expandable_fab_layout.portraitConfiguration.fabOptions.forEach { it ->
+//            it.setOnClickListener {
+//                Log.e("clicked", it.id.toString())
+//            }
+//        }
+//        var clicked = false
+//        root.expandable_fab.setOnClickListener {
+//            clicked = !clicked
+//            if (!clicked){
+//                root.expandable_fab.efabColor = resources.getColor(R.color.app_color)
+//            }else {
+//                root.expandable_fab.efabColor = resources.getColor(R.color.white)
+//            }
+//        }
         root.donation_requests_image.setOnClickListener {
             var fragment = DonationRequestsFragment()
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
         }
 
-        getDonationType()
-//        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-//        sectionsPagerAdapter.addFragments(AllDonationFragment())
-//        sectionsPagerAdapter.addFragmentsAndTitles(MoneyDonationFragment(),"مال")
-//        sectionsPagerAdapter.addFragmentsAndTitles(FoodDonationFragment(),"طعام")
-//        sectionsPagerAdapter.addFragmentsAndTitles(ClothesDonationFragment(),"ملابس")
-//        root.campaign_viewpager.adapter = sectionsPagerAdapter
-//        root.charity_home_tab_layout.setupWithViewPager(root.campaign_viewpager)
-//
-//        var tabLayout = TabLayoutSettings()
-//        tabLayout.setupTabIcons(root.charity_home_tab_layout,TAB_ICONS)
-//        tabLayout.setTabMargin(root.charity_home_tab_layout,10,10,100)
 
-//        root.campaign_viewpager.setOnTouchListener(OnTouchListener { v, event ->
-//            when (root.campaign_viewpager.currentItem) {
-//                0 -> {
-//                    root.campaign_viewpager.setCurrentItem(-1, false)
-//                    return@OnTouchListener true
-//                }
-//                1 -> {
-//                    root.campaign_viewpager.setCurrentItem(1-1, false)
-//                    root.campaign_viewpager.setCurrentItem(1, false)
-//                    return@OnTouchListener true
-//                }
-//                2 -> {
-//                    root.campaign_viewpager.setCurrentItem(2-1, false)
-//                    root.campaign_viewpager.setCurrentItem(2, false)
-//                    return@OnTouchListener true
-//                }
-//                3 -> {
-//                    root.campaign_viewpager.setCurrentItem(3-1, false)
-//                    root.campaign_viewpager.setCurrentItem(3, false)
-//                    return@OnTouchListener true
-//                }
-//                else -> true
-//            }
-//        })
-
-        getExpandedfab(root)
+       // getExpandedfab(root)
 
         root.charity_home_tab_layout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
@@ -157,38 +135,38 @@ class HomeFragment : Fragment(){
         return root
     }
 
-    private fun getExpandedfab(root: View) {
-
-        root.edit_campaign_btn.setOnClickListener {
-            if (root.home_expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
-                changeFabStyle(root,R.drawable.ic_close,R.color.white,0.5f,R.color.grey_white,true)
-                expendFABMenu(root)
-            } else if (root.home_expandable_layout.state == ExpandableLayout.State.EXPANDED) {
-
-                changeFabStyle(root,R.drawable.ic_add,R.color.app_color,1f,R.color.white,false)
-                collapseFABMenu(root)
-            }
-        }
-
-        root.food_fab.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putString("donationType", "food")
-            var fragment = AddCampaignFragment()
-            fragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
-        }
-
-        root.clothes_fab.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putString("donationType", "clothes")
-            var fragment = AddCampaignFragment()
-            fragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
-        }
-
-    }
+//    private fun getExpandedfab(root: View) {
+//
+//        root.edit_campaign_btn.setOnClickListener {
+//            if (root.home_expandable_layout.state == ExpandableLayout.State.COLLAPSED) {
+//                changeFabStyle(root,R.drawable.ic_close,R.color.white,0.5f,R.color.grey_white,true)
+//                expendFABMenu(root)
+//            } else if (root.home_expandable_layout.state == ExpandableLayout.State.EXPANDED) {
+//
+//                changeFabStyle(root,R.drawable.ic_add,R.color.app_color,1f,R.color.white,false)
+//                collapseFABMenu(root)
+//            }
+//        }
+//
+//        root.food_fab.setOnClickListener {
+//            var bundle = Bundle()
+//            bundle.putString("donationType", "food")
+//            var fragment = AddCampaignFragment()
+//            fragment.arguments = bundle
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+//        }
+//
+//        root.clothes_fab.setOnClickListener {
+//            var bundle = Bundle()
+//            bundle.putString("donationType", "clothes")
+//            var fragment = AddCampaignFragment()
+//            fragment.arguments = bundle
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+//        }
+//
+//    }
 
     fun getDonationType() {
 
@@ -203,10 +181,28 @@ class HomeFragment : Fragment(){
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
+                    donation_type_ids.add(0)
+                    charity_home_tab_layout.addTab(charity_home_tab_layout.newTab().setCustomView(createTabItemView("","")))
 
                     for (donation_type in data){
                         donation_type_ids.add(donation_type.id)
-                        charity_home_tab_layout.addTab(charity_home_tab_layout.newTab().setText(donation_type.name))
+                        charity_home_tab_layout.addTab(charity_home_tab_layout.newTab().setCustomView(createTabItemView(RetrofitInstance.IMAGE_URL+donation_type.image,donation_type.name)))
+                        val option = FabOption(expandable_fab_layout.context, Orientation.PORTRAIT)
+                        option.id = donation_type.id
+                        option.setOnClickListener {
+                            var bundle = Bundle()
+                            bundle.putString("donationType", option.id.toString())
+                            var fragment = AddCampaignFragment()
+                            fragment.arguments = bundle
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+                        }
+                        option.fabOptionIcon = resources.getDrawable(R.drawable.ic_arrow_up)
+                        option.fabOptionColor = resources.getColor(R.color.app_color)
+                        option.label.labelText = donation_type.name
+                        //Picasso.get().load(RetrofitInstance.IMAGE_URL+donation_type.image).into(option.fabOptionIcon)
+                        expandable_fab_layout.addView(option)
+                        Log.e("options",option.id.toString())
                     }
                     TabLayoutSettings().setTabMargin(charity_home_tab_layout, 10, 10, 100)
 //                    Log.e("donation_type_ids", donation_type_ids.size.toString())
@@ -216,6 +212,7 @@ class HomeFragment : Fragment(){
                     // Create adapter after adding the tabs
                     val adapter = PageAdapterDonationType(childFragmentManager, donation_type_ids.size)
                     campaign_viewpager.adapter = adapter
+//                    charity_home_tab_layout.setupWithViewPager(campaign_viewpager)
                     campaign_viewpager.addOnPageChangeListener(
                         TabLayout.TabLayoutOnPageChangeListener(
                             charity_home_tab_layout
@@ -234,30 +231,30 @@ class HomeFragment : Fragment(){
         })
     }
 
-    private fun changeFabStyle(root: View,icon:Int,color:Int,alpha:Float,tint:Int,isExpanded:Boolean) {
-        root.edit_campaign_btn.setImageResource(icon)
-        root.edit_campaign_btn.backgroundTintList =
-            ColorStateList.valueOf(resources.getColor(color))
-        root.linearLayout2.alpha = alpha
-        DrawableCompat.setTint(
-            DrawableCompat.wrap(root.edit_campaign_btn.drawable),
-            ContextCompat.getColor(requireContext(), tint)
-        )
-        requireActivity().charity_nav_bottom.alpha = alpha
-        root.home_expandable_layout.isExpanded = isExpanded
-    }
-
-    private fun expendFABMenu(root: View) {
-        root.edit_campaign_btn.animate().rotationBy(90F)
-        root.food_fab.animate().translationY(0f)
-        root.clothes_fab.animate().translationY(0f)
-    }
-
-    private fun collapseFABMenu(root: View) {
-        root.edit_campaign_btn.animate().rotationBy(90F)
-        root.food_fab.animate().translationY(-55f)
-        root.clothes_fab.animate().translationY(-105f)
-    }
+//    private fun changeFabStyle(root: View,icon:Int,color:Int,alpha:Float,tint:Int,isExpanded:Boolean) {
+//        root.edit_campaign_btn.setImageResource(icon)
+//        root.edit_campaign_btn.backgroundTintList =
+//            ColorStateList.valueOf(resources.getColor(color))
+//        root.linearLayout2.alpha = alpha
+//        DrawableCompat.setTint(
+//            DrawableCompat.wrap(root.edit_campaign_btn.drawable),
+//            ContextCompat.getColor(requireContext(), tint)
+//        )
+//        requireActivity().charity_nav_bottom.alpha = alpha
+//        root.home_expandable_layout.isExpanded = isExpanded
+//    }
+//
+//    private fun expendFABMenu(root: View) {
+//        root.edit_campaign_btn.animate().rotationBy(90F)
+//        root.food_fab.animate().translationY(0f)
+//        root.clothes_fab.animate().translationY(0f)
+//    }
+//
+//    private fun collapseFABMenu(root: View) {
+//        root.edit_campaign_btn.animate().rotationBy(90F)
+//        root.food_fab.animate().translationY(-55f)
+//        root.clothes_fab.animate().translationY(-105f)
+//    }
 
     fun getDialog(){
         var view= layoutInflater.inflate(R.layout.campaign_added_dialog,null)
@@ -272,6 +269,17 @@ class HomeFragment : Fragment(){
             campaignBottomSheet.dismiss()
         }
         campaignBottomSheet.show()
+    }
+
+    private fun createTabItemView(imgUri: String,txt:String): View? {
+        val v: View = LayoutInflater.from(context).inflate(R.layout.donation_type_tab_item, null)
+        if (imgUri==""){
+            v.donation_type_image.setImageResource(R.drawable.all)
+        }else{
+            Picasso.get().load(imgUri).into(v.donation_type_image)
+        }
+        v.donation_type_title.text = txt
+        return v
     }
 
 

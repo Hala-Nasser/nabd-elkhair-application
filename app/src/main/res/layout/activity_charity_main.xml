@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_background"
     tools:context=".charity.activites.CharityMainActivity"
-    android:layoutDirection="rtl"
-    >
+    android:layoutDirection="rtl">
 
     <FrameLayout
         android:id="@+id/charityContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_background"
-        android:layout_above="@id/charity_nav_bottom" />
+        android:layout_above="@id/charity_nav_bottom"
+        android:background="@color/white_background" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/charity_nav_bottom"
@@ -21,7 +21,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/nav_background"
-        android:elevation="10dp"
+        android:elevation="4dp"
         android:gravity="center"
         android:outlineSpotShadowColor="@color/grey"
         app:cnb_menuResource="@menu/charity_bottom_menu" />

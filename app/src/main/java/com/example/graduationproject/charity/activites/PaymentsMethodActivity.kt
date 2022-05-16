@@ -16,8 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.graduationproject.R
 import com.example.graduationproject.adapters.SectionsPagerAdapter
-import com.example.graduationproject.api.charityApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
+import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.charity.fragments.*
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.Validation

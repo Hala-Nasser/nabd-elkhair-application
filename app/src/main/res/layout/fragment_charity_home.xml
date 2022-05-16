@@ -7,7 +7,6 @@
     android:background="@color/white_background"
     android:layoutDirection="rtl"
     android:fillViewport="true"
-    android:paddingHorizontal="20dp"
     tools:context=".charity.fragments.HomeFragment"
     >
 
@@ -23,6 +22,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
             android:gravity="center"
+            android:paddingHorizontal="20dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,76 +99,118 @@
 
         </LinearLayout>
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/edit_campaign_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_add"
-            app:fabSize="normal"
-            app:backgroundTint="@color/app_color"
-            app:elevation="1dp"
-            app:borderWidth="0dp"
-            android:layout_marginBottom="40dp"
+        <com.nambimobile.widgets.efab.ExpandableFabLayout
+            android:id="@+id/expandable_fab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent">
 
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/home_expandable_layout"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            app:el_expanded="false"
-            app:el_duration="500"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_campaign_btn"
-            app:layout_constraintEnd_toEndOf="@+id/edit_campaign_btn"
-            app:layout_constraintTop_toTopOf="@+id/edit_campaign_btn">
-
-            <LinearLayout
+            <com.nambimobile.widgets.efab.Overlay
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="end"
-                android:paddingTop="100dp"
-                >
+                app:overlay_color="@color/black_transparent_37"
+                app:overlay_openingAnimationDurationMs="1000" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/food_fab"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/app_color"
-                    android:src="@drawable/food"
-                    android:layout_marginEnd="40dp"
-                    app:borderWidth="0dp"
-                    app:elevation="3dp"
-                    app:fabSize="mini"
-                    />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/clothes_fab"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/app_color"
-                    android:src="@drawable/clothes"
-                    android:layout_marginEnd="80dp"
-                    app:elevation="3dp"
-                    app:borderWidth="0dp"
-                    app:fabSize="mini"
-                    />
-            </LinearLayout>
+            <com.nambimobile.widgets.efab.ExpandableFab
+                android:id="@+id/expandable_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="40dp"
+                app:efab_closingAnticipateTension="0"
+                app:efab_color="@color/app_color"
+                app:efab_iconAnimationRotationDeg="-225"
+                />
 
 
-        </net.cachapa.expandablelayout.ExpandableLayout>
+
+<!--            <com.nambimobile.widgets.efab.FabOption-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:fab_color="@color/app_color"-->
+<!--                app:fab_icon="@drawable/clothes"-->
+<!--                />-->
+
+<!--            <com.nambimobile.widgets.efab.FabOption-->
+<!--                android:id="@+id/foodFab"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:fab_color="@color/app_color"-->
+<!--                app:fab_icon="@drawable/food"-->
+<!--                />-->
+
+        </com.nambimobile.widgets.efab.ExpandableFabLayout>
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/edit_campaign_btn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:src="@drawable/ic_add"-->
+<!--            app:fabSize="normal"-->
+<!--            app:backgroundTint="@color/app_color"-->
+<!--            app:elevation="1dp"-->
+<!--            app:borderWidth="0dp"-->
+<!--            android:layout_marginBottom="40dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
+
+<!--        <net.cachapa.expandablelayout.ExpandableLayout-->
+<!--            android:id="@+id/home_expandable_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="400dp"-->
+<!--            app:el_expanded="false"-->
+<!--            app:el_duration="500"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/edit_campaign_btn"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/edit_campaign_btn"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/edit_campaign_btn">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="end"-->
+<!--                android:paddingTop="100dp"-->
+<!--                >-->
+
+<!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                    android:id="@+id/food_fab"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:backgroundTint="@color/app_color"-->
+<!--                    android:src="@drawable/food"-->
+<!--                    android:layout_marginEnd="40dp"-->
+<!--                    app:borderWidth="0dp"-->
+<!--                    app:elevation="3dp"-->
+<!--                    app:fabSize="mini"-->
+<!--                    />-->
+
+<!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                    android:id="@+id/clothes_fab"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:backgroundTint="@color/app_color"-->
+<!--                    android:src="@drawable/clothes"-->
+<!--                    android:layout_marginEnd="80dp"-->
+<!--                    app:elevation="3dp"-->
+<!--                    app:borderWidth="0dp"-->
+<!--                    app:fabSize="mini"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+
+
+<!--        </net.cachapa.expandablelayout.ExpandableLayout>-->
 
 <!--    <com.ramotion.circlemenu.CircleMenuView-->
 <!--        android:id="@+id/circleMenu"-->
 <!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_height="200dp"-->
 <!--        app:button_colors="@array/colors"-->
 <!--        app:button_icons="@array/icons"-->
-<!--        app:distance="60dp"-->
+<!--        app:distance="30dp"-->
 <!--        app:icon_color="@color/app_color"-->
 <!--        app:icon_menu="@drawable/ic_add"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->

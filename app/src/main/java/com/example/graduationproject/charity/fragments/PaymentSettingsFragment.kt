@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.PrivacyPolicyActivity
 import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.fcm.FCMJson
-import com.example.graduationproject.api.charityApi.logout.LogoutJson
-import com.example.graduationproject.api.charityApi.paymentLinks.PaymentLinksJson
+import com.example.graduationproject.api.donorApi.logout.LogoutJson
+import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.charity.activites.PaymentsMethodActivity
 import com.example.graduationproject.charity.adapters.PaymentLinksAdapter
 import com.example.graduationproject.charity.models.PaymentLink

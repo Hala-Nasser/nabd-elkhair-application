@@ -38,8 +38,9 @@ class CharityCampaignDetailsFragment : Fragment() {
         var root = inflater.inflate(R.layout.fragment_charity_campaign_details, container, false)
 
         requireActivity().charity_nav_bottom.visibility=View.GONE
-        donorAdapter =
-            DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
+//
+//        donorAdapter =
+//            DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
 
         val b = arguments
         if (b != null) {
@@ -116,10 +117,10 @@ class CharityCampaignDetailsFragment : Fragment() {
             campaignDonation.clear()
             campaignDonation.addAll(linkedHashSet)
 
-            donorAdapter =
-                DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
+//            donorAdapter =
+//                DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
             donorAdapter.campaignName = campaignName
-            donorAdapter.campaignImg = campaignImage
+          //  donorAdapter.campaignImg = campaignImage
             root.rv_donors.layoutManager = LinearLayoutManager(
                 activity,
                 RecyclerView.VERTICAL, false

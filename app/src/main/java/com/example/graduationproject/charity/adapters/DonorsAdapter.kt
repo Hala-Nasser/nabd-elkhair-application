@@ -9,20 +9,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.charityApi.donation.Data
 import com.example.graduationproject.charity.fragments.AddComplaintFragment
 import com.example.graduationproject.charity.models.Donation
-import com.example.graduationproject.donor.models.Donor
+import com.example.graduationproject.api.charityApi.donation.Donor
+import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.bottom_donation_with_campaign.view.*
 import kotlinx.android.synthetic.main.bottom_sheet_manually.view.*
 import kotlinx.android.synthetic.main.charity_item.view.*
 import kotlinx.android.synthetic.main.donation_with_campaign.view.*
 import kotlinx.android.synthetic.main.donors_item.view.*
 
-class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var from:String,var fragment : FragmentManager) : RecyclerView.Adapter<DonorsAdapter.MyViewHolder>(){
+class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:String,var fragment : FragmentManager) : RecyclerView.Adapter<DonorsAdapter.MyViewHolder>(){
 
     var campaignName:String?=null
-    var campaignImg:Int?=null
+    var campaignImg:String?=null
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image  =itemView.donor_image
@@ -30,9 +33,9 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var f
         val details_btn  =itemView.donation_details_btn
         val card  =itemView.donor_card_view
 
-        fun initialize(data: Donor?) {
-                     //image.setImageResource(data!!.image!!)
-                     name.text = data!!.name
+        fun initialize(data: Donor) {
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                     name.text = data.name
         }
     }
 
@@ -49,7 +52,7 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var f
 
 
     override fun onBindViewHolder(holder: DonorsAdapter.MyViewHolder, position: Int) {
-        holder.initialize(data!![position].donors)
+        holder.initialize(data!![position].donor!!)
 
         if (from=="CampaignDonationAdapter"){
             holder.card.apply {
@@ -96,14 +99,14 @@ class DonorsAdapter(var activity: Context?, var data :List<Donation>?=null,var f
 //        }
         val donation  = data!![position]
 
-        view.bs_campaign_image.setImageResource(campaignImg!!)
+        Picasso.get().load(RetrofitInstance.IMAGE_URL+campaignImg).into(view.bs_campaign_image)
         view.bs_campaign_name.text = campaignName
-        view.bs_donor_name.text = donation.donors!!.name
-        view.bs_donation_amount.text = donation.donationAmount
-        view.bs_donor_prefecture.text = donation.donorDistrict
-        view.bs_donor_city.text =donation.donorCity
-        view.bs_donor_address.text = donation.donorAddress
-        view.bs_donor_phone.text = donation.donorPhoneNumber
+        view.bs_donor_name.text = donation.donor!!.name
+        view.bs_donation_amount.text = donation.donation_amount
+        view.bs_donor_prefecture.text = donation.donor_district
+        view.bs_donor_city.text =donation.donor_city
+        view.bs_donor_address.text = donation.donor_address
+        view.bs_donor_phone.text = donation.donor_phone
         bottomSheetDialog.show()
     }
 }

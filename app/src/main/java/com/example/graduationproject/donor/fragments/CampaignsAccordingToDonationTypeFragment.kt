@@ -62,15 +62,14 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
 
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-
-
+        getCampaignsDonationType(donation_type)
 
         return root
     }
 
     override fun onResume() {
         super.onResume()
-        getCampaignsDonationType(donation_type)
+        //getCampaignsDonationType(donation_type)
     }
 
     fun getCampaignsDonationType(donation_type: Int) {

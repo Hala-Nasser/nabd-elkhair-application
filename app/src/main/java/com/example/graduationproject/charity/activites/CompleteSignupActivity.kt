@@ -169,6 +169,7 @@ class CompleteSignupActivity : AppCompatActivity(){
                         val editor = sharedPref.edit()
                         editor.putString("from", "charity")
                         editor.putInt("charity_id", user_id)
+                        editor.putString("charity_image", data.data.image)
                         Log.e("id in signup", user_id.toString())
                         editor.apply()
 
