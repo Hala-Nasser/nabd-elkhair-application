@@ -30,17 +30,17 @@
                 android:textSize="18sp" />
 
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/campaign_img_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:src="@drawable/campaign_image"
-                    android:scaleType="fitXY"
-                    android:padding="5dp"
-                    android:layout_marginTop="30dp"
-                    app:riv_corner_radius="10dp"
-                    android:background="@drawable/rectangle_dashed_border"
-                    />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/campaign_img_details"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:src="@drawable/campaign_image"
+                android:scaleType="fitXY"
+                android:padding="5dp"
+                android:layout_marginTop="30dp"
+                app:riv_corner_radius="10dp"
+                android:background="@drawable/rectangle_dashed_border"
+                />
 
 
             <TextView
@@ -139,7 +139,7 @@
                     app:fabSize="mini"
                     android:backgroundTint="@color/app_color"
                     app:elevation="0dp"
-                     />
+                    />
             </LinearLayout>
 
 
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                 />
+                />
 
         </LinearLayout>
 

@@ -15,7 +15,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
-import com.example.graduationproject.api.charityApi.paymentLinks.PaymentLinksJson
+import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.charity.fragments.CharitySettingsFragment
 import com.example.graduationproject.charity.fragments.PaymentSettingsFragment

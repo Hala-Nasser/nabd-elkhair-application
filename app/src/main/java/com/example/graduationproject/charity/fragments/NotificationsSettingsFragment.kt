@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.graduationproject.PrivacyPolicyActivity
 import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.fcm.FCMJson
-import com.example.graduationproject.api.charityApi.logout.LogoutJson
+import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
+import com.example.graduationproject.api.donorApi.logout.LogoutJson
+import com.example.graduationproject.api.donorApi.profile.ProfileJson
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.network.RetrofitInstance
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_charity_profile.*
 import kotlinx.android.synthetic.main.fragment_general_settings.view.*
 import kotlinx.android.synthetic.main.fragment_general_settings.view.general_settings_sign_out
 import kotlinx.android.synthetic.main.fragment_notifications_settings.view.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +36,7 @@ class NotificationsSettingsFragment : Fragment() {
     var progressDialog: ProgressDialog? = null
     var token = ""
     lateinit var sharedPref: SharedPreferences
+    var notificationStatus = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +53,19 @@ class NotificationsSettingsFragment : Fragment() {
             startActivity(i)
         }
 
+        root.charity_notification_switch.setOnCheckedChangeListener { compoundButton, b ->
+            if (root.charity_notification_switch.isChecked){
+                notificationStatus = 1
+                Log.e("check", root.charity_notification_switch.isChecked.toString())
+
+            }else{
+                notificationStatus = 0
+                Log.e("check", root.charity_notification_switch.isChecked.toString())
+
+            }
+            enableNotification()
+        }
+
         root.notification_settings_sign_out.setOnClickListener {
             progressDialog = ProgressDialog(activity)
             GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
@@ -58,6 +76,28 @@ class NotificationsSettingsFragment : Fragment() {
     }
 
 
+    fun enableNotification() {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.setNotificationStatus("Bearer $token",notificationStatus)
+
+        response.enqueue(object : Callback<ForgotPasswordJson> {
+            override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
+                val data = response.body()
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), data!!.message,Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<ForgotPasswordJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
+    }
 
     fun logout() {
 
@@ -67,8 +107,9 @@ class NotificationsSettingsFragment : Fragment() {
 
         response.enqueue(object : Callback<LogoutJson> {
             override fun onResponse(call: Call<LogoutJson>, response: Response<LogoutJson>) {
+                val data = response.body()
                 if (response.isSuccessful) {
-                    Log.e("Logout",response.message())
+                    Toast.makeText(requireContext(), data!!.message,Toast.LENGTH_SHORT).show()
                     val i = Intent(requireActivity(), SignInActivity()::class.java)
                     i.putExtra("Donor",false)
                     startActivity(i)

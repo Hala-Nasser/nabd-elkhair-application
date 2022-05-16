@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import com.example.graduationproject.PrivacyPolicyActivity
 import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.fcm.FCMJson
-import com.example.graduationproject.api.charityApi.logout.LogoutJson
+import com.example.graduationproject.api.donorApi.logout.LogoutJson
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.donor.fragments.ChangePasswordFragment

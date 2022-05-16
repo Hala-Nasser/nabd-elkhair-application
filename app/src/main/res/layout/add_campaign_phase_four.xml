@@ -18,6 +18,7 @@
 
 
         <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/final_campaign_image"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:src="@drawable/campaign_image"
@@ -29,6 +30,7 @@
             />
 
         <TextView
+            android:id="@+id/final_campaign_title"
             android:layout_width="match_parent"
             android:paddingStart="20dp"
             android:layout_marginTop="10dp"
@@ -40,6 +42,7 @@
             />
 
         <TextView
+            android:id="@+id/final_campaign_desc"
             android:layout_width="match_parent"
             android:paddingHorizontal="10dp"
             android:layout_marginTop="15sp"
@@ -58,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -75,6 +78,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/final_campaign_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="14 فبراير"
@@ -99,6 +103,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/final_campaign_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="05:00"
@@ -110,16 +115,16 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="طرق الدفع"
-            android:textSize="16sp"
-            android:fontFamily="@font/tajawal_bold"
-            android:textColor="@color/black"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingStart="20dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="طرق الدفع"-->
+<!--            android:textSize="16sp"-->
+<!--            android:fontFamily="@font/tajawal_bold"-->
+<!--            android:textColor="@color/black"-->
+<!--            />-->
 
 
 

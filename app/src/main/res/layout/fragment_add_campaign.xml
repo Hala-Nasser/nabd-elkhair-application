@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:fillViewport="true"
-    android:id="@+id/scroll"
+    android:id="@+id/add_campaign_layout"
     tools:context=".charity.fragments.AddCampaignFragment"
     android:paddingHorizontal="30dp"
     >

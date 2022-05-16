@@ -42,6 +42,7 @@ import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.charities.Data
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
+import kotlinx.android.synthetic.main.donation_type_tab_item.view.*
 
 
 class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
@@ -138,11 +139,11 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                     val data = response.body()!!.data
 
                     donation_type_ids.add(0)
-                    donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setText("الكل"))
+                    donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setCustomView(createTabItemView("","")))
 
                     for (donation_type in data){
                         donation_type_ids.add(donation_type.id)
-                        donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setText(donation_type.name))
+                        donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setCustomView(createTabItemView(RetrofitInstance.IMAGE_URL+donation_type.image,donation_type.name)))
                     }
                     TabLayoutSettings().setTabMargin(donor_home_tab_layout, 10, 10, 100)
                     Log.e("donation_type_ids", donation_type_ids.size.toString())
@@ -155,8 +156,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                     Log.e("pager", campaigns_viewpager.isSaveEnabled.toString())
                     campaigns_viewpager.adapter = adapter
 
-                    //campaigns_viewpager.addOnPageChangeListener(TabLayoutOnPageChangeListener(donor_home_tab_layout))
-                    donor_home_tab_layout.setupWithViewPager(campaigns_viewpager)
+                    campaigns_viewpager.addOnPageChangeListener(TabLayoutOnPageChangeListener(donor_home_tab_layout))
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
@@ -200,4 +200,14 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         })
     }
 
+    private fun createTabItemView(imgUri: String,txt:String): View? {
+        val v: View = LayoutInflater.from(context).inflate(R.layout.donation_type_tab_item, null)
+        if (imgUri==""){
+            v.donation_type_image.setImageResource(R.drawable.all)
+        }else{
+            Picasso.get().load(imgUri).into(v.donation_type_image)
+        }
+        v.donation_type_title.text = txt
+        return v
+    }
 }

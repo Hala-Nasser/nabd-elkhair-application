@@ -33,17 +33,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class DonationAdapter(
-    var activity: Context?, var data: List<Data>, var from:String
-) : RecyclerView.Adapter<DonationAdapter.WithoutCampaignViewHolder>(){
+class RequestDonationAdapter(
+    var activity: Context?, var data: List<Data>
+) : RecyclerView.Adapter<RequestDonationAdapter.DonationRequestsViewHolder>(){
 
-    class WithoutCampaignViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val image  =itemView.donation_without_campaign_image
-        val name  =itemView.donation_without_campaign_name
-        val details_btn  =itemView.donation_without_details_btn
-        val donation_received  =itemView.donation_received
-        val card  =itemView.cv_donation
+    class DonationRequestsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val image  =itemView.donor_image
+        val name  =itemView.donor_name
+        val donation_accept  =itemView.donation_accept
+        val donation_declined  =itemView.donation_declined
 
         fun initialize(data: Donor) {
             Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
@@ -53,45 +53,33 @@ class DonationAdapter(
     }
 
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): WithoutCampaignViewHolder{
-            var view: View = LayoutInflater.from(activity)
-                .inflate(R.layout.donation_without_campaign, parent, false)
-           return WithoutCampaignViewHolder(view)
+    ): DonationRequestsViewHolder{
+            var view: View = LayoutInflater.from(activity).inflate(R.layout.donation_requests_item, parent, false)
+          return DonationRequestsViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun onBindViewHolder(holder: WithoutCampaignViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DonationRequestsViewHolder, position: Int) {
 
         holder.initialize(data[position].donor!!)
+        holder.itemView.setOnClickListener {
+            bottomSheet(activity as Activity, position)
+        }
 
-            if (from=="DonationReceivedFragment"){
-                holder.details_btn.visibility = View.GONE
-                holder.donation_received.visibility = View.VISIBLE
-                holder.card.cardElevation = 0f
-                holder.itemView.setOnClickListener {
-                    bottomSheet(activity as Activity, position)
-                }
-                if(holder.donation_received.isChecked){
-                    setDonationReceived(data[position].id,1)
-                }else{
-                    setDonationReceived(data[position].id,0)
-                }
-            }else{
-                holder.details_btn.visibility = View.VISIBLE
-                holder.donation_received.visibility = View.GONE
-                holder.card.cardElevation = 3f
+        holder.donation_accept.setOnClickListener {
+            setDonationAcceptance(data[position].id,1)
+        }
 
-                holder.details_btn.setOnClickListener {
-                    bottomSheet(activity as Activity, position)
-                }
-            }
+        holder.donation_declined.setOnClickListener {
+            setDonationAcceptance(data[position].id,0)
+          }
+
 
 
     }
@@ -101,7 +89,6 @@ class DonationAdapter(
         var bottomSheetDialog = BottomSheetDialog(activity)
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.setCanceledOnTouchOutside(false)
-        if (from=="DonationReceivedFragment"){
             if (data[position].campaign != null){
                 view.bs_campaign_card.visibility = View.VISIBLE
                 Picasso.get().load(RetrofitInstance.IMAGE_URL+data[position].campaign!!.image).into(view.bs_campaign_image)
@@ -109,7 +96,6 @@ class DonationAdapter(
             }else{
                 view.bs_campaign_card.visibility = View.GONE
             }
-        }else view.bs_campaign_card.visibility = View.GONE
 
         view.close.setOnClickListener {
             bottomSheetDialog.dismiss()
@@ -127,14 +113,14 @@ class DonationAdapter(
         bottomSheetDialog.show()
     }
 
-    fun setDonationReceived(donation_id: Int,received: Int) {
+    fun setDonationAcceptance(donation_id: Int,acceptance: Int) {
 
         var sharedPref = activity!!.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var token = sharedPref.getString("charity_token", "")!!
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.setDonationReceived("Bearer $token",donation_id,received)
+        val response = retrofitInstance.setDonationAcceptance("Bearer $token",donation_id,acceptance)
 
         response.enqueue(object : Callback<ForgotPasswordJson> {
             override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {

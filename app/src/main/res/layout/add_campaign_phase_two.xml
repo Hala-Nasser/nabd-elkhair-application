@@ -20,6 +20,7 @@
 
 
             <DatePicker
+                android:id="@+id/campaign_date_picker"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"

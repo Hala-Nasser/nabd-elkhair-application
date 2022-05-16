@@ -65,6 +65,8 @@ dependencies {
 
     //circle menu
     implementation 'com.ramotion.circlemenu:circle-menu:0.3.2'
+    implementation 'com.nambimobile.widgets:expandable-fab:1.2.1'
+    implementation 'com.github.imtuann:FloatingActionButtonExpandable:1.1.2'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     //retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
