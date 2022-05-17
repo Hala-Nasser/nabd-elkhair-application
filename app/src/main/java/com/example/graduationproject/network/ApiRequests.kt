@@ -3,11 +3,13 @@ package com.example.graduationproject.network
 
 import com.example.graduationproject.api.charityApi.campaign.CampaignJson
 import com.example.graduationproject.api.charityApi.donation.DonationJson
+import com.example.graduationproject.api.donorApi.addDonation.AddDonationJson
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.campaignsAccordingToCharity.CampaignsCharityJson
 import com.example.graduationproject.api.donorApi.changePassword.ChangePasswordJson
 import com.example.graduationproject.api.donorApi.charities.CharitiesJson
+import com.example.graduationproject.api.donorApi.complaint.ComplaintJson
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.api.donorApi.fcm.FCMJson
 import com.example.graduationproject.api.charityApi.fcm.FCMJson as CharityFCMJSon
@@ -91,6 +93,11 @@ interface ApiRequests {
     @GET("donor/logout")
     fun logout(@Header("Authorization") token: String): Call<LogoutJson>
 
+    @POST("donor/addcomplaint")
+    fun addComplaint(@Body body: RequestBody, @Header("Authorization") token: String): Call<ComplaintJson>
+
+    @POST("donor/addDonation")
+    fun addDonation(@Body body: RequestBody, @Header("Authorization") token: String): Call<AddDonationJson>
 
     // --------------------------------------------------------------------------------------------------
 

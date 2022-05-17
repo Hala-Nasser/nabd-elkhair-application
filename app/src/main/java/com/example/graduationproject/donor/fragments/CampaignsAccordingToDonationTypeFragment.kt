@@ -206,11 +206,11 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
 
         } else {
             v = layoutInflater.inflate(R.layout.bottom_dialog_item_manual, null)
-            if (donationType.name == "مال") {
-                v.amount_linear.visibility = View.GONE
-                v.amount_view.visibility = View.GONE
-
-            }
+//            if (donationType.name == "مال") {
+//                v.amount_linear.visibility = View.GONE
+//                v.amount_view.visibility = View.GONE
+//
+//            }
             v.title.text = "تفاصيل التبرع"
             v.confirm.visibility = View.GONE
         }

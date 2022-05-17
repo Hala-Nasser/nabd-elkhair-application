@@ -632,77 +632,112 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:el_duration="500"
-                app:el_expanded="false">
+                android:layout_marginTop="10dp"
+                app:el_expanded="true">
+
+<!--                <LinearLayout-->
+<!--                    android:layout_marginRight="50dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/choose_time"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/ic_access_time" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/tajawal_medium"-->
+<!--                            android:paddingStart="5dp"-->
+<!--                            android:text="من"-->
+<!--                            android:textColor="@color/app_color"-->
+<!--                            android:textSize="15sp" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/time"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/tajawal_medium"-->
+<!--                            android:paddingStart="5dp"-->
+<!--                            android:text="0:00 ص"-->
+<!--                            android:textColor="@color/black_transparent_30"-->
+<!--                            android:textSize="15sp" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <View-->
+<!--                        android:layout_width="140dp"-->
+<!--                        android:layout_height="2dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:background="@color/black_transparent_30" />-->
+
+<!--                </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/choose_date"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:background="@drawable/date_button"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_margin="10dp">
-
-                        <RadioGroup
-                            android:layout_width="match_parent"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:src="@drawable/ic_calendar"
+                            />
 
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="5dp"
-                                android:layout_margin="10dp"
-                                android:text="8:00"
-                                android:button="@color/transparency"
-                                android:background="@drawable/radio_selector"
-                                android:elevation="4dp"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="5dp"
-                                android:layout_margin="10dp"
-                                android:text="11:00"
-                                android:button="@color/transparency"
-                                android:background="@drawable/radio_selector"
-                                android:elevation="4dp"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="5dp"
-                                android:layout_margin="10dp"
-                                android:text="13:00"
-                                android:button="@color/transparency"
-                                android:background="@drawable/radio_selector"
-                                android:elevation="4dp"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/tajawal_bold"
-                                android:paddingHorizontal="10dp"
-                                android:layout_margin="10dp"
-                                android:text="15:00"
-                                android:button="@color/transparency"
-                                android:background="@drawable/radio_selector"
-                                android:elevation="4dp"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
-                        </RadioGroup>
-
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14 فبراير"
+                            android:paddingStart="5dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/tajawal_medium"
+                            android:textColor="@color/app_color"
+                            />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/choose_time"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/date_button"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_alarm"
+                            />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="05:00"
+                            android:paddingStart="5dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/tajawal_medium"
+                            android:textColor="@color/app_color"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
 
             </net.cachapa.expandablelayout.ExpandableLayout>
 

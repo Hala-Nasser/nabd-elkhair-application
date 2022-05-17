@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 app:el_duration="500"
                 android:layout_marginTop="10dp"
-                app:el_expanded="false">
+                app:el_expanded="true">
 
                 <LinearLayout
                     android:id="@+id/cb_layout"
@@ -308,7 +308,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="اخرى"
+                android:hint="أسباب أخرى"
                 android:textSize="16sp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black"
@@ -319,12 +319,13 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/other_reason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:paddingTop="25dp"
                     android:lines="5"
-                    android:text="@string/hint"
+                    android:text=""
                     android:gravity="top"
                     android:textAlignment="gravity"
                     android:overScrollMode="always"
@@ -340,7 +341,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/next"
+                android:id="@+id/send"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
