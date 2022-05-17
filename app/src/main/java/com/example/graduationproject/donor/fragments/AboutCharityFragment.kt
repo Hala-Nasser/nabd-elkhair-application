@@ -75,6 +75,7 @@ class AboutCharityFragment : Fragment() {
                             val fragment = FirstStepViewDonationFragment()
                             val b=Bundle()
                             b.putInt("charity_id", charity_id)
+                            b.putInt("donation_type_id", typeSelected!!.id)
                             b.putString("campaign_name", charity_name)
                             b.putString("campaign_image", charity_image)
                             fragment.arguments=b
@@ -84,6 +85,10 @@ class AboutCharityFragment : Fragment() {
                             val fragment = SecondStepViewDonationManualFragment()
                             val b=Bundle()
                             //b.putInt("charity_id", campaign_charity.id)
+                            b.putInt("charity_id", charity_id)
+                            b.putInt("donation_type_id", typeSelected!!.id)
+                            b.putString("campaign_name", charity_name)
+                            b.putString("campaign_image", charity_image)
                             b.putString("previous_fragment","charityDetails")
                             fragment.arguments=b
                             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()

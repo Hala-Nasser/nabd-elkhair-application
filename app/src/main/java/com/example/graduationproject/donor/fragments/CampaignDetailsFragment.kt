@@ -103,6 +103,8 @@ class CampaignDetailsFragment : Fragment() {
                         val fragment = SecondStepViewDonationManualFragment()
                         val b=Bundle()
                         b.putInt("charity_id", campaign_charity.id)
+                        b.putString("campaign_image", campaign_image)
+                        b.putString("campaign_name", campaign_name)
                         b.putString("previous_fragment","campaignDetails")
                         fragment.arguments=b
                         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()

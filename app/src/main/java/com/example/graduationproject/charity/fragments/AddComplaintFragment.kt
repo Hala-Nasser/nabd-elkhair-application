@@ -1,5 +1,6 @@
 package com.example.graduationproject.charity.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,13 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.donorApi.complaint.ComplaintJson
+import com.example.graduationproject.api.donorApi.updateProfile.UpdateProfileJson
+import com.example.graduationproject.classes.FileUtil
+import com.example.graduationproject.classes.GeneralChanges
+import com.example.graduationproject.classes.Validation
+import com.example.graduationproject.donor.fragments.ProfileFragment
+import com.example.graduationproject.network.RetrofitInstance
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.activity_donor_main.*
 import kotlinx.android.synthetic.main.fragment_add_complaint.view.*
@@ -18,7 +26,15 @@ import kotlinx.android.synthetic.main.fragment_add_complaint.view.expandable_lay
 import kotlinx.android.synthetic.main.fragment_add_complaint.view.image1
 import kotlinx.android.synthetic.main.fragment_add_complaint.view.indicator1
 import kotlinx.android.synthetic.main.fragment_add_complaint.view.title1
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import net.cachapa.expandablelayout.ExpandableLayout
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +42,7 @@ import kotlin.collections.ArrayList
 
 class AddComplaintFragment : Fragment() {
 
+    var token = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +50,9 @@ class AddComplaintFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_add_complaint, container, false)
+
+        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        token = sharedPref.getString("user_token", "")!!
 
         val cal = Calendar.getInstance()
         val month_date = SimpleDateFormat("MMMM")
@@ -76,22 +96,20 @@ class AddComplaintFragment : Fragment() {
                 Log.e("reasons after", reasons.toString())
 
             }
-//            cb.setOnClickListener {
-//                if (cb.isChecked){
-//                    if (reasons.contains(cb.text.toString())){
-//                        reasons.dropWhile {
-//                            it == cb.text.toString()
-//                        }
-//                    }
-//
-//                }else{
-//                    reasons.plus(cb.text.toString())
-//                }
-//                for (reas in reasons){
-//                    Log.e("reasons", reas)
-//                }
-//
-//            }
+        }
+
+        root.send.setOnClickListener {
+            val other = root.other_reason.text.toString()
+            if (other.isNotEmpty()){
+                reasons.add(other)
+            }
+            val b = arguments
+            if (b != null) {
+                var charity_id = b.getInt("charity_id")
+                addComplaint(charity_id,reasons)
+            }
+
+
         }
         
         
@@ -106,18 +124,6 @@ class AddComplaintFragment : Fragment() {
         root.expandable_layout_1.setOnExpansionUpdateListener { _, _ ->
             layoutStyle(root.indicator1, root.expandable_layout_1)
         }
-
-
-
-//        root.el_add_complaint.setOnClickListener {
-//            if (root.el_add_complaint.state == ExpandableLayout.State.COLLAPSED) {
-//                root.add_complaint_arrow.setImageResource(R.drawable.ic_arrow_up)
-//                root.el_add_complaint.isExpanded = true
-//            } else if (root.el_add_complaint.state == ExpandableLayout.State.EXPANDED) {
-//                root.add_complaint_arrow.setImageResource(R.drawable.ic_arrow_down)
-//                root.el_add_complaint.isExpanded = false
-//            }
-//        }
 
         root.back.setOnClickListener {
             requireActivity().onBackPressed()
@@ -134,6 +140,46 @@ class AddComplaintFragment : Fragment() {
             indicator.setImageResource(R.drawable.ic_arrow_up)
         }
 
+    }
+
+    fun addComplaint(charity_id:Int, reasons:ArrayList<String>) {
+
+        var body = MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("defendant_id", charity_id.toString())
+                .addFormDataPart("complainer_type", "donor")
+        for (i in reasons){
+            body.addFormDataPart("complaint_reason[]", i)
+        }
+
+        var requestBody = body.build()
+
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.addComplaint(requestBody, "Bearer $token")
+
+        response.enqueue(object : Callback<ComplaintJson> {
+            override fun onResponse(call: Call<ComplaintJson>, response: Response<ComplaintJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data!!.status) {
+
+                        requireActivity().onBackPressed()
+
+                    }else{
+                        Validation().showSnackBar(parent_layout, data.message)
+                    }
+
+                } else {
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<ComplaintJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
     }
 
 }

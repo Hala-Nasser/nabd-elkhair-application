@@ -57,6 +57,7 @@
             android:layout_marginBottom="20dp"/>
 
         <include
+            android:id="@+id/item"
             layout="@layout/campaign_item_in_donation_screen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,39 +66,39 @@
             android:layout_marginBottom="20dp"/>
 
 
-        <LinearLayout
-            android:id="@+id/amount_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/amount_linear"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="5dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="المبلغ"
-                android:textColor="@color/grey_bottom_dialog"
-                android:textSize="15sp" />
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:fontFamily="@font/tajawal_medium"-->
+<!--                android:text="المبلغ"-->
+<!--                android:textColor="@color/grey_bottom_dialog"-->
+<!--                android:textSize="15sp" />-->
 
-            <TextView
-                android:id="@+id/amount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="70 شيكل"
-                android:textColor="@color/app_color_transparent_86"
-                android:textSize="16sp" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/amount"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:fontFamily="@font/tajawal_medium"-->
+<!--                android:text="70 شيكل"-->
+<!--                android:textColor="@color/app_color_transparent_86"-->
+<!--                android:textSize="16sp" />-->
+<!--        </LinearLayout>-->
 
-        <View
-            android:id="@+id/amount_view"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/black_transparent_27" />
+<!--        <View-->
+<!--            android:id="@+id/amount_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:background="@color/black_transparent_27" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,6 +123,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="الوسطى"
+                android:textAlignment="viewStart"
                 android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -155,6 +157,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="المغازي"
+                android:textAlignment="viewStart"
                 android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -186,6 +189,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textAlignment="viewStart"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="الطريق الاولى- مقابل كتيبة 13"
                 android:textColor="@color/app_color_transparent_86"
@@ -221,6 +225,41 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/tajawal_medium"
                 android:text="(077)112-1645"
+                android:textAlignment="viewStart"
+                android:textColor="@color/app_color_transparent_86"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_27" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="زمن الاستلام"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/r_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="6:00"
+                android:textAlignment="viewStart"
                 android:textColor="@color/app_color_transparent_86"
                 android:textSize="16sp" />
         </LinearLayout>

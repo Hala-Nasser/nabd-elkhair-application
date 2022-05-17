@@ -63,23 +63,22 @@ class CharityDetailsFragment : Fragment() {
             root.charity_campaigns_viewpager.adapter = sectionsPagerAdapter
             root.charity_tab_layout.setupWithViewPager(root.charity_campaigns_viewpager)
 
+            root.donor_add_complaint.setOnClickListener {
+                val f = AddComplaintFragment()
+                val bundle= Bundle()
+                bundle.putString("from","Donor")
+                bundle.putInt("charity_id", b.getInt("charity_id", 0))
+                f.arguments=bundle
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,f).commit()
+            }
+
         }
-
-
-
-
 
         root.back.setOnClickListener {
             requireActivity().onBackPressed()
         }
 
-        root.donor_add_complaint.setOnClickListener {
-            val f = AddComplaintFragment()
-            val b= Bundle()
-            b.putString("from","Donor")
-            f.arguments=b
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,f).commit()
-        }
+
         return root
     }
 
