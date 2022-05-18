@@ -2,7 +2,6 @@ package com.example.graduationproject.charity.fragments
 
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,40 +12,33 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.donation.DonationJson
-import com.example.graduationproject.charity.adapters.CampaignDonationAdapter
 import com.example.graduationproject.charity.adapters.DonationAdapter
-import com.example.graduationproject.charity.models.Donation
 import com.example.graduationproject.classes.GeneralChanges
-import com.example.graduationproject.donor.models.Donor
 import com.example.graduationproject.network.RetrofitInstance
-import kotlinx.android.synthetic.main.fragment_donation_with_campaign.*
-import kotlinx.android.synthetic.main.fragment_donation_with_campaign.rv_donation_with_campaign
-import kotlinx.android.synthetic.main.fragment_donation_without_campaign.*
-import kotlinx.android.synthetic.main.fragment_donation_without_campaign.view.*
+import kotlinx.android.synthetic.main.fragment_donation_requests.*
+import kotlinx.android.synthetic.main.fragment_donation_requests.rv_donation_requests
+import kotlinx.android.synthetic.main.fragment_donation_tab_received.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-class DonationWithoutCampaignFragment : Fragment() {
-
+class DonationTabReceivedFragment : Fragment() {
     var token = ""
     var progressDialog: ProgressDialog? = null
-    lateinit var sharedPref:SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var root = inflater.inflate(R.layout.fragment_donation_without_campaign, container, false)
-
-         sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        var root = inflater.inflate(R.layout.fragment_donation_tab_received, container, false)
+        var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
 
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-        getDonations()
 
+        getDonations()
         return root
     }
 
@@ -54,23 +46,22 @@ class DonationWithoutCampaignFragment : Fragment() {
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.getWithoutCampaignDonations("Bearer $token")
+        val response = retrofitInstance.getDonationReceived("Bearer $token")
 
         response.enqueue(object : Callback<DonationJson> {
             override fun onResponse(call: Call<DonationJson>, response: Response<DonationJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
-                    val editor = sharedPref.edit()
-                    editor.putInt("withoutCampaignDonationCount", data!!.data.size)
-                    editor.apply()
-                    rv_donation_without_campaign.layoutManager = LinearLayoutManager(
+                    Log.e("enter tab received","yes")
+                    rv_donation_tab_received.layoutManager = LinearLayoutManager(
                         activity,
                         RecyclerView.VERTICAL, false
                     )
-                    rv_donation_without_campaign.setHasFixedSize(true)
+                    rv_donation_tab_received.setHasFixedSize(true)
                     val donationAdapter =
-                        DonationAdapter(requireActivity(), data!!.data,"DonationFragment",requireActivity().supportFragmentManager)
-                    rv_donation_without_campaign.adapter = donationAdapter
+                        DonationAdapter(requireActivity(), data!!.data,"DonationReceivedFragment",requireActivity().supportFragmentManager
+                        )
+                    rv_donation_tab_received.adapter = donationAdapter
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
@@ -85,4 +76,5 @@ class DonationWithoutCampaignFragment : Fragment() {
             }
         })
     }
+
 }

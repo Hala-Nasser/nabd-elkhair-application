@@ -43,6 +43,7 @@ import kotlin.collections.ArrayList
 class AddComplaintFragment : Fragment() {
 
     var token = ""
+    var cToken = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +54,7 @@ class AddComplaintFragment : Fragment() {
 
         val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("user_token", "")!!
+        cToken = sharedPref.getString("charity_token", "")!!
 
         val cal = Calendar.getInstance()
         val month_date = SimpleDateFormat("MMMM")
@@ -69,6 +71,7 @@ class AddComplaintFragment : Fragment() {
         val from = b!!.getString("from")
         if (from=="Charity"){
             requireActivity().charity_nav_bottom.visibility=View.GONE
+            complaint_reasons = resources.getStringArray(R.array.charity_complaint_reason_array)
         }else{
             //requireActivity().nav_bottom.visibility=View.GONE
             complaint_reasons = resources.getStringArray(R.array.donor_complaint_reason_array)
@@ -106,6 +109,10 @@ class AddComplaintFragment : Fragment() {
             val b = arguments
             if (b != null) {
                 var charity_id = b.getInt("charity_id")
+                var donor_id = b.getInt("donor_id")
+                if (from=="Charity")
+                    charityAddComplaint(donor_id,reasons)
+                    else
                 addComplaint(charity_id,reasons)
             }
 
@@ -182,4 +189,43 @@ class AddComplaintFragment : Fragment() {
         })
     }
 
+    fun charityAddComplaint(donor_id:Int, reasons:ArrayList<String>) {
+
+        var body = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("defendant_id", donor_id.toString())
+            .addFormDataPart("complainer_type", "charity")
+        for (i in reasons){
+            body.addFormDataPart("complaint_reason[]", i)
+        }
+
+        var requestBody = body.build()
+
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.charityAddComplaint(requestBody, "Bearer $cToken")
+
+        response.enqueue(object : Callback<ComplaintJson> {
+            override fun onResponse(call: Call<ComplaintJson>, response: Response<ComplaintJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data!!.status) {
+
+                        requireActivity().onBackPressed()
+
+                    }else{
+                        Validation().showSnackBar(parent_layout, data.message)
+                    }
+
+                } else {
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<ComplaintJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
+    }
 }

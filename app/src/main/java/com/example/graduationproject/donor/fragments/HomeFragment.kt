@@ -82,6 +82,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                 var mSelectedPosition = root.donor_home_tab_layout.selectedTabPosition
                 Log.e("mSelectedPosition", mSelectedPosition.toString())
                 editor.putInt("selected home donation type", donation_type_ids[mSelectedPosition])
+                editor.putBoolean("isDonor", true)
                 editor.apply()
                 val donation_type = sharedPref.getInt("selected home donation type", 0)
 
@@ -148,6 +149,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                     TabLayoutSettings().setTabMargin(donor_home_tab_layout, 10, 10, 100)
                     Log.e("donation_type_ids", donation_type_ids.size.toString())
                     editor.putInt("selected home donation type", donation_type_ids[0])
+                    editor.putBoolean("isDonor", true)
                     editor.apply()
 
                     // Create adapter after adding the tabs

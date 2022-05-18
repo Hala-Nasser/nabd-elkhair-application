@@ -1,9 +1,13 @@
 package com.example.graduationproject.charity.fragments
 
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
+import android.content.Context
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,10 +27,26 @@ import java.util.*
 import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
 import android.widget.TimePicker
 import android.widget.TimePicker.OnTimeChangedListener
+import com.example.graduationproject.api.charityApi.campaign.CampaignJson
+import com.example.graduationproject.classes.FileUtil
+import com.example.graduationproject.classes.GeneralChanges
+import com.example.graduationproject.classes.Validation
+import com.example.graduationproject.network.RetrofitInstance
+import kotlinx.android.synthetic.main.fragment_add_campaign.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 
 class EditCampaignFragment : Fragment() {
-
+    var time =""
+    var date =""
+    var token=""
+    var progressDialog: ProgressDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val languageToLoad = "ar"
@@ -48,9 +68,18 @@ class EditCampaignFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_edit_campaign, container, false)
 
-         getDate(root)
-         getTime(root)
+        var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        token = sharedPref.getString("charity_token", "")!!
 
+
+
+        root.update_campaign.setOnClickListener {
+            getDate(root)
+            getTime(root)
+            progressDialog = ProgressDialog(requireContext())
+            GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+            updateCampaign()
+        }
         return root
     }
 
@@ -65,9 +94,9 @@ class EditCampaignFragment : Fragment() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val locale = Locale("ar", "SA")
 
-                val myFormat = "EEEE، d MMMM y"
+                val myFormat = "d MMMM"
                 val sdf = SimpleDateFormat(myFormat, locale)
-                //root.set_date.text = sdf.format(calendar.time)
+                date = sdf.format(calendar.time)
             })
 
     }
@@ -84,7 +113,48 @@ class EditCampaignFragment : Fragment() {
 
                 val myFormat = "h:mm a"
                 val sdf = SimpleDateFormat(myFormat, locale)
-               // root.set_time.text = sdf.format(initialCalendar.time)
+               time = sdf.format(initialCalendar.time)
+            }
+        })
+    }
+
+
+    fun updateCampaign() {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.updateCampaign("Bearer $token",date,time)
+
+        response.enqueue(object : Callback<CampaignJson> {
+            override fun onResponse(call: Call<CampaignJson>, response: Response<CampaignJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("Update Campaign", data.toString())
+                    if (data!!.status) {
+
+                        GeneralChanges().hideDialog(progressDialog!!)
+                        var bundle = Bundle()
+                        bundle.putString("date",data.data.expiry_date)
+                        bundle.putString("time",data.data.expiry_time)
+                        var fragment = CharityCampaignDetailsFragment()
+                        fragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).commit()
+
+                    }else{
+                        GeneralChanges().hideDialog(progressDialog!!)
+                        Validation().showSnackBar(add_campaign_layout, data.message)
+                    }
+
+                } else {
+                    GeneralChanges().hideDialog(progressDialog!!)
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<CampaignJson>, t: Throwable) {
+                GeneralChanges().hideDialog(progressDialog!!)
+                Log.e("failure", t.message!!)
             }
         })
     }

@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 android:fontFamily="@font/tajawal_bold"
-                android:text="تفاصيل الحملة"
+                android:text="تعديل الحملة"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -70,6 +70,21 @@
                 android:background="@drawable/white_button"
                 android:backgroundTint="@color/time_color"
                 />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/update_campaign"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/colored_button"
+                android:gravity="center"
+                android:text="حفظ"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/tajawal_bold"  />
+
 
         </LinearLayout>
 

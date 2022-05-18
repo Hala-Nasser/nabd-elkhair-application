@@ -11,9 +11,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.charityApi.donation.Data
 import com.example.graduationproject.charity.adapters.DonorsAdapter
 import com.example.graduationproject.charity.models.Donation
+import com.example.graduationproject.donor.fragments.ProfileFragment
+import com.example.graduationproject.network.RetrofitInstance
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.charity_item.view.*
+import kotlinx.android.synthetic.main.fragment_campaign_details.view.*
 import kotlinx.android.synthetic.main.fragment_charity_campaign_details.*
 import kotlinx.android.synthetic.main.fragment_charity_campaign_details.view.*
 import kotlin.math.log
@@ -21,14 +27,13 @@ import kotlin.system.exitProcess
 
 
 class CharityCampaignDetailsFragment : Fragment() {
-
     lateinit var campaignId:String
     lateinit var campaignName:String
     lateinit var campaignDesc:String
-     var campaignImage = 0
+    lateinit var campaignImage:String
     lateinit var campaignDate:String
     lateinit var campaignTime:String
-    var campaignDonation : ArrayList<Donation> = ArrayList()
+    var campaignDonation : ArrayList<Data> = ArrayList()
     lateinit var donorAdapter:DonorsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,29 +43,19 @@ class CharityCampaignDetailsFragment : Fragment() {
         var root = inflater.inflate(R.layout.fragment_charity_campaign_details, container, false)
 
         requireActivity().charity_nav_bottom.visibility=View.GONE
-//
-//        donorAdapter =
-//            DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
+
+        donorAdapter =
+            DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
 
         val b = arguments
         if (b != null) {
-           var from  = b.getString("from")
-            when(from){
-                "AllDonation" -> {
-                    getBundleData(b, root,"all")
-                }
-                "ClothesDonation" -> {
-                    getBundleData(b, root,"clothes")
-                }
-                "FoodDonation" -> {
-                    getBundleData(b, root,"food")
-                }
-                "MoneyDonation" -> {
-                    getBundleData(b, root,"money")
-                }
-            }
-
-
+            if (requireParentFragment()::class.java.name == EditCampaignFragment()::class.java.name){
+                var date = b.getString("date")
+                var time =  b.getString("time")
+                root.campaign_date_details.text = date
+                root.campaign_time_details.text = time
+             }else
+                getBundleData(b,root)
         }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -89,15 +84,15 @@ class CharityCampaignDetailsFragment : Fragment() {
         return root
     }
 
-    private fun getBundleData(b: Bundle, root: View,donationType:String) {
-        campaignId =  b.getString("${donationType}_campaign_id")!!
-        campaignName =  b.getString("${donationType}_campaign_name")!!
-        campaignDesc =  b.getString("${donationType}_campaign_description")!!
-        campaignImage =  b.getInt("${donationType}_campaign_image")
-        campaignDate =  b.getString("${donationType}_campaign_date")!!
-        campaignTime =  b.getString("${donationType}_campaign_time")!!
+    private fun getBundleData(b: Bundle, root: View) {
+        campaignId =  b.getString("campaign_id")!!
+        campaignName =  b.getString("campaign_name")!!
+        campaignDesc =  b.getString("campaign_description")!!
+        campaignImage =  b.getString("campaign_image")!!
+        campaignDate =  b.getString("campaign_date")!!
+        campaignTime =  b.getString("campaign_time")!!
 
-        root.campaign_img_details.setImageResource(campaignImage)
+        Picasso.get().load(RetrofitInstance.IMAGE_URL+campaignImage).into(root.campaign_img_details)
         root.campaign_name_details.text = campaignName
         root.campaign_desc_details.text = campaignDesc
         root.campaign_date_details.text = campaignDate
@@ -106,21 +101,21 @@ class CharityCampaignDetailsFragment : Fragment() {
 
 
 
-        if (b.getParcelableArrayList<Donation>("${donationType}_campaign_donation") == null) {
+        if (b.getParcelableArrayList<Data>("campaign_donation") == null) {
             root.rv_donors.visibility = View.GONE
         } else {
 
-            campaignDonation = b.getParcelableArrayList<Donation>("${donationType}_campaign_donation")!!
+            campaignDonation = b.getParcelableArrayList<Data>("campaign_donation")!!
 
-            var linkedHashSet: LinkedHashSet<Donation> = LinkedHashSet()
+            var linkedHashSet: LinkedHashSet<Data> = LinkedHashSet()
             linkedHashSet.addAll(campaignDonation)
             campaignDonation.clear()
             campaignDonation.addAll(linkedHashSet)
 
-//            donorAdapter =
-//                DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
+            donorAdapter =
+                DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
             donorAdapter.campaignName = campaignName
-          //  donorAdapter.campaignImg = campaignImage
+            donorAdapter.campaignImg = campaignImage
             root.rv_donors.layoutManager = LinearLayoutManager(
                 activity,
                 RecyclerView.VERTICAL, false

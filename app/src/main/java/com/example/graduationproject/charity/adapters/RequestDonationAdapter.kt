@@ -34,7 +34,7 @@ import retrofit2.Response
 
 
 class RequestDonationAdapter(
-    var activity: Context?, var data: List<Data>
+    var activity: Context?, var data: ArrayList<Data>
 ) : RecyclerView.Adapter<RequestDonationAdapter.DonationRequestsViewHolder>(){
 
 
@@ -73,11 +73,11 @@ class RequestDonationAdapter(
         }
 
         holder.donation_accept.setOnClickListener {
-            setDonationAcceptance(data[position].id,1)
+            setDonationAcceptance(data[position].id,1,holder.adapterPosition)
         }
 
         holder.donation_declined.setOnClickListener {
-            setDonationAcceptance(data[position].id,0)
+            setDonationAcceptance(data[position].id,0,holder.adapterPosition)
           }
 
 
@@ -113,7 +113,7 @@ class RequestDonationAdapter(
         bottomSheetDialog.show()
     }
 
-    fun setDonationAcceptance(donation_id: Int,acceptance: Int) {
+    fun setDonationAcceptance(donation_id: Int,acceptance: Int,position: Int) {
 
         var sharedPref = activity!!.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var token = sharedPref.getString("charity_token", "")!!
@@ -124,9 +124,13 @@ class RequestDonationAdapter(
 
         response.enqueue(object : Callback<ForgotPasswordJson> {
             override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
-                val data = response.body()
+                val body = response.body()
                 if (response.isSuccessful) {
-                    Toast.makeText(activity, data!!.message, Toast.LENGTH_SHORT).show()
+                    data.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, data.size)
+
+                    Toast.makeText(activity, body!!.message, Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }

@@ -108,15 +108,16 @@ class HomeFragment : Fragment(){
             override fun onTabSelected(tab: TabLayout.Tab) {
                 Log.e("on select tab", "enter")
                 var mSelectedPosition = root.charity_home_tab_layout.selectedTabPosition
-                editor.putInt("selected home donation type", donation_type_ids[mSelectedPosition])
+                editor.putInt("selected charity home donation type", donation_type_ids[mSelectedPosition])
+                editor.putBoolean("isDonor", false)
                 editor.apply()
-                val donation_type = sharedPref.getInt("selected home donation type", 0)
+                val donation_type = sharedPref.getInt("selected charity home donation type", 0)
 
                 root.campaign_viewpager.currentItem = tab.position
 
 
                 Log.e("donation type", donation_type.toString())
-                val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+                val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
                 if (Build.VERSION.SDK_INT >= 26) {
                     transaction.setReorderingAllowed(false)
                 }
@@ -206,11 +207,13 @@ class HomeFragment : Fragment(){
                     }
                     TabLayoutSettings().setTabMargin(charity_home_tab_layout, 10, 10, 100)
 //                    Log.e("donation_type_ids", donation_type_ids.size.toString())
-//                    editor.putInt("selected home donation type", donation_type_ids[0])
-//                    editor.apply()
+                    editor.putInt("selected charity home donation type", donation_type_ids[0])
+                    editor.putBoolean("isDonor", false)
+                    editor.apply()
 
                     // Create adapter after adding the tabs
                     val adapter = PageAdapterDonationType(childFragmentManager, donation_type_ids.size)
+                    campaign_viewpager.isSaveEnabled = false
                     campaign_viewpager.adapter = adapter
 //                    charity_home_tab_layout.setupWithViewPager(campaign_viewpager)
                     campaign_viewpager.addOnPageChangeListener(

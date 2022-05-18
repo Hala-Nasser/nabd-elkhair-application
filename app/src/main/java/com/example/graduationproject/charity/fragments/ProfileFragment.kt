@@ -81,6 +81,11 @@ class ProfileFragment : Fragment(){
                 .replace(R.id.charityContainer,CharitySettingsFragment()).addToBackStack(null).commit()
         }
 
+        root.charity_donation_received.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.charityContainer,DonationReceivedFragment()).addToBackStack(null).commit()
+        }
+
         return root
     }
 
