@@ -1,18 +1,22 @@
 package com.example.graduationproject.api.charityApi.donation
 
+import android.os.Parcelable
 import com.example.graduationproject.models.Campaigns
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 data class Data(
     val acceptance: Int,
     val campaign: Campaigns?,
     val campaign_id: Int,
     val charity_id: Int,
     val created_at: String,
-    val deleted_at: Any,
+    val deleted_at: String,
     val donation_amount: String,
     val donation_type_id: Int,
     val donation_way: String,
-    val donor: Donor?,
+    val donor: @RawValue Donor?,
     val donor_address: String,
     val donor_city: String,
     val donor_district: String,
@@ -22,4 +26,4 @@ data class Data(
     val payment_link: String,
     val received: Int,
     val updated_at: String
-)
+): Parcelable

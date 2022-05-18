@@ -88,6 +88,7 @@ class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:
             val f = AddComplaintFragment()
             val b= Bundle()
             b.putString("from","Charity")
+            b.putInt("donor_id", data!![position].donor_id)
             f.arguments=b
             fragment.beginTransaction().replace(R.id.charityContainer,f).commit()
         }

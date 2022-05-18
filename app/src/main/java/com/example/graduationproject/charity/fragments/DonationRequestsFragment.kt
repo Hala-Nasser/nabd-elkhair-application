@@ -48,7 +48,7 @@ class DonationRequestsFragment : Fragment() {
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.getDonations("Bearer $token")
+        val response = retrofitInstance.getDonationRequests("Bearer $token")
 
         response.enqueue(object : Callback<DonationJson> {
             override fun onResponse(call: Call<DonationJson>, response: Response<DonationJson>) {

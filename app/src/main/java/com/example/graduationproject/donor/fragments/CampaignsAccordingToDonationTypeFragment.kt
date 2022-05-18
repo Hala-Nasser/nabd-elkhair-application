@@ -10,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.DonationType
 import com.example.graduationproject.charity.fragments.CharityCampaignDetailsFragment
+import com.example.graduationproject.charity.fragments.HomeFragment
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
 import com.example.graduationproject.models.Campaigns
@@ -56,13 +58,18 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
 
         Log.e("campaign fragment", "enter")
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        donation_type = sharedPref.getInt("selected home donation type", 0)
+        var isDonor = sharedPref.getBoolean("isDonor",false)
+        donation_type = if (isDonor)
+            sharedPref.getInt("selected home donation type", 0)
+        else sharedPref.getInt("selected charity home donation type", 0)
+
 
         Log.e("donation in campaign", donation_type.toString())
 
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-        getCampaignsDonationType(donation_type)
+        if (isDonor) getCampaignsDonationType(donation_type)
+        else getCharityCampaignsAccordingToDonationType(donation_type)
 
         return root
     }
@@ -70,6 +77,64 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
     override fun onResume() {
         super.onResume()
         //getCampaignsDonationType(donation_type)
+    }
+
+    fun getCharityCampaignsAccordingToDonationType(donation_type: Int) {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.getCharityCampaignsAccordingToDonationType(donation_type)
+
+        response.enqueue(object : Callback<CampaignsDonationTypeJson> {
+            override fun onResponse(
+                call: Call<CampaignsDonationTypeJson>,
+                response: Response<CampaignsDonationTypeJson>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()!!.data
+                    Log.e("response", response.body().toString())
+                    Log.e("get donation", "is successful")
+                    if (data.isEmpty()) {
+                        Log.e("get donation", data.toString())
+                        Log.e("get donation", "is empty")
+                        all_no_campaign.visibility = View.VISIBLE
+                        rv_campaigns.visibility = View.GONE
+                        GeneralChanges().hideDialog(progressDialog!!)
+
+                    } else {
+                        Log.e("get donation", data.toString())
+                        Log.e("get donation", "is not empty")
+                        all_no_campaign.visibility = View.GONE
+                        rv_campaigns.visibility = View.VISIBLE
+
+                        Log.e("data before adapter", data.toString())
+                        rv_campaigns.layoutManager = GridLayoutManager(requireContext(),2)
+                        rv_campaigns.setHasFixedSize(true)
+                        val campaignsAdapter =
+                            CampaignsAdapter(
+                                activity,
+                                data,
+                                "CharityHome",
+                                this@CampaignsAccordingToDonationTypeFragment
+                            )
+                        rv_campaigns.adapter = campaignsAdapter
+                        campaignsAdapter.notifyDataSetChanged()
+                        GeneralChanges().hideDialog(progressDialog!!)
+
+                    }
+
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
+                    GeneralChanges().hideDialog(progressDialog!!)
+                }
+
+            }
+
+            override fun onFailure(call: Call<CampaignsDonationTypeJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+                GeneralChanges().hideDialog(progressDialog!!)
+            }
+        })
     }
 
     fun getCampaignsDonationType(donation_type: Int) {
@@ -180,14 +245,13 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
             else -> {
                 val fragment = CharityCampaignDetailsFragment()
                 val b = Bundle()
-                b.putString("from", "AllDonation")
-                b.putInt("all_campaign_id", data.id)
-                b.putString("all_campaign_name", data.name)
-                b.putString("all_campaign_image", data.image)
-                b.putString("all_campaign_description", data.description)
-                b.putString("all_campaign_date", data.expiry_date)
-                b.putString("all_campaign_time", data.expiry_time)
-                //b.putParcelableArrayList("all_campaign_donation", data.donation as ArrayList)
+                b.putInt("campaign_id", data.id)
+                b.putString("campaign_name", data.name)
+                b.putString("campaign_image", data.image)
+                b.putString("campaign_description", data.description)
+                b.putString("campaign_date", data.expiry_date)
+                b.putString("campaign_time", data.expiry_time)
+                b.putParcelableArrayList("campaign_donation", data.donation as ArrayList)
 
                 fragment.arguments = b
 

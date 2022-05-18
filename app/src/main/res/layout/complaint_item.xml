@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="rtl">
 
 
@@ -15,7 +16,7 @@
         android:layout_marginHorizontal="20dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,36 +55,12 @@
                         android:textColor="@color/black_transparent_76"
                         android:textSize="14sp" />
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="98dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="7dp"
-                        app:cardBackgroundColor="@color/complaint_blue"
-                        app:cardCornerRadius="20dp"
-                        >
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="تأخر في الاستلام"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            android:fontFamily="@font/tajawal_bold"
-                            />
-
-                    </androidx.cardview.widget.CardView>
-
-
-                <TextView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_complaint_reasons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/hint"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:lines="2"
-                    android:fontFamily="@font/tajawal_regular"
+                    tools:listitem="@layout/complaint_reason_item"
                     />
 
 

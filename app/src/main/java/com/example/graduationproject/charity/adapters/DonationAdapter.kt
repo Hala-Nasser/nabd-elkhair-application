@@ -13,14 +13,20 @@ import kotlinx.android.synthetic.main.donors_item.view.*
 import kotlinx.android.synthetic.main.fragment_clothes_donation.view.*
 
 import android.app.Activity
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.graduationproject.api.charityApi.donation.Data
 import com.example.graduationproject.api.charityApi.donation.Donor
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
+import com.example.graduationproject.charity.fragments.DonationReceivedFragment
+import com.example.graduationproject.donor.fragments.CampaignsAccordingToDonationTypeFragment
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.bottom_donation_with_campaign.view.*
 import kotlinx.android.synthetic.main.bottom_sheet_manually.view.*
@@ -34,7 +40,7 @@ import retrofit2.Response
 
 
 class DonationAdapter(
-    var activity: Context?, var data: List<Data>, var from:String
+    var activity: Context?, var data: ArrayList<Data>, var from:String,var fragmentManager: androidx.fragment.app.FragmentManager
 ) : RecyclerView.Adapter<DonationAdapter.WithoutCampaignViewHolder>(){
 
     class WithoutCampaignViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -71,19 +77,32 @@ class DonationAdapter(
 
         holder.initialize(data[position].donor!!)
 
-            if (from=="DonationReceivedFragment"){
+        when (from) {
+            "DonationNotReceivedFragment" -> {
                 holder.details_btn.visibility = View.GONE
                 holder.donation_received.visibility = View.VISIBLE
-                holder.card.cardElevation = 0f
+    //                holder.card.cardElevation = 0f
                 holder.itemView.setOnClickListener {
                     bottomSheet(activity as Activity, position)
                 }
-                if(holder.donation_received.isChecked){
-                    setDonationReceived(data[position].id,1)
-                }else{
-                    setDonationReceived(data[position].id,0)
+                holder.donation_received.setOnClickListener {
+                    if(holder.donation_received.isChecked){
+                        setDonationReceived(data[position].id,1,holder.adapterPosition)
+                    }
                 }
-            }else{
+
+
+            }
+            "DonationReceivedFragment" -> {
+                holder.details_btn.visibility = View.GONE
+                holder.donation_received.visibility = View.VISIBLE
+                holder.donation_received.isChecked =true
+                holder.donation_received.isEnabled = false
+                holder.itemView.setOnClickListener {
+                    bottomSheet(activity as Activity, position)
+                }
+            }
+            else -> {
                 holder.details_btn.visibility = View.VISIBLE
                 holder.donation_received.visibility = View.GONE
                 holder.card.cardElevation = 3f
@@ -92,8 +111,7 @@ class DonationAdapter(
                     bottomSheet(activity as Activity, position)
                 }
             }
-
-
+        }
     }
 
     fun bottomSheet(activity: Activity, position: Int){
@@ -101,7 +119,7 @@ class DonationAdapter(
         var bottomSheetDialog = BottomSheetDialog(activity)
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.setCanceledOnTouchOutside(false)
-        if (from=="DonationReceivedFragment"){
+        if (from=="DonationReceivedFragment" || from=="DonationNotReceivedFragment"){
             if (data[position].campaign != null){
                 view.bs_campaign_card.visibility = View.VISIBLE
                 Picasso.get().load(RetrofitInstance.IMAGE_URL+data[position].campaign!!.image).into(view.bs_campaign_image)
@@ -127,7 +145,7 @@ class DonationAdapter(
         bottomSheetDialog.show()
     }
 
-    fun setDonationReceived(donation_id: Int,received: Int) {
+    fun setDonationReceived(donation_id: Int,received: Int,position: Int) {
 
         var sharedPref = activity!!.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var token = sharedPref.getString("charity_token", "")!!
@@ -138,9 +156,20 @@ class DonationAdapter(
 
         response.enqueue(object : Callback<ForgotPasswordJson> {
             override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
-                val data = response.body()
+                val body = response.body()
                 if (response.isSuccessful) {
-                    Toast.makeText(activity, data!!.message, Toast.LENGTH_SHORT).show()
+                    data.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, data.size)
+                    val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        transaction.setReorderingAllowed(false)
+                    }
+
+                    transaction.detach(DonationReceivedFragment()).attach(
+                        DonationReceivedFragment()
+                    ).commit()
+                    Toast.makeText(activity, body!!.message, Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }
