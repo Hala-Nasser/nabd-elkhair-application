@@ -94,6 +94,8 @@ class CampaignDetailsFragment : Fragment() {
                         val fragment = FirstStepViewDonationFragment()
                         val b=Bundle()
                         b.putInt("charity_id", campaign_charity.id)
+                        b.putInt("donation_type_id", typeSelected!!.id)
+                        b.putInt("campaign_id", campaign_id)
                         b.putString("campaign_name", campaign_name)
                         b.putString("campaign_image", campaign_image)
                         fragment.arguments=b
@@ -103,6 +105,8 @@ class CampaignDetailsFragment : Fragment() {
                         val fragment = SecondStepViewDonationManualFragment()
                         val b=Bundle()
                         b.putInt("charity_id", campaign_charity.id)
+                        b.putInt("donation_type_id", typeSelected!!.id)
+                        b.putInt("campaign_id", campaign_id)
                         b.putString("campaign_image", campaign_image)
                         b.putString("campaign_name", campaign_name)
                         b.putString("previous_fragment","campaignDetails")

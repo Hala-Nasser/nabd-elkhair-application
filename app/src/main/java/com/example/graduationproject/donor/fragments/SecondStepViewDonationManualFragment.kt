@@ -26,20 +26,13 @@ import com.example.graduationproject.network.RetrofitInstance
 import com.github.florent37.expansionpanel.ExpansionLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.add_campaign_phase_two.*
-import kotlinx.android.synthetic.main.bottom_dialog_item.view.*
-import kotlinx.android.synthetic.main.bottom_dialog_item.view.amount
 import kotlinx.android.synthetic.main.bottom_dialog_item.view.close
-import kotlinx.android.synthetic.main.bottom_dialog_item_manual.*
 import kotlinx.android.synthetic.main.bottom_dialog_item_manual.view.*
 import kotlinx.android.synthetic.main.campaign_item_in_donation_screen.view.*
-import kotlinx.android.synthetic.main.fragment_charity_details.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_second_step_view_donation_manual.*
-import kotlinx.android.synthetic.main.fragment_second_step_view_donation_manual.phone
 import kotlinx.android.synthetic.main.fragment_second_step_view_donation_manual.view.*
 import net.cachapa.expandablelayout.ExpandableLayout
-import net.cachapa.expandablelayout.ExpandableLayout.OnExpansionUpdateListener
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,6 +53,12 @@ class SecondStepViewDonationManualFragment : Fragment() {
     var date = ""
     var token = ""
 
+    var district = ""
+    var city = ""
+    var address = ""
+    var phone = ""
+    var time = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,6 +69,13 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("user_token", "")!!
+
+        val locale = Locale("ar", "SA")
+        // EEEE، d MMMM y
+        val myFormat = "d MMMM"
+        val sdf = SimpleDateFormat(myFormat, locale)
+        date = sdf.format(myCalendar.time)
+        root.date.text = date
 
         val b = arguments
         if (b != null) {
@@ -118,10 +124,10 @@ class SecondStepViewDonationManualFragment : Fragment() {
         radioGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.north -> {
-                    selected_type = "north"
+                    selected_type = "الشمال"
                 }
                 R.id.south -> {
-                    selected_type = "south"
+                    selected_type = "الجنوب"
                 }
                 R.id.middle -> {
                     selected_type = "الوسطى"
@@ -186,8 +192,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         }
 
-        root.address.addTextChangedListener {
-            if (root.address.text.isNotEmpty() && root.address.text.toString() != " ") {
+        root.address_edit_text.addTextChangedListener {
+            if (root.address_edit_text.text.isNotEmpty() && root.address_edit_text.text.toString() != " ") {
                 root.phone_layout.isActivated = true
             }
         }
@@ -215,8 +221,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         }
 
-        root.phone.addTextChangedListener {
-            if (root.phone.text.isNotEmpty() && root.phone.text.toString() != " ") {
+        root.phone_edit_text.addTextChangedListener {
+            if (root.phone_edit_text.text.isNotEmpty() && root.phone_edit_text.text.toString() != " ") {
                 root.time_layout.isActivated = true
             }
         }
@@ -246,7 +252,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         root.choose_time.setOnClickListener {
             TimePickerDialog(
-                requireActivity(), onTimeSetListener(root.time), myCalendar
+                requireActivity(), onTimeSetListener(root.time_text), myCalendar
                     .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),
                 true
             ).show()
@@ -265,8 +271,20 @@ class SecondStepViewDonationManualFragment : Fragment() {
             }
             v.confirm.setOnClickListener {
                 // donation api
-                //addDonation()
+                val b = arguments
+                if (b != null){
+                    var charity_id = b.getInt("charity_id")
+                    var donation_type_id = b.getInt("donation_type_id")
+                    var campaign_id = b.getInt("campaign_id")
+
+                    addDonation(charity_id, campaign_id, donation_type_id, phone,district, city, address, time)
+                }
+
             }
+        }
+
+        root.back.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
         return root
@@ -296,7 +314,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 // EEEE، d MMMM y
                 val myFormat = "d MMMM"
                 val sdf = SimpleDateFormat(myFormat, locale)
-                date = sdf.format(myCalendar.time)
+                date = sdf.format(Date(i, i2, i3))
                 txt.text = date
             }
         return date
@@ -311,11 +329,17 @@ class SecondStepViewDonationManualFragment : Fragment() {
         Picasso.get().load(RetrofitInstance.IMAGE_URL + item_image).into(v.item.campaign_image)
         v.item.campaign_name.text = item_name
 
-        v.residential_district.text = selected_type
-        v.city.text = city_edit_text.text
-        v.location.text = address.text
-        v.phone_number.text = phone.text
-        v.r_time.text = "$date  " + time.text
+        district = selected_type!!
+        city = city_edit_text.text.toString()
+        address = address_edit_text.text.toString()
+        phone = phone_edit_text.text.toString()
+        time = "$date  " + time_text.text.toString()
+
+        v.residential_district.text = district
+        v.city.text = city
+        v.location.text = address
+        v.phone_number.text = phone
+        v.r_time.text = time
 
         dialog.setContentView(v)
         dialog.setCanceledOnTouchOutside(false)
@@ -366,19 +390,22 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         var body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("charity_id", charity_id.toString())
-            .addFormDataPart("campaign_id", campaign_id.toString())
             .addFormDataPart("donation_type_id", donation_type_id.toString())
             .addFormDataPart("donor_phone", donor_phone)
             .addFormDataPart("donor_district", donor_district)
             .addFormDataPart("donor_city", donor_city)
             .addFormDataPart("donor_address", donor_address)
             .addFormDataPart("date_time", date_time)
-            .build()
+
+                if (campaign_id != 0){
+                    body.addFormDataPart("campaign_id", campaign_id.toString())
+                }
+            var bodyRequest = body.build()
 
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.addDonation(body, "Bearer $token")
+        val response = retrofitInstance.addDonation(bodyRequest, "Bearer $token")
 
         response.enqueue(object : Callback<AddDonationJson> {
             override fun onResponse(call: Call<AddDonationJson>, response: Response<AddDonationJson>) {
@@ -388,7 +415,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
                         dialog.dismiss()
                         requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.mainContainer, ConfirmationFragment()).addToBackStack(null)
+                            .replace(R.id.mainContainer, ConfirmationFragment())
                             .commit()
 
                     }else{
