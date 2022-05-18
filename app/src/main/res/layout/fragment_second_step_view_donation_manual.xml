@@ -458,7 +458,7 @@
                         app:cardCornerRadius="13dp">
 
                         <EditText
-                            android:id="@+id/address"
+                            android:id="@+id/address_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:background="@drawable/white_button_with_border"
@@ -555,7 +555,7 @@
                         app:cardCornerRadius="13dp">
 
                         <EditText
-                            android:id="@+id/phone"
+                            android:id="@+id/phone_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:background="@drawable/white_button_with_border"
@@ -633,7 +633,7 @@
                 android:layout_height="wrap_content"
                 app:el_duration="500"
                 android:layout_marginTop="10dp"
-                app:el_expanded="true">
+                app:el_expanded="false">
 
 <!--                <LinearLayout-->
 <!--                    android:layout_marginRight="50dp"-->
@@ -683,7 +683,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
-                    android:layout_marginTop="40dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -727,7 +726,7 @@
                             />
 
                         <TextView
-                            android:id="@+id/time"
+                            android:id="@+id/time_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="05:00"

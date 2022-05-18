@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
+import com.example.graduationproject.donor.adapters.typeSelected
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.campaign_item_in_donation_screen.view.*
@@ -25,6 +26,12 @@ class FirstStepViewDonationFragment : Fragment() {
 
     var selected_type: String? = null
     var bundle = Bundle()
+    var charity_id = 0
+    var donation_type_id = 0
+    var campaign_id = 0
+    var campaign_name = ""
+    var campaign_image = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,11 +46,13 @@ class FirstStepViewDonationFragment : Fragment() {
 
         val b = arguments
         if (b != null){
-            var charity_id = b.getInt("charity_id")
+            charity_id = b.getInt("charity_id")
+            donation_type_id = b.getInt("donation_type_id")
+            campaign_id = b.getInt("campaign_id", 0)
             getPaymentLinks(charity_id)
 
-            var campaign_name = b.getString("campaign_name")
-            var campaign_image = b.getString("campaign_image")
+            campaign_name = b.getString("campaign_name")!!
+            campaign_image = b.getString("campaign_image")!!
 
             root.campaign_name.text = campaign_name
             Picasso.get().load(RetrofitInstance.IMAGE_URL+campaign_image).into(root.campaign_image)
@@ -68,15 +77,31 @@ class FirstStepViewDonationFragment : Fragment() {
         root.next.setOnClickListener {
 //            val b = arguments
             val fragment = SecondStepViewDonationElectronicFragment()
+            bundle.putString("previous_fragment","firstStep")
+
             //bundle.putInt("charity_id", charity_id)
+//            bundle.putInt("charity_id", charity_id)
+//            bundle.putInt("donation_type_id", donation_type_id)
+//            bundle.putInt("campaign_id", campaign_id)
+
             fragment.arguments=bundle
             if (selected_type != null && selected_type == "electronic") {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.mainContainer, fragment)
                     .addToBackStack(null).commit()
             } else if (selected_type != null && selected_type == "manual") {
+                val fragment = SecondStepViewDonationManualFragment()
+                //bundle.putInt("charity_id", charity_id)
+                bundle.putInt("charity_id", charity_id)
+                bundle.putInt("donation_type_id", donation_type_id)
+                bundle.putInt("campaign_id", campaign_id)
+                bundle.putString("campaign_name", campaign_name)
+                bundle.putString("campaign_image", campaign_image)
+
+                fragment.arguments=bundle
+
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.mainContainer, SecondStepViewDonationManualFragment())
+                    .replace(R.id.mainContainer, fragment)
                     .addToBackStack(null).commit()
             }
         }
