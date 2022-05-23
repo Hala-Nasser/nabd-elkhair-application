@@ -77,7 +77,6 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>, var f
     }
 
     override fun onBindViewHolder(holder: CampaignsAdapter.MyViewHolder, position: Int) {
-        // holder.photo.setImageResource(data[position].photo)
         Log.e("data in adapter", data.toString())
         holder.initialize(data[position], clickListener,from)
 
@@ -89,6 +88,7 @@ class CampaignsAdapter (var activity: Context?, var data :List<Campaigns>, var f
                 holder.charity.visibility = View.VISIBLE
             }
         }
+
     }
 
     interface onCampaignItemClickListener {

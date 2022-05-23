@@ -87,9 +87,9 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--            <HorizontalScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/donor_home_tab_layout"
@@ -109,7 +109,7 @@
                     app:tabTextColor="@color/black">
 
                 </com.google.android.material.tabs.TabLayout>
-            </HorizontalScrollView>
+<!--            </HorizontalScrollView>-->
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/campaigns_viewpager"

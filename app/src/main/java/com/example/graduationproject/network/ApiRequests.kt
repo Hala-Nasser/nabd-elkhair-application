@@ -16,6 +16,7 @@ import com.example.graduationproject.api.charityApi.fcm.FCMJson as CharityFCMJSo
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.login.LoginJson
 import com.example.graduationproject.api.donorApi.logout.LogoutJson
+import com.example.graduationproject.api.donorApi.mydonations.MyDonationJson
 import com.example.graduationproject.api.donorApi.notifications.NotificationJson
 import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.api.charityApi.login.LoginJson as CharityLoginJson
@@ -29,6 +30,7 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
+import retrofit2.Response
 
 import retrofit2.http.POST
 
@@ -75,9 +77,6 @@ interface ApiRequests {
     @POST("donor/profile/update")
     fun updateProfile(@Body body: RequestBody): Call<UpdateProfileJson>
 
-    @GET("donor/donationtype/{id}")
-    fun specificDonationType(@Path("id") id: Int): Call<SpecificDonationTypeJson>
-
     @GET("donor/CampaignsAccordingToCharity/{charity}")
     fun getCampaignsAccordingToCharity(@Path("charity") charity: Int): Call<CampaignsCharityJson>
 
@@ -98,6 +97,9 @@ interface ApiRequests {
 
     @POST("donor/addDonation")
     fun addDonation(@Body body: RequestBody, @Header("Authorization") token: String): Call<AddDonationJson>
+
+    @GET("donor/mydonation/{id}/{donation_type}")
+    fun getMyDonations(@Path("id") id: Int,@Path("donation_type") donation_type: Int): Call<MyDonationJson>
 
     // --------------------------------------------------------------------------------------------------
 

@@ -42,14 +42,19 @@ import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.charities.Data
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
+import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
+import com.example.graduationproject.classes.GeneralChanges
+import com.example.graduationproject.donor.adapters.CampaignsAdapter
+import com.example.graduationproject.models.Campaigns
 import kotlinx.android.synthetic.main.donation_type_tab_item.view.*
+import kotlinx.android.synthetic.main.fragment_capmaigns_according_to_donation_type.*
 
 
 class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
     var donation_type_ids = ArrayList<Int>()
-    lateinit var sharedPref : SharedPreferences
-    lateinit var editor : SharedPreferences.Editor
+    lateinit var sharedPref: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -58,45 +63,29 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        requireActivity().nav_bottom.visibility=View.VISIBLE
+        requireActivity().nav_bottom.visibility = View.VISIBLE
 
-        sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         editor = sharedPref.edit()
         val user_image = sharedPref.getString("user_image", "")
         Log.e("image", user_image!!)
 
-        Picasso.get().load(RetrofitInstance.IMAGE_URL+user_image).into(root.profile_image)
+        Picasso.get().load(RetrofitInstance.IMAGE_URL + user_image).into(root.profile_image)
 
         getDonationType()
         getCharities()
 
+        root.campaigns_viewpager.isSaveEnabled = false
         root.search.setOnSearchClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, SearchResultsFragment()).addToBackStack(null).commit()
-            requireActivity().nav_bottom.visibility=View.GONE
+            requireActivity().nav_bottom.visibility = View.GONE
         }
+
 
         root.donor_home_tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                Log.e("on select tab", "enter")
-                var mSelectedPosition = root.donor_home_tab_layout.selectedTabPosition
-                Log.e("mSelectedPosition", mSelectedPosition.toString())
-                editor.putInt("selected home donation type", donation_type_ids[mSelectedPosition])
-                editor.putBoolean("isDonor", true)
-                editor.apply()
-                val donation_type = sharedPref.getInt("selected home donation type", 0)
-
                 root.campaigns_viewpager.currentItem = tab.position
-
-
-                Log.e("donation type", donation_type.toString())
-                val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
-                if (Build.VERSION.SDK_INT >= 26) {
-                    transaction.setReorderingAllowed(false)
-                }
-
-                transaction.detach(CampaignsAccordingToDonationTypeFragment()).attach(CampaignsAccordingToDonationTypeFragment()).commit()
-
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
@@ -105,7 +94,6 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
 
         return root
     }
-
 
 
     override fun onItemClick(data: Charity, position: Int) {
@@ -119,13 +107,12 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         //b.putStringArrayList("charity_donation_type", data.donationTypes as  ArrayList<String>)
 
         b.putInt("charity_phone", data.phone)
-        //b.putString("charity_facebook", data.facebook)
 
         fragment.arguments = b
 
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
-        requireActivity().nav_bottom.visibility=View.GONE
+        requireActivity().nav_bottom.visibility = View.GONE
     }
 
     fun getDonationType() {
@@ -135,30 +122,48 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         val response = retrofitInstance.getDonationType()
 
         response.enqueue(object : Callback<DonationTypeJson> {
-            override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
+            override fun onResponse(
+                call: Call<DonationTypeJson>,
+                response: Response<DonationTypeJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
                     donation_type_ids.add(0)
-                    donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setCustomView(createTabItemView("","")))
+                    donor_home_tab_layout.addTab(
+                        donor_home_tab_layout.newTab().setCustomView(createTabItemView("", "")),
+                        true
+                    )
 
-                    for (donation_type in data){
+                    for (donation_type in data) {
                         donation_type_ids.add(donation_type.id)
-                        donor_home_tab_layout.addTab(donor_home_tab_layout.newTab().setCustomView(createTabItemView(RetrofitInstance.IMAGE_URL+donation_type.image,donation_type.name)))
+                        donor_home_tab_layout.addTab(
+                            donor_home_tab_layout.newTab().setCustomView(
+                                createTabItemView(
+                                    RetrofitInstance.IMAGE_URL + donation_type.image,
+                                    donation_type.name
+                                )
+                            ), false
+                        )
                     }
+
                     TabLayoutSettings().setTabMargin(donor_home_tab_layout, 10, 10, 100)
                     Log.e("donation_type_ids", donation_type_ids.size.toString())
-                    editor.putInt("selected home donation type", donation_type_ids[0])
-                    editor.putBoolean("isDonor", true)
-                    editor.apply()
 
-                    // Create adapter after adding the tabs
-                    val adapter = PageAdapterDonationType(childFragmentManager, donation_type_ids.size)
-                    campaigns_viewpager.isSaveEnabled = false
-                    Log.e("pager", campaigns_viewpager.isSaveEnabled.toString())
+                    val adapter = PageAdapterDonationType(
+                        childFragmentManager,
+                        donor_home_tab_layout.tabCount,
+                        donation_type_ids
+                    )
                     campaigns_viewpager.adapter = adapter
+                    campaigns_viewpager.offscreenPageLimit = 1
+                    campaigns_viewpager.addOnPageChangeListener(
+                        TabLayoutOnPageChangeListener(
+                            donor_home_tab_layout
+                        )
+                    )
 
-                    campaigns_viewpager.addOnPageChangeListener(TabLayoutOnPageChangeListener(donor_home_tab_layout))
+                    donor_home_tab_layout.tabMode = TabLayout.MODE_SCROLLABLE
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
@@ -184,7 +189,8 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
-                    rv_all_charities.layoutManager = LinearLayoutManager(activity,RecyclerView.VERTICAL,false)
+                    rv_all_charities.layoutManager =
+                        LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                     rv_all_charities.setHasFixedSize(true)
                     val charitiesAdapter =
                         CharitiesAdapter(activity, data, this@HomeFragment)
@@ -202,14 +208,15 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         })
     }
 
-    private fun createTabItemView(imgUri: String,txt:String): View? {
+    private fun createTabItemView(imgUri: String, txt: String): View? {
         val v: View = LayoutInflater.from(context).inflate(R.layout.donation_type_tab_item, null)
-        if (imgUri==""){
+        if (imgUri == "") {
             v.donation_type_image.setImageResource(R.drawable.all)
-        }else{
+        } else {
             Picasso.get().load(imgUri).into(v.donation_type_image)
         }
         v.donation_type_title.text = txt
         return v
     }
+
 }
