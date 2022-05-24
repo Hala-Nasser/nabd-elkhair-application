@@ -212,7 +212,7 @@ class HomeFragment : Fragment(){
                     editor.apply()
 
                     // Create adapter after adding the tabs
-                    val adapter = PageAdapterDonationType(childFragmentManager, donation_type_ids.size)
+                    val adapter = PageAdapterDonationType(childFragmentManager, donation_type_ids.size, donation_type_ids)
                     campaign_viewpager.isSaveEnabled = false
                     campaign_viewpager.adapter = adapter
 //                    charity_home_tab_layout.setupWithViewPager(campaign_viewpager)
