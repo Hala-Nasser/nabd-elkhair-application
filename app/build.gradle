@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
     implementation 'com.nambimobile.widgets:expandable-fab:1.2.1'
     implementation 'com.github.jrvansuita:PickImage:2.5.4'
+    implementation 'com.github.iwgang:countdownview:2.1.6'
 
     //circle menu
     implementation 'com.ramotion.circlemenu:circle-menu:0.3.2'

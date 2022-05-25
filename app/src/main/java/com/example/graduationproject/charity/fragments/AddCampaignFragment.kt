@@ -260,7 +260,7 @@ class AddCampaignFragment : Fragment() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val locale = Locale("ar", "SA")
                // EEEE، d MMMM y
-                val myFormat = "d MMMM"
+                val myFormat = "EEEE، d MMMM y"
                 val sdf = SimpleDateFormat(myFormat, locale)
                 date = sdf.format(calendar.time)
             })

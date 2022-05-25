@@ -3,7 +3,7 @@ package com.example.graduationproject.api.donorApi.campaignAccordingToDonationTy
 import com.example.graduationproject.models.Campaigns
 
 data class CampaignsDonationTypeJson(
-    val `data`: List<Campaigns>,
+    val `data`: ArrayList<Campaigns>,
     val message: String,
     val status: Boolean
 )
