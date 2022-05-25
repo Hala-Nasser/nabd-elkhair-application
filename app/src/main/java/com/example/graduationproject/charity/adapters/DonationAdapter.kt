@@ -137,7 +137,7 @@ class DonationAdapter(
 //        }
         val donation  =data[position]
         view.bs_donor_name.text = donation.donor!!.name
-        view.bs_donation_amount.text = donation.donation_amount
+        view.bs_received_date.text = donation.date_time
         view.bs_donor_prefecture.text = donation.donor_district
         view.bs_donor_city.text = donation.donor_city
         view.bs_donor_address.text = donation.donor_address

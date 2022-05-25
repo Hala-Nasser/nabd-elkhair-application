@@ -43,13 +43,18 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
 
-                    <TextView
+                   <TextView
                         android:id="@+id/donor_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="5dp"
-                        android:layout_gravity="center"
+                        android:layout_weight="0.5"                       android:layout_gravity="center"
                         android:lines="1"
                         android:fontFamily="@font/tajawal_medium"
                         android:text="Mary Ann Vargas"
@@ -57,10 +62,63 @@
                         android:textColor="@color/black_transparent_76"
                         android:textSize="12sp" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progress_countdown"
+                            style="@style/CircularDeterminateProgressBar"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:max="60"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView_countdown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:text="00:00"
+                            android:textColor="@color/black"
+                            android:textSize="6sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/progress_countdown"
+                            app:layout_constraintEnd_toEndOf="@+id/progress_countdown"
+                            app:layout_constraintStart_toStartOf="@+id/progress_countdown"
+                            app:layout_constraintTop_toTopOf="@+id/progress_countdown" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <!--                    <cn.iwgang.countdownview.CountdownView-->
+<!--                        android:id="@+id/mycountdown"-->
+<!--                        android:layout_width="20dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:elevation="8dp"-->
+<!--                        app:isHideTimeBackground="false"-->
+<!--                        app:isShowHour="true"-->
+<!--                        app:isShowMinute="true"-->
+<!--                        app:isShowSecond="true"-->
+<!--                        app:isTimeTextBold="true"-->
+<!--                        app:suffixGravity="bottom"-->
+<!--                        app:suffixTextColor="@color/app_color"-->
+<!--                        app:suffixTextSize="12dp"-->
+<!--                        app:timeBgColor="@color/app_color"-->
+<!--                        app:timeTextColor="@color/white"-->
+<!--                        app:timeTextSize="15sp" />-->
+                </LinearLayout>
+
+
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         >
 
                         <com.google.android.material.card.MaterialCardView

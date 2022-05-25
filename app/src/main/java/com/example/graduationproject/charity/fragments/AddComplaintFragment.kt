@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.complaint.ComplaintJson
+import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.updateProfile.UpdateProfileJson
 import com.example.graduationproject.classes.FileUtil
 import com.example.graduationproject.classes.GeneralChanges
@@ -165,8 +166,8 @@ class AddComplaintFragment : Fragment() {
             RetrofitInstance.create()
         val response = retrofitInstance.addComplaint(requestBody, "Bearer $token")
 
-        response.enqueue(object : Callback<ComplaintJson> {
-            override fun onResponse(call: Call<ComplaintJson>, response: Response<ComplaintJson>) {
+        response.enqueue(object : Callback<ForgotPasswordJson> {
+            override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data!!.status) {
@@ -183,7 +184,7 @@ class AddComplaintFragment : Fragment() {
 
             }
 
-            override fun onFailure(call: Call<ComplaintJson>, t: Throwable) {
+            override fun onFailure(call: Call<ForgotPasswordJson>, t: Throwable) {
                 Log.e("failure", t.message!!)
             }
         })
@@ -205,8 +206,8 @@ class AddComplaintFragment : Fragment() {
             RetrofitInstance.create()
         val response = retrofitInstance.charityAddComplaint(requestBody, "Bearer $cToken")
 
-        response.enqueue(object : Callback<ComplaintJson> {
-            override fun onResponse(call: Call<ComplaintJson>, response: Response<ComplaintJson>) {
+        response.enqueue(object : Callback<ForgotPasswordJson> {
+            override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data!!.status) {
@@ -223,7 +224,7 @@ class AddComplaintFragment : Fragment() {
 
             }
 
-            override fun onFailure(call: Call<ComplaintJson>, t: Throwable) {
+            override fun onFailure(call: Call<ForgotPasswordJson>, t: Throwable) {
                 Log.e("failure", t.message!!)
             }
         })

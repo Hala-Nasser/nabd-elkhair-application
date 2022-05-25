@@ -78,9 +78,7 @@ class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:
         bottomSheetDialog.setCanceledOnTouchOutside(false)
         if (from=="CampaignDetails"){
             view.bs_campaign_card.visibility = View.GONE
-            view.add_complaint_img.visibility = View.VISIBLE
         }else {
-            view.add_complaint_img.visibility = View.GONE
             view.bs_campaign_card.visibility = View.VISIBLE
         }
 
@@ -90,7 +88,8 @@ class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:
             b.putString("from","Charity")
             b.putInt("donor_id", data!![position].donor_id)
             f.arguments=b
-            fragment.beginTransaction().replace(R.id.charityContainer,f).commit()
+            fragment.beginTransaction().replace(R.id.charityContainer,f).addToBackStack(null).commit()
+            bottomSheetDialog.dismiss()
         }
         view.close.setOnClickListener {
             bottomSheetDialog.dismiss()
@@ -103,7 +102,7 @@ class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:
         Picasso.get().load(RetrofitInstance.IMAGE_URL+campaignImg).into(view.bs_campaign_image)
         view.bs_campaign_name.text = campaignName
         view.bs_donor_name.text = donation.donor!!.name
-        view.bs_donation_amount.text = donation.donation_amount
+        view.bs_received_date.text = donation.date_time
         view.bs_donor_prefecture.text = donation.donor_district
         view.bs_donor_city.text =donation.donor_city
         view.bs_donor_address.text = donation.donor_address

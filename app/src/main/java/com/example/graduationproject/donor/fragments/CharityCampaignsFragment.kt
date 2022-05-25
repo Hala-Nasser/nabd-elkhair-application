@@ -79,7 +79,7 @@ class CharityCampaignsFragment : Fragment(), CampaignsAdapter.onCampaignItemClic
                 response: Response<CampaignsCharityJson>
             ) {
                 if (response.isSuccessful) {
-                    val data = response.body()!!.data
+                    val data = response.body()!!.data as ArrayList
                     Log.e("response", response.body().toString())
 
                     if (data.isEmpty()) {

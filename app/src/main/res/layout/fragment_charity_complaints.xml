@@ -8,7 +8,6 @@
     tools:context=".charity.fragments.CharityComplaintsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="20dp"
         android:id="@+id/rv_charity_complaints"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

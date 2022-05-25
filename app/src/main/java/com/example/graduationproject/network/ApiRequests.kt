@@ -93,7 +93,7 @@ interface ApiRequests {
     fun logout(@Header("Authorization") token: String): Call<LogoutJson>
 
     @POST("donor/addcomplaint")
-    fun addComplaint(@Body body: RequestBody, @Header("Authorization") token: String): Call<ComplaintJson>
+    fun addComplaint(@Body body: RequestBody, @Header("Authorization") token: String): Call<ForgotPasswordJson>
 
     @POST("donor/addDonation")
     fun addDonation(@Body body: RequestBody, @Header("Authorization") token: String): Call<AddDonationJson>
@@ -198,20 +198,26 @@ interface ApiRequests {
                             @Query("acceptance") acceptance: Int): Call<ForgotPasswordJson>
 
 
+    @Headers("Accept: application/json")
     @GET("charity/CampaignsAccordingToDonationType/{donation_type}")
-    fun getCharityCampaignsAccordingToDonationType(@Path("donation_type") donation_type: Int): Call<CampaignsDonationTypeJson>
+    fun getCharityCampaignsAccordingToDonationType(@Header("Authorization") token: String,
+                                                   @Path("donation_type") donation_type: Int): Call<CampaignsDonationTypeJson>
 
     @POST("charity/updateCampaign")
     fun updateCampaign(@Header("Authorization") token: String,
+                       @Query("campaign_id") campaign_id: Int,
                        @Query("expiry_date") date: String,
                        @Query("expiry_time") time: String
     ): Call<CampaignJson>
 
     @POST("charity/addComplaint")
-    fun charityAddComplaint(@Body body: RequestBody, @Header("Authorization") token: String): Call<ComplaintJson>
+    fun charityAddComplaint(@Body body: RequestBody, @Header("Authorization") token: String): Call<ForgotPasswordJson>
 
     @GET("charity/getComplaints")
     fun getComplaints(@Header("Authorization") token: String): Call<ComplaintJson>
+
+    @GET("charity/deleteDonationRequests")
+    fun deleteDonationRequests(@Header("Authorization") token: String): Call<DonationJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")

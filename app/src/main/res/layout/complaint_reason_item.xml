@@ -8,16 +8,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="98dp"
-        android:layout_height="24dp"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@color/complaint_blue"
         app:cardCornerRadius="20dp"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/complainer_reason"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_gravity="center"
             android:fontFamily="@font/tajawal_bold"
             android:text="تأخر في الاستلام"

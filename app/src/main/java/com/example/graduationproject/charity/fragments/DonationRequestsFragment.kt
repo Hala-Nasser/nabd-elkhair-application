@@ -1,5 +1,8 @@
 package com.example.graduationproject.charity.fragments
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.donation.DonationJson
-import com.example.graduationproject.charity.adapters.DonationAdapter
 import com.example.graduationproject.charity.adapters.RequestDonationAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
@@ -21,26 +23,84 @@ import kotlinx.android.synthetic.main.fragment_donation_requests.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.content.SharedPreferences
 
-class DonationRequestsFragment : Fragment() {
+import android.content.Context.MODE_PRIVATE
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.os.Build
+import android.os.CountDownTimer
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
+import com.example.graduationproject.classes.PrefUtil
+import com.example.graduationproject.classes.TimerExpiredReceiver
+import kotlinx.android.synthetic.main.donation_requests_item.*
+import kotlinx.android.synthetic.main.donation_requests_item.view.*
+import kotlinx.android.synthetic.main.fragment_donation_requests.view.*
+import java.util.*
+
+
+class DonationRequestsFragment : Fragment(), RequestDonationAdapter.MyInterface {
     var token = ""
     var progressDialog: ProgressDialog? = null
+    lateinit var donationAdapter : RequestDonationAdapter
+    companion object {
+        @SuppressLint("ServiceCast")
+        fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
+            val wakeUpTime = (nowSeconds + secondsRemaining) * 1000
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent)
+            PrefUtil.setAlarmSetTime(nowSeconds, context)
+            return wakeUpTime
+        }
+
+        fun removeAlarm(context: Context){
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+            PrefUtil.setAlarmSetTime(0, context)
+        }
+
+        val nowSeconds: Long
+            get() = Calendar.getInstance().timeInMillis / 1000
+    }
+
+    enum class TimerState{
+        Stopped, Paused, Running
+    }
+
+    private lateinit var timer: CountDownTimer
+    private var timerLengthSeconds: Long = 0
+    private var timerState = TimerState.Stopped
+
+    private var secondsRemaining: Long = 0
+    lateinit var root:View
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var root = inflater.inflate(R.layout.fragment_donation_requests, container, false)
+         root = inflater.inflate(R.layout.fragment_donation_requests, container, false)
 
+        donationAdapter = RequestDonationAdapter(requireActivity(),null,this)
         requireActivity().charity_nav_bottom.visibility=View.GONE
-
         var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
 
+        getDonations()
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
 
-        getDonations()
+        root.start_count.setOnClickListener {
+            startTimer()
+            timerState =  TimerState.Running
+        }
+
+        //getDonations()
         return root
     }
 
@@ -60,8 +120,8 @@ class DonationRequestsFragment : Fragment() {
                         RecyclerView.VERTICAL, false
                     )
                     rv_donation_requests.setHasFixedSize(true)
-                    val donationAdapter =
-                        RequestDonationAdapter(requireActivity(), data!!.data)
+                     donationAdapter =
+                        RequestDonationAdapter(requireActivity(), data!!.data,this@DonationRequestsFragment)
                     rv_donation_requests.adapter = donationAdapter
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
@@ -76,6 +136,135 @@ class DonationRequestsFragment : Fragment() {
                 GeneralChanges().hideDialog(progressDialog!!)
             }
         })
+    }
+
+    fun deleteDonationRequests() {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.deleteDonationRequests("Bearer $token")
+
+        response.enqueue(object : Callback<DonationJson> {
+            override fun onResponse(call: Call<DonationJson>, response: Response<DonationJson>) {
+                val data = response.body()
+                if (response.isSuccessful) {
+                    Log.e("data",data.toString())
+                    val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        transaction.setReorderingAllowed(false)
+                    }
+                    transaction.detach(DonationRequestsFragment()).attach(
+                        DonationRequestsFragment()
+                    ).commit()
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<DonationJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+            }
+        })
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+            initTimer()
+            removeAlarm(requireContext())
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (timerState == TimerState.Running){
+            timer.cancel()
+            val wakeUpTime = setAlarm(requireContext(), nowSeconds, secondsRemaining)
+            //TODO: show notification
+        }
+        else if (timerState == TimerState.Paused){
+            //TODO: show notification
+        }
+
+        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, requireContext())
+        PrefUtil.setSecondsRemaining(secondsRemaining, requireContext())
+        PrefUtil.setTimerState(timerState, requireContext())
+    }
+
+     override fun initTimer(){
+        timerState = PrefUtil.getTimerState(requireContext())
+
+        //we don't want to change the length of the timer which is already running
+        //if the length was changed in settings while it was backgrounded
+        if (timerState == TimerState.Stopped)
+            setNewTimerLength()
+        else
+            setPreviousTimerLength()
+
+        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
+            PrefUtil.getSecondsRemaining(requireContext())
+        else
+            timerLengthSeconds
+
+        val alarmSetTime = PrefUtil.getAlarmSetTime(requireContext())
+        if (alarmSetTime > 0)
+            secondsRemaining -= nowSeconds - alarmSetTime
+
+        if (secondsRemaining <= 0)
+            onTimerFinished()
+        else if (timerState == TimerState.Running)
+            startTimer()
+
+        updateCountdownUI()
+    }
+
+    private fun onTimerFinished(){
+        timerState = TimerState.Stopped
+
+        //set the length of the timer to be the one set in SettingsActivity
+        //if the length was changed when the timer was running
+        setNewTimerLength()
+
+        donationAdapter.mHolder.progress_countdown.progress = 0
+
+        PrefUtil.setSecondsRemaining(timerLengthSeconds, requireContext())
+        secondsRemaining = timerLengthSeconds
+
+        updateCountdownUI()
+       // deleteDonationRequests()
+    }
+
+     override fun startTimer(){
+        timerState = TimerState.Running
+
+        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+            override fun onFinish() = onTimerFinished()
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsRemaining = millisUntilFinished / 1000
+                updateCountdownUI()
+            }
+        }.start()
+    }
+
+    private fun setNewTimerLength(){
+        val lengthInMinutes = PrefUtil.getTimerLength(requireContext())
+        timerLengthSeconds = (lengthInMinutes * 60L)
+        donationAdapter.mHolder.progress_countdown.max = timerLengthSeconds.toInt()
+    }
+
+    private fun setPreviousTimerLength(){
+        timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(requireContext())
+        donationAdapter.mHolder.progress_countdown.max = timerLengthSeconds.toInt()
+    }
+
+    private fun updateCountdownUI(){
+        val minutesUntilFinished = secondsRemaining / 60
+        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
+        val secondsStr = secondsInMinuteUntilFinished.toString()
+        donationAdapter.mHolder.txt_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0$secondsStr"}"
+        donationAdapter.mHolder.progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
     }
 
 }

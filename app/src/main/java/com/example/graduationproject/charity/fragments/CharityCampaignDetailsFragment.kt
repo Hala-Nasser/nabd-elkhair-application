@@ -14,9 +14,11 @@ import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.donation.Data
 import com.example.graduationproject.charity.adapters.DonorsAdapter
 import com.example.graduationproject.charity.models.Donation
+import com.example.graduationproject.donor.fragments.CampaignsAccordingToDonationTypeFragment
 import com.example.graduationproject.donor.fragments.ProfileFragment
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
+import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.charity_item.view.*
 import kotlinx.android.synthetic.main.fragment_campaign_details.view.*
@@ -27,7 +29,7 @@ import kotlin.system.exitProcess
 
 
 class CharityCampaignDetailsFragment : Fragment() {
-    lateinit var campaignId:String
+     var campaignId =0
     lateinit var campaignName:String
     lateinit var campaignDesc:String
     lateinit var campaignImage:String
@@ -49,13 +51,17 @@ class CharityCampaignDetailsFragment : Fragment() {
 
         val b = arguments
         if (b != null) {
-            if (requireParentFragment()::class.java.name == EditCampaignFragment()::class.java.name){
-                var date = b.getString("date")
-                var time =  b.getString("time")
-                root.campaign_date_details.text = date
-                root.campaign_time_details.text = time
-             }else
-                getBundleData(b,root)
+//            if (b.getString("from", "")=="CharityHome"){
+//                campaignDate =  b.getString("date")!!
+//                campaignTime =  b.getString("time")!!
+//             }else {
+            campaignDate = b.getString("campaign_date")!!
+            campaignTime =  b.getString("campaign_time")!!
+            campaignId =  b.getInt("campaign_id")
+            campaignName =  b.getString("campaign_name")!!
+            campaignDesc =  b.getString("campaign_description")!!
+            campaignImage =  b.getString("campaign_image")!!
+            getBundleData(b, root)
         }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -73,10 +79,11 @@ class CharityCampaignDetailsFragment : Fragment() {
             val b = Bundle()
             b.putString("campaignDate", campaignDate)
             b.putString("campaignTime", campaignTime)
+            b.putInt("campaignId", campaignId)
             fragment.arguments = b
 
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
+                .replace(R.id.charityContainer, fragment).commit()
         }
 
 
@@ -85,12 +92,6 @@ class CharityCampaignDetailsFragment : Fragment() {
     }
 
     private fun getBundleData(b: Bundle, root: View) {
-        campaignId =  b.getString("campaign_id")!!
-        campaignName =  b.getString("campaign_name")!!
-        campaignDesc =  b.getString("campaign_description")!!
-        campaignImage =  b.getString("campaign_image")!!
-        campaignDate =  b.getString("campaign_date")!!
-        campaignTime =  b.getString("campaign_time")!!
 
         Picasso.get().load(RetrofitInstance.IMAGE_URL+campaignImage).into(root.campaign_img_details)
         root.campaign_name_details.text = campaignName
@@ -107,11 +108,12 @@ class CharityCampaignDetailsFragment : Fragment() {
 
             campaignDonation = b.getParcelableArrayList<Data>("campaign_donation")!!
 
-            var linkedHashSet: LinkedHashSet<Data> = LinkedHashSet()
-            linkedHashSet.addAll(campaignDonation)
-            campaignDonation.clear()
-            campaignDonation.addAll(linkedHashSet)
+//            var linkedHashSet: LinkedHashSet<Data> = LinkedHashSet()
+//            linkedHashSet.addAll(campaignDonation)
+//            campaignDonation.clear()
+//            campaignDonation.addAll(linkedHashSet)
 
+            Log.e("campaignDonation",campaignDonation.toString())
             donorAdapter =
                 DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
             donorAdapter.campaignName = campaignName

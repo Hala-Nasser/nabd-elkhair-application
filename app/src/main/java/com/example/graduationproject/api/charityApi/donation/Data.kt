@@ -13,9 +13,8 @@ data class Data(
     val charity_id: Int,
     val created_at: String,
     val deleted_at: String,
-    val donation_amount: String,
     val donation_type_id: Int,
-    val donation_way: String,
+    val date_time: String,
     val donor: @RawValue Donor?,
     val donor_address: String,
     val donor_city: String,
@@ -23,7 +22,6 @@ data class Data(
     val donor_id: Int,
     val donor_phone: String,
     val id: Int,
-    val payment_link: String,
     val received: Int,
     val updated_at: String
 ): Parcelable

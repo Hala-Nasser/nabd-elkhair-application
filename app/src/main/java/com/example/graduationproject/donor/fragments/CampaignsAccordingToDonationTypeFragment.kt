@@ -45,6 +45,7 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
     lateinit var dialog: BottomSheetDialog
     lateinit var v: View
     var donation_type = 0
+    var token = ""
 
     companion object {
         fun newInstance(`val`: Int): CampaignsAccordingToDonationTypeFragment {
@@ -73,9 +74,10 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
 
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var isDonor = sharedPref.getBoolean("isDonor",false)
-        donation_type = if (isDonor)
-            sharedPref.getInt("selected home donation type", -1)
-        else sharedPref.getInt("selected charity home donation type", 0)
+//        donation_type = if (isDonor)
+//            sharedPref.getInt("selected home donation type", -1)
+//        else sharedPref.getInt("selected charity home donation type", -1)
+        token = sharedPref.getString("charity_token", "")!!
 
 
        Log.e("donation_in_campaign", donation_type.toString())
@@ -86,16 +88,16 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
          // getCampaignsDonationType(donation_type)
             getCampaignsDonationType()
         }
-        else getCharityCampaignsAccordingToDonationType(donation_type)
+        else getCharityCampaignsAccordingToDonationType()
 
         return root
     }
 
-    fun getCharityCampaignsAccordingToDonationType(donation_type: Int) {
-
+    fun getCharityCampaignsAccordingToDonationType() {
+        val d = requireArguments().getInt("someInt", 0)
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.getCharityCampaignsAccordingToDonationType(donation_type)
+        val response = retrofitInstance.getCharityCampaignsAccordingToDonationType("Bearer $token",d)
 
         response.enqueue(object : Callback<CampaignsDonationTypeJson> {
             override fun onResponse(

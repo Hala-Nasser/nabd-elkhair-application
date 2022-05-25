@@ -262,7 +262,41 @@
             android:layout_marginTop="5dp"
             android:background="@color/black_transparent_19" />
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="وقت الاستلام"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/bs_received_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="14 فبراير"
+                android:textColor="@color/app_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_19" />
+
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
 <!--            android:id="@+id/accept_donation"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="50dp"-->

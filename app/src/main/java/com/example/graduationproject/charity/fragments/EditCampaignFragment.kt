@@ -40,13 +40,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.text.ParseException
 
 
 class EditCampaignFragment : Fragment() {
     var time =""
     var date =""
+    var campaignId =0
     var token=""
     var progressDialog: ProgressDialog? = null
+    lateinit var b:Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val languageToLoad = "ar"
@@ -61,6 +64,7 @@ class EditCampaignFragment : Fragment() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,11 +75,17 @@ class EditCampaignFragment : Fragment() {
         var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
 
+         b = requireArguments()
 
+        campaignId = b.getInt("campaignId")
+        date =  b.getString("campaignDate")!!
+        time =  b.getString("campaignTime")!!
+
+        getDate(root)
+        getTime(root)
 
         root.update_campaign.setOnClickListener {
-            getDate(root)
-            getTime(root)
+            Log.e("date",date+time)
             progressDialog = ProgressDialog(requireContext())
             GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
             updateCampaign()
@@ -85,23 +95,29 @@ class EditCampaignFragment : Fragment() {
 
     private fun getDate(root:View){
         val calendar = Calendar.getInstance()
-
-        root.edit_date_picker.init(calendar[Calendar.YEAR],
-            calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH],
+        var year = getFromCalendar("EEEE، d MMMM y",date!!,Calendar.YEAR)
+        var day = getFromCalendar("EEEE، d MMMM y",date,Calendar.DAY_OF_MONTH)
+        var month = getFromCalendar("EEEE، d MMMM y",date,Calendar.MONTH)
+        root.edit_date_picker.init(year,month,day,
             OnDateChangedListener { _, year, month, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val locale = Locale("ar", "SA")
 
-                val myFormat = "d MMMM"
+                val myFormat = "EEEE، d MMMM y"
                 val sdf = SimpleDateFormat(myFormat, locale)
                 date = sdf.format(calendar.time)
             })
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun getTime(root: View){
+        var hours = getFromCalendar("h:mm a",time,Calendar.HOUR_OF_DAY)
+        var minutes = getFromCalendar("h:mm a",time,Calendar.MINUTE)
+        root.edit_time_picker.hour = hours
+        root.edit_time_picker.minute = minutes
         root.edit_time_picker.setOnTimeChangedListener(OnTimeChangedListener { view, hourOfDay, minute -> //use getFocusedChild() helps partly
             if (view.focusedChild != null) {
                 val initialCalendar = Calendar.getInstance()
@@ -123,7 +139,7 @@ class EditCampaignFragment : Fragment() {
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.updateCampaign("Bearer $token",date,time)
+        val response = retrofitInstance.updateCampaign("Bearer $token",campaignId,date,time)
 
         response.enqueue(object : Callback<CampaignJson> {
             override fun onResponse(call: Call<CampaignJson>, response: Response<CampaignJson>) {
@@ -134,11 +150,17 @@ class EditCampaignFragment : Fragment() {
 
                         GeneralChanges().hideDialog(progressDialog!!)
                         var bundle = Bundle()
-                        bundle.putString("date",data.data.expiry_date)
-                        bundle.putString("time",data.data.expiry_time)
-                        var fragment = CharityCampaignDetailsFragment()
+                        bundle.putBoolean("addCampaign",false)
+                        var fragment = HomeFragment()
                         fragment.arguments = bundle
                         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).commit()
+//                        var bundle = Bundle()
+//                        bundle.putString("from", "EditCampaign")
+//                        bundle.putString("date",data.data.expiry_date)
+//                        bundle.putString("time",data.data.expiry_time)
+//                        var fragment = CharityCampaignDetailsFragment()
+//                        fragment.arguments = bundle
+//                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
 
                     }else{
                         GeneralChanges().hideDialog(progressDialog!!)
@@ -159,4 +181,20 @@ class EditCampaignFragment : Fragment() {
         })
     }
 
+    private fun getFromCalendar(myFormat:String,strDate: String, field: Int): Int {
+        var result = -1
+        try {
+            val locale = Locale("ar", "SA")
+
+            val formatter = SimpleDateFormat(myFormat, locale)
+            val date = formatter.parse(strDate) //convert to date
+            val cal = Calendar.getInstance() // get calendar instance
+            cal.time = date //set the calendar date to your date
+            result = cal[field] // get the required field
+            return result //return the result.
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return result
+    }
 }
