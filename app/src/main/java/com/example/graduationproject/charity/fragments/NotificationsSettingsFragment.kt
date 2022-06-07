@@ -1,5 +1,6 @@
 package com.example.graduationproject.charity.fragments
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,7 @@ import com.example.graduationproject.api.charityApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.logout.LogoutJson
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
+import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.network.RetrofitInstance
@@ -67,14 +69,30 @@ class NotificationsSettingsFragment : Fragment() {
         }
 
         root.notification_settings_sign_out.setOnClickListener {
-            progressDialog = ProgressDialog(activity)
-            GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-            logout()
+            getAlertDialog()
         }
 
         return root
     }
 
+    fun getAlertDialog(){
+        var alertDialog= AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("تسجيل الخروج")
+        alertDialog.setMessage("هل تريد تسجيل الخروج فعلاً!!")
+        alertDialog.setCancelable(false)
+        alertDialog.setIcon(R.drawable.ic_baseline_login_24)
+
+        alertDialog.setPositiveButton("تسجيل الخروج") { dialogInterface, i ->
+            progressDialog = ProgressDialog(activity)
+            GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+            logout()
+        }
+
+        alertDialog.setNegativeButton("لا,شكراً") { dialogInterface, i ->
+            Log.e("ok","ok")
+        }
+        alertDialog.create().show()
+    }
 
     fun enableNotification() {
 

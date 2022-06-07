@@ -151,21 +151,17 @@ class AddComplaintFragment : Fragment() {
     }
 
     fun addComplaint(charity_id:Int, reasons:ArrayList<String>) {
-
         var body = MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("defendant_id", charity_id.toString())
                 .addFormDataPart("complainer_type", "donor")
         for (i in reasons){
             body.addFormDataPart("complaint_reason[]", i)
         }
-
         var requestBody = body.build()
-
 
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.addComplaint(requestBody, "Bearer $token")
-
         response.enqueue(object : Callback<ForgotPasswordJson> {
             override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
                 if (response.isSuccessful) {

@@ -38,7 +38,9 @@ import com.example.graduationproject.classes.TimerExpiredReceiver
 import kotlinx.android.synthetic.main.donation_requests_item.*
 import kotlinx.android.synthetic.main.donation_requests_item.view.*
 import kotlinx.android.synthetic.main.fragment_donation_requests.view.*
+import java.lang.String
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class DonationRequestsFragment : Fragment(), RequestDonationAdapter.MyInterface {
@@ -100,7 +102,7 @@ class DonationRequestsFragment : Fragment(), RequestDonationAdapter.MyInterface 
             timerState =  TimerState.Running
         }
 
-        //getDonations()
+
         return root
     }
 
@@ -168,10 +170,8 @@ class DonationRequestsFragment : Fragment(), RequestDonationAdapter.MyInterface 
         })
     }
 
-
     override fun onResume() {
         super.onResume()
-            initTimer()
             removeAlarm(requireContext())
     }
 
@@ -259,7 +259,9 @@ class DonationRequestsFragment : Fragment(), RequestDonationAdapter.MyInterface 
         donationAdapter.mHolder.progress_countdown.max = timerLengthSeconds.toInt()
     }
 
+    @SuppressLint("DefaultLocale")
     private fun updateCountdownUI(){
+
         val minutesUntilFinished = secondsRemaining / 60
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()

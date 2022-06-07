@@ -27,6 +27,7 @@ import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.add_campaign_phase_four.*
 import kotlinx.android.synthetic.main.add_campaign_phase_one.*
 import kotlinx.android.synthetic.main.add_campaign_phase_one.view.*
@@ -60,19 +61,19 @@ class AddCampaignFragment : Fragment() {
      var token=""
     var progressDialog: ProgressDialog? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        val languageToLoad = "ar"
-//
-//        val locale = Locale(languageToLoad)
-//        Locale.setDefault(locale)
-//        val config = Configuration()
-//        config.locale = locale
-//        resources.updateConfiguration(
-//            config,
-//            resources.displayMetrics
-//        )
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val languageToLoad = "ar"
+
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(
+            config,
+            resources.displayMetrics
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -148,8 +149,17 @@ class AddCampaignFragment : Fragment() {
 
             when (root.add_campaign_pager.currentItem) {
                 0 -> {
-                   name = campaign_title.text.toString()
-                   desc = campaign_desc.text.toString()
+                    if (Validation().validateAboutCharity(
+                            campaign_title,
+                            campaign_title_layout
+                        ) && Validation().validateAboutCharity(
+                            campaign_desc,
+                            campaign_desc_parent
+                        ) && imageURI != null){
+                        name = campaign_title.text.toString()
+                        desc = campaign_desc.text.toString()
+                    }
+
                 }
             }
             if (currentPage < layouts.size) {
@@ -251,34 +261,40 @@ class AddCampaignFragment : Fragment() {
 
     private fun getDate(){
         val calendar = Calendar.getInstance()
-
+        val locale = Locale("ar", "SA")
+        // EEEE، d MMMM y
+        val myFormat = "EEEE، d MMMM y"
+        val sdf = SimpleDateFormat(myFormat, locale)
+        date = sdf.format(calendar.time)
         campaign_date_picker.init(calendar[Calendar.YEAR],
             calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH],
             DatePicker.OnDateChangedListener { _, year, month, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val locale = Locale("ar", "SA")
-               // EEEE، d MMMM y
-                val myFormat = "EEEE، d MMMM y"
-                val sdf = SimpleDateFormat(myFormat, locale)
+
+
                 date = sdf.format(calendar.time)
             })
 
     }
 
     private fun getTime(){
+        val initialCalendar = Calendar.getInstance()
+        val locale = Locale("ar", "SA")
+
+        val myFormat = "h:mm a"
+        val sdf = SimpleDateFormat(myFormat, locale)
+        time = sdf.format(initialCalendar.time)
+
         campaign_time_picker.setOnTimeChangedListener(TimePicker.OnTimeChangedListener { view, hourOfDay, minute -> //use getFocusedChild() helps partly
-                val initialCalendar = Calendar.getInstance()
+
                 initialCalendar[Calendar.HOUR_OF_DAY] = hourOfDay
                 initialCalendar[Calendar.MINUTE] = minute
                 initialCalendar[Calendar.SECOND] = 0
 
-                val locale = Locale("ar", "SA")
-
-                val myFormat = "h:mm a"
-                val sdf = SimpleDateFormat(myFormat, locale)
                  time = sdf.format(initialCalendar.time)
         })
     }
+
 }

@@ -53,26 +53,26 @@ class SignInActivity : AppCompatActivity() {
         val isDonor = sharedPref.getBoolean("isDonor", false)
 
 
-            findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
+        findViewById<AppCompatButton>(R.id.sign_in).setOnClickListener {
 
-                user_email = email.text.toString()
-                user_password = password.text.toString()
+            user_email = email.text.toString()
+            user_password = password.text.toString()
 
-                isAllFieldsChecked = CheckAllFields()
+            isAllFieldsChecked = CheckAllFields()
 
-                if (isAllFieldsChecked) {
-                    progressDialog = ProgressDialog(this)
-                    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-                    if (isDonor) {
-                        loginToApp()
+            if (isAllFieldsChecked) {
+                progressDialog = ProgressDialog(this)
+                GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                if (isDonor) {
+                    loginToApp()
 
-                    }else{
-                        charityLoginToApp()
-                    }
+                } else {
+                    charityLoginToApp()
                 }
-
-
             }
+
+
+        }
 
 
 
@@ -86,12 +86,10 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun loginToApp() {
-
         val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("email", user_email)
             .addFormDataPart("password", user_password)
             .build()
-
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.logIn(body)
@@ -101,14 +99,11 @@ class SignInActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("TAG", data.toString())
-
                     if (data!!.status) {
-
                         val user_id = data.data.id
                         val sharedPref = this@SignInActivity.getSharedPreferences(
                             "sharedPref", Context.MODE_PRIVATE
                         )
-
                         val editor = sharedPref.edit()
                         editor.putString("from", "donor")
                         editor.putInt("user_id", user_id)
@@ -117,7 +112,6 @@ class SignInActivity : AppCompatActivity() {
                         Log.e("id in signin", user_id.toString())
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)
-
                         GeneralChanges().prepareFadeTransition(
                             this@SignInActivity,
                             DonorMainActivity()
@@ -146,6 +140,7 @@ class SignInActivity : AppCompatActivity() {
         })
 
     }
+
     fun charityLoginToApp() {
 
         Log.e("email", user_email)
@@ -161,7 +156,10 @@ class SignInActivity : AppCompatActivity() {
         val response = retrofitInstance.charityLogIn(body)
 
         response.enqueue(object : Callback<CharityLoginJson> {
-            override fun onResponse(call: Call<CharityLoginJson>, response: Response<CharityLoginJson>) {
+            override fun onResponse(
+                call: Call<CharityLoginJson>,
+                response: Response<CharityLoginJson>
+            ) {
 
                 if (response.isSuccessful) {
                     val data = response.body()

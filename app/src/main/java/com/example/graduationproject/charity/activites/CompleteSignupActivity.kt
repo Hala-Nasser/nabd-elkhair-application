@@ -36,8 +36,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.log
 
-class CompleteSignupActivity : AppCompatActivity(){
-      private lateinit var  donationTypeAdapter: DonationTypeAdapter
+class CompleteSignupActivity : AppCompatActivity() {
+    private lateinit var donationTypeAdapter: DonationTypeAdapter
     var imageURI: Uri? = null
     var progressDialog: ProgressDialog? = null
     val myCalendar: Calendar = Calendar.getInstance()
@@ -49,7 +49,7 @@ class CompleteSignupActivity : AppCompatActivity(){
         GeneralChanges().fadeTransition(this)
 
         donationTypeAdapter =
-            DonationTypeAdapter(this@CompleteSignupActivity, null,"CompleteSignup")
+            DonationTypeAdapter(this@CompleteSignupActivity, null, "CompleteSignup")
 
         getDonationType()
 
@@ -60,18 +60,22 @@ class CompleteSignupActivity : AppCompatActivity(){
 
 
         charity_sign_up.setOnClickListener {
-            if (imageURI != null && Validation().validateAboutCharity(et_charity_about, about_parent) && time_from.text != null && time_to.text != null){
-                    progressDialog = ProgressDialog(this)
-                    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-                    registerToApp()
-            }else{
+            if (imageURI != null && Validation().validateAboutCharity(
+                    et_charity_about,
+                    about_parent
+                ) && time_from.text != null && time_to.text != null
+            ) {
+                progressDialog = ProgressDialog(this)
+                GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                registerToApp()
+            } else {
                 Validation().showSnackBar(charity_parent_layout, "يرجى ملئ الحقول الفارغة")
             }
 
         }
 
 
-        choose_open_time.setOnClickListener{
+        choose_open_time.setOnClickListener {
             TimePickerDialog(
                 this, onTimeSetListener(time_from), myCalendar
                     .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),
@@ -80,7 +84,7 @@ class CompleteSignupActivity : AppCompatActivity(){
 
         }
 
-        choose_close_time.setOnClickListener{
+        choose_close_time.setOnClickListener {
             TimePickerDialog(
                 this, onTimeSetListener(time_to), myCalendar
                     .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),
@@ -96,13 +100,13 @@ class CompleteSignupActivity : AppCompatActivity(){
                     imageURI = r.uri
                     charity_image.setImageBitmap(r.bitmap)
                 }
-                .setOnPickCancel{
+                .setOnPickCancel {
                 }.show(supportFragmentManager)
         }
 
     }
 
-    private fun onTimeSetListener(txt:TextView): TimePickerDialog.OnTimeSetListener {
+    private fun onTimeSetListener(txt: TextView): TimePickerDialog.OnTimeSetListener {
         val openTime =
             TimePickerDialog.OnTimeSetListener { _, hours, minutes ->
                 myCalendar.set(Calendar.HOUR_OF_DAY, hours)
@@ -118,37 +122,34 @@ class CompleteSignupActivity : AppCompatActivity(){
     }
 
 
-    fun registerToApp() {
-
+    private fun registerToApp() {
         val name = intent.getStringExtra("name")
         val email = intent.getStringExtra("email")
         val phone = intent.getStringExtra("phone")
         val address = intent.getStringExtra("address")
         val password = intent.getStringExtra("password")
         val about = et_charity_about.text.toString()
-        val openTime = "${time_from.text}"+"-"+"${time_to.text}"
+        val openTime = "${time_from.text}" + "-" + "${time_to.text}"
 
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
-            .addFormDataPart("name", name)
-            .addFormDataPart("email", email)
-            .addFormDataPart("phone", phone)
-            .addFormDataPart("password", password)
-            .addFormDataPart("address", address)
+            .addFormDataPart("name", name!!)
+            .addFormDataPart("email", email!!)
+            .addFormDataPart("phone", phone!!)
+            .addFormDataPart("password", password!!)
+            .addFormDataPart("address", address!!)
             .addFormDataPart("about", about)
             .addFormDataPart(
-            "image", File(FileUtil.getPath(imageURI!!, this)).extension ,
-             RequestBody.create(
-                MediaType.parse("application/octet-stream"),
-                File(FileUtil.getPath(imageURI!!, this))
-            )
+                "image", File(FileUtil.getPath(imageURI!!, this)!!).extension,
+                RequestBody.create(
+                    MediaType.parse("application/octet-stream"),
+                    File(FileUtil.getPath(imageURI!!, this)!!)
+                )
             )
             .addFormDataPart("open_time", openTime)
             .addFormDataPart("activation_status", "0")
-        for (i in donationTypeAdapter.list){
+        for (i in donationTypeAdapter.list) {
             body.addFormDataPart("donationTypes[]", i.toString())
         }
-
-
         var requestBody = body.build()
         val retrofitInstance =
             RetrofitInstance.create()
@@ -164,7 +165,8 @@ class CompleteSignupActivity : AppCompatActivity(){
 
                         val user_id = data.data.id
                         val sharedPref = this@CompleteSignupActivity.getSharedPreferences(
-                            "sharedPref", Context.MODE_PRIVATE)
+                            "sharedPref", Context.MODE_PRIVATE
+                        )
 
                         val editor = sharedPref.edit()
                         editor.putString("from", "charity")
@@ -179,9 +181,12 @@ class CompleteSignupActivity : AppCompatActivity(){
                             PaymentsMethodActivity()
                         )
 
-                    }else{
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
-                        Validation().showSnackBar(findViewById(R.id.charity_parent_layout), data.message)
+                        Validation().showSnackBar(
+                            findViewById(R.id.charity_parent_layout),
+                            data.message
+                        )
                     }
 
                 } else {
@@ -205,20 +210,31 @@ class CompleteSignupActivity : AppCompatActivity(){
         val response = retrofitInstance.getGeneralDonationType()
 
         response.enqueue(object : Callback<DonationTypeJson> {
-            override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
+            override fun onResponse(
+                call: Call<DonationTypeJson>,
+                response: Response<DonationTypeJson>
+            ) {
                 if (response.isSuccessful) {
 
                     val data = response.body()
                     //val data = response.body()!!.data
 
-                    if (data!!.status){
+                    if (data!!.status) {
                         Log.e("data", data.data.toString())
-                        rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(this@CompleteSignupActivity, RecyclerView.HORIZONTAL,false)
+                        rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(
+                            this@CompleteSignupActivity,
+                            RecyclerView.HORIZONTAL,
+                            false
+                        )
                         rv_complete_signup_donation_type.setHasFixedSize(true)
                         donationTypeAdapter =
-                            DonationTypeAdapter(this@CompleteSignupActivity, data.data,"CompleteSignup")
+                            DonationTypeAdapter(
+                                this@CompleteSignupActivity,
+                                data.data,
+                                "CompleteSignup"
+                            )
                         rv_complete_signup_donation_type.adapter = donationTypeAdapter
-                    }else{
+                    } else {
                         Log.e("is successful", "status false")
                     }
 

@@ -56,7 +56,6 @@ class RequestDonationAdapter(
         fun initialize(data: Donor) {
             Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
             name.text = data.name
-
         }
 
     }
@@ -72,7 +71,7 @@ class RequestDonationAdapter(
     override fun getItemCount(): Int {
         return data!!.size
     }
-
+    
     override fun onBindViewHolder(holder: DonationRequestsViewHolder, position: Int) {
         mHolder = holder
         holder.initialize(data!![position].donor!!)
@@ -159,11 +158,6 @@ class RequestDonationAdapter(
 
     }
 
-//    override fun onViewAttachedToWindow(holder: DonationRequestsViewHolder) {
-//        super.onViewAttachedToWindow(holder)
-//        listener.initTimer()
-//        removeAlarm(activity!!)
-//    }
 
     interface MyInterface {
         fun startTimer()

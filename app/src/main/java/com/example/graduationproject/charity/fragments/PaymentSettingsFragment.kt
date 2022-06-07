@@ -1,5 +1,6 @@
 package com.example.graduationproject.charity.fragments
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -57,9 +58,7 @@ class PaymentSettingsFragment : Fragment() {
         }
 
         root.payment_settings_sign_out.setOnClickListener {
-            progressDialog = ProgressDialog(activity)
-            GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-            logout()
+            getAlertDialog()
         }
 
         root.add_payment_link.setOnClickListener {
@@ -71,6 +70,24 @@ class PaymentSettingsFragment : Fragment() {
         return root
     }
 
+    fun getAlertDialog(){
+        var alertDialog= AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("تسجيل الخروج")
+        alertDialog.setMessage("هل تريد تسجيل الخروج فعلاً!!")
+        alertDialog.setCancelable(false)
+        alertDialog.setIcon(R.drawable.ic_baseline_login_24)
+
+        alertDialog.setPositiveButton("تسجيل الخروج") { dialogInterface, i ->
+            progressDialog = ProgressDialog(activity)
+            GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+            logout()
+        }
+
+        alertDialog.setNegativeButton("لا,شكراً") { dialogInterface, i ->
+            Log.e("ok","ok")
+        }
+        alertDialog.create().show()
+    }
 
     fun logout() {
 
