@@ -36,7 +36,7 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/back"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"

@@ -19,10 +19,18 @@ class AboutCharityFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_info, container, false)
-        val about = requireArguments().getString("about")
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val about = sharedPref.getString("about", "")!!
+
         root.profile_charity_about.text = about
 
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val about = sharedPref.getString("about", "")!!
+        profile_charity_about.text = about
+    }
 }

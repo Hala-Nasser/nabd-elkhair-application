@@ -60,18 +60,19 @@ class CompleteSignupActivity : AppCompatActivity() {
 
 
         charity_sign_up.setOnClickListener {
-            if (imageURI != null && Validation().validateAboutCharity(
+            if (Validation().validateAboutCharity(
                     et_charity_about,
                     about_parent
-                ) && time_from.text != null && time_to.text != null
+                )
             ) {
+            if (imageURI != null) {
                 progressDialog = ProgressDialog(this)
                 GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                 registerToApp()
             } else {
-                Validation().showSnackBar(charity_parent_layout, "يرجى ملئ الحقول الفارغة")
+                Validation().showSnackBar(charity_parent_layout, "يرجى اختيار الصورة الشخصية")
             }
-
+        }
         }
 
 

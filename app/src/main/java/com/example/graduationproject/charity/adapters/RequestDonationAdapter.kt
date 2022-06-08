@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 
 import android.app.Activity
-import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.example.graduationproject.api.charityApi.donation.Data
@@ -26,23 +25,27 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.os.CountDownTimer
-import android.widget.ProgressBar
-import android.widget.TextView
 import com.example.graduationproject.charity.fragments.DonationRequestsFragment
-import com.example.graduationproject.charity.fragments.DonationRequestsFragment.Companion.removeAlarm
-import java.util.*
+import com.example.graduationproject.classes.PrefUtil
 import kotlin.collections.ArrayList
 
 
 class RequestDonationAdapter(
-    var activity: Context?, var data: ArrayList<Data>?,var listener: MyInterface
+    var activity: Context?, var data: ArrayList<Data>?
 ) : RecyclerView.Adapter<RequestDonationAdapter.DonationRequestsViewHolder>(){
 
      var mTimeLeftInMillis:Long = 600000
      var mEndTime:Long = 0
-    lateinit var mCountDownTimer : CountDownTimer
-    var isRunning = false
+    enum class TimerState{
+        Stopped, Paused, Running
+    }
+    private var timerState = TimerState.Stopped
+    private lateinit var timer: CountDownTimer
+    private var timerLengthSeconds: Long = 0
+    private var secondsRemaining: Long = 0
 
+    var nowSeconds: Long
+         =  System.currentTimeMillis()
     lateinit var mHolder: DonationRequestsViewHolder
      class DonationRequestsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -73,14 +76,48 @@ class RequestDonationAdapter(
     }
     
     override fun onBindViewHolder(holder: DonationRequestsViewHolder, position: Int) {
-        mHolder = holder
         holder.initialize(data!![position].donor!!)
         holder.itemView.setOnClickListener {
             bottomSheet(activity as Activity, position)
         }
+        var milliseconds = System.currentTimeMillis() + 86400000
+        //updateTimeRemaining(milliseconds,holder.txt_countdown)
+
 
 //         listener.startTimer()
 //         DonationRequestsFragment.TimerState.Running
+
+//        var startTime = System.currentTimeMillis()
+
+        //adding 24 hours milliseconds with current time of milliseconds to make it 24 hours milliseconds.
+
+        //adding 24 hours milliseconds with current time of milliseconds to make it 24 hours milliseconds.
+//        // 24 hours = 86400000 milliseconds
+//
+         timer = object : CountDownTimer(milliseconds, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                nowSeconds -= 1
+                secondsRemaining = (millisUntilFinished - nowSeconds) / 1000
+
+                // now you repalce txtViewHours,  txtViewMinutes, txtViewSeconds by your textView.
+                val hoursLeft = String.format("%d", secondsRemaining % 86400 / 3600)
+
+                Log.d("hoursLeft", hoursLeft)
+                val minutesLeft = String.format("%d", secondsRemaining % 86400 % 3600 / 60)
+                Log.d("minutesLeft", minutesLeft)
+                val secondsLeft = String.format("%d", secondsRemaining % 86400 % 3600 % 60)
+                Log.d("secondsLeft", secondsLeft)
+                holder.txt_countdown.text = "$hoursLeft:$minutesLeft:$secondsLeft"
+            }
+
+            override fun onFinish() {
+                holder.txt_countdown.text = "done!"
+                setDonationAcceptance(data!![position].id,0 ,holder.adapterPosition)
+                Log.i("Timer", "Timer finished")
+            }
+        }
+
+        timer.start()
 
         holder.donation_accept.setOnClickListener {
             setDonationAcceptance(data!![position].id,1,holder.adapterPosition)
@@ -93,6 +130,7 @@ class RequestDonationAdapter(
 
 
     }
+
 
     fun bottomSheet(activity: Activity, position: Int){
         var view = activity.layoutInflater.inflate(R.layout.bottom_sheet_manually, null)
@@ -153,17 +191,32 @@ class RequestDonationAdapter(
         })
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
+
+    fun registerActivityState()  = object : OnActivityStateChanged{
+
+        override fun onPaused() {
+            if (timerState == TimerState.Running){
+                timer.cancel()
+                val wakeUpTime = DonationRequestsFragment.setAlarm(
+                    activity!!,
+                    nowSeconds,
+                    secondsRemaining
+                )
+                //TODO: show notification
+            }
+
+            PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, activity!!)
+            PrefUtil.setSecondsRemaining(secondsRemaining, activity!!)
+            PrefUtil.setTimerState(timerState, activity!!)
+        }
+
 
     }
 
 
-    interface MyInterface {
-        fun startTimer()
-        fun initTimer()
+    interface OnActivityStateChanged{
+        fun onPaused()
     }
-
 
 
 }

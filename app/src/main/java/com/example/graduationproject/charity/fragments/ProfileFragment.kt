@@ -13,6 +13,7 @@ import com.example.graduationproject.R
 import android.widget.LinearLayout
 
 import android.view.Display
+import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.api.charityApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
@@ -22,6 +23,8 @@ import com.example.graduationproject.classes.ZoomOutPageTransformer
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.fragment_charity_info.*
+import kotlinx.android.synthetic.main.fragment_charity_info.view.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*
@@ -56,11 +59,7 @@ class ProfileFragment : Fragment(){
         profile()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        val f = AboutCharityFragment()
-        var bundle = Bundle()
-        bundle.putString("about",about)
-        f.arguments = bundle
-        sectionsPagerAdapter.addFragmentsAndTitles(f,"عن الجمعية")
+        sectionsPagerAdapter.addFragmentsAndTitles(AboutCharityFragment(),"عن الجمعية")
         sectionsPagerAdapter.addFragmentsAndTitles(CharityComplaintsFragment(),"شكاوي")
 
 
@@ -108,15 +107,14 @@ class ProfileFragment : Fragment(){
                     img = data.image
                     name = data.name
                     email = data.email
-                    about = data.about
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+img).into(charity_profile_image)
                     charity_profile_name.text = name
                     charity_profile_email.text = email
                     GeneralChanges().hideDialog(progressDialog!!)
 
-//                    val editor = sharedPref.edit()
-//                    editor.putString("about", data.about)
-//                    editor.apply()
+                    val editor = sharedPref.edit()
+                    editor.putString("about", data.about)
+                    editor.apply()
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

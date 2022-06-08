@@ -206,7 +206,7 @@ class Validation {
         val code = codeEt.text.toString()
 
         return if (code.trim().isEmpty()) {
-            codeTL.error = "يرجى إدخال اسم الحملة"
+            codeTL.error = "يرجى إدخال عنوان الحملة"
             codeTL.errorIconDrawable = null
             codeTL.isFocusable = true
             false
