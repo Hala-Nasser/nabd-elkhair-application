@@ -56,14 +56,23 @@ class CharityComplaintsFragment : Fragment() {
             val data = response.body()
             if (response.isSuccessful) {
               Log.e("complaints",data!!.data.toString())
-              rv_charity_complaints.layoutManager = LinearLayoutManager(
-                activity,
-                RecyclerView.VERTICAL, false
-              )
-              rv_charity_complaints.setHasFixedSize(true)
-              val donationAdapter =
-                ComplaintAdapter(requireActivity(),data.data)
-              rv_charity_complaints.adapter = donationAdapter
+
+              if(data.data!!.isEmpty()){
+                no_complaints.visibility = View.VISIBLE
+                rv_charity_complaints.visibility = View.GONE
+              }else{
+                no_complaints.visibility = View.GONE
+                rv_charity_complaints.visibility = View.VISIBLE
+                rv_charity_complaints.layoutManager = LinearLayoutManager(
+                  activity,
+                  RecyclerView.VERTICAL, false
+                )
+                rv_charity_complaints.setHasFixedSize(true)
+                val donationAdapter =
+                  ComplaintAdapter(requireActivity(),data.data)
+                rv_charity_complaints.adapter = donationAdapter
+              }
+
               GeneralChanges().hideDialog(progressDialog!!)
             } else {
               Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

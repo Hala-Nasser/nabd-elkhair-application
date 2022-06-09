@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.loader.content.CursorLoader
@@ -28,6 +29,7 @@ import com.example.graduationproject.classes.FileUtil
 import com.example.graduationproject.classes.Validation
 import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
 
 
@@ -70,6 +72,8 @@ class CompleteSignUpActivity : AppCompatActivity() {
                 .setOnPickResult { r ->
                     imageURI = r.uri
                     image.setImageBitmap(r.bitmap)
+                    image.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                    image.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
                 }
                 .setOnPickCancel{
                 }.show(supportFragmentManager)
@@ -91,20 +95,20 @@ class CompleteSignUpActivity : AppCompatActivity() {
         val confirm_password = intent.getStringExtra("confirm_password")
 
             val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("name", name)
-                .addFormDataPart("email", email)
-                .addFormDataPart("password", password)
-                .addFormDataPart("phone", phone)
-                .addFormDataPart("location", address)
+                .addFormDataPart("name", name!!)
+                .addFormDataPart("email", email!!)
+                .addFormDataPart("password", password!!)
+                .addFormDataPart("phone", phone!!)
+                .addFormDataPart("location", address!!)
                 .addFormDataPart(
                     "image", File(FileUtil.getPath(imageURI!!, this)).extension ,
                     RequestBody.create(
-                        MediaType.parse("application/octet-stream"),
+                        "application/octet-stream".toMediaTypeOrNull(),
                         File(FileUtil.getPath(imageURI!!, this))
                     )
                 )
-                .addFormDataPart("activation_status", "0")
-                .addFormDataPart("c_password", confirm_password)
+                .addFormDataPart("activation_status", "1")
+                .addFormDataPart("c_password", confirm_password!!)
                 .addFormDataPart("notification_status", "1")
                 .build()
 

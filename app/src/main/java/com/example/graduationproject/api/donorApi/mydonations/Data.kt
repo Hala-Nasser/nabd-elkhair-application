@@ -14,7 +14,7 @@ data class Data(
     val donor_city: String,
     val donor_district: String,
     val donor_id: Int,
-    val donor_phone: Int,
+    val donor_phone: String,
     val id: Int,
     val received: Int,
     val updated_at: String

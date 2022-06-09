@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -90,11 +91,11 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         root.donor_home_tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 root.campaigns_viewpager.currentItem = tab.position
-                SetOnSelectView(root.donor_home_tab_layout,tab.position)
+                SetOnSelectView(root.donor_home_tab_layout, tab.position)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                SetUnSelectView(root.donor_home_tab_layout,tab.position)
+                SetUnSelectView(root.donor_home_tab_layout, tab.position)
             }
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -113,7 +114,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         b.putString("charity_description", data.about)
         //b.putStringArrayList("charity_donation_type", data.donationTypes as  ArrayList<String>)
 
-        b.putInt("charity_phone", data.phone)
+        b.putString("charity_phone", data.phone)
 
         fragment.arguments = b
 

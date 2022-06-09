@@ -317,6 +317,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 date = sdf.format(Date(i, i2, i3))
                 txt.text = date
             }
+
         return date
     }
 

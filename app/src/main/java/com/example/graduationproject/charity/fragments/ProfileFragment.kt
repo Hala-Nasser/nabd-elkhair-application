@@ -114,6 +114,7 @@ class ProfileFragment : Fragment(){
 
                     val editor = sharedPref.edit()
                     editor.putString("about", data.about)
+                    editor.putInt("charity_notification", data.notification_status)
                     editor.apply()
 
                 } else {

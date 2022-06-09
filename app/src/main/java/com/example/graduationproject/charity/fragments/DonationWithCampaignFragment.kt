@@ -67,14 +67,24 @@ class DonationWithCampaignFragment : Fragment(){
                     val editor = sharedPref.edit()
                     editor.putInt("campaignDonationCount", data!!.data.size)
                     editor.apply()
-                   rv_donation_with_campaign.layoutManager = LinearLayoutManager(
-                        activity,
-                        RecyclerView.VERTICAL, false
-                    )
-                    rv_donation_with_campaign.setHasFixedSize(true)
-                  var donationAdapter =
-                        CampaignDonationAdapter(requireActivity(), data!!.data,requireActivity().supportFragmentManager)
-                   rv_donation_with_campaign.adapter = donationAdapter
+
+                    if(data.data.isEmpty()){
+                        no_donations.visibility = View.VISIBLE
+                        rv_donation_with_campaign.visibility = View.GONE
+                    }else{
+                        no_donations.visibility = View.GONE
+                        rv_donation_with_campaign.visibility = View.VISIBLE
+
+                        rv_donation_with_campaign.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
+                        rv_donation_with_campaign.setHasFixedSize(true)
+                        var donationAdapter =
+                            CampaignDonationAdapter(requireActivity(), data!!.data,requireActivity().supportFragmentManager)
+                        rv_donation_with_campaign.adapter = donationAdapter
+                    }
+
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

@@ -12,7 +12,7 @@ data class Data(
     val image: String,
     val location: String,
     val name: String,
-    val phone: Int,
+    val phone: String,
     val token: String,
     val updated_at: String
 )

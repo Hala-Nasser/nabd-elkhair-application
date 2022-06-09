@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_charity_edit_profile.time_from
 import kotlinx.android.synthetic.main.fragment_charity_edit_profile.time_to
 import kotlinx.android.synthetic.main.fragment_charity_edit_profile.view.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -249,7 +250,7 @@ class CharityEditProfileFragment : Fragment() {
                body.addFormDataPart(
                    "image", File(FileUtil.getPath(imageURI!!, requireContext())).extension ,
                    RequestBody.create(
-                       MediaType.parse("application/octet-stream"),
+                       "application/octet-stream".toMediaTypeOrNull(),
                        File(FileUtil.getPath(imageURI!!, requireContext()))
                    )
                )
@@ -266,6 +267,10 @@ class CharityEditProfileFragment : Fragment() {
                     val data = response.body()
                     if (data!!.status) {
 
+                        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+                        val editor = sharedPref.edit()
+                        editor.putString("about", data.data.about)
+                        editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)
                         requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,
                             ProfileFragment()

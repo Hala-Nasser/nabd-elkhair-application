@@ -22,7 +22,7 @@ class CharitiesAdapter(var activity: Context?, var data :List<Charity>,
         val location  =itemView.charity_location
 
         fun initialize(data: Charity, action: CharitiesAdapter.onCharityItemClickListener) {
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+image).into(image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
             name.text = data.name
             location.text = data.address
             itemView.setOnClickListener {

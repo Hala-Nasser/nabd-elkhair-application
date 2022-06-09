@@ -17,6 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <View
+            android:layout_width="80dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:background="@drawable/default_dots"
+            android:backgroundTint="@color/black_transparent_43"
+            android:layout_marginVertical="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,39 +94,6 @@
                 android:textDirection="rtl"
                 android:textColor="@color/app_color"
                 android:textSize="15sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/black_transparent_19" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="المبلغ"
-                android:textColor="@color/grey_bottom_dialog"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/bs_donation_amount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="شيكل 70"
-                android:textColor="@color/app_color"
-                android:textSize="16sp" />
         </LinearLayout>
 
         <View

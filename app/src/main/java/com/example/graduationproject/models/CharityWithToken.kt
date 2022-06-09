@@ -15,7 +15,7 @@ data class CharityWithToken(
     val image: String,
     val name: String,
     val open_time: String,
-    val phone: Int,
+    val phone: String,
     val token: String,
     val updated_at: String
 )

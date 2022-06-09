@@ -105,7 +105,13 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                 response: Response<CampaignsDonationTypeJson>
             ) {
                 if (response.isSuccessful) {
-                    val data = response.body()!!.data
+                    var data = response.body()!!.data
+                    val adapter = CampaignsAdapter(
+                        activity,
+                        data,
+                        "CharityHome",
+                        this@CampaignsAccordingToDonationTypeFragment
+                    )
                     Log.e("response", response.body().toString())
                     if (data.isEmpty()) {
                         all_no_campaign.visibility = View.VISIBLE
@@ -127,7 +133,6 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                         rv_campaigns.adapter = campaignsAdapter
                         campaignsAdapter.notifyDataSetChanged()
                         GeneralChanges().hideDialog(progressDialog!!)
-
                     }
 
                 } else {

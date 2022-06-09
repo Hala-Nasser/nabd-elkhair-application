@@ -13,16 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.api.charityApi.donation.DonationJson
-import com.example.graduationproject.charity.adapters.CampaignDonationAdapter
 import com.example.graduationproject.charity.adapters.DonationAdapter
-import com.example.graduationproject.charity.models.Donation
 import com.example.graduationproject.classes.GeneralChanges
-import com.example.graduationproject.donor.models.Donor
 import com.example.graduationproject.network.RetrofitInstance
-import kotlinx.android.synthetic.main.fragment_donation_with_campaign.*
-import kotlinx.android.synthetic.main.fragment_donation_with_campaign.rv_donation_with_campaign
 import kotlinx.android.synthetic.main.fragment_donation_without_campaign.*
-import kotlinx.android.synthetic.main.fragment_donation_without_campaign.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,14 +57,25 @@ class DonationWithoutCampaignFragment : Fragment() {
                     val editor = sharedPref.edit()
                     editor.putInt("withoutCampaignDonationCount", data!!.data.size)
                     editor.apply()
-                    rv_donation_without_campaign.layoutManager = LinearLayoutManager(
-                        activity,
-                        RecyclerView.VERTICAL, false
-                    )
-                    rv_donation_without_campaign.setHasFixedSize(true)
-                    val donationAdapter =
-                        DonationAdapter(requireActivity(), data!!.data,"DonationFragment",requireActivity().supportFragmentManager)
-                    rv_donation_without_campaign.adapter = donationAdapter
+
+                    if(data.data.isEmpty()){
+                        no_without_donations.visibility = View.VISIBLE
+                        rv_donation_without_campaign.visibility = View.GONE
+                    }else{
+                        no_without_donations.visibility = View.GONE
+                        rv_donation_without_campaign.visibility = View.VISIBLE
+                        rv_donation_without_campaign.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
+                        rv_donation_without_campaign.setHasFixedSize(true)
+                        val donationAdapter =
+                            DonationAdapter(requireActivity(), data!!.data,"DonationFragment",requireActivity().supportFragmentManager)
+                        rv_donation_without_campaign.adapter = donationAdapter
+                    }
+
+
+
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
