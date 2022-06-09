@@ -63,7 +63,7 @@
                 android:id="@+id/image"
                 android:layout_width="40dp"
                 android:layout_height="35dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_camera"
                 android:layout_gravity="center"/>
 

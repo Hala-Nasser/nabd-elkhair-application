@@ -16,10 +16,6 @@ import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_charity_notification.*
 import kotlinx.android.synthetic.main.fragment_charity_notification.view.*
-import kotlinx.android.synthetic.main.fragment_notification.*
-import kotlinx.android.synthetic.main.fragment_notification.rv_notifications
-import kotlinx.android.synthetic.main.fragment_notification.view.*
-import kotlinx.android.synthetic.main.fragment_notification.view.profile_image
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,13 +53,23 @@ class NotificationFragment : Fragment() {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
-                    Log.e("data", data.toString())
-                    rv_charity_notification.layoutManager = LinearLayoutManager(activity,
-                        RecyclerView.VERTICAL,false)
-                    rv_charity_notification.setHasFixedSize(true)
-                    val notificationAdapter =
-                        NotificationAdapter(activity, data)
-                    rv_charity_notification.adapter = notificationAdapter
+                    if (data.isEmpty()){
+                        rv_charity_notification.visibility = View.GONE
+                        no_notification.visibility = View.VISIBLE
+                    }else{
+                        rv_charity_notification.visibility = View.VISIBLE
+                        no_notification.visibility = View.GONE
+
+                        Log.e("data", data.toString())
+                        rv_charity_notification.layoutManager = LinearLayoutManager(activity,
+                            RecyclerView.VERTICAL,false)
+                        rv_charity_notification.setHasFixedSize(true)
+                        val notificationAdapter =
+                            NotificationAdapter(activity, data)
+                        rv_charity_notification.adapter = notificationAdapter
+                    }
+
+
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

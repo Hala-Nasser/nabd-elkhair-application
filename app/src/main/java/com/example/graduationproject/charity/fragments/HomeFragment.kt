@@ -53,12 +53,6 @@ import android.system.Os.socket
 import android.os.StrictMode
 
 
-
-
-
-
-
-
 class HomeFragment : Fragment() {
     var addCampaign = false
     var donation_type_ids = ArrayList<Int>()
@@ -102,31 +96,12 @@ class HomeFragment : Fragment() {
                 .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
         }
 
-        //root.campaign_viewpager.currentItem = 0
         root.charity_home_tab_layout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-//                Log.e("on select tab", "enter")
-//                var mSelectedPosition = root.charity_home_tab_layout.selectedTabPosition
-//                editor.putInt("selected charity home donation type", donation_type_ids[mSelectedPosition])
-//                editor.putBoolean("isDonor", false)
-//                editor.apply()
-                // val donation_type = sharedPref.getInt("selected char
-                // ity home donation type", 0)
 
                 root.campaign_viewpager.currentItem = tab.position
                 SetOnSelectView(root.charity_home_tab_layout, tab.position)
-
-
-//                Log.e("donation type", mSelectedPosition.toString())
-//                val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-//                if (Build.VERSION.SDK_INT >= 26) {
-//                    transaction.setReorderingAllowed(false)
-//                }
-//
-//                transaction.detach(CampaignsAccordingToDonationTypeFragment()).attach(
-//                    CampaignsAccordingToDonationTypeFragment()
-//                ).commit()
 
             }
 

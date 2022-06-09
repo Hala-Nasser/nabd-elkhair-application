@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_charity_profile.*
 import kotlinx.android.synthetic.main.fragment_general_settings.view.*
 import kotlinx.android.synthetic.main.fragment_general_settings.view.general_settings_sign_out
 import kotlinx.android.synthetic.main.fragment_notifications_settings.view.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,6 +55,9 @@ class NotificationsSettingsFragment : Fragment() {
             var i = Intent(requireContext(), PrivacyPolicyActivity::class.java)
             startActivity(i)
         }
+
+        root.charity_notification_switch.isChecked = sharedPref.getInt("charity_notification",0) != 0
+
 
         root.charity_notification_switch.setOnCheckedChangeListener { compoundButton, b ->
             if (root.charity_notification_switch.isChecked){

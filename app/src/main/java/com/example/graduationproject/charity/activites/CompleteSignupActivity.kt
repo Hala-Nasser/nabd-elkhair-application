@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +22,8 @@ import com.example.graduationproject.network.RetrofitInstance
 import com.vansuita.pickimage.bundle.PickSetup
 import com.vansuita.pickimage.dialog.PickImageDialog
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
-import kotlinx.android.synthetic.main.activity_complete_sign_up.*
-import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -100,6 +99,8 @@ class CompleteSignupActivity : AppCompatActivity() {
                 .setOnPickResult { r ->
                     imageURI = r.uri
                     charity_image.setImageBitmap(r.bitmap)
+                    charity_image.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                    charity_image.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
                 }
                 .setOnPickCancel {
                 }.show(supportFragmentManager)
@@ -142,7 +143,7 @@ class CompleteSignupActivity : AppCompatActivity() {
             .addFormDataPart(
                 "image", File(FileUtil.getPath(imageURI!!, this)!!).extension,
                 RequestBody.create(
-                    MediaType.parse("application/octet-stream"),
+                    "application/octet-stream".toMediaTypeOrNull(),
                     File(FileUtil.getPath(imageURI!!, this)!!)
                 )
             )

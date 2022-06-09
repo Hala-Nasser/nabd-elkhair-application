@@ -12,6 +12,6 @@ data class Donor(
     val location: String,
     val name: String,
     val notification_status: Int,
-    val phone: Int,
+    val phone: String,
     val updated_at: String
 )

@@ -15,9 +15,8 @@ import com.example.graduationproject.api.charityApi.donation.DonationJson
 import com.example.graduationproject.charity.adapters.DonationAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
-import kotlinx.android.synthetic.main.fragment_donation_requests.*
-import kotlinx.android.synthetic.main.fragment_donation_requests.rv_donation_requests
 import kotlinx.android.synthetic.main.fragment_donation_tab_received.*
+import kotlinx.android.synthetic.main.fragment_donation_tab_received.no_donations
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,15 +52,24 @@ class DonationTabReceivedFragment : Fragment() {
                 val data = response.body()
                 if (response.isSuccessful) {
                     Log.e("enter tab received","yes")
-                    rv_donation_tab_received.layoutManager = LinearLayoutManager(
-                        activity,
-                        RecyclerView.VERTICAL, false
-                    )
-                    rv_donation_tab_received.setHasFixedSize(true)
-                    val donationAdapter =
-                        DonationAdapter(requireActivity(), data!!.data,"DonationReceivedFragment",requireActivity().supportFragmentManager
+
+                    if(data!!.data.isEmpty()){
+                        no_donations.visibility = View.VISIBLE
+                        rv_donation_tab_received.visibility = View.GONE
+                    }else{
+                        no_donations.visibility = View.GONE
+                        rv_donation_tab_received.visibility = View.VISIBLE
+                        rv_donation_tab_received.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
                         )
-                    rv_donation_tab_received.adapter = donationAdapter
+                        rv_donation_tab_received.setHasFixedSize(true)
+                        val donationAdapter =
+                            DonationAdapter(requireActivity(), data!!.data,"DonationReceivedFragment",requireActivity().supportFragmentManager
+                            )
+                        rv_donation_tab_received.adapter = donationAdapter
+                    }
+
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

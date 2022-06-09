@@ -16,6 +16,6 @@ data class CharityDetails(
     val name: String,
     val notification_status: Int,
     val open_time: String,
-    val phone: Int,
+    val phone: String,
     val updated_at: String
 )

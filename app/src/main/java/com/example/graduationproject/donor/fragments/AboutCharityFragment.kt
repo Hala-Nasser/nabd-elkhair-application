@@ -48,7 +48,7 @@ class AboutCharityFragment : Fragment() {
         if (b != null) {
             var description = b.getString("charity_description")
            // var donation_type_id = b.getStringArrayList("charity_donation_type")
-            var phone = b.getInt("charity_phone")
+            var phone = b.getString("charity_phone")
             charity_id = b.getInt("charity_id", 0)
             charity_name = b.getString("charity_name")
             charity_image = b.getString("charity_image")

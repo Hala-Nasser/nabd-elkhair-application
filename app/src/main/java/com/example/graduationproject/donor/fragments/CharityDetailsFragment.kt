@@ -48,7 +48,7 @@ class CharityDetailsFragment : Fragment() {
             b.putString("charity_description", b.getString("charity_description"))
             b.putInt("charity_id", b.getInt("charity_id", 0))
             //b.putStringArrayList("charity_donation_type", b.getStringArrayList("charity_donation_type"))
-            b.putInt("charity_phone", b.getInt("charity_phone"))
+            b.putString("charity_phone", b.getString("charity_phone"))
 
             about_fragment.arguments = b
 

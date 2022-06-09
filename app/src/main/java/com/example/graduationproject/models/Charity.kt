@@ -19,6 +19,7 @@ data class Charity(
     val image: String,
     val name: String,
     val open_time: String,
-    val phone: Int,
+    val phone: String,
+    val notification_status:Int,
     val updated_at: String
 ): Parcelable

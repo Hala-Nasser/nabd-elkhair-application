@@ -32,8 +32,6 @@ class NotificationFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
 
         val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        val user_image = sharedPref.getString("user_image", "")
-        Picasso.get().load(RetrofitInstance.IMAGE_URL+user_image).into(root.profile_image)
 
         val user_id = sharedPref.getInt("user_id", 0)
 
@@ -56,12 +54,20 @@ class NotificationFragment : Fragment() {
                     val data = response.body()!!.data
 
                     Log.e("data", data.toString())
-                    rv_notifications.layoutManager = LinearLayoutManager(activity,
-                        RecyclerView.VERTICAL,false)
-                    rv_notifications.setHasFixedSize(true)
-                    val notificationAdapter =
-                        NotificationAdapter(activity, data)
-                    rv_notifications.adapter = notificationAdapter
+                    if (data.isEmpty()){
+                        rv_notifications.visibility = View.GONE
+                        no_notification.visibility = View.VISIBLE
+                    }else{
+                        rv_notifications.visibility = View.VISIBLE
+                        no_notification.visibility = View.GONE
+
+                        rv_notifications.layoutManager = LinearLayoutManager(activity,
+                            RecyclerView.VERTICAL,false)
+                        rv_notifications.setHasFixedSize(true)
+                        val notificationAdapter =
+                            NotificationAdapter(activity, data)
+                        rv_notifications.adapter = notificationAdapter
+                    }
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

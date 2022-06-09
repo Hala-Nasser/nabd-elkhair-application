@@ -61,8 +61,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/dashed_border"
-                android:padding="3dp"
-                android:src="@drawable/charity_image" />
+                android:padding="3dp" />
 
             <TextView
                 android:id="@+id/charity_profile_name"
@@ -71,7 +70,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/tajawal_bold"
                 android:gravity="center"
-                android:text="جمعية الاحسان التطوعية"
+                android:text=""
                 android:textColor="@color/black_transparent_94"
                 android:textSize="15sp" />
 
@@ -82,7 +81,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/tajawal_medium"
                 android:gravity="center"
-                android:text="amber.patel@mail.com"
+                android:text=""
                 android:textColor="@color/black_transparent_37"
                 android:textSize="14sp" />
 

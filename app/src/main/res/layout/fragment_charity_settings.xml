@@ -66,7 +66,6 @@
                         android:id="@+id/setting_profile_image"
                         android:layout_width="73dp"
                         android:layout_height="73dp"
-                        android:src="@drawable/charity_image"
                         android:padding="5dp"
                         android:layout_gravity="end"
                         android:background="@drawable/setting_dashed_border"/>
@@ -83,7 +82,7 @@
                             android:id="@+id/settings_user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="جمعية الاحسان التطوعية"
+                            android:text=""
                             android:paddingStart="10dp"
                             android:fontFamily="@font/tajawal_medium"
                             android:textColor="@color/white"
@@ -94,7 +93,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Patrick.Cunningham@Mail.Com"
+                            android:text=""
                             android:fontFamily="@font/tajawal_medium"
                             android:textColor="@color/white"
                             android:textSize="15sp"/>

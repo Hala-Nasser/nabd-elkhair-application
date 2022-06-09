@@ -16,8 +16,6 @@ import com.example.graduationproject.charity.adapters.DonationAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
 import kotlinx.android.synthetic.main.fragment_donation_not_received.*
-import kotlinx.android.synthetic.main.fragment_donation_tab_received.*
-import kotlinx.android.synthetic.main.fragment_donation_tab_received.rv_donation_tab_received
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,14 +52,22 @@ class DonationNotReceivedFragment : Fragment() {
                 val data = response.body()
                 if (response.isSuccessful) {
 
-                    rv_donation_tab_notReceived.layoutManager = LinearLayoutManager(
-                        activity,
-                        RecyclerView.VERTICAL, false
-                    )
-                    rv_donation_tab_notReceived.setHasFixedSize(true)
-                    val donationAdapter =
-                        DonationAdapter(requireActivity(), data!!.data,"DonationNotReceivedFragment",requireActivity().supportFragmentManager)
-                    rv_donation_tab_notReceived.adapter = donationAdapter
+                    if(data!!.data.isEmpty()){
+                        no_donations.visibility = View.VISIBLE
+                        rv_donation_tab_notReceived.visibility = View.GONE
+                    }else{
+                        no_donations.visibility = View.GONE
+                        rv_donation_tab_notReceived.visibility = View.VISIBLE
+                        rv_donation_tab_notReceived.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
+                        rv_donation_tab_notReceived.setHasFixedSize(true)
+                        val donationAdapter =
+                            DonationAdapter(requireActivity(), data!!.data,"DonationNotReceivedFragment",requireActivity().supportFragmentManager)
+                        rv_donation_tab_notReceived.adapter = donationAdapter
+                    }
+
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

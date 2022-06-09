@@ -1,105 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:background="@color/white_background"
+android:fitsSystemWindows="true"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layoutDirection="rtl"
+android:paddingHorizontal="20dp"
+tools:context=".charity.fragments.NotificationFragment">
+
+<RelativeLayout
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layoutDirection="rtl"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutDirection="rtl"
-        tools:context=".charity.fragments.NotificationFragment"
-        >
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/tajawal_bold"
+        android:gravity="center"
+        android:text="الاشعارات"
+        android:textAlignment="center"
+        android:textColor="@color/black_transparent_94"
+        android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="50dp"
-            android:paddingHorizontal="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/charity_notification_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/charity_image"
+        app:civ_border_color="#fff"
+        app:civ_border_width="3dp" />
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/tajawal_bold"
-                    android:gravity="center"
-                    android:text="الاشعارات"
-                    android:textAlignment="center"
-                    android:textColor="@color/black_transparent_94"
-                    android:textSize="16sp" />
+</RelativeLayout>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/charity_notification_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/charity_image"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="3dp" />
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_charity_notification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
-            </RelativeLayout>
+<TextView
+    android:id="@+id/no_notification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:fontFamily="@font/tajawal_medium"
+    android:gravity="center"
+    android:text="لا يوجد اشعارات"
+    android:textAlignment="center"
+    android:textColor="@color/black"
+    android:textSize="24sp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/tajawal_bold"-->
-<!--                android:text="اليوم"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:textColor="@color/black_transparent_94"-->
-<!--                android:textSize="15sp" />-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_charity_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-               />
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/tajawal_bold"-->
-<!--                android:text="الامس"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:textColor="@color/black_transparent_94"-->
-<!--                android:textSize="15sp" />-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/rv_charity_yesterday_notification"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                />-->
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/tajawal_bold"-->
-<!--                android:text="منذ ايام"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:textColor="@color/black_transparent_94"-->
-<!--                android:textSize="15sp" />-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/rv_charity_daysAgo_notification"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                />-->
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

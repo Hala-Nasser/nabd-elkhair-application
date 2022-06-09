@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.save
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -136,6 +137,15 @@ class EditProfileFragment : Fragment() {
                     phone.setText(data.phone.toString())
 
                     user_image = data.image
+
+                    val sharedPref = activity!!.getSharedPreferences(
+                        "sharedPref", Context.MODE_PRIVATE
+                    )
+                    val editor = sharedPref.edit()
+                    editor.putString("user_image", data.image)
+                    editor.apply()
+
+
                     autoCompleteTextView.setText(data.location)
                     GeneralChanges().hideDialog(progressDialog!!)
 
@@ -165,7 +175,7 @@ class EditProfileFragment : Fragment() {
                 .addFormDataPart(
                     "image", File(FileUtil.getPath(imageURI!!, requireActivity())).extension ,
                     RequestBody.create(
-                        MediaType.parse("application/octet-stream"),
+                        "application/octet-stream".toMediaTypeOrNull(),
                         File(FileUtil.getPath(imageURI!!, requireActivity()))
                     )
                 )
