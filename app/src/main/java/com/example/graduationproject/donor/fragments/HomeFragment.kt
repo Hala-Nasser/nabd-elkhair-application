@@ -246,7 +246,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         val iv_img = selected.findViewById<View>(R.id.donation_type_image) as ImageView
         DrawableCompat.setTint(
             DrawableCompat.wrap(iv_img.drawable),
-            ContextCompat.getColor(requireActivity(), R.color.app_color)
+            ContextCompat.getColor(requireActivity(), R.color.black)
         )
     }
 }
