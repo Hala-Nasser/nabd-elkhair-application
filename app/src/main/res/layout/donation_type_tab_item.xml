@@ -27,6 +27,7 @@
                     android:id="@+id/donation_type_image"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    app:tint="@color/black"
                     android:src="@drawable/money" />
 
 
