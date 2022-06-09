@@ -3,6 +3,7 @@ package com.example.graduationproject.network
 
 import com.example.graduationproject.api.charityApi.campaign.CampaignJson
 import com.example.graduationproject.api.charityApi.donation.DonationJson
+import com.example.graduationproject.api.charityApi.donationCount.DonationCountJson
 import com.example.graduationproject.api.donorApi.addDonation.AddDonationJson
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
@@ -23,14 +24,11 @@ import com.example.graduationproject.api.charityApi.login.LoginJson as CharityLo
 import com.example.graduationproject.api.donorApi.register.RegisterJson
 import com.example.graduationproject.api.charityApi.register.RegisterJson as CharityRegisterJson
 import com.example.graduationproject.api.donorApi.resetPassword.ResetPasswordJson
-import com.example.graduationproject.api.donorApi.specificDonationType.SpecificDonationTypeJson
 import com.example.graduationproject.api.donorApi.staticPages.StaticPagesJson
 import com.example.graduationproject.api.donorApi.updateProfile.UpdateProfileJson
-import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.RequestBody
-import retrofit2.Response
 
 import retrofit2.http.POST
 
@@ -180,6 +178,9 @@ interface ApiRequests {
 
     @GET("charity/getDonationNotReceived")
     fun getDonationNotReceived(@Header("Authorization") token: String): Call<DonationJson>
+
+    @GET("charity/getDonationsCount")
+    fun getDonationsCount(@Header("Authorization") token: String): Call<DonationCountJson>
 
     @GET("charity/getCampaignDonations")
     fun getCampaignDonations(@Header("Authorization") token: String): Call<DonationJson>
