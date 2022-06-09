@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_layout"
+            android:id="@+id/campaign_title_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -66,10 +66,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/about_parent"
+            android:id="@+id/campaign_desc_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="تفاصيل الحملة"
+            app:expandedHintEnabled="false"
             android:textSize="16sp"
             android:layout_marginTop="20dp"
             android:textColor="@color/black"
@@ -93,7 +94,7 @@
                 android:lines="5"
                 android:textDirection="rtl"
                 android:lineSpacingExtra="2dp"
-                android:text="@string/hint"
+                android:hint="@string/hint"
                 android:gravity="top"
                 android:textAlignment="gravity"
                 android:overScrollMode="always"

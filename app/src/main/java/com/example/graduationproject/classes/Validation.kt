@@ -169,6 +169,7 @@ class Validation {
         }
     }
 
+
     fun validateAboutCharity(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
         val code = codeEt.text.toString()
 
@@ -185,11 +186,27 @@ class Validation {
         }
     }
 
-    fun validateCharityName(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+    fun validateAboutCampaign(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
         val code = codeEt.text.toString()
 
         return if (code.trim().isEmpty()) {
-            codeTL.error = "يرجى إدخال تفاصيل الجمعية"
+            codeTL.error = "يرجى إدخال تفاصيل الحملة"
+            codeTL.errorIconDrawable = null
+            codeTL.isFocusable = true
+            false
+        } else {
+            codeTL.error = null
+            codeTL.isFocusable = false
+            codeTL.isErrorEnabled = false
+            true
+        }
+    }
+
+    fun validateCampaignName(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+        val code = codeEt.text.toString()
+
+        return if (code.trim().isEmpty()) {
+            codeTL.error = "يرجى إدخال عنوان الحملة"
             codeTL.errorIconDrawable = null
             codeTL.isFocusable = true
             false

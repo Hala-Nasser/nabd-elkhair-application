@@ -38,12 +38,11 @@
                 android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                />
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
 
         </RelativeLayout>
 

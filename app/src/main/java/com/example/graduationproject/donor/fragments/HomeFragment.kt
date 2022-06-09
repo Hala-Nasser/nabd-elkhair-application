@@ -42,6 +42,10 @@ import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.charities.Data
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.CampaignsDonationTypeJson
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.adapters.CampaignsAdapter
@@ -86,9 +90,12 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         root.donor_home_tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 root.campaigns_viewpager.currentItem = tab.position
+                SetOnSelectView(root.donor_home_tab_layout,tab.position)
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                SetUnSelectView(root.donor_home_tab_layout,tab.position)
+            }
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
@@ -219,4 +226,27 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         return v
     }
 
+    fun SetOnSelectView(tabLayout: TabLayout, position: Int) {
+        val tab = tabLayout.getTabAt(position)
+        val selected = tab!!.customView
+        val iv_text = selected!!.findViewById<View>(R.id.donation_type_title) as TextView
+        val iv_img = selected.findViewById<View>(R.id.donation_type_image) as ImageView
+        iv_text.setTextColor(resources.getColor(R.color.white))
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(iv_img.drawable),
+            ContextCompat.getColor(requireActivity(), R.color.white)
+        )
+    }
+
+    fun SetUnSelectView(tabLayout: TabLayout, position: Int) {
+        val tab = tabLayout.getTabAt(position)
+        val selected = tab!!.customView
+        val iv_text = selected!!.findViewById<View>(R.id.donation_type_title) as TextView
+        iv_text.setTextColor(resources.getColor(R.color.black))
+        val iv_img = selected.findViewById<View>(R.id.donation_type_image) as ImageView
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(iv_img.drawable),
+            ContextCompat.getColor(requireActivity(), R.color.app_color)
+        )
+    }
 }

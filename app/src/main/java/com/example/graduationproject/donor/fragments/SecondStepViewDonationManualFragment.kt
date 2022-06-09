@@ -387,7 +387,6 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
 
     fun addDonation(charity_id:Int, campaign_id:Int, donation_type_id:Int, donor_phone:String, donor_district:String, donor_city:String, donor_address:String, date_time:String) {
-
         var body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("charity_id", charity_id.toString())
             .addFormDataPart("donation_type_id", donation_type_id.toString())
@@ -396,12 +395,10 @@ class SecondStepViewDonationManualFragment : Fragment() {
             .addFormDataPart("donor_city", donor_city)
             .addFormDataPart("donor_address", donor_address)
             .addFormDataPart("date_time", date_time)
-
                 if (campaign_id != 0){
                     body.addFormDataPart("campaign_id", campaign_id.toString())
                 }
             var bodyRequest = body.build()
-
 
         val retrofitInstance =
             RetrofitInstance.create()
@@ -412,7 +409,6 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data!!.status) {
-
                         dialog.dismiss()
                         requireActivity().supportFragmentManager.beginTransaction()
                             .replace(R.id.mainContainer, ConfirmationFragment())

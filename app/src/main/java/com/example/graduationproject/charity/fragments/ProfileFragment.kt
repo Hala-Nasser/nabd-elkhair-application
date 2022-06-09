@@ -13,6 +13,7 @@ import com.example.graduationproject.R
 import android.widget.LinearLayout
 
 import android.view.Display
+import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.api.charityApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
@@ -22,6 +23,8 @@ import com.example.graduationproject.classes.ZoomOutPageTransformer
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.fragment_charity_info.*
+import kotlinx.android.synthetic.main.fragment_charity_info.view.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*
@@ -39,6 +42,7 @@ class ProfileFragment : Fragment(){
     var img = ""
     var name = ""
     var email = ""
+    var about = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -18,9 +18,11 @@ import com.example.graduationproject.charity.adapters.DonationAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.ZoomOutPageTransformer
 import com.example.graduationproject.network.RetrofitInstance
+import kotlinx.android.synthetic.main.fragment_charity_settings.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.tab_layout
 import kotlinx.android.synthetic.main.fragment_donation_received.view.*
+import kotlinx.android.synthetic.main.fragment_donation_received.view.back
 import kotlinx.android.synthetic.main.fragment_donation_requests.*
 import kotlinx.android.synthetic.main.fragment_donation_without_campaign.*
 import kotlinx.android.synthetic.main.fragment_donation_without_campaign.rv_donation_without_campaign
@@ -45,6 +47,9 @@ class DonationReceivedFragment : Fragment() {
         root.donation_received_tab_layout.setupWithViewPager(root.donation_received_viewpager)
         root.donation_received_viewpager.setPageTransformer(true, ZoomOutPageTransformer())
 
+        root.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return root
     }
 

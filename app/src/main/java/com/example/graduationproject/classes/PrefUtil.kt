@@ -2,6 +2,7 @@ package com.example.graduationproject.classes
 
 import android.content.Context
 import android.preference.PreferenceManager
+import com.example.graduationproject.charity.adapters.RequestDonationAdapter
 import com.example.graduationproject.charity.fragments.DonationRequestsFragment
 
 class PrefUtil {
@@ -28,13 +29,13 @@ class PrefUtil {
 
         private const val TIMER_STATE_ID = "com.resocoder.timer.timer_state"
 
-        fun getTimerState(context: Context): DonationRequestsFragment.TimerState{
+        fun getTimerState(context: Context): RequestDonationAdapter.TimerState{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             val ordinal = preferences.getInt(TIMER_STATE_ID, 0)
-            return DonationRequestsFragment.TimerState.values()[ordinal]
+            return RequestDonationAdapter.TimerState.values()[ordinal]
         }
 
-        fun setTimerState(state: DonationRequestsFragment.TimerState, context: Context){
+        fun setTimerState(state: RequestDonationAdapter.TimerState, context: Context){
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             val ordinal = state.ordinal
             editor.putInt(TIMER_STATE_ID, ordinal)

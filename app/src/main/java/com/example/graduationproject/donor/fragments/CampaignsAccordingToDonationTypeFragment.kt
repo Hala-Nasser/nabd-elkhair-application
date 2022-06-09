@@ -107,22 +107,14 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
                     Log.e("response", response.body().toString())
-                    Log.e("get donation", "is successful")
                     if (data.isEmpty()) {
-                        rv_campaigns.adapter = null
-                        Log.e("get donation", data.toString())
-                        Log.e("get donation", "is empty")
                         all_no_campaign.visibility = View.VISIBLE
                         rv_campaigns.visibility = View.GONE
                         GeneralChanges().hideDialog(progressDialog!!)
 
                     } else {
-                        rv_campaigns.adapter = null
-                        Log.e("get donation", data.toString())
-                        Log.e("get donation", "is not empty")
                         all_no_campaign.visibility = View.GONE
                         rv_campaigns.visibility = View.VISIBLE
-                        Log.e("data before adapter", data.toString())
                         rv_campaigns.layoutManager = GridLayoutManager(requireContext(),2)
                         rv_campaigns.setHasFixedSize(true)
                         val campaignsAdapter =
