@@ -75,14 +75,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_calendar"
+                    android:paddingStart="20dp"
                     />
 
                 <TextView
                     android:id="@+id/final_campaign_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="14 فبراير"
-                    android:paddingStart="5dp"
+                    android:text="الجمعة، ١٧ مايو
+                     ١٩٠٧"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:textSize="15sp"
                     android:fontFamily="@font/tajawal_medium"
                     android:textColor="@color/app_color"

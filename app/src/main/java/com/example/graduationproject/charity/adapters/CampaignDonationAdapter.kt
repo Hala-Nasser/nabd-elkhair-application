@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.api.charityApi.donation.Data
+import com.example.graduationproject.api.charityApi.CampaignDonation.Data
 import com.example.graduationproject.models.Campaigns
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
@@ -31,7 +31,7 @@ class CampaignDonationAdapter(
         val expandable_layout  =itemView.donors_expandable_layout
         val card  =itemView.donation_card_view
 
-        fun initialize(campaigns: Campaigns?) {
+        fun initialize(campaigns: Data?) {
             if (campaigns!=null){
                 Picasso.get().load(RetrofitInstance.IMAGE_URL+campaigns.image).error(R.drawable.campaign_image).into(image)
                 name.text = campaigns.name
@@ -60,7 +60,7 @@ class CampaignDonationAdapter(
 
     override fun onBindViewHolder(holder: CampaignViewHolder, position: Int) {
 
-                holder.initialize(data[position].campaign)
+                holder.initialize(data[position])
 
                   holder.itemView.setOnClickListener {
 
@@ -73,10 +73,10 @@ class CampaignDonationAdapter(
                     }
 
                       val donorAdapter =
-                          DonorsAdapter(activity, data, "CampaignDonationAdapter",fragment)
+                          DonorsAdapter(activity, data[position].donation, "CampaignDonationAdapter",fragment)
 
-                      donorAdapter.campaignName = data[position].campaign!!.name
-                      donorAdapter.campaignImg = data[position].campaign!!.image
+                      donorAdapter.campaignName = data[position].name
+                      donorAdapter.campaignImg = data[position].image
                       holder.donors.layoutManager = LinearLayoutManager(
                           activity,
                           RecyclerView.VERTICAL, false

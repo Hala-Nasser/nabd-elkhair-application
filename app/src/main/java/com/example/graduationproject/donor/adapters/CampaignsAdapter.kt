@@ -5,13 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
 import com.example.graduationproject.models.Campaigns
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.current_campaigns_item.view.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, var from:String,
                         var clickListener: onCampaignItemClickListener) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
@@ -25,12 +29,19 @@ class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, 
         val card  =itemView.campaign_card
 
 
-        fun initialize(data: Campaigns, action: onCampaignItemClickListener,from: String) {
+        fun initialize(
+            data: Campaigns,
+            action: onCampaignItemClickListener,
+            from: String,
+        ) {
             when(from){
                 "DonorProfile" -> {
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
                     name.text = data.name
-                    date.text = data.expiry_date
+                    val locale = Locale("ar", "SA")
+                    var originalDate = SimpleDateFormat("EEEE، d MMMM y",locale).parse(data.expiry_date)
+                    var formattedDate = SimpleDateFormat("d MMMM y",locale).format(originalDate)
+                    date.text =  formattedDate
                 }
                 "CharityCampaigns" -> {
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
@@ -40,7 +51,10 @@ class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, 
                 else -> {
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
                     name.text = data.name
-                    date.text = data.expiry_date
+                    val locale = Locale("ar", "SA")
+                    var originalDate = SimpleDateFormat("EEEE، d MMMM y",locale).parse(data.expiry_date)
+                    var formattedDate = SimpleDateFormat("d MMMM y",locale).format(originalDate)
+                    date.text =  formattedDate
                     if (from=="DonorHome")
                     charity.text = data.charity.name
                 }
@@ -95,5 +109,6 @@ class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, 
     interface onCampaignItemClickListener {
         fun onItemClick(data: Campaigns, position: Int,from: String)
     }
+
 
 }

@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.charity_item.view.*
-import kotlinx.android.synthetic.main.fragment_campaign_details.view.*
 import kotlinx.android.synthetic.main.fragment_charity_campaign_details.*
 import kotlinx.android.synthetic.main.fragment_charity_campaign_details.view.*
 import kotlin.math.log
@@ -87,6 +86,9 @@ class CharityCampaignDetailsFragment : Fragment() {
         }
 
 
+        root.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
         return root
     }
@@ -104,7 +106,10 @@ class CharityCampaignDetailsFragment : Fragment() {
 
         if (b.getParcelableArrayList<Data>("campaign_donation") == null) {
             root.rv_donors.visibility = View.GONE
+            root.nodonors_txt.visibility = View.VISIBLE
         } else {
+            root.rv_donors.visibility = View.VISIBLE
+            root.nodonors_txt.visibility = View.GONE
 
             campaignDonation = b.getParcelableArrayList<Data>("campaign_donation")!!
 

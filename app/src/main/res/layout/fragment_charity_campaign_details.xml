@@ -19,15 +19,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:fontFamily="@font/tajawal_bold"
-                android:text="تفاصيل الحملة"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="تفاصيل الحملة"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+            </RelativeLayout>
 
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -89,14 +103,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_calendar"
+                        android:paddingStart="10dp"
                         />
 
                     <TextView
                         android:id="@+id/campaign_date_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="14 فبراير"
+                        android:text="الجمعة، ١٧ مايو١٩٠٧ "
                         android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
                         android:textSize="15sp"
                         android:fontFamily="@font/tajawal_medium"
                         android:textColor="@color/app_color"
@@ -162,6 +178,17 @@
                 android:layout_marginBottom="20dp"
                 />
 
+            <TextView
+                android:id="@+id/nodonors_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="لا يوجد متبرعين"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:fontFamily="@font/tajawal_bold"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

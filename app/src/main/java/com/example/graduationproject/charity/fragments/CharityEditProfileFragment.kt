@@ -30,8 +30,8 @@ import kotlinx.android.synthetic.main.fragment_charity_edit_profile.rv_complete_
 import kotlinx.android.synthetic.main.fragment_charity_edit_profile.time_from
 import kotlinx.android.synthetic.main.fragment_charity_edit_profile.time_to
 import kotlinx.android.synthetic.main.fragment_charity_edit_profile.view.*
+import kotlinx.android.synthetic.main.fragment_donation_received.view.*
 import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -40,6 +40,7 @@ import retrofit2.Response
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import kotlin.collections.ArrayList
 
 
@@ -119,6 +120,10 @@ class CharityEditProfileFragment : Fragment() {
                 }
                 .setOnPickCancel{
                 }.show(requireActivity().supportFragmentManager)
+        }
+
+        root.charity_back_settings_icon.setOnClickListener {
+            requireActivity().onBackPressed()
         }
         return root
     }

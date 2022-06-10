@@ -1,6 +1,7 @@
 package com.example.graduationproject.network
 
 
+import com.example.graduationproject.api.charityApi.CampaignDonation.CampaignDonationJson
 import com.example.graduationproject.api.charityApi.campaign.CampaignJson
 import com.example.graduationproject.api.charityApi.donation.DonationJson
 import com.example.graduationproject.api.charityApi.donationCount.DonationCountJson
@@ -183,7 +184,7 @@ interface ApiRequests {
     fun getDonationsCount(@Header("Authorization") token: String): Call<DonationCountJson>
 
     @GET("charity/getCampaignDonations")
-    fun getCampaignDonations(@Header("Authorization") token: String): Call<DonationJson>
+    fun getCampaignDonations(@Header("Authorization") token: String): Call<CampaignDonationJson>
 
     @GET("charity/getWithoutCampaignDonations")
     fun getWithoutCampaignDonations(@Header("Authorization") token: String): Call<DonationJson>
@@ -217,8 +218,6 @@ interface ApiRequests {
     @GET("charity/getComplaints")
     fun getComplaints(@Header("Authorization") token: String): Call<ComplaintJson>
 
-    @GET("charity/deleteDonationRequests")
-    fun deleteDonationRequests(@Header("Authorization") token: String): Call<DonationJson>
 
 //    @FormUrlEncoded
 //    @POST("/WS/editProfile")

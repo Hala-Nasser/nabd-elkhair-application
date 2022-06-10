@@ -52,7 +52,6 @@
                 android:id="@+id/add_complaint_img"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:visibility="gone"
                 android:src="@drawable/complaint" />
 
         </LinearLayout>

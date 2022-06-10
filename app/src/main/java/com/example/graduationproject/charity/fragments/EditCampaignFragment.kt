@@ -33,6 +33,7 @@ import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.Validation
 import com.example.graduationproject.network.RetrofitInstance
 import kotlinx.android.synthetic.main.fragment_add_campaign.*
+import kotlinx.android.synthetic.main.fragment_charity_edit_profile.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -90,14 +91,18 @@ class EditCampaignFragment : Fragment() {
             GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
             updateCampaign()
         }
+
+        root.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return root
     }
 
     private fun getDate(root:View){
         val calendar = Calendar.getInstance()
-        var year = getFromCalendar("EEEE، d MMMM y",date!!,Calendar.YEAR)
-        var day = getFromCalendar("EEEE، d MMMM y",date,Calendar.DAY_OF_MONTH)
-        var month = getFromCalendar("EEEE، d MMMM y",date,Calendar.MONTH)
+        var year = GeneralChanges().getFromCalendar("EEEE، d MMMM y",date!!,Calendar.YEAR)
+        var day = GeneralChanges().getFromCalendar("EEEE، d MMMM y",date,Calendar.DAY_OF_MONTH)
+        var month = GeneralChanges().getFromCalendar("EEEE، d MMMM y",date,Calendar.MONTH)
         root.edit_date_picker.init(year,month,day,
             OnDateChangedListener { _, year, month, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
@@ -114,12 +119,12 @@ class EditCampaignFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getTime(root: View){
-        var hours = getFromCalendar("h:mm a",time,Calendar.HOUR_OF_DAY)
-        var minutes = getFromCalendar("h:mm a",time,Calendar.MINUTE)
+
+        var hours = GeneralChanges().getFromCalendar("h:mm a",time,Calendar.HOUR_OF_DAY)
+        var minutes = GeneralChanges().getFromCalendar("h:mm a",time,Calendar.MINUTE)
         root.edit_time_picker.hour = hours
         root.edit_time_picker.minute = minutes
         root.edit_time_picker.setOnTimeChangedListener(OnTimeChangedListener { view, hourOfDay, minute -> //use getFocusedChild() helps partly
-            if (view.focusedChild != null) {
                 val initialCalendar = Calendar.getInstance()
                 initialCalendar[Calendar.HOUR_OF_DAY] = hourOfDay
                 initialCalendar[Calendar.MINUTE] = minute
@@ -130,7 +135,6 @@ class EditCampaignFragment : Fragment() {
                 val myFormat = "h:mm a"
                 val sdf = SimpleDateFormat(myFormat, locale)
                time = sdf.format(initialCalendar.time)
-            }
         })
     }
 
@@ -181,20 +185,4 @@ class EditCampaignFragment : Fragment() {
         })
     }
 
-    private fun getFromCalendar(myFormat:String,strDate: String, field: Int): Int {
-        var result = -1
-        try {
-            val locale = Locale("ar", "SA")
-
-            val formatter = SimpleDateFormat(myFormat, locale)
-            val date = formatter.parse(strDate) //convert to date
-            val cal = Calendar.getInstance() // get calendar instance
-            cal.time = date //set the calendar date to your date
-            result = cal[field] // get the required field
-            return result //return the result.
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        return result
-    }
 }

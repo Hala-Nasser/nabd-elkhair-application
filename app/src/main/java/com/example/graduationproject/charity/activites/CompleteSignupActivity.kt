@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.charityApi.login.LoginJson
 import com.example.graduationproject.api.charityApi.register.RegisterJson
 import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.classes.FileUtil
@@ -165,23 +166,7 @@ class CompleteSignupActivity : AppCompatActivity() {
 
                     if (data!!.status) {
 
-                        val user_id = data.data.id
-                        val sharedPref = this@CompleteSignupActivity.getSharedPreferences(
-                            "sharedPref", Context.MODE_PRIVATE
-                        )
-
-                        val editor = sharedPref.edit()
-                        editor.putString("from", "charity")
-                        editor.putInt("charity_id", user_id)
-                        editor.putString("charity_image", data.data.image)
-                        Log.e("id in signup", user_id.toString())
-                        editor.apply()
-
-                        GeneralChanges().hideDialog(progressDialog!!)
-                        GeneralChanges().prepareFadeTransition(
-                            this@CompleteSignupActivity,
-                            PaymentsMethodActivity()
-                        )
+                        charityLoginToApp(email,password)
 
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
@@ -251,6 +236,69 @@ class CompleteSignupActivity : AppCompatActivity() {
                 Log.e("failure", t.message!!)
             }
         })
+    }
+    fun charityLoginToApp(user_email:String,user_password:String) {
+
+        val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("email", user_email)
+            .addFormDataPart("password", user_password)
+            .build()
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.charityLogIn(body)
+
+        response.enqueue(object : Callback<LoginJson> {
+            override fun onResponse(
+                call: Call<LoginJson>,
+                response: Response<LoginJson>
+            ) {
+
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("Charity", data.toString())
+
+                    if (data!!.status) {
+
+                        val user_id = data.data.id
+                        val sharedPref = this@CompleteSignupActivity.getSharedPreferences(
+                            "sharedPref", Context.MODE_PRIVATE
+                        )
+
+                        val editor = sharedPref.edit()
+                        editor.putString("from", "charity")
+                        editor.putInt("charity_id", user_id)
+                        editor.putString("charity_image", data.data.image)
+                        editor.putString("charity_token", data.data.token)
+                        Log.e("Charity id in signin", user_id.toString())
+                        editor.apply()
+                        GeneralChanges().hideDialog(progressDialog!!)
+
+                        GeneralChanges().prepareFadeTransition(
+                            this@CompleteSignupActivity,
+                            CharityMainActivity()
+                        )
+
+                    } else {
+                        GeneralChanges().hideDialog(progressDialog!!)
+                        Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
+
+                    }
+
+                } else {
+                    GeneralChanges().hideDialog(progressDialog!!)
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                    Log.e("errorBody", response.body().toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<LoginJson>, t: Throwable) {
+                Log.e("on failure sign in", t.message!!)
+                GeneralChanges().hideDialog(progressDialog!!)
+            }
+        })
+
     }
 
 }

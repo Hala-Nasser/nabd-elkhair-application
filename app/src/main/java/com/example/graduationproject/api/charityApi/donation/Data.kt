@@ -22,6 +22,8 @@ data class Data(
     val donor_id: Int,
     val donor_phone: String,
     val id: Int,
+    val milli: Long,
+    val date: String,
     val received: Int,
     val updated_at: String
 ): Parcelable

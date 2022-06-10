@@ -47,7 +47,7 @@
                         android:id="@+id/donation_campaign_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/campaign_image" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -90,15 +90,6 @@
                     </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/charity_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="منذ ساعة"
-                        android:fontFamily="@font/tajawal_medium"
-                        android:textColor="@color/black_transparent_43"
-                        android:textSize="12sp" />
 
 
                 </LinearLayout>

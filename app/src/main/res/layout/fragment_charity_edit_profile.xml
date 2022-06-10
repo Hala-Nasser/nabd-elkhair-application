@@ -32,7 +32,7 @@
                 >
 
                 <ImageView
-                    android:id="@+id/charity_settings_icon"
+                    android:id="@+id/charity_back_settings_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24"

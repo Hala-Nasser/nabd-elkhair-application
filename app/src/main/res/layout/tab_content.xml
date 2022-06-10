@@ -52,10 +52,11 @@
                     android:layout_margin="5dp">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/pay_logo" />
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/new_master_card" />
 
                 </com.google.android.material.card.MaterialCardView>
 

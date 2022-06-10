@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
+import com.example.graduationproject.api.charityApi.CampaignDonation.CampaignDonationJson
 import com.example.graduationproject.api.charityApi.donation.DonationJson
 import com.example.graduationproject.api.donorApi.logout.LogoutJson
 import com.example.graduationproject.charity.adapters.CampaignDonationAdapter
@@ -43,13 +44,13 @@ class DonationWithCampaignFragment : Fragment(){
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_donation_with_campaign, container, false)
 
-        sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        token = sharedPref.getString("charity_token", "")!!
-
-        progressDialog = ProgressDialog(activity)
-        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-
-        getDonations()
+//        sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+//        token = sharedPref.getString("charity_token", "")!!
+//
+//        progressDialog = ProgressDialog(activity)
+//        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+//
+//        getDonations()
         return root
 
     }
@@ -60,8 +61,8 @@ class DonationWithCampaignFragment : Fragment(){
             RetrofitInstance.create()
         val response = retrofitInstance.getCampaignDonations("Bearer $token")
 
-        response.enqueue(object : Callback<DonationJson> {
-            override fun onResponse(call: Call<DonationJson>, response: Response<DonationJson>) {
+        response.enqueue(object : Callback<CampaignDonationJson> {
+            override fun onResponse(call: Call<CampaignDonationJson>, response: Response<CampaignDonationJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
                     val editor = sharedPref.edit()
@@ -81,7 +82,7 @@ class DonationWithCampaignFragment : Fragment(){
                         )
                         rv_donation_with_campaign.setHasFixedSize(true)
                         var donationAdapter =
-                            CampaignDonationAdapter(requireActivity(), data!!.data,requireActivity().supportFragmentManager)
+                            CampaignDonationAdapter(requireActivity(), data.data,requireActivity().supportFragmentManager)
                         rv_donation_with_campaign.adapter = donationAdapter
                     }
 
@@ -93,7 +94,7 @@ class DonationWithCampaignFragment : Fragment(){
 
             }
 
-            override fun onFailure(call: Call<DonationJson>, t: Throwable) {
+            override fun onFailure(call: Call<CampaignDonationJson>, t: Throwable) {
                 Log.e("failure", t.message!!)
                 GeneralChanges().hideDialog(progressDialog!!)
             }

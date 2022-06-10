@@ -13,21 +13,27 @@ import com.example.graduationproject.R
 import android.widget.LinearLayout
 
 import android.view.Display
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.graduationproject.adapters.SectionsPagerAdapter
 import com.example.graduationproject.api.charityApi.fcm.FCMJson
+import com.example.graduationproject.api.donorApi.complaint.ComplaintJson
 import com.example.graduationproject.api.donorApi.profile.ProfileJson
+import com.example.graduationproject.charity.adapters.ComplaintAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.TabLayoutSettings
 import com.example.graduationproject.classes.ZoomOutPageTransformer
 import com.example.graduationproject.network.RetrofitInstance
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_charity_main.*
+import kotlinx.android.synthetic.main.fragment_charity_complaints.*
 import kotlinx.android.synthetic.main.fragment_charity_info.*
 import kotlinx.android.synthetic.main.fragment_charity_info.view.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.*
 import kotlinx.android.synthetic.main.fragment_charity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*
+import kotlinx.android.synthetic.main.fragment_donation_received.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import net.cachapa.expandablelayout.ExpandableLayout
 import retrofit2.Call
@@ -71,6 +77,38 @@ class ProfileFragment : Fragment(){
         var tabLayout = TabLayoutSettings()
         tabLayout.setTabMargin(root.charity_profile_tab_layout,12,12,270)
 
+        var onPageChangeListener: ViewPager.OnPageChangeListener =
+            object : ViewPager.OnPageChangeListener {
+
+                override fun onPageScrollStateChanged(state: Int) {
+                    when (state) {
+                        1 -> {
+                            getComplaints()
+                        }
+
+                    }
+                }
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    when (position) {
+                        1 -> {
+                            getComplaints()
+                        }
+
+                    }
+
+                }
+
+            }
+        root.charity_profile_view_pager.setOnPageChangeListener(onPageChangeListener)
+        root.charity_profile_view_pager.post(Runnable { onPageChangeListener.onPageSelected(root.charity_profile_view_pager.currentItem) })
+
 
         root.charity_settings_icon.setOnClickListener {
             val sharedPref = requireActivity().getSharedPreferences(
@@ -107,6 +145,7 @@ class ProfileFragment : Fragment(){
                     img = data.image
                     name = data.name
                     email = data.email
+                    about = data.about
                     Picasso.get().load(RetrofitInstance.IMAGE_URL+img).into(charity_profile_image)
                     charity_profile_name.text = name
                     charity_profile_email.text = email
@@ -131,5 +170,47 @@ class ProfileFragment : Fragment(){
         })
     }
 
+    fun getComplaints() {
+
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.getComplaints("Bearer $token")
+
+        response.enqueue(object : Callback<ComplaintJson> {
+            override fun onResponse(call: Call<ComplaintJson>, response: Response<ComplaintJson>) {
+                val data = response.body()
+                if (response.isSuccessful) {
+                    Log.e("complaints",data!!.data.toString())
+
+                    if(data.data!!.isEmpty()){
+                        no_complaints.visibility = View.VISIBLE
+                        rv_charity_complaints.visibility = View.GONE
+                    }else{
+                        no_complaints.visibility = View.GONE
+                        rv_charity_complaints.visibility = View.VISIBLE
+                        rv_charity_complaints.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
+                        rv_charity_complaints.setHasFixedSize(true)
+                        val donationAdapter =
+                            ComplaintAdapter(requireActivity(),data.data)
+                        rv_charity_complaints.adapter = donationAdapter
+                    }
+
+                    GeneralChanges().hideDialog(progressDialog!!)
+                } else {
+                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
+                    GeneralChanges().hideDialog(progressDialog!!)
+                }
+
+            }
+
+            override fun onFailure(call: Call<ComplaintJson>, t: Throwable) {
+                Log.e("failure", t.message!!)
+                GeneralChanges().hideDialog(progressDialog!!)
+            }
+        })
+    }
 
 }

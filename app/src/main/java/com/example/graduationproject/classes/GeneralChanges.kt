@@ -12,6 +12,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.example.graduationproject.R
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class GeneralChanges {
 
@@ -51,5 +54,22 @@ class GeneralChanges {
     fun hideDialog(progressDialog:ProgressDialog,){
         if(progressDialog.isShowing)
             progressDialog.dismiss()
+    }
+
+    fun getFromCalendar(myFormat:String,strDate: String, field: Int): Int {
+        var result = -1
+        try {
+            val locale = Locale("ar", "SA")
+
+            val formatter = SimpleDateFormat(myFormat, locale)
+            val date = formatter.parse(strDate) //convert to date
+            val cal = Calendar.getInstance() // get calendar instance
+            cal.time = date //set the calendar date to your date
+            result = cal[field] // get the required field
+            return result //return the result.
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return result
     }
 }

@@ -145,6 +145,8 @@ class AddCampaignFragment : Fragment() {
                                     .setOnPickResult { r ->
                                         imageURI = r.uri
                                         campaign_image.setImageBitmap(r.bitmap)
+                                        campaign_image.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                                        campaign_image.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
                                     }
                                     .setOnPickCancel {
                                     }.show(requireActivity().supportFragmentManager)
