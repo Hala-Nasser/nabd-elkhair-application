@@ -162,8 +162,8 @@ class PaymentSettingsFragment : Fragment() {
                                 PaymentLink(
                                     data.data.id,
                                     data.data.charity_id,
-                                    "JawalPal",
-                                    R.drawable.pay_logo,
+                                    "Master Card",
+                                    R.drawable.new_master_card,
                                     data.data.creditcard_link
                                 )
                             )

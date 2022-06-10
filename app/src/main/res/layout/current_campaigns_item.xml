@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/tajawal_medium"
-                        android:text="تنتهي الحملة في: "
+                        android:text="تنتهي في: "
                         android:textColor="@color/black_transparent_62"
                         android:textSize="12sp" />
 

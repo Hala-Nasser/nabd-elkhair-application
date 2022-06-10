@@ -34,10 +34,10 @@ class DonationTabReceivedFragment : Fragment() {
         var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
 
-        progressDialog = ProgressDialog(activity)
-        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-
-        getDonations()
+//        progressDialog = ProgressDialog(activity)
+//        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+//
+//        getDonations()
         return root
     }
 

@@ -27,10 +27,4 @@ class AboutCharityFragment : Fragment() {
         return root
     }
 
-    override fun onResume() {
-        super.onResume()
-        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        val about = sharedPref.getString("about", "")!!
-        profile_charity_about.text = about
-    }
 }

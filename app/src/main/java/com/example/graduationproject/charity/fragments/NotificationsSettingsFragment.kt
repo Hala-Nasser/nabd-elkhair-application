@@ -108,7 +108,7 @@ class NotificationsSettingsFragment : Fragment() {
             override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
-                    Toast.makeText(requireContext(), data!!.message,Toast.LENGTH_SHORT).show()
+                 Log.e("enableNotification", data!!.message)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }

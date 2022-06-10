@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-
 import android.app.Activity
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import com.example.graduationproject.api.charityApi.donation.Data
 import com.example.graduationproject.api.charityApi.donation.Donor
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.network.RetrofitInstance
@@ -25,13 +24,34 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.os.CountDownTimer
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.graduationproject.api.charityApi.donation.Data
 import com.example.graduationproject.charity.fragments.DonationRequestsFragment
+import com.example.graduationproject.charity.models.CounterViewModel
 import com.example.graduationproject.classes.PrefUtil
+import com.google.android.material.datepicker.DateValidatorPointBackward.now
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.Instant.now
+import java.time.LocalDate.now
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.ZonedDateTime.now
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoField
+import java.util.*
 import kotlin.collections.ArrayList
 
 
 class RequestDonationAdapter(
-    var activity: Context?, var data: ArrayList<Data>?
+    var activity: Context?, var data: ArrayList<Data>?,
+    var fragment: DonationRequestsFragment
 ) : RecyclerView.Adapter<RequestDonationAdapter.DonationRequestsViewHolder>(){
 
      var mTimeLeftInMillis:Long = 600000
@@ -39,16 +59,23 @@ class RequestDonationAdapter(
     enum class TimerState{
         Stopped, Paused, Running
     }
+    lateinit var viewLifecycleOwner: LifecycleOwner
     private var timerState = TimerState.Stopped
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 0
     private var secondsRemaining: Long = 0
-
     var nowSeconds: Long
          =  System.currentTimeMillis()
     lateinit var mHolder: DonationRequestsViewHolder
-     class DonationRequestsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+     class DonationRequestsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+         private var context = itemView.context
+         lateinit var counterViewModel: CounterViewModel
 
+         var viewLifecycleOwner: LifecycleOwner
+
+         init {
+             viewLifecycleOwner = context as LifecycleOwner
+         }
         val image  =itemView.donor_image
         val name  =itemView.donor_name
         val donation_accept  =itemView.donation_accept
@@ -56,9 +83,14 @@ class RequestDonationAdapter(
         val progress_countdown  =itemView.progress_countdown
         val txt_countdown  =itemView.textView_countdown
 
-        fun initialize(data: Donor) {
+        fun initialize(data: Donor,fragment: DonationRequestsFragment) {
+            counterViewModel = ViewModelProvider(fragment).get(CounterViewModel::class.java)
             Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
             name.text = data.name
+//            counterViewModel.currentTime.observe(context as LifecycleOwner, Observer { currTime ->
+//                txt_countdown.text = currTime.toString()
+//
+//            })
         }
 
     }
@@ -75,29 +107,29 @@ class RequestDonationAdapter(
         return data!!.size
     }
     
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: DonationRequestsViewHolder, position: Int) {
-        holder.initialize(data!![position].donor!!)
+        holder.initialize(data!![position].donor!!,fragment)
         holder.itemView.setOnClickListener {
             bottomSheet(activity as Activity, position)
         }
-        var milliseconds = System.currentTimeMillis() + 86400000
+        var milliseconds = data!![position].milli + 86400000 // 24h
+
+        val now: DateTime = DateTime.now()
+        var formatter = DateTimeFormat.forPattern( "yyyy-MM-dd HH:mm:ss" ).withLocale(java.util.Locale.ENGLISH)
+        var target = formatter.parseDateTime(data!![position].date)
+
+        val twentyFourHoursLater = target.plusHours(24)
+        val expired = now.isAfter(twentyFourHoursLater)
+
+        val countNumber = twentyFourHoursLater.millis - nowSeconds
         //updateTimeRemaining(milliseconds,holder.txt_countdown)
-
-
-//         listener.startTimer()
-//         DonationRequestsFragment.TimerState.Running
-
-//        var startTime = System.currentTimeMillis()
-
-        //adding 24 hours milliseconds with current time of milliseconds to make it 24 hours milliseconds.
-
-        //adding 24 hours milliseconds with current time of milliseconds to make it 24 hours milliseconds.
-//        // 24 hours = 86400000 milliseconds
-//
-         timer = object : CountDownTimer(milliseconds, 1000) {
+        if (!expired){
+            Log.e("TimerPosition","التايمر بزيد$position")
+            timer = object : CountDownTimer(countNumber, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                nowSeconds -= 1
-                secondsRemaining = (millisUntilFinished - nowSeconds) / 1000
+//                nowSeconds -= 1
+                secondsRemaining = (millisUntilFinished) / 1000
 
                 // now you repalce txtViewHours,  txtViewMinutes, txtViewSeconds by your textView.
                 val hoursLeft = String.format("%d", secondsRemaining % 86400 / 3600)
@@ -118,6 +150,11 @@ class RequestDonationAdapter(
         }
 
         timer.start()
+        }else{
+            Log.e("TimerPosition","الوقت فات$position")
+            setDonationAcceptance(data!![position].id,0 ,holder.adapterPosition)
+        }
+
 
         holder.donation_accept.setOnClickListener {
             setDonationAcceptance(data!![position].id,1,holder.adapterPosition)
@@ -130,7 +167,6 @@ class RequestDonationAdapter(
 
 
     }
-
 
     fun bottomSheet(activity: Activity, position: Int){
         var view = activity.layoutInflater.inflate(R.layout.bottom_sheet_manually, null)
@@ -148,9 +184,7 @@ class RequestDonationAdapter(
         view.close.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
-//        view.accept_donation.setOnClickListener {
-//            bottomSheetDialog.dismiss()
-//        }
+
         val donation  =data!![position]
         view.bs_donor_name.text = donation.donor!!.name
         view.bs_received_date.text = donation.date_time
@@ -178,7 +212,7 @@ class RequestDonationAdapter(
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, data!!.size)
 
-                    Toast.makeText(activity, body!!.message, Toast.LENGTH_SHORT).show()
+                    Log.e("DonationAcceptance", body!!.message)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }

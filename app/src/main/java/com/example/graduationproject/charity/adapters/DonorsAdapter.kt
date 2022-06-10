@@ -81,7 +81,7 @@ class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:
         }else {
             view.bs_campaign_card.visibility = View.VISIBLE
         }
-
+        view.add_complaint_img.visibility = View.VISIBLE
         view.add_complaint_img.setOnClickListener {
             val f = AddComplaintFragment()
             val b= Bundle()

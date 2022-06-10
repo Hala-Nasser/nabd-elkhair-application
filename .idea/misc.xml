@@ -34,17 +34,18 @@
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/active_dots.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/dashed_border.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/ic_warning.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/profile_tab_style.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/radio_normal.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/state_thumb.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/thumb.xml" value="0.2203125" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/drawable/track.xml" value="0.2203125" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_charity_complete_signup.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_charity_complete_signup.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_charity_main.xml" value="0.18" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_complete_sign_up.xml" value="0.15579710144927536" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_donor_main.xml" value="0.1" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_payments_method.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_payments_method.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_privacy_policy.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_sign_in.xml" value="0.10643115942028986" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
@@ -53,6 +54,7 @@
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/add_campaign_phase_three.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/add_campaign_phase_two.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/bd_payment_item.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/bottom_dialog_item_manual.xml" value="0.16757246376811594" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/bottom_donation_with_campaign.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/bottom_sheet_manually.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/campaign_added_dialog.xml" value="0.1" />
@@ -65,31 +67,32 @@
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donation_type_item.xml" value="0.5" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donation_type_tab_item.xml" value="0.5" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donation_with_campaign.xml" value="0.18" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donation_without_campaign.xml" value="0.22" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donation_without_campaign.xml" value="0.33" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donor_notification_item.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/donors_item.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_add_campaign.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_add_complaint.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_campaign_details.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_capmaigns_according_to_donation_type.xml" value="0.1286231884057971" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_change_password.xml" value="0.10643115942028986" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_campaign_details.xml" value="0.18" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_campaign_details.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_complaints.xml" value="0.11594202898550725" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_edit_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_edit_profile.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_home.xml" value="0.2" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_info.xml" value="0.21" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_info.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_notification.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_profile.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_settings.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_not_received.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_received.xml" value="0.22" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_requests.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_requests.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_tab_received.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_with_campaign.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_without_campaign.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_edit_campaign.xml" value="0.16" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_edit_profile.xml" value="0.25" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_general_settings.xml" value="0.10099637681159421" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_general_settings.xml" value="0.22" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_home.xml" value="0.11322463768115942" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_jawal_pal.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_notification.xml" value="0.1" />
@@ -97,9 +100,10 @@
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_pay_pal.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_payment_settings.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/fragment_visa.xml" value="0.1" />
         <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/payment_item.xml" value="0.33" />
-        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/tab_content.xml" value="0.25" />
+        <entry key="..\:/Users/Noor Abd/nabd-elkhair-application/app/src/main/res/layout/tab_content.xml" value="0.5" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/drawable-v24/ic_arrow_down.xml" value="0.19270833333333334" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/drawable-v24/spinner.xml" value="0.190625" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/drawable/active_dots.xml" value="0.16712962962962963" />
@@ -147,7 +151,7 @@
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/bottom_dialog_item.xml" value="0.25" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/bottom_dialog_item_manual.xml" value="0.25" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/bottom_donation_with_campaign.xml" value="0.25" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/bottom_sheet_manually.xml" value="0.25" />
+        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/bottom_sheet_manually.xml" value="0.17083333333333334" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/campaign_item_in_donation_screen.xml" value="0.21" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/charity_item.xml" value="0.33" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/charity_notification_item.xml" value="0.33" />
@@ -175,19 +179,11 @@
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_campaigns.xml" value="0.17083333333333334" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_complaints.xml" value="0.15694444444444444" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_details.xml" value="0.22" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_edit_profile.xml" value="0.15694444444444444" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_home.xml" value="0.1765625" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_notification.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_profile.xml" value="0.11203703703703703" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_charity_settings.xml" value="0.15694444444444444" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_clothes_donation.xml" value="0.1" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_confirmation.xml" value="0.22" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_donation.xml" value="0.1388888888888889" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_not_received.xml" value="0.15694444444444444" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_received.xml" value="0.15694444444444444" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_tab_received.xml" value="0.15694444444444444" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_with_campaign.xml" value="0.15694444444444444" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_donation_without_campaign.xml" value="0.15694444444444444" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_edit_profile.xml" value="0.22" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_first_step_view_donation.xml" value="0.18" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_food_donation.xml" value="0.1" />
@@ -195,7 +191,7 @@
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_money_donation.xml" value="0.18" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_my_donation.xml" value="0.15694444444444444" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_notification.xml" value="0.17083333333333334" />
-        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_search_results.xml" value="0.15694444444444444" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_second_step_view_donation.xml" value="0.25" />
         <entry key="..\:/Users/alawael/AndroidStudioProjects/nabd-elkhair-application/app/src/main/res/layout/fragment_second_step_view_donation_electronic.xml" value="0.25" />

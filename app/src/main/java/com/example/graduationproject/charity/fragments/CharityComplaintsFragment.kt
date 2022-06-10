@@ -36,12 +36,12 @@ class CharityComplaintsFragment : Fragment() {
     // Inflate the layout for this fragment
     var root = inflater.inflate(R.layout.fragment_charity_complaints, container, false)
 
-    var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-    token = sharedPref.getString("charity_token", "")!!
-
-    progressDialog = ProgressDialog(activity)
-    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-    getComplaints()
+//    var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+//    token = sharedPref.getString("charity_token", "")!!
+//
+//    progressDialog = ProgressDialog(activity)
+//    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+//    getComplaints()
     return root
   }
 

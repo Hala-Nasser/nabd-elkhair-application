@@ -58,7 +58,8 @@ class AddComplaintFragment : Fragment() {
         cToken = sharedPref.getString("charity_token", "")!!
 
         val cal = Calendar.getInstance()
-        val month_date = SimpleDateFormat("MMMM")
+        val locale = Locale("ar", "SA")
+        val month_date = SimpleDateFormat("MMMM",locale)
         val month_name = month_date.format(cal.time)
         val year = cal.get(Calendar.YEAR)
         val day = cal.get(Calendar.DAY_OF_MONTH)

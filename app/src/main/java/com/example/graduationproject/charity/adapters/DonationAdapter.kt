@@ -169,7 +169,7 @@ class DonationAdapter(
                     transaction.detach(DonationReceivedFragment()).attach(
                         DonationReceivedFragment()
                     ).commit()
-                    Toast.makeText(activity, body!!.message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, body!!.message, Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }

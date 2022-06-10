@@ -7,26 +7,22 @@
     android:layout_marginHorizontal="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+
+    <TextView
+        android:id="@+id/complainer_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/complaint_blue"
-        app:cardCornerRadius="20dp"
-        tools:ignore="MissingConstraints">
+        android:fontFamily="@font/tajawal_bold"
+        android:gravity="center"
+        android:text="تأخر في الاستلام"
+        android:textColor="@color/black_transparent_76"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/complainer_reason"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:fontFamily="@font/tajawal_bold"
-            android:text="تأخر في الاستلام"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
-
-    </androidx.cardview.widget.CardView>
 
 
 

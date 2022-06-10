@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationproject.R
-import com.example.graduationproject.api.charityApi.donation.DonationJson
 import com.example.graduationproject.charity.adapters.RequestDonationAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
@@ -26,6 +25,7 @@ import retrofit2.Response
 
 import android.content.Intent
 import android.os.CountDownTimer
+import com.example.graduationproject.api.charityApi.donation.DonationJson
 import com.example.graduationproject.classes.PrefUtil
 import com.example.graduationproject.classes.TimerExpiredReceiver
 import kotlinx.android.synthetic.main.fragment_charity_settings.view.*
@@ -78,7 +78,7 @@ class DonationRequestsFragment : Fragment() {
         // Inflate the layout for this fragment
          root = inflater.inflate(R.layout.fragment_donation_requests, container, false)
 
-        donationAdapter = RequestDonationAdapter(requireActivity(),null)
+        donationAdapter = RequestDonationAdapter(requireActivity(),null,this)
         requireActivity().charity_nav_bottom.visibility=View.GONE
         var sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
@@ -111,7 +111,7 @@ class DonationRequestsFragment : Fragment() {
                     )
                     rv_donation_requests.setHasFixedSize(true)
                      donationAdapter =
-                        RequestDonationAdapter(requireActivity(), data!!.data)
+                        RequestDonationAdapter(requireActivity(), data!!.data,this@DonationRequestsFragment)
                     rv_donation_requests.adapter = donationAdapter
                     onActivityStateChanged  = donationAdapter.registerActivityState()
                     GeneralChanges().hideDialog(progressDialog!!)

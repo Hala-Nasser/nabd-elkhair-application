@@ -143,9 +143,6 @@ class SignInActivity : AppCompatActivity() {
 
     fun charityLoginToApp() {
 
-        Log.e("email", user_email)
-        Log.e("password", user_password)
-
         val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("email", user_email)
             .addFormDataPart("password", user_password)
