@@ -115,4 +115,6 @@ dependencies {
         force = true //API 19 support
     }
 
+    implementation 'joda-time:joda-time:2.10.14'
+
 }

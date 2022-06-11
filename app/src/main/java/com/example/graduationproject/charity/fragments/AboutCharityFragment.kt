@@ -17,7 +17,6 @@ class AboutCharityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_info, container, false)
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val about = sharedPref.getString("about", "")!!

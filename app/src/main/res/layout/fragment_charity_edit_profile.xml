@@ -149,18 +149,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="موقع الجمعية"
-                android:textSize="13sp"
-                android:fontFamily="@font/tajawal_medium"
-                android:textColor="@color/edit_profile_grey"
-                android:layout_marginTop="15dp"
-                android:paddingStart="15dp"/>
-
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/charity_location_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"

@@ -48,9 +48,10 @@ class Validation {
 
     }
 
-    fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    fun CharSequence?.isValidEmail() =
+        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-    fun validateEmail(emailEt: TextInputEditText, emailTL:TextInputLayout): Boolean {
+    fun validateEmail(emailEt: TextInputEditText, emailTL: TextInputLayout): Boolean {
         val email = emailEt.text.toString()
         return if (email.trim().isEmpty()) {
             emailTL.error = "البريد الالكتروني مطلوب"
@@ -70,7 +71,7 @@ class Validation {
         }
     }
 
-    fun validatePhoneNumber(phoneEt: TextInputEditText, phoneTL:TextInputLayout): Boolean {
+    fun validatePhoneNumber(phoneEt: TextInputEditText, phoneTL: TextInputLayout): Boolean {
         val phone = phoneEt.text.toString()
         return if (phone.trim().isEmpty()) {
             phoneTL.error = "رقم الهاتف مطلوب"
@@ -90,7 +91,7 @@ class Validation {
         }
     }
 
-    fun validatePassword(passwordEt: TextInputEditText, passwordTL:TextInputLayout): Boolean {
+    fun validatePassword(passwordEt: TextInputEditText, passwordTL: TextInputLayout): Boolean {
         val password = passwordEt.text.toString()
 
         return if (password.trim().isEmpty()) {
@@ -111,7 +112,11 @@ class Validation {
         }
     }
 
-    fun validateConfirmPassword(c_passwordEt: TextInputEditText, c_passwordTL:TextInputLayout, password:String): Boolean {
+    fun validateConfirmPassword(
+        c_passwordEt: TextInputEditText,
+        c_passwordTL: TextInputLayout,
+        password: String
+    ): Boolean {
         val c_password = c_passwordEt.text.toString()
 
         return if (c_password.trim().isEmpty()) {
@@ -132,7 +137,10 @@ class Validation {
         }
     }
 
-    fun validateLocation(auto_complete: AutoCompleteTextView, locationTL:TextInputLayout): Boolean {
+    fun validateLocation(
+        auto_complete: AutoCompleteTextView,
+        locationTL: TextInputLayout
+    ): Boolean {
         val location = auto_complete.text.toString()
 
         return if (location.trim().isEmpty()) {
@@ -148,7 +156,7 @@ class Validation {
         }
     }
 
-    fun validateCode(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+    fun validateCode(codeEt: TextInputEditText, codeTL: TextInputLayout): Boolean {
         val code = codeEt.text.toString()
 
         return if (code.trim().isEmpty()) {
@@ -170,7 +178,7 @@ class Validation {
     }
 
 
-    fun validateAboutCharity(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+    fun validateAboutCharity(codeEt: TextInputEditText, codeTL: TextInputLayout): Boolean {
         val code = codeEt.text.toString()
 
         return if (code.trim().isEmpty()) {
@@ -186,7 +194,7 @@ class Validation {
         }
     }
 
-    fun validateAboutCampaign(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+    fun validateAboutCampaign(codeEt: TextInputEditText, codeTL: TextInputLayout): Boolean {
         val code = codeEt.text.toString()
 
         return if (code.trim().isEmpty()) {
@@ -202,7 +210,7 @@ class Validation {
         }
     }
 
-    fun validateCampaignName(codeEt: TextInputEditText, codeTL:TextInputLayout): Boolean {
+    fun validateCampaignName(codeEt: TextInputEditText, codeTL: TextInputLayout): Boolean {
         val code = codeEt.text.toString()
 
         return if (code.trim().isEmpty()) {
@@ -218,21 +226,21 @@ class Validation {
         }
     }
 
-    fun showSnackBar(view: View, message:String){
+    fun showSnackBar(view: View, message: String) {
         val snackBarView = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         val view = snackBarView.view
-        view.setBackgroundColor(Color.argb(180,255,0,46))
+        view.setBackgroundColor(Color.argb(180, 255, 0, 46))
         val snackBarTextView = view.findViewById<TextView>(R.id.snackbar_text)
         snackBarTextView.textSize = 20f
         snackBarTextView.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
         snackBarView.setTextColor(Color.WHITE)
         snackBarTextView.maxLines = 2
         val marginTextParam = snackBarTextView.layoutParams as ViewGroup.MarginLayoutParams
-        marginTextParam.setMargins(10,10,10,10)
+        marginTextParam.setMargins(10, 10, 10, 10)
         snackBarTextView.layoutParams = marginTextParam
 
         val marginSnackParam = view.layoutParams as ViewGroup.MarginLayoutParams
-        marginSnackParam.setMargins(0,0,0,0)
+        marginSnackParam.setMargins(0, 0, 0, 0)
         view.layoutParams = marginSnackParam
 
         val params = view.layoutParams as FrameLayout.LayoutParams

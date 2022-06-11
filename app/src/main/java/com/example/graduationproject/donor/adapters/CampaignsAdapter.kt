@@ -17,16 +17,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, var from:String,
-                        var clickListener: onCampaignItemClickListener) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>(){
+class CampaignsAdapter(
+    var activity: Context?, var data: ArrayList<Campaigns>, var from: String,
+    var clickListener: onCampaignItemClickListener
+) : RecyclerView.Adapter<CampaignsAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val image  =itemView.campaign_image
-        val name  =itemView.campaign_name
-        val date  =itemView.campaign_date
-        val charity  =itemView.campaign_charity
-        val card  =itemView.campaign_card
+        val image = itemView.campaign_image
+        val name = itemView.campaign_name
+        val date = itemView.campaign_date
+        val charity = itemView.campaign_charity
+        val card = itemView.campaign_card
 
 
         fun initialize(
@@ -34,56 +36,65 @@ class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, 
             action: onCampaignItemClickListener,
             from: String,
         ) {
-            when(from){
+            when (from) {
                 "DonorProfile" -> {
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
                     name.text = data.name
                     val locale = Locale("ar", "SA")
-                    var originalDate = SimpleDateFormat("EEEE، d MMMM y",locale).parse(data.expiry_date)
-                    var formattedDate = SimpleDateFormat("d MMMM y",locale).format(originalDate)
-                    date.text =  formattedDate
+                    var originalDate =
+                        SimpleDateFormat("EEEE، d MMMM y", locale).parse(data.expiry_date)
+                    var formattedDate = SimpleDateFormat("d MMMM y", locale).format(originalDate)
+                    date.text = formattedDate
                 }
                 "CharityCampaigns" -> {
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
                     name.text = data.name
                 }
 
                 else -> {
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
                     name.text = data.name
                     val locale = Locale("ar", "SA")
-                    var originalDate = SimpleDateFormat("EEEE، d MMMM y",locale).parse(data.expiry_date)
-                    var formattedDate = SimpleDateFormat("d MMMM y",locale).format(originalDate)
-                    date.text =  formattedDate
-                    if (from=="DonorHome")
-                    charity.text = data.charity.name
+                    var originalDate =
+                        SimpleDateFormat("EEEE، d MMMM y", locale).parse(data.expiry_date)
+                    var formattedDate = SimpleDateFormat("d MMMM y", locale).format(originalDate)
+                    date.text = formattedDate
+                    if (from == "DonorHome")
+                        charity.text = data.charity.name
                 }
 
             }
 
             itemView.setOnClickListener {
-                action.onItemClick(data, adapterPosition,from)
+                action.onItemClick(data, adapterPosition, from)
             }
         }
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignsAdapter.MyViewHolder {
-        when(from){
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CampaignsAdapter.MyViewHolder {
+        when (from) {
             "DonorProfile" -> {
-                var view: View = LayoutInflater.from(activity).inflate(R.layout.profile_campaign_item ,parent ,false)
-                val myHolder:MyViewHolder = MyViewHolder(view)
+                var view: View = LayoutInflater.from(activity)
+                    .inflate(R.layout.profile_campaign_item, parent, false)
+                val myHolder: MyViewHolder = MyViewHolder(view)
                 return myHolder
             }
             "CharityCampaigns" -> {
 
-                var view: View = LayoutInflater.from(activity).inflate(R.layout.campaign_item_in_donation_screen ,parent ,false)
-                val myHolder:MyViewHolder = MyViewHolder(view)
+                var view: View = LayoutInflater.from(activity)
+                    .inflate(R.layout.campaign_item_in_donation_screen, parent, false)
+                val myHolder: MyViewHolder = MyViewHolder(view)
                 return myHolder
             }
         }
 
-        var view: View = LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item ,parent ,false)
-        val myHolder:MyViewHolder = MyViewHolder(view)
+        var view: View =
+            LayoutInflater.from(activity).inflate(R.layout.current_campaigns_item, parent, false)
+        val myHolder: MyViewHolder = MyViewHolder(view)
         return myHolder
     }
 
@@ -93,9 +104,9 @@ class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, 
 
     override fun onBindViewHolder(holder: CampaignsAdapter.MyViewHolder, position: Int) {
         Log.e("data in adapter", data.toString())
-        holder.initialize(data[position], clickListener,from)
+        holder.initialize(data[position], clickListener, from)
 
-        when(from){
+        when (from) {
             "CharityHome" -> {
                 holder.charity.visibility = View.GONE
             }
@@ -107,7 +118,7 @@ class CampaignsAdapter (var activity: Context?, var data :ArrayList<Campaigns>, 
     }
 
     interface onCampaignItemClickListener {
-        fun onItemClick(data: Campaigns, position: Int,from: String)
+        fun onItemClick(data: Campaigns, position: Int, from: String)
     }
 
 

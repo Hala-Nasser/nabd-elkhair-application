@@ -30,12 +30,12 @@ import retrofit2.Response
 
 class AboutCharityFragment : Fragment() {
 
-    lateinit var dialog : Dialog
-    lateinit var v :View
-    var campaign_donation_type= mutableListOf<DonationType>()
-    var charity_id =  0
-    var charity_name :String? =  ""
-    var charity_image :String? =  ""
+    lateinit var dialog: Dialog
+    lateinit var v: View
+    var campaign_donation_type = mutableListOf<DonationType>()
+    var charity_id = 0
+    var charity_name: String? = ""
+    var charity_image: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,18 +47,15 @@ class AboutCharityFragment : Fragment() {
         val b = arguments
         if (b != null) {
             var description = b.getString("charity_description")
-           // var donation_type_id = b.getStringArrayList("charity_donation_type")
             var phone = b.getString("charity_phone")
             charity_id = b.getInt("charity_id", 0)
             charity_name = b.getString("charity_name")
             charity_image = b.getString("charity_image")
-            //var facebook = b.getString("charity_facebook")
 
             getDonationType(charity_id)
 
             root.charity_description.text = description
             root.charity_phone.text = phone.toString()
-            //root.charity_facebook.text = facebook
 
             root.charity_donate.setOnClickListener {
                 getDialog()
@@ -70,43 +67,49 @@ class AboutCharityFragment : Fragment() {
                 }
                 v.choose.setOnClickListener {
                     Log.e("item selected position", lastCheckedPos.toString())
-                    if (typeSelected != null){
-                        if (typeSelected!!.name == "مال"){
+                    if (typeSelected != null) {
+                        if (typeSelected!!.name == "مال") {
                             val fragment = FirstStepViewDonationFragment()
-                            val b=Bundle()
+                            val b = Bundle()
                             b.putInt("charity_id", charity_id)
                             b.putInt("donation_type_id", typeSelected!!.id)
                             b.putString("campaign_name", charity_name)
                             b.putString("campaign_image", charity_image)
-                            fragment.arguments=b
-                            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
-                        }else{
+                            fragment.arguments = b
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
+                        } else {
 
                             val fragment = SecondStepViewDonationManualFragment()
-                            val b=Bundle()
-                            //b.putInt("charity_id", campaign_charity.id)
+                            val b = Bundle()
                             b.putInt("charity_id", charity_id)
                             b.putInt("donation_type_id", typeSelected!!.id)
                             b.putString("campaign_name", charity_name)
                             b.putString("campaign_image", charity_image)
-                            b.putString("previous_fragment","charityDetails")
-                            fragment.arguments=b
-                            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
+                            b.putString("previous_fragment", "charityDetails")
+                            fragment.arguments = b
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
 
                         }
                         lastCheckedPos = -1
                         typeSelected = null
                         dialog.dismiss()
-                    }else{
-                        Toast.makeText(requireActivity(),"قم باختيار نوع التبرع أولاً", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            requireActivity(),
+                            "قم باختيار نوع التبرع أولاً",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                 }
 
-                v.rv_donation_type.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL,false)
+                v.rv_donation_type.layoutManager =
+                    LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
                 v.rv_donation_type.setHasFixedSize(true)
                 val donationAdapter =
-                    DonationTypeAdapter(activity, campaign_donation_type,"CampaignDetailsFragment")
+                    DonationTypeAdapter(activity, campaign_donation_type, "CampaignDetailsFragment")
                 v.rv_donation_type.adapter = donationAdapter
             }
         }
@@ -114,19 +117,23 @@ class AboutCharityFragment : Fragment() {
         return root
     }
 
-    fun getDonationType(id:Int) {
+    fun getDonationType(id: Int) {
 
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.getCharityDonationTypes(id)
 
         response.enqueue(object : Callback<DonationTypeJson> {
-            override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
+            override fun onResponse(
+                call: Call<DonationTypeJson>,
+                response: Response<DonationTypeJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
                     campaign_donation_type = data as MutableList<DonationType>
-                    rv_charity_donation_type.layoutManager = LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false)
+                    rv_charity_donation_type.layoutManager =
+                        LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
                     rv_charity_donation_type.setHasFixedSize(true)
                     val donationTypeAdapter =
                         DonationTypeAdapter(activity, data, "about charity")
@@ -144,8 +151,8 @@ class AboutCharityFragment : Fragment() {
     }
 
 
-    fun getDialog(){
-        v= layoutInflater.inflate(R.layout.dialog_item,null)
+    fun getDialog() {
+        v = layoutInflater.inflate(R.layout.dialog_item, null)
         dialog = Dialog(this.requireContext())
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(v)

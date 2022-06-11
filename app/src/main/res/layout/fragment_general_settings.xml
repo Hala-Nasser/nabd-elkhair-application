@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="الخصوصية"
+                android:text="عن التطبيق"
                 android:textSize="16sp"
                 android:fontFamily="@font/tajawal_bold"
                 android:textColor="@color/black_transparent_94"
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/tajawal_medium"
                     android:inputType="none"
-                    android:text="سياسة الخصوصية"
+                    android:text="من نحن؟"
                     android:clickable="true"
                     android:focusable="false"
                     android:cursorVisible="false"

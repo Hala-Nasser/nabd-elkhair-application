@@ -73,22 +73,17 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
         root.rv_campaigns.visibility = View.GONE
 
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        var isDonor = sharedPref.getBoolean("isDonor",false)
-//        donation_type = if (isDonor)
-//            sharedPref.getInt("selected home donation type", -1)
-//        else sharedPref.getInt("selected charity home donation type", -1)
+        var isDonor = sharedPref.getBoolean("isDonor", false)
         token = sharedPref.getString("charity_token", "")!!
 
 
-       Log.e("donation_in_campaign", donation_type.toString())
+        Log.e("donation_in_campaign", donation_type.toString())
 
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-        if (isDonor){
-         // getCampaignsDonationType(donation_type)
+        if (isDonor) {
             getCampaignsDonationType()
-        }
-        else getCharityCampaignsAccordingToDonationType()
+        } else getCharityCampaignsAccordingToDonationType()
 
         return root
     }
@@ -97,7 +92,8 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
         val d = requireArguments().getInt("someInt", 0)
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.getCharityCampaignsAccordingToDonationType("Bearer $token",d)
+        val response =
+            retrofitInstance.getCharityCampaignsAccordingToDonationType("Bearer $token", d)
 
         response.enqueue(object : Callback<CampaignsDonationTypeJson> {
             override fun onResponse(
@@ -106,12 +102,6 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
             ) {
                 if (response.isSuccessful) {
                     var data = response.body()!!.data
-                    val adapter = CampaignsAdapter(
-                        activity,
-                        data,
-                        "CharityHome",
-                        this@CampaignsAccordingToDonationTypeFragment
-                    )
                     Log.e("response", response.body().toString())
                     if (data.isEmpty()) {
                         all_no_campaign.visibility = View.VISIBLE
@@ -121,7 +111,7 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                     } else {
                         all_no_campaign.visibility = View.GONE
                         rv_campaigns.visibility = View.VISIBLE
-                        rv_campaigns.layoutManager = GridLayoutManager(requireContext(),2)
+                        rv_campaigns.layoutManager = GridLayoutManager(requireContext(), 2)
                         rv_campaigns.setHasFixedSize(true)
                         val campaignsAdapter =
                             CampaignsAdapter(
@@ -154,7 +144,6 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
 
         val d = requireArguments().getInt("someInt", 0)
         Log.e("donation_type_hala", d.toString())
-       // Log.e("d_type_in_function", donation_type.toString())
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.getCampaignsAccordingToDonationType(d)
@@ -167,10 +156,10 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                 if (response.isSuccessful) {
                     var data = response.body()!!.data
                     val adapter = CampaignsAdapter(
-                            activity,
-                    data,
-                    "DonorProfile",
-                    this@CampaignsAccordingToDonationTypeFragment
+                        activity,
+                        data,
+                        "DonorProfile",
+                        this@CampaignsAccordingToDonationTypeFragment
                     )
                     Log.e("response", response.body().toString())
                     if (data.isEmpty()) {
@@ -246,7 +235,10 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                 b.putString("campaign_image", data.image)
                 b.putString("campaign_date", data.expiry_date)
                 b.putParcelable("campaign_charity", data.charity)
-                b.putParcelableArrayList("campaign_donation_type", data.donation_type as ArrayList<DonationType>)
+                b.putParcelableArrayList(
+                    "campaign_donation_type",
+                    data.donation_type as ArrayList<DonationType>
+                )
 
                 fragment.arguments = b
 
@@ -255,12 +247,6 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                 requireActivity().nav_bottom.visibility = View.GONE
 
             }
-//            "DonorProfile" -> {
-//                showDialog(data.donation_type[1], "electronic")
-//                v.close.setOnClickListener {
-//                    dialog.dismiss()
-//                }
-//            }
             else -> {
                 val fragment = CharityCampaignDetailsFragment()
                 val b = Bundle()
@@ -278,23 +264,6 @@ class CampaignsAccordingToDonationTypeFragment : Fragment(),
                     .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
             }
         }
-    }
-
-    private fun showDialog(donationType: DonationType, donationMethod: String) {
-        dialog = BottomSheetDialog(this.requireContext())
-        if (donationType.name == "مال" && donationMethod == "electronic") {
-            v = layoutInflater.inflate(R.layout.bottom_dialog_item, null)
-            v.title_electronic.text = "تفاصيل التبرع"
-        } else {
-            v = layoutInflater.inflate(R.layout.bottom_dialog_item_manual, null)
-            v.title.text = "تفاصيل التبرع"
-            v.confirm.visibility = View.GONE
-        }
-
-        dialog.setContentView(v)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
-
     }
 
 }

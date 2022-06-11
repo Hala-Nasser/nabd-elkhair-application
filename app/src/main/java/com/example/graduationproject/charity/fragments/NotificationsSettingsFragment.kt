@@ -12,24 +12,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.graduationproject.PrivacyPolicyActivity
+import com.example.graduationproject.AboutActivity
 import com.example.graduationproject.R
-import com.example.graduationproject.api.charityApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.forgotPassword.ForgotPasswordJson
 import com.example.graduationproject.api.donorApi.logout.LogoutJson
-import com.example.graduationproject.api.donorApi.profile.ProfileJson
-import com.example.graduationproject.charity.activites.CharityMainActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.network.RetrofitInstance
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_charity_main.*
-import kotlinx.android.synthetic.main.fragment_charity_profile.*
-import kotlinx.android.synthetic.main.fragment_general_settings.view.*
-import kotlinx.android.synthetic.main.fragment_general_settings.view.general_settings_sign_out
 import kotlinx.android.synthetic.main.fragment_notifications_settings.view.*
-import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.android.synthetic.main.fragment_settings.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,19 +42,20 @@ class NotificationsSettingsFragment : Fragment() {
         token = sharedPref.getString("charity_token", "")!!
 
         root.notification_settings_privacy_policy.setOnClickListener {
-            var i = Intent(requireContext(), PrivacyPolicyActivity::class.java)
+            var i = Intent(requireContext(), AboutActivity::class.java)
             startActivity(i)
         }
 
-        root.charity_notification_switch.isChecked = sharedPref.getInt("charity_notification",0) != 0
+        root.charity_notification_switch.isChecked =
+            sharedPref.getInt("charity_notification", 0) != 0
 
 
         root.charity_notification_switch.setOnCheckedChangeListener { compoundButton, b ->
-            if (root.charity_notification_switch.isChecked){
+            if (root.charity_notification_switch.isChecked) {
                 notificationStatus = 1
                 Log.e("check", root.charity_notification_switch.isChecked.toString())
 
-            }else{
+            } else {
                 notificationStatus = 0
                 Log.e("check", root.charity_notification_switch.isChecked.toString())
 
@@ -79,8 +70,8 @@ class NotificationsSettingsFragment : Fragment() {
         return root
     }
 
-    fun getAlertDialog(){
-        var alertDialog= AlertDialog.Builder(requireContext())
+    fun getAlertDialog() {
+        var alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("تسجيل الخروج")
         alertDialog.setMessage("هل تريد تسجيل الخروج فعلاً!!")
         alertDialog.setCancelable(false)
@@ -93,22 +84,27 @@ class NotificationsSettingsFragment : Fragment() {
         }
 
         alertDialog.setNegativeButton("لا,شكراً") { dialogInterface, i ->
-            Log.e("ok","ok")
+            Log.e("ok", "ok")
         }
-        alertDialog.create().show()
+        var alertDialogCreate = alertDialog.create()
+        alertDialogCreate.window!!.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        alertDialogCreate.show()
     }
 
     fun enableNotification() {
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.setNotificationStatus("Bearer $token",notificationStatus)
+        val response = retrofitInstance.setNotificationStatus("Bearer $token", notificationStatus)
 
         response.enqueue(object : Callback<ForgotPasswordJson> {
-            override fun onResponse(call: Call<ForgotPasswordJson>, response: Response<ForgotPasswordJson>) {
+            override fun onResponse(
+                call: Call<ForgotPasswordJson>,
+                response: Response<ForgotPasswordJson>
+            ) {
                 val data = response.body()
                 if (response.isSuccessful) {
-                 Log.e("enableNotification", data!!.message)
+                    Log.e("enableNotification", data!!.message)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }
@@ -131,9 +127,9 @@ class NotificationsSettingsFragment : Fragment() {
             override fun onResponse(call: Call<LogoutJson>, response: Response<LogoutJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
-                    Toast.makeText(requireContext(), data!!.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), data!!.message, Toast.LENGTH_SHORT).show()
                     val i = Intent(requireActivity(), SignInActivity()::class.java)
-                    i.putExtra("Donor",false)
+                    i.putExtra("Donor", false)
                     startActivity(i)
                     requireActivity().finish()
                     GeneralChanges().hideDialog(progressDialog!!)

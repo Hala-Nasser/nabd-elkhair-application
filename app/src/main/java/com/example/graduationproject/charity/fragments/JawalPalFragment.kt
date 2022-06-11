@@ -31,7 +31,7 @@ class JawalPalFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
             val clip = ClipData.newPlainText("تم نسخ الرسالة", root.jawalPal_txt.text.toString())
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(requireContext(),"تم نسخ النص",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "تم نسخ النص", Toast.LENGTH_SHORT).show()
         }
         return root
 

@@ -36,7 +36,6 @@ class OnBoardingActivity : AppCompatActivity() {
     lateinit var pagerAdapter: MyPagerAdapter
     lateinit var layoutDot: LinearLayout
     lateinit var dots: Array<ImageView?>
-    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,6 @@ class OnBoardingActivity : AppCompatActivity() {
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
 
-        progressDialog = ProgressDialog(this)
 
         viewPager = findViewById(R.id.pager)
         layoutDot = findViewById(R.id.dotLayout)
@@ -61,38 +59,32 @@ class OnBoardingActivity : AppCompatActivity() {
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
 
             override fun onPageSelected(position: Int) {
                 Log.e("pos", position.toString())
                 when (position) {
                     0 -> {
-//                        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                         getStaticPage(3)
                         btnNext.text = "التالي"
                         tvSkip.visibility = View.VISIBLE
                     }
                     1 -> {
-//                        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                         getStaticPage(4)
                         btnNext.text = "التالي"
                         tvSkip.visibility = View.VISIBLE
                     }
                     layouts.size - 1 -> {
-//                        GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                         getStaticPage(5)
                         btnNext.text = "هيا بنا"
                         tvSkip.visibility = View.GONE
                     }
                 }
-//                if (position == layouts.size - 1) {
-//                    //LAST PAGE
-//                    btnNext.text = "هيا بنا"
-//                    tvSkip.visibility = View.GONE
-//                } else {
-//                    btnNext.text = "التالي"
-//                    tvSkip.visibility = View.VISIBLE
-//                }
                 createDote(position)
             }
 
@@ -112,35 +104,41 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
-    fun createDote(currentPosition: Int){
+    fun createDote(currentPosition: Int) {
         layoutDot.removeAllViews()
 
         dots = arrayOfNulls<ImageView>(layouts.size)
 
-        for (i in dots.indices){
+        for (i in dots.indices) {
             dots[i] = ImageView(this)
-            if(i == currentPosition){
+            if (i == currentPosition) {
                 dots[i]!!.setImageResource(R.drawable.active_dots)
-            }else{
+            } else {
                 dots[i]!!.setImageResource(R.drawable.default_dots)
             }
 
-            var param: LinearLayout.LayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            param.setMargins(4,0,4,0)
+            var param: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            param.setMargins(4, 0, 4, 0)
             layoutDot.addView(dots[i], param)
 
         }
 
     }
 
-    fun getStaticPage(id:Int) {
+    fun getStaticPage(id: Int) {
 
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.getStaticPages(id)
 
         response.enqueue(object : Callback<StaticPagesJson> {
-            override fun onResponse(call: Call<StaticPagesJson>, response: Response<StaticPagesJson>) {
+            override fun onResponse(
+                call: Call<StaticPagesJson>,
+                response: Response<StaticPagesJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
@@ -148,29 +146,29 @@ class OnBoardingActivity : AppCompatActivity() {
                         3 -> {
                             content_1.text = data.content
                             onboarding_title_1.text = data.title
-                            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image_1)
+                            Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image)
+                                .into(image_1)
                         }
                         4 -> {
                             content_2.text = data.content
                             onboarding_title_2.text = data.title
-                            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image_2)
+                            Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image)
+                                .into(image_2)
                         }
                         5 -> {
                             content_3.text = data.content
                             onboarding_title_3.text = data.title
-                            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image_3)
+                            Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image)
+                                .into(image_3)
                         }
                     }
-//                    GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
-//                    GeneralChanges().hideDialog(progressDialog!!)
                 }
             }
 
             override fun onFailure(call: Call<StaticPagesJson>, t: Throwable) {
                 Log.e("failure", t.message!!)
-//                GeneralChanges().hideDialog(progressDialog!!)
             }
         })
     }

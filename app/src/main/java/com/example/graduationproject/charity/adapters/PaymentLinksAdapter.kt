@@ -44,22 +44,23 @@ import java.io.File
 
 class PaymentLinksAdapter(
     var activity: Context?, var data: List<PaymentLink>, var fragment: FragmentManager
-) : RecyclerView.Adapter<PaymentLinksAdapter.PaymentLinksViewHolder>(){
+) : RecyclerView.Adapter<PaymentLinksAdapter.PaymentLinksViewHolder>() {
     var progressDialog: ProgressDialog? = null
+
     class PaymentLinksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val image  =itemView.payment_link_img
-        val checked  =itemView.payment_checked
-        val card  =itemView.payment_card
+        val image = itemView.payment_link_img
+        val checked = itemView.payment_checked
+        val card = itemView.payment_card
 
         fun initialize(data: PaymentLink) {
             image.setImageResource(data.image!!)
-            if(data.link == null){
+            if (data.link == null) {
                 checked.visibility = View.INVISIBLE
                 card.apply {
                     strokeColor = resources.getColor(R.color.grey_details)
                 }
-            }else{
+            } else {
                 checked.visibility = View.VISIBLE
 
                 card.apply {
@@ -74,9 +75,9 @@ class PaymentLinksAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PaymentLinksViewHolder{
-            var view: View = LayoutInflater.from(activity).inflate(R.layout.payment_item, parent, false)
-            return PaymentLinksViewHolder(view)
+    ): PaymentLinksViewHolder {
+        var view: View = LayoutInflater.from(activity).inflate(R.layout.payment_item, parent, false)
+        return PaymentLinksViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -86,16 +87,14 @@ class PaymentLinksAdapter(
     override fun onBindViewHolder(holder: PaymentLinksViewHolder, position: Int) {
 
         holder.initialize(data[position])
-             holder.itemView.setOnClickListener {
-                 bottomSheet(activity as Activity, position)
-             }
-
-
+        holder.itemView.setOnClickListener {
+            bottomSheet(activity as Activity, position)
+        }
 
     }
 
 
-    fun bottomSheet(activity: Activity, position: Int){
+    fun bottomSheet(activity: Activity, position: Int) {
         var view = activity.layoutInflater.inflate(R.layout.bd_payment_item, null)
         var bottomSheetDialog = BottomSheetDialog(activity)
         bottomSheetDialog.setContentView(view)
@@ -109,7 +108,7 @@ class PaymentLinksAdapter(
         view.edit_payment.setOnClickListener {
             progressDialog = ProgressDialog(activity)
             GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-            updatePaymentLinks(view.payPal_txt.text.toString(),position,bottomSheetDialog)
+            updatePaymentLinks(view.payPal_txt.text.toString(), position, bottomSheetDialog)
         }
 
         view.copyPin.setOnClickListener {
@@ -117,16 +116,16 @@ class PaymentLinksAdapter(
                 activity.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
             val clip = ClipData.newPlainText("تم نسخ الرسالة", view.payPal_txt.text.toString())
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(activity,"تم نسخ النص", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "تم نسخ النص", Toast.LENGTH_SHORT).show()
         }
 
         bottomSheetDialog.show()
     }
 
-    fun updatePaymentLinks(link:String,position: Int,bottomSheetDialog: BottomSheetDialog) {
+    fun updatePaymentLinks(link: String, position: Int, bottomSheetDialog: BottomSheetDialog) {
 
-      var sharedPref = activity!!.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-       var token = sharedPref.getString("charity_token", "")!!
+        var sharedPref = activity!!.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        var token = sharedPref.getString("charity_token", "")!!
 
 
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -148,8 +147,10 @@ class PaymentLinksAdapter(
         var requestBody = body.build()
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.updatePaymentLinks("Bearer $token",
-            requestBody)
+        val response = retrofitInstance.updatePaymentLinks(
+            "Bearer $token",
+            requestBody
+        )
 
         response.enqueue(object : Callback<PaymentLinksJson> {
             override fun onResponse(
@@ -158,8 +159,8 @@ class PaymentLinksAdapter(
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
-                    if (data!!.status){
-                        Log.e("payment Links",data.toString())
+                    if (data!!.status) {
+                        Log.e("payment Links", data.toString())
                         var bundle = Bundle()
                         bundle.putString("from", "PaymentSetting")
                         var f = CharitySettingsFragment()
@@ -168,8 +169,7 @@ class PaymentLinksAdapter(
                             .replace(R.id.charityContainer, f).addToBackStack(null).commit()
                         GeneralChanges().hideDialog(progressDialog!!)
                         bottomSheetDialog.dismiss()
-                    }
-                    else {
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                     }
                 } else {

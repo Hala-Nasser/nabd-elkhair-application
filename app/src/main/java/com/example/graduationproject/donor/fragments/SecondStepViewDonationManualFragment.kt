@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.graduationproject.R
 import com.example.graduationproject.api.donorApi.addDonation.AddDonationJson
 import com.example.graduationproject.api.donorApi.complaint.ComplaintJson
+import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.Validation
 import com.example.graduationproject.donor.models.DonationType
 import com.example.graduationproject.network.RetrofitInstance
@@ -67,7 +68,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
         val root =
             inflater.inflate(R.layout.fragment_second_step_view_donation_manual, container, false)
 
-        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("user_token", "")!!
 
         val locale = Locale("ar", "SA")
@@ -83,9 +84,6 @@ class SecondStepViewDonationManualFragment : Fragment() {
             item_name = b.getString("campaign_name")!!
             item_image = b.getString("campaign_image")!!
         }
-        Log.e("hala image","image: $item_image")
-        Log.e("hala name","name: $item_name")
-        Log.e("previous fragment", previous_fragment)
 
         if (previous_fragment == "campaignDetails" || previous_fragment == "charityDetails") {
             root.progress_linear.visibility = View.GONE
@@ -258,28 +256,60 @@ class SecondStepViewDonationManualFragment : Fragment() {
             ).show()
         }
 
-        root.choose_date.setOnClickListener{
+        root.choose_date.setOnClickListener {
 
-            DatePickerDialog(requireActivity(), onDateSetListener(root.date),myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+            DatePickerDialog(
+                requireActivity(),
+                onDateSetListener(root.date),
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
 
         }
 
         root.confirm_donation.setOnClickListener {
-            showDialog()
-            v.close.setOnClickListener {
-                dialog.dismiss()
-            }
-            v.confirm.setOnClickListener {
-                // donation api
-                val b = arguments
-                if (b != null){
-                    var charity_id = b.getInt("charity_id")
-                    var donation_type_id = b.getInt("donation_type_id")
-                    var campaign_id = b.getInt("campaign_id")
+            Log.e("city:", root.city_edit_text.text.toString())
+            Log.e("address:", root.address_edit_text.text.toString())
+            Log.e("phone:", root.phone_edit_text.text.toString())
+            Log.e("date:", root.date.text.toString())
+            Log.e("time:", root.time_text.text.toString())
+            if (selected_type != "" &&
+                root.city_edit_text.text.toString().isNotEmpty() &&
+                root.address_edit_text.text.toString().isNotEmpty() &&
+                root.phone_edit_text.text.toString().isNotEmpty() &&
+                root.date.text.toString().isNotEmpty() &&
+                root.time_text.text.toString().isNotEmpty()
+            ) {
 
-                    addDonation(charity_id, campaign_id, donation_type_id, phone,district, city, address, time)
+                showDialog()
+                v.close.setOnClickListener {
+                    dialog.dismiss()
+                }
+                v.confirm.setOnClickListener {
+                    // donation api
+                    val b = arguments
+                    if (b != null) {
+                        var charity_id = b.getInt("charity_id")
+                        var donation_type_id = b.getInt("donation_type_id")
+                        var campaign_id = b.getInt("campaign_id")
+
+                        addDonation(
+                            charity_id,
+                            campaign_id,
+                            donation_type_id,
+                            phone,
+                            district,
+                            city,
+                            address,
+                            time
+                        )
+                    }
+
                 }
 
+            } else {
+                Validation().showSnackBar(root.parent_lay, "قم بتعبئة جميع الحقول")
             }
         }
 
@@ -290,7 +320,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
         return root
     }
 
-    private fun onTimeSetListener(txt:TextView): TimePickerDialog.OnTimeSetListener {
+    private fun onTimeSetListener(txt: TextView): TimePickerDialog.OnTimeSetListener {
         val openTime =
             TimePickerDialog.OnTimeSetListener { _, hours, minutes ->
                 myCalendar.set(Calendar.HOUR_OF_DAY, hours)
@@ -306,7 +336,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
     }
 
 
-    private fun onDateSetListener(txt:TextView): DatePickerDialog.OnDateSetListener {
+    private fun onDateSetListener(txt: TextView): DatePickerDialog.OnDateSetListener {
         val date =
             DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
 
@@ -320,7 +350,6 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         return date
     }
-
 
 
     private fun showDialog() {
@@ -344,11 +373,6 @@ class SecondStepViewDonationManualFragment : Fragment() {
 
         dialog.setContentView(v)
         dialog.setCanceledOnTouchOutside(false)
-
-//        if (previous_fragment == "campaignDetails"){
-//            v.amount_linear.visibility = View.GONE
-//            v.amount_view.visibility = View.GONE
-//        }
 
         dialog.show()
 
@@ -387,7 +411,16 @@ class SecondStepViewDonationManualFragment : Fragment() {
     }
 
 
-    fun addDonation(charity_id:Int, campaign_id:Int, donation_type_id:Int, donor_phone:String, donor_district:String, donor_city:String, donor_address:String, date_time:String) {
+    fun addDonation(
+        charity_id: Int,
+        campaign_id: Int,
+        donation_type_id: Int,
+        donor_phone: String,
+        donor_district: String,
+        donor_city: String,
+        donor_address: String,
+        date_time: String
+    ) {
         var body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("charity_id", charity_id.toString())
             .addFormDataPart("donation_type_id", donation_type_id.toString())
@@ -396,17 +429,20 @@ class SecondStepViewDonationManualFragment : Fragment() {
             .addFormDataPart("donor_city", donor_city)
             .addFormDataPart("donor_address", donor_address)
             .addFormDataPart("date_time", date_time)
-                if (campaign_id != 0){
-                    body.addFormDataPart("campaign_id", campaign_id.toString())
-                }
-            var bodyRequest = body.build()
+        if (campaign_id != 0) {
+            body.addFormDataPart("campaign_id", campaign_id.toString())
+        }
+        var bodyRequest = body.build()
 
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.addDonation(bodyRequest, "Bearer $token")
 
         response.enqueue(object : Callback<AddDonationJson> {
-            override fun onResponse(call: Call<AddDonationJson>, response: Response<AddDonationJson>) {
+            override fun onResponse(
+                call: Call<AddDonationJson>,
+                response: Response<AddDonationJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data!!.status) {
@@ -415,7 +451,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
                             .replace(R.id.mainContainer, ConfirmationFragment())
                             .commit()
 
-                    }else{
+                    } else {
                         Validation().showSnackBar(parent_layout, data.message)
                     }
 

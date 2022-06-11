@@ -38,12 +38,12 @@ class ResetPasswordActivity : AppCompatActivity() {
                 val password = password.text.toString()
                 val confirm_password = confirm_password.text.toString()
                 if (isDonor)
-                resetPassword(code, password, confirm_password)
+                    resetPassword(code, password, confirm_password)
                 else charityResetPassword(code, password, confirm_password)
             }
         }
 
-        back.setOnClickListener{
+        back.setOnClickListener {
             onBackPressed()
         }
 
@@ -69,8 +69,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                             SignInActivity()
                         )
                         GeneralChanges().hideDialog(progressDialog!!)
-                    }
-                    else {
+                    } else {
                         Validation().showSnackBar(parent_layout, data.message)
                         GeneralChanges().hideDialog(progressDialog!!)
                     }
@@ -110,8 +109,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                             SignInActivity()
                         )
                         GeneralChanges().hideDialog(progressDialog!!)
-                    }
-                    else {
+                    } else {
                         Validation().showSnackBar(parent_layout, data.message)
                         GeneralChanges().hideDialog(progressDialog!!)
                     }

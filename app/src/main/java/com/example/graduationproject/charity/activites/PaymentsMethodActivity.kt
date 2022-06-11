@@ -44,7 +44,6 @@ class PaymentsMethodActivity : AppCompatActivity() ,View.OnClickListener{
     var payPalClick = false
     var visaClick = false
     var jawalClick = false
-    var click = false
     var progressDialog: ProgressDialog? = null
     lateinit var sharedPref: SharedPreferences
     var id = 0
@@ -148,27 +147,25 @@ class PaymentsMethodActivity : AppCompatActivity() ,View.OnClickListener{
         alertDialog.setNegativeButton("حسناً") { dialogInterface, i ->
             Log.e("ok","ok")
         }
-        alertDialog.create().show()
+        var alertDialogCreate = alertDialog.create()
+        alertDialogCreate.window!!.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        alertDialogCreate.show()
     }
 
     override fun onClick(p0: View?) {
-
 
             when(p0!!.id) {
                 R.id.payPal -> {
                     payPalClick = !payPalClick
                     changePaymentItem(payPalClick, 0,payPal, paypal_checked)
-//                    paypal_link = payPal_txt.text.toString()
                 }
                 R.id.visa -> {
                     visaClick = !visaClick
                         changePaymentItem(visaClick, 1,visa, visa_checked)
-//                    visa_link = visa_txt.text.toString()
                 }
                 R.id.jawalPal -> {
                     jawalClick = !jawalClick
                         changePaymentItem(jawalClick, 2,jawalPal, jawalPal_checked)
-//                    jawalPal_link = jawalPal_txt.text.toString()
                 }
             }
     }
@@ -192,7 +189,6 @@ class PaymentsMethodActivity : AppCompatActivity() ,View.OnClickListener{
                 cardElevation = 0f
             }
             image.visibility = View.INVISIBLE
-//            paymentLinksPager.currentItem = position
         }
     }
 

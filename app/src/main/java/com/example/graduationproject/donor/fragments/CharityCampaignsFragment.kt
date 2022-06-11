@@ -25,17 +25,12 @@ import retrofit2.Response
 
 class CharityCampaignsFragment : Fragment(), CampaignsAdapter.onCampaignItemClickListener {
 
-//    private lateinit var campaignsList: MutableList<Campaigns>
-    private var donationList = ArrayList<Donation>()
-    private var donationList1 = ArrayList<Donation>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_charity_campaigns, container, false)
-
 
         val b = arguments
         if (b != null) {
@@ -55,15 +50,17 @@ class CharityCampaignsFragment : Fragment(), CampaignsAdapter.onCampaignItemClic
         b.putString("campaign_image", data.image)
         b.putString("campaign_date", data.expiry_date)
         b.putParcelable("campaign_charity", data.charity)
-        b.putParcelableArrayList("campaign_donation_type", data.donation_type as java.util.ArrayList<DonationType>)
-        Log.e("DT put in bundle", data.donation_type.toString())
+        b.putParcelableArrayList(
+            "campaign_donation_type",
+            data.donation_type as java.util.ArrayList<DonationType>
+        )
 
 
         fragment.arguments = b
 
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
-        requireActivity().nav_bottom.visibility=View.GONE
+        requireActivity().nav_bottom.visibility = View.GONE
     }
 
 
@@ -96,7 +93,12 @@ class CharityCampaignsFragment : Fragment(), CampaignsAdapter.onCampaignItemClic
                         )
                         rv_campaigns.setHasFixedSize(true)
                         val campaignsAdapter =
-                            CampaignsAdapter(activity, data, "CharityCampaigns", this@CharityCampaignsFragment)
+                            CampaignsAdapter(
+                                activity,
+                                data,
+                                "CharityCampaigns",
+                                this@CharityCampaignsFragment
+                            )
                         rv_campaigns.adapter = campaignsAdapter
 
                     }

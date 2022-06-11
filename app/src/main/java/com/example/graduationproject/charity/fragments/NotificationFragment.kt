@@ -29,9 +29,10 @@ class NotificationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_notification, container, false)
-        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val user_image = sharedPref.getString("charity_image", "")
-        Picasso.get().load(RetrofitInstance.IMAGE_URL+user_image).into(root.charity_notification_image)
+        Picasso.get().load(RetrofitInstance.IMAGE_URL + user_image)
+            .into(root.charity_notification_image)
 
         val user_id = sharedPref.getInt("charity_id", 0)
 
@@ -42,33 +43,35 @@ class NotificationFragment : Fragment() {
 
     fun getNotifications(id: Int) {
 
-        Log.e("noti", "enter")
-
         val retrofitInstance =
             RetrofitInstance.create()
         val response = retrofitInstance.getCharityNotifications(id)
 
         response.enqueue(object : Callback<NotificationJson> {
-            override fun onResponse(call: Call<NotificationJson>, response: Response<NotificationJson>) {
+            override fun onResponse(
+                call: Call<NotificationJson>,
+                response: Response<NotificationJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
-                    if (data.isEmpty()){
+                    if (data.isEmpty()) {
                         rv_charity_notification.visibility = View.GONE
                         no_notification.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         rv_charity_notification.visibility = View.VISIBLE
                         no_notification.visibility = View.GONE
 
                         Log.e("data", data.toString())
-                        rv_charity_notification.layoutManager = LinearLayoutManager(activity,
-                            RecyclerView.VERTICAL,false)
+                        rv_charity_notification.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
                         rv_charity_notification.setHasFixedSize(true)
                         val notificationAdapter =
                             NotificationAdapter(activity, data)
                         rv_charity_notification.adapter = notificationAdapter
                     }
-
 
 
                 } else {

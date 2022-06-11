@@ -50,10 +50,11 @@ class CharityEditProfileFragment : Fragment() {
     var progressDialog: ProgressDialog? = null
     var token = ""
     val myCalendar: Calendar = Calendar.getInstance()
-    lateinit var user_image:String
-    private lateinit var  donationTypeAdapter: DonationTypeAdapter
-    companion object{
-         var donationTypes = listOf<Int>()
+    lateinit var user_image: String
+    private lateinit var donationTypeAdapter: DonationTypeAdapter
+
+    companion object {
+        var donationTypes = listOf<Int>()
     }
 
 
@@ -63,7 +64,7 @@ class CharityEditProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_edit_profile, container, false)
-        requireActivity().charity_nav_bottom.visibility=View.GONE
+        requireActivity().charity_nav_bottom.visibility = View.GONE
 
         val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
@@ -73,7 +74,7 @@ class CharityEditProfileFragment : Fragment() {
 
 
         donationTypeAdapter =
-        DonationTypeAdapter(requireActivity(), null,"CompleteSignup")
+            DonationTypeAdapter(requireActivity(), null, "CompleteSignup")
 
         root.charity_save.setOnClickListener {
             var user_name = root.charity_username.text.toString()
@@ -81,7 +82,7 @@ class CharityEditProfileFragment : Fragment() {
             var user_address = root.charity_location.text.toString()
             var charity_email = root.charity_email.text.toString()
             var charity_about = root.charity_about.text.toString()
-            val openTime = "${root.time_from.text}"+"-"+"${root.time_to.text}"
+            val openTime = "${root.time_from.text}" + "-" + "${root.time_to.text}"
 
             isAllFieldsChecked = CheckAllFields()
 
@@ -89,13 +90,20 @@ class CharityEditProfileFragment : Fragment() {
 
                 progressDialog = ProgressDialog(activity)
                 GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-                updateProfile(charity_email,user_name,user_phone,user_address,openTime,charity_about)
+                updateProfile(
+                    charity_email,
+                    user_name,
+                    user_phone,
+                    user_address,
+                    openTime,
+                    charity_about
+                )
 
             }
 
         }
 
-        root.choose_open_time.setOnClickListener{
+        root.choose_open_time.setOnClickListener {
             TimePickerDialog(
                 requireContext(), onTimeSetListener(root.time_from), myCalendar
                     .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE),
@@ -112,13 +120,13 @@ class CharityEditProfileFragment : Fragment() {
             ).show()
         }
 
-            root.charity_eProfile_image.setOnClickListener {
+        root.charity_eProfile_image.setOnClickListener {
             PickImageDialog.build(PickSetup())
                 .setOnPickResult { r ->
                     imageURI = r.uri
                     charity_eProfile_image.setImageBitmap(r.bitmap)
                 }
-                .setOnPickCancel{
+                .setOnPickCancel {
                 }.show(requireActivity().supportFragmentManager)
         }
 
@@ -165,7 +173,8 @@ class CharityEditProfileFragment : Fragment() {
             override fun onResponse(call: Call<FCMJson>, response: Response<FCMJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(charity_eProfile_image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image)
+                        .into(charity_eProfile_image)
                     charity_username.setText(data.name)
                     charity_email.setText(data.email)
                     charity_email.setText(data.email)
@@ -174,7 +183,7 @@ class CharityEditProfileFragment : Fragment() {
                     charity_location.setText(data.address)
                     val lstValues = ArrayList<String>()
                     var strSep = data.open_time.split("-")
-                    for (element in strSep){
+                    for (element in strSep) {
                         lstValues.add(element)
                     }
                     time_from.text = lstValues[0]
@@ -206,20 +215,23 @@ class CharityEditProfileFragment : Fragment() {
         val response = retrofitInstance.getGeneralDonationType()
 
         response.enqueue(object : Callback<DonationTypeJson> {
-            override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
+            override fun onResponse(
+                call: Call<DonationTypeJson>,
+                response: Response<DonationTypeJson>
+            ) {
                 if (response.isSuccessful) {
 
                     val data = response.body()
-                    //val data = response.body()!!.data
 
-                    if (data!!.status){
+                    if (data!!.status) {
                         Log.e("data", data.data.toString())
-                        rv_complete_signup_donation_type.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL,false)
+                        rv_complete_signup_donation_type.layoutManager =
+                            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                         rv_complete_signup_donation_type.setHasFixedSize(true)
                         donationTypeAdapter =
-                            DonationTypeAdapter(requireActivity(), data.data,"EditProfile")
+                            DonationTypeAdapter(requireActivity(), data.data, "EditProfile")
                         rv_complete_signup_donation_type.adapter = donationTypeAdapter
-                    }else{
+                    } else {
                         Log.e("is successful", "status false")
                     }
 
@@ -235,7 +247,14 @@ class CharityEditProfileFragment : Fragment() {
         })
     }
 
-    fun updateProfile(email:String, name:String, phone: String, location:String,openTime:String,about:String) {
+    fun updateProfile(
+        email: String,
+        name: String,
+        phone: String,
+        location: String,
+        openTime: String,
+        about: String
+    ) {
 
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("name", name)
@@ -245,26 +264,26 @@ class CharityEditProfileFragment : Fragment() {
             .addFormDataPart("about", about)
             .addFormDataPart("open_time", openTime)
             .addFormDataPart("activation_status", "0")
-            for (i in donationTypeAdapter.list){
-                body.addFormDataPart("donationTypes[]", i.toString())
-            }
+        for (i in donationTypeAdapter.list) {
+            body.addFormDataPart("donationTypes[]", i.toString())
+        }
 
 
-           if (imageURI != null){
-               Log.e("imgUrl",imageURI.toString())
-               body.addFormDataPart(
-                   "image", File(FileUtil.getPath(imageURI!!, requireContext())).extension ,
-                   RequestBody.create(
-                       "application/octet-stream".toMediaTypeOrNull(),
-                       File(FileUtil.getPath(imageURI!!, requireContext()))
-                   )
-               )
+        if (imageURI != null) {
+            Log.e("imgUrl", imageURI.toString())
+            body.addFormDataPart(
+                "image", File(FileUtil.getPath(imageURI!!, requireContext())).extension,
+                RequestBody.create(
+                    "application/octet-stream".toMediaTypeOrNull(),
+                    File(FileUtil.getPath(imageURI!!, requireContext()))
+                )
+            )
         }
 
         var requestBody = body.build()
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.charityUpdateProfile("Bearer $token",requestBody)
+        val response = retrofitInstance.charityUpdateProfile("Bearer $token", requestBody)
 
         response.enqueue(object : Callback<FCMJson> {
             override fun onResponse(call: Call<FCMJson>, response: Response<FCMJson>) {
@@ -272,16 +291,20 @@ class CharityEditProfileFragment : Fragment() {
                     val data = response.body()
                     if (data!!.status) {
 
-                        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+                        val sharedPref = requireActivity().getSharedPreferences(
+                            "sharedPref",
+                            Context.MODE_PRIVATE
+                        )
                         val editor = sharedPref.edit()
                         editor.putString("about", data.data.about)
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,
+                        requireActivity().supportFragmentManager.beginTransaction().replace(
+                            R.id.charityContainer,
                             ProfileFragment()
                         ).commit()
 
-                    }else{
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(eProfile_parent_layout, data.message)
                     }

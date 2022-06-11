@@ -15,15 +15,8 @@ class NavigationManager(activity: Activity) {
     var editor = sharedPreferences!!.edit()
 
 
-    // this function will use to set the value of PAGE_NAME and store in sharedPref
-    //for navigating between fragments and activities
-    fun setPageName(pageName: Int) {
-        editor!!.putInt(PAGE_NAME , pageName)
-        editor!!.commit()
-    }
-
     // this function will use to get the value of PAGE_NAME that store in sharedPref
-    fun  getPageName():Int {
+    fun getPageName(): Int {
         return sharedPreferences.getInt(PAGE_NAME, R.id.home)
     }
 

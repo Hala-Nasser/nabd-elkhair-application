@@ -62,19 +62,20 @@
                 app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="false">
 
-                <SearchView
-                    android:id="@+id/search"
+                <EditText
+                    android:id="@+id/search_field"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/search_edit_text"
-                    android:clickable="false"
-                    android:iconifiedByDefault="true"
+                    android:drawableStart="@drawable/ic_search"
+                    android:ems="10"
+                    android:hint="ابحث عن جمعية"
                     android:imeOptions="actionSearch"
+                    android:drawableTint="#707070"
                     android:inputType="text"
-                    android:keyboardNavigationCluster="true"
-                    android:queryHint="ابحث باسم الجمعية"
-                    android:text=""
-                    app:searchIcon="@drawable/ic_search" />
+                    android:paddingHorizontal="10dp"
+                    android:textColor="#999"
+                    />
 
 
             </androidx.cardview.widget.CardView>
@@ -133,6 +134,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/charity_item" />
+
+            <TextView
+                android:id="@+id/no_charities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+
+                android:fontFamily="@font/tajawal_medium"
+                android:text="لا يوجد جمعيات"/>
 
 
         </LinearLayout>

@@ -111,6 +111,7 @@
                     android:backgroundTint="@color/app_color"
                     android:layout_marginHorizontal="30dp"
                     android:gravity="center"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:layout_height="55dp">
 

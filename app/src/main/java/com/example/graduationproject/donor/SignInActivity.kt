@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +36,14 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_reset_password.*
 import kotlinx.android.synthetic.main.activity_sign_in.password
 import kotlinx.android.synthetic.main.activity_sign_in.password_layout
+import kotlinx.android.synthetic.main.fragment_second_step_view_donation_manual.*
+import java.text.Format
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
+import java.util.List
 
 
 class SignInActivity : AppCompatActivity() {
@@ -104,6 +113,7 @@ class SignInActivity : AppCompatActivity() {
                         val sharedPref = this@SignInActivity.getSharedPreferences(
                             "sharedPref", Context.MODE_PRIVATE
                         )
+
                         val editor = sharedPref.edit()
                         editor.putString("from", "donor")
                         editor.putInt("user_id", user_id)

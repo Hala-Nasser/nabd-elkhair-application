@@ -42,27 +42,22 @@ class ChangePasswordFragment : Fragment() {
         cToken = sharedPref.getString("charity_token", "")!!
 
 
-            root.save.setOnClickListener {
-                isAllFieldsChecked = CheckAllFields()
+        root.save.setOnClickListener {
+            isAllFieldsChecked = CheckAllFields()
 
-                if (isAllFieldsChecked) {
-                    progressDialog = ProgressDialog(activity)
-                    GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
-                    val old_password = old_password.text.toString()
-                    val password = password.text.toString()
-                    val confirm_password = confirm_password.text.toString()
-                    /*if (old_password == password){
-                        GeneralChanges().hideDialog(progressDialog!!)
-                        Validation().showSnackBar(root.parent_layout, "يجب ان تكون كلمة المرور الجديدة مختلفة عن القديمة")
-                    }else{*/
-                    if (isDonor) {
-                        changePassword(old_password, password, confirm_password)
-                    }else{
-                        charityChangePassword(old_password, password, confirm_password)
-                    }
-                    //}
+            if (isAllFieldsChecked) {
+                progressDialog = ProgressDialog(activity)
+                GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
+                val old_password = old_password.text.toString()
+                val password = password.text.toString()
+                val confirm_password = confirm_password.text.toString()
+                if (isDonor) {
+                    changePassword(old_password, password, confirm_password)
+                } else {
+                    charityChangePassword(old_password, password, confirm_password)
                 }
             }
+        }
 
 
         root.back.setOnClickListener {
@@ -78,7 +73,12 @@ class ChangePasswordFragment : Fragment() {
         val retrofitInstance =
             RetrofitInstance.create()
         Log.e("token", token)
-        val response = retrofitInstance.changePassword("Bearer $token", new_password, password, confirm_password)
+        val response = retrofitInstance.changePassword(
+            "Bearer $token",
+            new_password,
+            password,
+            confirm_password
+        )
 
         response.enqueue(object : Callback<ChangePasswordJson> {
             override fun onResponse(
@@ -87,11 +87,10 @@ class ChangePasswordFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
-                    if (data!!.status){
+                    if (data!!.status) {
                         activity!!.onBackPressed()
                         GeneralChanges().hideDialog(progressDialog!!)
-                    }
-                    else {
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(parent_layout, data.message)
                     }
@@ -115,7 +114,12 @@ class ChangePasswordFragment : Fragment() {
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.charityChangePassword("Bearer $cToken", password, new_password, confirm_password)
+        val response = retrofitInstance.charityChangePassword(
+            "Bearer $cToken",
+            password,
+            new_password,
+            confirm_password
+        )
 
         response.enqueue(object : Callback<ChangePasswordJson> {
             override fun onResponse(
@@ -124,11 +128,10 @@ class ChangePasswordFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
-                    if (data!!.status){
+                    if (data!!.status) {
                         activity!!.onBackPressed()
                         GeneralChanges().hideDialog(progressDialog!!)
-                    }
-                    else {
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(parent_layout, data.message)
                     }

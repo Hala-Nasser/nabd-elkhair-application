@@ -196,7 +196,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/tajawal_bold"
             android:gravity="center"
-            android:text="سياسة الخصوصية"
+            android:text="من نحن؟"
             android:textAlignment="center"
             android:textColor="@color/app_color"
             android:textSize="14sp" />

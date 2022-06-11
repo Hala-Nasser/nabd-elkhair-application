@@ -12,7 +12,7 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class DonorMainActivity : AppCompatActivity() {
     val fragment = HomeFragment()
-    lateinit var nav_bottom : ChipNavigationBar
+    lateinit var nav_bottom: ChipNavigationBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_donor_main)
@@ -20,7 +20,6 @@ class DonorMainActivity : AppCompatActivity() {
         GeneralChanges().fadeTransition(this)
 
         MyFirebaseMessagingService().retrieveToken(this)
-
 
         nav_bottom = findViewById(R.id.nav_bottom)
 
@@ -43,7 +42,7 @@ class DonorMainActivity : AppCompatActivity() {
                     val profileFragment = ProfileFragment()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.mainContainer, profileFragment).commit()
-                    }
+                }
             }
         }
     }

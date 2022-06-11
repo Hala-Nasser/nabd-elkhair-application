@@ -30,6 +30,7 @@ import android.text.format.DateUtils
 
 const val channelId = "notification_channel"
 const val channelName = "com.example.graduationproject"
+
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
@@ -39,7 +40,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
 
-    fun retrieveToken(activity: Activity){
+    fun retrieveToken(activity: Activity) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.e("hala", "Fetching FCM registration token failed", task.exception)
@@ -48,18 +49,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             var token = task.result
             Log.e("hala", "Token: $token")
             val ref = activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-            if (ref.getString("from","") == "donor"){
-                val user_id = ref.getInt("user_id",0)
+            if (ref.getString("from", "") == "donor") {
+                val user_id = ref.getInt("user_id", 0)
                 addFcm(user_id, token)
-            }else{
-                val user_id = ref.getInt("charity_id",0)
-                addFcmToCharity(user_id,token)
+            } else {
+                val user_id = ref.getInt("charity_id", 0)
+                addFcmToCharity(user_id, token)
             }
 
         })
     }
 
-    fun addFcmToCharity(user_id:Int, fcm:String) {
+    fun addFcmToCharity(user_id: Int, fcm: String) {
 
         val retrofitInstance =
             RetrofitInstance.create()
@@ -68,12 +69,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val response = retrofitInstance.charityFcmToken(user_id, fcm)
 
         response.enqueue(object : Callback<CharityFCMJSon> {
-            override fun onResponse(call: Call<CharityFCMJSon>, response: Response<CharityFCMJSon>) {
+            override fun onResponse(
+                call: Call<CharityFCMJSon>,
+                response: Response<CharityFCMJSon>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("TAG", data!!.status.toString())
-                }
-                else{
+                } else {
                     Log.e("errorBody", response.message())
                 }
 
@@ -86,7 +89,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     }
 
-    fun addFcm(user_id:Int, fcm:String) {
+    fun addFcm(user_id: Int, fcm: String) {
 
         Log.e("hala", "enter")
 
@@ -101,8 +104,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("TAG", data!!.status.toString())
-                }
-                else{
+                } else {
                     Log.e("errorBody", response.message())
                 }
 
@@ -116,9 +118,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        if (remoteMessage.notification != null){
+        if (remoteMessage.notification != null) {
             Log.e("title", remoteMessage.notification!!.title!!)
-            generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!)
+            generateNotification(
+                remoteMessage.notification!!.title!!,
+                remoteMessage.notification!!.body!!
+            )
         }
 
     }
@@ -133,25 +138,28 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         return remoteView
     }
 
-    fun generateNotification(title:String, message:String){
+    fun generateNotification(title: String, message: String) {
         val intent = Intent(this, DonorMainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-        var builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelId)
-            .setSmallIcon(R.drawable.logo)
-            .setAutoCancel(true)
-            .setVibrate(longArrayOf(1000, 1000, 1000, 1000))
-            .setOnlyAlertOnce(true)
-            .setContentIntent(pendingIntent)
+        var builder: NotificationCompat.Builder =
+            NotificationCompat.Builder(applicationContext, channelId)
+                .setSmallIcon(R.drawable.logo)
+                .setAutoCancel(true)
+                .setVibrate(longArrayOf(1000, 1000, 1000, 1000))
+                .setOnlyAlertOnce(true)
+                .setContentIntent(pendingIntent)
 
         builder = builder.setContent(getRemoteView(title, message))
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel =
+                NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(notificationChannel)
 
         }

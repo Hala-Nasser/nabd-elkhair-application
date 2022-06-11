@@ -30,19 +30,23 @@ import retrofit2.Response
 
 class SecondStepViewDonationElectronicFragment : Fragment() {
 
-    var selected_type : String? = null
-    lateinit var dialog :BottomSheetDialog
-    lateinit var v :View
-    var paypal : String? = ""
-    var visa : String? = ""
-    var card : String? = ""
+    var selected_type: String? = null
+    lateinit var dialog: BottomSheetDialog
+    lateinit var v: View
+    var paypal: String? = ""
+    var visa: String? = ""
+    var card: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root = inflater.inflate(R.layout.fragment_second_step_view_donation_electronic, container, false)
+        val root = inflater.inflate(
+            R.layout.fragment_second_step_view_donation_electronic,
+            container,
+            false
+        )
 
         root.radio_visa.visibility = View.GONE
         root.radio_card.visibility = View.GONE
@@ -58,21 +62,18 @@ class SecondStepViewDonationElectronicFragment : Fragment() {
 
             root.donation.visibility = View.VISIBLE
 
-            if (paypal != null && paypal !=""){
+            if (paypal != null && paypal != "") {
                 root.radio_paypal.visibility = View.VISIBLE
             }
-            if (visa != null && visa !=""){
+            if (visa != null && visa != "") {
                 root.radio_visa.visibility = View.VISIBLE
             }
-            if (card != null && card !=""){
+            if (card != null && card != "") {
                 root.radio_card.visibility = View.VISIBLE
             }
-//            var charity_id = b.getInt("charity_id")
-//            Log.e("charity id", charity_id.toString())
-//            getPaymentLinks(charity_id)
         }
 
-        val radioGroup=root.radioGroup
+        val radioGroup = root.radioGroup
 
 
         radioGroup.setOnCheckedChangeListener { _, i ->
@@ -113,63 +114,14 @@ class SecondStepViewDonationElectronicFragment : Fragment() {
                     bundle.putString("link", paypal)
                 }
             }
-            //bundle.putInt("charity_id", charity_id)
-            fragment.arguments=bundle
+            fragment.arguments = bundle
 
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
 
         }
 
         return root
-    }
-
-    private fun showDialog() {
-        dialog = BottomSheetDialog(this.requireContext())
-        v= layoutInflater.inflate(R.layout.bottom_dialog_item,null)
-        dialog.setContentView(v)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
-
-    }
-
-    fun getPaymentLinks(id: Int) {
-
-        val retrofitInstance =
-            RetrofitInstance.create()
-        val response = retrofitInstance.getPaymentLinks(id)
-
-        response.enqueue(object : Callback<PaymentLinksJson> {
-            override fun onResponse(call: Call<PaymentLinksJson>, response: Response<PaymentLinksJson>) {
-                if (response.isSuccessful) {
-                    val data = response.body()!!.data
-
-                    Log.e("data", data.toString())
-                    if (data != null){
-                        if (data.paypal_link != null){
-                            radio_paypal.visibility = View.VISIBLE
-                        }
-                        if (data.visa_link != null){
-                            radio_visa.visibility = View.VISIBLE
-                        }
-                        if (data.creditcard_link != null){
-                            radio_card.visibility = View.VISIBLE
-                        }
-                        donation.visibility = View.GONE
-                    }else{
-                        Toast.makeText(activity, "لا توفر الجمعية المسؤولة عن هذه الحملة ميزة التبرع الالكتروني", Toast.LENGTH_LONG).show()
-                    }
-
-
-                } else {
-                    Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
-                }
-
-            }
-
-            override fun onFailure(call: Call<PaymentLinksJson>, t: Throwable) {
-                Log.e("failure", t.message!!)
-            }
-        })
     }
 
 }

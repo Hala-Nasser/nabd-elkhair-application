@@ -94,9 +94,7 @@ class DonorsAdapter(var activity: Context?, var data :List<Data>?=null,var from:
         view.close.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
-//        view.accept_donation.setOnClickListener {
-//            bottomSheetDialog.dismiss()
-//        }
+
         val donation  = data!![position]
 
         Picasso.get().load(RetrofitInstance.IMAGE_URL+campaignImg).into(view.bs_campaign_image)
