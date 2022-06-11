@@ -70,9 +70,9 @@ class MyDonationFragment : Fragment(),
 
     private fun showDialog() {
         dialog = BottomSheetDialog(this.requireContext())
-            v = layoutInflater.inflate(R.layout.bottom_dialog_item_manual, null)
-            v.title.text = "تفاصيل التبرع"
-            v.confirm.visibility = View.GONE
+        v = layoutInflater.inflate(R.layout.bottom_dialog_item_manual, null)
+        v.title.text = "تفاصيل التبرع"
+        v.confirm.visibility = View.GONE
 
         dialog.setContentView(v)
         dialog.setCanceledOnTouchOutside(false)
@@ -80,12 +80,12 @@ class MyDonationFragment : Fragment(),
 
     }
 
-    fun getMyDonations(user_id:Int) {
+    fun getMyDonations(user_id: Int) {
 
         val d = requireArguments().getInt("someInt", 0)
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.getMyDonations(user_id,d)
+        val response = retrofitInstance.getMyDonations(user_id, d)
 
         response.enqueue(object : Callback<MyDonationJson> {
             override fun onResponse(
@@ -105,20 +105,20 @@ class MyDonationFragment : Fragment(),
                         all_no_donation.visibility = View.GONE
                         rv_donations.visibility = View.VISIBLE
 
-                            rv_donations.layoutManager = LinearLayoutManager(
+                        rv_donations.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
+                        rv_donations.setHasFixedSize(true)
+                        val donationssAdapter =
+                            MyDonationAdapter(
                                 activity,
-                                RecyclerView.VERTICAL, false
+                                data,
+                                this@MyDonationFragment
                             )
-                            rv_donations.setHasFixedSize(true)
-                            val donationssAdapter =
-                                MyDonationAdapter(
-                                    activity,
-                                    data,
-                                    this@MyDonationFragment
-                                )
-                            rv_donations.adapter = donationssAdapter
+                        rv_donations.adapter = donationssAdapter
                         donationssAdapter.notifyDataSetChanged()
-                            GeneralChanges().hideDialog(progressDialog!!)
+                        GeneralChanges().hideDialog(progressDialog!!)
 
                     }
 
@@ -138,12 +138,14 @@ class MyDonationFragment : Fragment(),
 
     override fun onItemClick(data: Data, position: Int) {
         showDialog()
-        if (data.campaign_details != null){
+        if (data.campaign_details != null) {
             v.item.campaign_name.text = data.campaign_details.name
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.campaign_details.image).into(v.item.campaign_image)
-        }else{
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + data.campaign_details.image)
+                .into(v.item.campaign_image)
+        } else {
             v.item.campaign_name.text = data.charity_details.name
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.charity_details.image).into(v.item.campaign_image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + data.charity_details.image)
+                .into(v.item.campaign_image)
         }
 
         v.residential_district.text = data.donor_district

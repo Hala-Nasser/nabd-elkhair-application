@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:background="@drawable/background"
-    tools:context=".PrivacyPolicyActivity">
+    tools:context=".AboutActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="30dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="30dp"
             >
 
             <RelativeLayout
@@ -33,7 +33,7 @@
                     android:id="@+id/back"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
 
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="سياسة الخصوصية"
+                    android:text="من نحن"
                     android:textAlignment="center"
                     android:textAppearance="@style/title" />
 
@@ -56,14 +56,14 @@
                 android:layout_gravity="center"
                 android:src="@drawable/logo" />
 
-             <TextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/tajawal_black"
                 android:text="@string/app_name"
                 android:textAlignment="center"
-                android:textColor="@color/app_color"
+                android:textColor="#0097A7"
                 android:textSize="16sp" />
 
 
@@ -73,8 +73,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
+                android:textAlignment="viewStart"
                 android:fontFamily="@font/tajawal_regular"
-                android:text="@string/privacy"
+                android:text=""
                 android:lineSpacingExtra="5dp"
                 android:justificationMode="inter_word"
                 android:textColor="@color/black"

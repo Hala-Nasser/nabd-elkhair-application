@@ -50,9 +50,9 @@ class CompleteSignUpActivity : AppCompatActivity() {
 
         sign_up.setOnClickListener {
 
-            if (imageURI != null){
+            if (imageURI != null) {
                 var path = imageURI!!.path
-                if (path != null){
+                if (path != null) {
                     var file = File((imageURI!!.path)!!)
                     Log.e("file click sign up", "file is: $file")
                     progressDialog = ProgressDialog(this)
@@ -60,7 +60,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
                     registerToApp()
 
                 }
-            }else{
+            } else {
                 Validation().showSnackBar(parent_layout, "قم باختيار صورة")
             }
 
@@ -75,7 +75,7 @@ class CompleteSignUpActivity : AppCompatActivity() {
                     image.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
                     image.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
                 }
-                .setOnPickCancel{
+                .setOnPickCancel {
                 }.show(supportFragmentManager)
         }
 
@@ -94,60 +94,60 @@ class CompleteSignUpActivity : AppCompatActivity() {
         val password = intent.getStringExtra("password")
         val confirm_password = intent.getStringExtra("confirm_password")
 
-            val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("name", name!!)
-                .addFormDataPart("email", email!!)
-                .addFormDataPart("password", password!!)
-                .addFormDataPart("phone", phone!!)
-                .addFormDataPart("location", address!!)
-                .addFormDataPart(
-                    "image", File(FileUtil.getPath(imageURI!!, this)).extension ,
-                    RequestBody.create(
-                        "application/octet-stream".toMediaTypeOrNull(),
-                        File(FileUtil.getPath(imageURI!!, this))
-                    )
+        val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("name", name!!)
+            .addFormDataPart("email", email!!)
+            .addFormDataPart("password", password!!)
+            .addFormDataPart("phone", phone!!)
+            .addFormDataPart("location", address!!)
+            .addFormDataPart(
+                "image", File(FileUtil.getPath(imageURI!!, this)).extension,
+                RequestBody.create(
+                    "application/octet-stream".toMediaTypeOrNull(),
+                    File(FileUtil.getPath(imageURI!!, this))
                 )
-                .addFormDataPart("activation_status", "1")
-                .addFormDataPart("c_password", confirm_password!!)
-                .addFormDataPart("notification_status", "1")
-                .build()
+            )
+            .addFormDataPart("activation_status", "1")
+            .addFormDataPart("c_password", confirm_password!!)
+            .addFormDataPart("notification_status", "1")
+            .build()
 
 
-            val retrofitInstance =
-                RetrofitInstance.create()
-            val response = retrofitInstance.donorRegister(body)
+        val retrofitInstance =
+            RetrofitInstance.create()
+        val response = retrofitInstance.donorRegister(body)
 
-            response.enqueue(object : Callback<RegisterJson> {
-                override fun onResponse(call: Call<RegisterJson>, response: Response<RegisterJson>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        Log.e("registerToApp", data.toString())
+        response.enqueue(object : Callback<RegisterJson> {
+            override fun onResponse(call: Call<RegisterJson>, response: Response<RegisterJson>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    Log.e("registerToApp", data.toString())
 
-                        if (data!!.status) {
+                    if (data!!.status) {
 
-                            loginToApp(email!!, password!!)
-
-                        }else{
-                            GeneralChanges().hideDialog(progressDialog!!)
-                            Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
-                        }
+                        loginToApp(email!!, password!!)
 
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
-                        Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
+                        Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
                     }
 
-                }
-
-                override fun onFailure(call: Call<RegisterJson>, t: Throwable) {
+                } else {
                     GeneralChanges().hideDialog(progressDialog!!)
-                    Log.e("failure", t.message!!)
+                    Log.e("errorBody", response.errorBody()?.charStream()?.readText().toString())
                 }
-            })
-        }
+
+            }
+
+            override fun onFailure(call: Call<RegisterJson>, t: Throwable) {
+                GeneralChanges().hideDialog(progressDialog!!)
+                Log.e("failure", t.message!!)
+            }
+        })
+    }
 
 
-    fun loginToApp(user_email:String, user_password:String) {
+    fun loginToApp(user_email: String, user_password: String) {
 
         val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("email", user_email)

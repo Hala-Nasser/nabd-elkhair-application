@@ -17,11 +17,9 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class CharityDetailsFragment : Fragment() {
 
-    lateinit var charity_name:String
-    lateinit var charity_image:String
-    lateinit var charity_address:String
-    //lateinit var charity_donation_type:String
-   // var campaignDonation : ArrayList<Donation> = ArrayList()
+    lateinit var charity_name: String
+    lateinit var charity_image: String
+    lateinit var charity_address: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +34,7 @@ class CharityDetailsFragment : Fragment() {
             charity_image = b.getString("charity_image")!!
             charity_address = b.getString("charity_address")!!
 
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+charity_image).into(root.charity_image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + charity_image).into(root.charity_image)
             root.charity_name_2.text = charity_name
             root.charity_name.text = charity_name
             root.charity_location.text = charity_address
@@ -47,7 +45,6 @@ class CharityDetailsFragment : Fragment() {
             b.putString("charity_image", charity_image)
             b.putString("charity_description", b.getString("charity_description"))
             b.putInt("charity_id", b.getInt("charity_id", 0))
-            //b.putStringArrayList("charity_donation_type", b.getStringArrayList("charity_donation_type"))
             b.putString("charity_phone", b.getString("charity_phone"))
 
             about_fragment.arguments = b
@@ -65,11 +62,12 @@ class CharityDetailsFragment : Fragment() {
 
             root.donor_add_complaint.setOnClickListener {
                 val f = AddComplaintFragment()
-                val bundle= Bundle()
-                bundle.putString("from","Donor")
+                val bundle = Bundle()
+                bundle.putString("from", "Donor")
                 bundle.putInt("charity_id", b.getInt("charity_id", 0))
-                f.arguments=bundle
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,f).commit()
+                f.arguments = bundle
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, f).commit()
             }
 
         }

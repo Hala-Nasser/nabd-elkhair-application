@@ -35,7 +35,7 @@ import retrofit2.Response.error
 import java.io.File
 
 
-class TestViewModel : ViewModel(){
+class TestViewModel : ViewModel() {
 
     private val result = MutableLiveData<Resource<LoginJson>?>()
     private val addDonationResult = MutableLiveData<Resource<AddDonationJson>?>()
@@ -43,7 +43,7 @@ class TestViewModel : ViewModel(){
     private val addCharityResult = MutableLiveData<Resource<CharitiesJson>?>()
 
 
-    fun fetchSignin(user_email:String, user_password:String) {
+    fun fetchSignin(user_email: String, user_password: String) {
         val body: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("email", user_email)
             .addFormDataPart("password", user_password)
@@ -54,7 +54,7 @@ class TestViewModel : ViewModel(){
         apiHelper.logIn(body)
             .enqueue(object : Callback<LoginJson> {
                 override fun onFailure(call: Call<LoginJson>, t: Throwable) {
-                    result.postValue(Resource.error("Something went wrong!",null))
+                    result.postValue(Resource.error("Something went wrong!", null))
                 }
 
                 override fun onResponse(call: Call<LoginJson>, response: Response<LoginJson>) {
@@ -69,7 +69,17 @@ class TestViewModel : ViewModel(){
     }
 
 
-    fun AddDonation(activity: Activity, charity_id:Int, campaign_id:Int, donation_type_id:Int, donor_phone:String, donor_district:String, donor_city:String, donor_address:String, date_time:String) {
+    fun AddDonation(
+        activity: Activity,
+        charity_id: Int,
+        campaign_id: Int,
+        donation_type_id: Int,
+        donor_phone: String,
+        donor_district: String,
+        donor_city: String,
+        donor_address: String,
+        date_time: String
+    ) {
         var body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("charity_id", charity_id.toString())
             .addFormDataPart("donation_type_id", donation_type_id.toString())
@@ -79,25 +89,31 @@ class TestViewModel : ViewModel(){
             .addFormDataPart("donor_address", donor_address)
             .addFormDataPart("date_time", date_time)
 
-        if (campaign_id != 0){
+        if (campaign_id != 0) {
             body.addFormDataPart("campaign_id", campaign_id.toString())
         }
         var bodyRequest = body.build()
 
-        val sharedPref= activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val token = sharedPref.getString("user_token", "")!!
 
 
         val retrofitInstance =
             RetrofitInstance.create()
-        retrofitInstance.addDonation(bodyRequest, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYmMwNDM3YTM4NzdiNWY1ODg4ZjI2YjEwODc1NTcyNDQ4ZGMyODc3NmUxNThlZmUxOTUzM2M5NjAzNDIwY2QyMzZlODg1MjdiNDMyMjQ4YjciLCJpYXQiOjE2NTQ2ODk1MjYuNzg0MzU3LCJuYmYiOjE2NTQ2ODk1MjYuNzg0MzY1LCJleHAiOjE2ODYyMjU1MjYuNzE2NjUsInN1YiI6IjEiLCJzY29wZXMiOlsiZG9ub3IiXX0.f8GrYIX22p6ExG6Y_2nXhtmVMIsqkughPtjQ8eM_QJ_xUiH8UaNqWh_niTA6HNrbBS72p__nGdWTukjUDUAp4U8FcMnb82BhpXKkRdVGHT9wiZ4nnCQjKs4IYri50eiHH6v3MMweDxbfQ-eYT7kPjSDPjhwyiw4-vyBjAzsvAHl4cfK6dQobcXhbAyTNNaHg8-CxNnKoOQct9yRO5gfPmPI-VIW2ssgTGhh-o7jPJdRwMNqQVOYZNZQZGmwVVEz2PrPaMUct2jty_FDnrBLaHV50Bmrxi4g9IlUbjB_37tmqomUHG6J1QFgec1W_cGQhj-P33sij8O4HUUKJkIJ9NGPGDsbWzzCO_pgMJIVHC-EDTKpywd0WLM4ImOlQf-gj1ElSQX7v_bKE_f80mcQsfO4h9POhw1jBgtdZxPtBL1Wc-lGSsiU8_mLgYeAzK5Mui4vmZEgqaIYY0JdGpAkVpTitNm59JgKHadybIdD_QoDqGAKgLSUHcax2UpqNnsOBl5R5cdDQAaWdwja3Ey0VG9qKm4ck7fCZhq1IHQlkOnXVK7VZOZEzezt4aCvTX545w5Kqx428-COHkNL4fOZrkgE_Z3sIJpNHKsAh6PNd2ImQNQHEV32BSbsAUBs9ql0FRVTTIj__geqGVF9WEYsMwtbUNZa1vp0mLfyjZMUqCI8")
+        retrofitInstance.addDonation(
+            bodyRequest,
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYmMwNDM3YTM4NzdiNWY1ODg4ZjI2YjEwODc1NTcyNDQ4ZGMyODc3NmUxNThlZmUxOTUzM2M5NjAzNDIwY2QyMzZlODg1MjdiNDMyMjQ4YjciLCJpYXQiOjE2NTQ2ODk1MjYuNzg0MzU3LCJuYmYiOjE2NTQ2ODk1MjYuNzg0MzY1LCJleHAiOjE2ODYyMjU1MjYuNzE2NjUsInN1YiI6IjEiLCJzY29wZXMiOlsiZG9ub3IiXX0.f8GrYIX22p6ExG6Y_2nXhtmVMIsqkughPtjQ8eM_QJ_xUiH8UaNqWh_niTA6HNrbBS72p__nGdWTukjUDUAp4U8FcMnb82BhpXKkRdVGHT9wiZ4nnCQjKs4IYri50eiHH6v3MMweDxbfQ-eYT7kPjSDPjhwyiw4-vyBjAzsvAHl4cfK6dQobcXhbAyTNNaHg8-CxNnKoOQct9yRO5gfPmPI-VIW2ssgTGhh-o7jPJdRwMNqQVOYZNZQZGmwVVEz2PrPaMUct2jty_FDnrBLaHV50Bmrxi4g9IlUbjB_37tmqomUHG6J1QFgec1W_cGQhj-P33sij8O4HUUKJkIJ9NGPGDsbWzzCO_pgMJIVHC-EDTKpywd0WLM4ImOlQf-gj1ElSQX7v_bKE_f80mcQsfO4h9POhw1jBgtdZxPtBL1Wc-lGSsiU8_mLgYeAzK5Mui4vmZEgqaIYY0JdGpAkVpTitNm59JgKHadybIdD_QoDqGAKgLSUHcax2UpqNnsOBl5R5cdDQAaWdwja3Ey0VG9qKm4ck7fCZhq1IHQlkOnXVK7VZOZEzezt4aCvTX545w5Kqx428-COHkNL4fOZrkgE_Z3sIJpNHKsAh6PNd2ImQNQHEV32BSbsAUBs9ql0FRVTTIj__geqGVF9WEYsMwtbUNZa1vp0mLfyjZMUqCI8"
+        )
 
             .enqueue(object : Callback<AddDonationJson> {
                 override fun onFailure(call: Call<AddDonationJson>, t: Throwable) {
-                    addDonationResult.postValue(Resource.error("Something went wrong!",null))
+                    addDonationResult.postValue(Resource.error("Something went wrong!", null))
                 }
 
-                override fun onResponse(call: Call<AddDonationJson>, response: Response<AddDonationJson>) {
+                override fun onResponse(
+                    call: Call<AddDonationJson>,
+                    response: Response<AddDonationJson>
+                ) {
                     addDonationResult.postValue(Resource.success(response.body()))
                 }
             })
@@ -108,7 +124,15 @@ class TestViewModel : ViewModel(){
     }
 
 
-    fun AddCampaign(activity: Activity, name:String,desc:String,date:String,time:String,donationType:String,imageURI: Uri) {
+    fun AddCampaign(
+        activity: Activity,
+        name: String,
+        desc: String,
+        date: String,
+        time: String,
+        donationType: String,
+        imageURI: Uri
+    ) {
 
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("name", name)
@@ -117,7 +141,7 @@ class TestViewModel : ViewModel(){
             .addFormDataPart("expiry_time", time)
             .addFormDataPart("donation_type_id", donationType)
             .addFormDataPart(
-                "image", File(FileUtil.getPath(imageURI!!, activity)).extension ,
+                "image", File(FileUtil.getPath(imageURI!!, activity)).extension,
                 RequestBody.create(
                     "application/octet-stream".toMediaTypeOrNull(),
                     File(FileUtil.getPath(imageURI!!, activity))
@@ -125,20 +149,26 @@ class TestViewModel : ViewModel(){
             )
             .build()
 
-        val sharedPref= activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = activity.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val token = sharedPref.getString("user_token", "")!!
 
 
         val retrofitInstance =
             RetrofitInstance.create()
-        retrofitInstance.addCampaign( "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYmMwNDM3YTM4NzdiNWY1ODg4ZjI2YjEwODc1NTcyNDQ4ZGMyODc3NmUxNThlZmUxOTUzM2M5NjAzNDIwY2QyMzZlODg1MjdiNDMyMjQ4YjciLCJpYXQiOjE2NTQ2ODk1MjYuNzg0MzU3LCJuYmYiOjE2NTQ2ODk1MjYuNzg0MzY1LCJleHAiOjE2ODYyMjU1MjYuNzE2NjUsInN1YiI6IjEiLCJzY29wZXMiOlsiZG9ub3IiXX0.f8GrYIX22p6ExG6Y_2nXhtmVMIsqkughPtjQ8eM_QJ_xUiH8UaNqWh_niTA6HNrbBS72p__nGdWTukjUDUAp4U8FcMnb82BhpXKkRdVGHT9wiZ4nnCQjKs4IYri50eiHH6v3MMweDxbfQ-eYT7kPjSDPjhwyiw4-vyBjAzsvAHl4cfK6dQobcXhbAyTNNaHg8-CxNnKoOQct9yRO5gfPmPI-VIW2ssgTGhh-o7jPJdRwMNqQVOYZNZQZGmwVVEz2PrPaMUct2jty_FDnrBLaHV50Bmrxi4g9IlUbjB_37tmqomUHG6J1QFgec1W_cGQhj-P33sij8O4HUUKJkIJ9NGPGDsbWzzCO_pgMJIVHC-EDTKpywd0WLM4ImOlQf-gj1ElSQX7v_bKE_f80mcQsfO4h9POhw1jBgtdZxPtBL1Wc-lGSsiU8_mLgYeAzK5Mui4vmZEgqaIYY0JdGpAkVpTitNm59JgKHadybIdD_QoDqGAKgLSUHcax2UpqNnsOBl5R5cdDQAaWdwja3Ey0VG9qKm4ck7fCZhq1IHQlkOnXVK7VZOZEzezt4aCvTX545w5Kqx428-COHkNL4fOZrkgE_Z3sIJpNHKsAh6PNd2ImQNQHEV32BSbsAUBs9ql0FRVTTIj__geqGVF9WEYsMwtbUNZa1vp0mLfyjZMUqCI8", body)
+        retrofitInstance.addCampaign(
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYmMwNDM3YTM4NzdiNWY1ODg4ZjI2YjEwODc1NTcyNDQ4ZGMyODc3NmUxNThlZmUxOTUzM2M5NjAzNDIwY2QyMzZlODg1MjdiNDMyMjQ4YjciLCJpYXQiOjE2NTQ2ODk1MjYuNzg0MzU3LCJuYmYiOjE2NTQ2ODk1MjYuNzg0MzY1LCJleHAiOjE2ODYyMjU1MjYuNzE2NjUsInN1YiI6IjEiLCJzY29wZXMiOlsiZG9ub3IiXX0.f8GrYIX22p6ExG6Y_2nXhtmVMIsqkughPtjQ8eM_QJ_xUiH8UaNqWh_niTA6HNrbBS72p__nGdWTukjUDUAp4U8FcMnb82BhpXKkRdVGHT9wiZ4nnCQjKs4IYri50eiHH6v3MMweDxbfQ-eYT7kPjSDPjhwyiw4-vyBjAzsvAHl4cfK6dQobcXhbAyTNNaHg8-CxNnKoOQct9yRO5gfPmPI-VIW2ssgTGhh-o7jPJdRwMNqQVOYZNZQZGmwVVEz2PrPaMUct2jty_FDnrBLaHV50Bmrxi4g9IlUbjB_37tmqomUHG6J1QFgec1W_cGQhj-P33sij8O4HUUKJkIJ9NGPGDsbWzzCO_pgMJIVHC-EDTKpywd0WLM4ImOlQf-gj1ElSQX7v_bKE_f80mcQsfO4h9POhw1jBgtdZxPtBL1Wc-lGSsiU8_mLgYeAzK5Mui4vmZEgqaIYY0JdGpAkVpTitNm59JgKHadybIdD_QoDqGAKgLSUHcax2UpqNnsOBl5R5cdDQAaWdwja3Ey0VG9qKm4ck7fCZhq1IHQlkOnXVK7VZOZEzezt4aCvTX545w5Kqx428-COHkNL4fOZrkgE_Z3sIJpNHKsAh6PNd2ImQNQHEV32BSbsAUBs9ql0FRVTTIj__geqGVF9WEYsMwtbUNZa1vp0mLfyjZMUqCI8",
+            body
+        )
 
             .enqueue(object : Callback<CampaignJson> {
                 override fun onFailure(call: Call<CampaignJson>, t: Throwable) {
-                    addCampaignResult.postValue(Resource.error("Something went wrong!",null))
+                    addCampaignResult.postValue(Resource.error("Something went wrong!", null))
                 }
 
-                override fun onResponse(call: Call<CampaignJson>, response: Response<CampaignJson>) {
+                override fun onResponse(
+                    call: Call<CampaignJson>,
+                    response: Response<CampaignJson>
+                ) {
                     addCampaignResult.postValue(Resource.success(response.body()))
                 }
             })
@@ -156,10 +186,13 @@ class TestViewModel : ViewModel(){
         apiHelper.getCharities()
             .enqueue(object : Callback<CharitiesJson> {
                 override fun onFailure(call: Call<CharitiesJson>, t: Throwable) {
-                    addCharityResult.postValue(Resource.error("Something went wrong!",null))
+                    addCharityResult.postValue(Resource.error("Something went wrong!", null))
                 }
 
-                override fun onResponse(call: Call<CharitiesJson>, response: Response<CharitiesJson>) {
+                override fun onResponse(
+                    call: Call<CharitiesJson>,
+                    response: Response<CharitiesJson>
+                ) {
                     addCharityResult.postValue(Resource.success(response.body()))
                 }
             })

@@ -26,7 +26,7 @@ class DonationWithoutCampaignFragment : Fragment() {
 
     var token = ""
     var progressDialog: ProgressDialog? = null
-    lateinit var sharedPref:SharedPreferences
+    lateinit var sharedPref: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +34,7 @@ class DonationWithoutCampaignFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_donation_without_campaign, container, false)
 
-         sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
 
         progressDialog = ProgressDialog(activity)
@@ -58,10 +58,10 @@ class DonationWithoutCampaignFragment : Fragment() {
                     editor.putInt("withoutCampaignDonationCount", data!!.data.size)
                     editor.apply()
 
-                    if(data.data.isEmpty()){
+                    if (data.data.isEmpty()) {
                         no_without_donations.visibility = View.VISIBLE
                         rv_donation_without_campaign.visibility = View.GONE
-                    }else{
+                    } else {
                         no_without_donations.visibility = View.GONE
                         rv_donation_without_campaign.visibility = View.VISIBLE
                         rv_donation_without_campaign.layoutManager = LinearLayoutManager(
@@ -70,7 +70,12 @@ class DonationWithoutCampaignFragment : Fragment() {
                         )
                         rv_donation_without_campaign.setHasFixedSize(true)
                         val donationAdapter =
-                            DonationAdapter(requireActivity(), data!!.data,"DonationFragment",requireActivity().supportFragmentManager)
+                            DonationAdapter(
+                                requireActivity(),
+                                data!!.data,
+                                "DonationFragment",
+                                requireActivity().supportFragmentManager
+                            )
                         rv_donation_without_campaign.adapter = donationAdapter
                     }
 

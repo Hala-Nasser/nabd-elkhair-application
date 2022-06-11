@@ -38,12 +38,12 @@ import java.io.File
 
 class EditProfileFragment : Fragment() {
 
-    var user_address: String?=null
+    var user_address: String? = null
     var isAllFieldsChecked = false
 
-    lateinit var user_name:String
-    lateinit var user_phone:String
-    lateinit var user_image:String
+    lateinit var user_name: String
+    lateinit var user_phone: String
+    lateinit var user_image: String
 
     var progressDialog: ProgressDialog? = null
 
@@ -59,7 +59,7 @@ class EditProfileFragment : Fragment() {
 
         image = root.edit_profile_image
 
-        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val user_id = sharedPref.getInt("user_id", 0)
 
         val locations = resources.getStringArray(R.array.donor_location_array)
@@ -80,15 +80,15 @@ class EditProfileFragment : Fragment() {
             isAllFieldsChecked = CheckAllFields()
 
             if (isAllFieldsChecked) {
-                if (imageURI != null){
+                if (imageURI != null) {
                     var path = imageURI!!.path
-                    if (path != null){
+                    if (path != null) {
                         progressDialog = ProgressDialog(activity)
                         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
                         updateProfile(user_id, user_name, user_phone, user_address!!, null)
 
                     }
-                }else{
+                } else {
                     updateProfile(user_id, user_name, user_phone, user_address!!, user_image)
                 }
             }
@@ -101,7 +101,7 @@ class EditProfileFragment : Fragment() {
                     imageURI = r.uri
                     image.setImageBitmap(r.bitmap)
                 }
-                .setOnPickCancel{
+                .setOnPickCancel {
                 }.show(requireActivity().supportFragmentManager)
         }
 
@@ -131,7 +131,8 @@ class EditProfileFragment : Fragment() {
             override fun onResponse(call: Call<ProfileJson>, response: Response<ProfileJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(edit_profile_image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image)
+                        .into(edit_profile_image)
                     username.setText(data.name)
                     email.setText(data.email)
                     phone.setText(data.phone.toString())
@@ -163,24 +164,24 @@ class EditProfileFragment : Fragment() {
         })
     }
 
-    fun updateProfile(id:Int, name:String, phone: String, location:String, user_image:String?) {
+    fun updateProfile(id: Int, name: String, phone: String, location: String, user_image: String?) {
 
         var body: RequestBody
-        if (user_image == null){
+        if (user_image == null) {
             body = MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("id", id.toString())
                 .addFormDataPart("name", name)
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("location", location)
                 .addFormDataPart(
-                    "image", File(FileUtil.getPath(imageURI!!, requireActivity())).extension ,
+                    "image", File(FileUtil.getPath(imageURI!!, requireActivity())).extension,
                     RequestBody.create(
                         "application/octet-stream".toMediaTypeOrNull(),
                         File(FileUtil.getPath(imageURI!!, requireActivity()))
                     )
                 )
                 .build()
-        }else{
+        } else {
             body = MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("id", id.toString())
                 .addFormDataPart("name", name)
@@ -195,15 +196,20 @@ class EditProfileFragment : Fragment() {
         val response = retrofitInstance.updateProfile(body)
 
         response.enqueue(object : Callback<UpdateProfileJson> {
-            override fun onResponse(call: Call<UpdateProfileJson>, response: Response<UpdateProfileJson>) {
+            override fun onResponse(
+                call: Call<UpdateProfileJson>,
+                response: Response<UpdateProfileJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data!!.status) {
 
                         GeneralChanges().hideDialog(progressDialog!!)
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,ProfileFragment()).addToBackStack(null).commit()
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.mainContainer, ProfileFragment()).addToBackStack(null)
+                            .commit()
 
-                    }else{
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(parent_layout, data.message)
                     }

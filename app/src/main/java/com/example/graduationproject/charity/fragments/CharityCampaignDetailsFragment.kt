@@ -28,14 +28,14 @@ import kotlin.system.exitProcess
 
 
 class CharityCampaignDetailsFragment : Fragment() {
-     var campaignId =0
-    lateinit var campaignName:String
-    lateinit var campaignDesc:String
-    lateinit var campaignImage:String
-    lateinit var campaignDate:String
-    lateinit var campaignTime:String
-    var campaignDonation : ArrayList<Data> = ArrayList()
-    lateinit var donorAdapter:DonorsAdapter
+    var campaignId = 0
+    lateinit var campaignName: String
+    lateinit var campaignDesc: String
+    lateinit var campaignImage: String
+    lateinit var campaignDate: String
+    lateinit var campaignTime: String
+    var campaignDonation: ArrayList<Data> = ArrayList()
+    lateinit var donorAdapter: DonorsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,35 +43,39 @@ class CharityCampaignDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_campaign_details, container, false)
 
-        requireActivity().charity_nav_bottom.visibility=View.GONE
+        requireActivity().charity_nav_bottom.visibility = View.GONE
 
         donorAdapter =
-            DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
+            DonorsAdapter(
+                activity,
+                campaignDonation,
+                "CampaignDetails",
+                requireActivity().supportFragmentManager
+            )
 
         val b = arguments
         if (b != null) {
-//            if (b.getString("from", "")=="CharityHome"){
-//                campaignDate =  b.getString("date")!!
-//                campaignTime =  b.getString("time")!!
-//             }else {
             campaignDate = b.getString("campaign_date")!!
-            campaignTime =  b.getString("campaign_time")!!
-            campaignId =  b.getInt("campaign_id")
-            campaignName =  b.getString("campaign_name")!!
-            campaignDesc =  b.getString("campaign_description")!!
-            campaignImage =  b.getString("campaign_image")!!
+            campaignTime = b.getString("campaign_time")!!
+            campaignId = b.getInt("campaign_id")
+            campaignName = b.getString("campaign_name")!!
+            campaignDesc = b.getString("campaign_description")!!
+            campaignImage = b.getString("campaign_image")!!
             getBundleData(b, root)
         }
 
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                var bundle = Bundle()
-                bundle.putBoolean("addCampaign",false)
-                var fragment = HomeFragment()
-                fragment.arguments = bundle
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).commit()
-            }
-        })
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    var bundle = Bundle()
+                    bundle.putBoolean("addCampaign", false)
+                    var fragment = HomeFragment()
+                    fragment.arguments = bundle
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.charityContainer, fragment).commit()
+                }
+            })
 
         root.edit_campaign_btn.setOnClickListener {
             val fragment = EditCampaignFragment()
@@ -95,13 +99,12 @@ class CharityCampaignDetailsFragment : Fragment() {
 
     private fun getBundleData(b: Bundle, root: View) {
 
-        Picasso.get().load(RetrofitInstance.IMAGE_URL+campaignImage).into(root.campaign_img_details)
+        Picasso.get().load(RetrofitInstance.IMAGE_URL + campaignImage)
+            .into(root.campaign_img_details)
         root.campaign_name_details.text = campaignName
         root.campaign_desc_details.text = campaignDesc
         root.campaign_date_details.text = campaignDate
         root.campaign_time_details.text = campaignTime
-
-
 
 
         if (b.getParcelableArrayList<Data>("campaign_donation") == null) {
@@ -113,14 +116,14 @@ class CharityCampaignDetailsFragment : Fragment() {
 
             campaignDonation = b.getParcelableArrayList<Data>("campaign_donation")!!
 
-//            var linkedHashSet: LinkedHashSet<Data> = LinkedHashSet()
-//            linkedHashSet.addAll(campaignDonation)
-//            campaignDonation.clear()
-//            campaignDonation.addAll(linkedHashSet)
-
-            Log.e("campaignDonation",campaignDonation.toString())
+            Log.e("campaignDonation", campaignDonation.toString())
             donorAdapter =
-                DonorsAdapter(activity, campaignDonation, "CampaignDetails",requireActivity().supportFragmentManager)
+                DonorsAdapter(
+                    activity,
+                    campaignDonation,
+                    "CampaignDetails",
+                    requireActivity().supportFragmentManager
+                )
             donorAdapter.campaignName = campaignName
             donorAdapter.campaignImg = campaignImage
             root.rv_donors.layoutManager = LinearLayoutManager(
@@ -134,9 +137,8 @@ class CharityCampaignDetailsFragment : Fragment() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
-        requireActivity().charity_nav_bottom.visibility=View.GONE
+        requireActivity().charity_nav_bottom.visibility = View.GONE
     }
 }

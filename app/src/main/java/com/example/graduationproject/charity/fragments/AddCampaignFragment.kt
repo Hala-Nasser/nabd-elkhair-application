@@ -53,13 +53,13 @@ class AddCampaignFragment : Fragment() {
 
     lateinit var layouts: IntArray
     lateinit var pagerAdapter: MyPagerAdapter
-     var donationType:String? = null
-     var name= ""
-     var desc = ""
-     var imageURI:Uri? = null
-     var time=""
-     var date=""
-     var token=""
+    var donationType: String? = null
+    var name = ""
+    var desc = ""
+    var imageURI: Uri? = null
+    var time = ""
+    var date = ""
+    var token = ""
     var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +75,7 @@ class AddCampaignFragment : Fragment() {
             resources.displayMetrics
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -137,7 +138,6 @@ class AddCampaignFragment : Fragment() {
                                 "معلومات الحملة",
                                 "التالي : تاريخ انتهاء الحملة"
                             )
-                            // Log.d("data",campaign_title.text.toString())
                             root.progressBar.progress = 25
                             choose_campaign_image.setOnClickListener {
                                 Log.e("clicked", "yes")
@@ -145,8 +145,10 @@ class AddCampaignFragment : Fragment() {
                                     .setOnPickResult { r ->
                                         imageURI = r.uri
                                         campaign_image.setImageBitmap(r.bitmap)
-                                        campaign_image.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-                                        campaign_image.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+                                        campaign_image.layoutParams.width =
+                                            ViewGroup.LayoutParams.MATCH_PARENT
+                                        campaign_image.layoutParams.height =
+                                            ViewGroup.LayoutParams.MATCH_PARENT
                                     }
                                     .setOnPickCancel {
                                     }.show(requireActivity().supportFragmentManager)
@@ -190,34 +192,36 @@ class AddCampaignFragment : Fragment() {
 
             when (root.add_campaign_pager.currentItem) {
                 0 -> {
-            if (Validation().validateCampaignName(
-                    campaign_title,
-                    campaign_title_layout
-                ) && Validation().validateAboutCampaign(
-                    campaign_desc,
-                    campaign_desc_parent
-                )
-            ) {
+                    if (Validation().validateCampaignName(
+                            campaign_title,
+                            campaign_title_layout
+                        ) && Validation().validateAboutCampaign(
+                            campaign_desc,
+                            campaign_desc_parent
+                        )
+                    ) {
 
-                if (imageURI != null) {
+                        if (imageURI != null) {
 
-                    name = campaign_title.text.toString()
-                    desc = campaign_desc.text.toString()
+                            name = campaign_title.text.toString()
+                            desc = campaign_desc.text.toString()
 
-                    root.add_campaign_pager.currentItem ++
+                            root.add_campaign_pager.currentItem++
 
 
-                } else {
-                    Validation().showSnackBar(add_campaign_layout, "يرجى اختيار صورة للحملة")
-                }
-            }
+                        } else {
+                            Validation().showSnackBar(
+                                add_campaign_layout,
+                                "يرجى اختيار صورة للحملة"
+                            )
+                        }
+                    }
                 }
                 else -> {
                     val currentPage = root.add_campaign_pager.currentItem + 1
                     if (currentPage < layouts.size) {
                         //move to next page
                         root.add_campaign_pager.currentItem = currentPage
-                        //root.progressBar.progress += 25
                     } else {
                         progressDialog = ProgressDialog(requireContext())
                         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
@@ -228,22 +232,27 @@ class AddCampaignFragment : Fragment() {
         }
 
 
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                var bundle = Bundle()
-                bundle.putBoolean("addCampaign",false)
-                var fragment = HomeFragment()
-                fragment.arguments = bundle
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).commit()
-            }
-        })
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    var bundle = Bundle()
+                    bundle.putBoolean("addCampaign", false)
+                    var fragment = HomeFragment()
+                    fragment.arguments = bundle
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.charityContainer, fragment).commit()
+                }
+            })
 
         return root
     }
 
-    private fun changeProgressData(root: View,
-                                   btn_txt:String,btn_img:Int,
-                                   progress_rate:String,title:String,subtitle:String) {
+    private fun changeProgressData(
+        root: View,
+        btn_txt: String, btn_img: Int,
+        progress_rate: String, title: String, subtitle: String
+    ) {
         root.btn_txt.text = btn_txt
         root.btn_img.visibility = btn_img
         root.progress_rate.text = progress_rate
@@ -253,10 +262,17 @@ class AddCampaignFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().charity_nav_bottom.visibility=View.GONE
+        requireActivity().charity_nav_bottom.visibility = View.GONE
     }
 
-    fun addCampaign(name:String,desc:String,date:String,time:String,donationType:String,imageURI:Uri) {
+    fun addCampaign(
+        name: String,
+        desc: String,
+        date: String,
+        time: String,
+        donationType: String,
+        imageURI: Uri
+    ) {
 
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("name", name)
@@ -265,7 +281,7 @@ class AddCampaignFragment : Fragment() {
             .addFormDataPart("expiry_time", time)
             .addFormDataPart("donation_type_id", donationType)
             .addFormDataPart(
-                "image", File(FileUtil.getPath(imageURI!!, requireContext())).extension ,
+                "image", File(FileUtil.getPath(imageURI!!, requireContext())).extension,
                 RequestBody.create(
                     "application/octet-stream".toMediaTypeOrNull(),
                     File(FileUtil.getPath(imageURI!!, requireContext()))
@@ -276,7 +292,7 @@ class AddCampaignFragment : Fragment() {
 
         val retrofitInstance =
             RetrofitInstance.create()
-        val response = retrofitInstance.addCampaign("Bearer $token",body)
+        val response = retrofitInstance.addCampaign("Bearer $token", body)
 
         response.enqueue(object : Callback<CampaignJson> {
             override fun onResponse(call: Call<CampaignJson>, response: Response<CampaignJson>) {
@@ -288,12 +304,13 @@ class AddCampaignFragment : Fragment() {
 
                         GeneralChanges().hideDialog(progressDialog!!)
                         var bundle = Bundle()
-                        bundle.putBoolean("addCampaign",true)
+                        bundle.putBoolean("addCampaign", true)
                         var fragment = HomeFragment()
                         fragment.arguments = bundle
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.charityContainer,fragment).addToBackStack(null).commit()
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.charityContainer, fragment).addToBackStack(null).commit()
 
-                    }else{
+                    } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(add_campaign_layout, data.message)
                     }
@@ -313,10 +330,9 @@ class AddCampaignFragment : Fragment() {
     }
 
 
-    private fun getDate(){
+    private fun getDate() {
         val calendar = Calendar.getInstance()
         val locale = Locale("ar", "SA")
-        // EEEE، d MMMM y
         val myFormat = "EEEE، d MMMM y"
         val sdf = SimpleDateFormat(myFormat, locale)
         date = sdf.format(calendar.time)
@@ -327,13 +343,12 @@ class AddCampaignFragment : Fragment() {
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-
                 date = sdf.format(calendar.time)
             })
 
     }
 
-    private fun getTime(){
+    private fun getTime() {
         val initialCalendar = Calendar.getInstance()
         val locale = Locale("ar", "SA")
 
@@ -343,11 +358,11 @@ class AddCampaignFragment : Fragment() {
 
         campaign_time_picker.setOnTimeChangedListener(TimePicker.OnTimeChangedListener { view, hourOfDay, minute -> //use getFocusedChild() helps partly
 
-                initialCalendar[Calendar.HOUR_OF_DAY] = hourOfDay
-                initialCalendar[Calendar.MINUTE] = minute
-                initialCalendar[Calendar.SECOND] = 0
+            initialCalendar[Calendar.HOUR_OF_DAY] = hourOfDay
+            initialCalendar[Calendar.MINUTE] = minute
+            initialCalendar[Calendar.SECOND] = 0
 
-                 time = sdf.format(initialCalendar.time)
+            time = sdf.format(initialCalendar.time)
         })
     }
 

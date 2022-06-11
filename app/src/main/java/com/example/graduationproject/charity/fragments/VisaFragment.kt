@@ -28,7 +28,7 @@ class VisaFragment : Fragment() {
         val editor = sharedPref.edit()
         editor.putBoolean("clicked", false)
 
-        var clicked = sharedPref.getBoolean("clicked",false)
+        var clicked = sharedPref.getBoolean("clicked", false)
 
         if (clicked) {
             editor.putString("visa", root.visa_txt.text.toString())
@@ -40,7 +40,7 @@ class VisaFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
             val clip = ClipData.newPlainText("تم نسخ الرسالة", root.visa_txt.text.toString())
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(requireContext(),"تم نسخ النص", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "تم نسخ النص", Toast.LENGTH_SHORT).show()
         }
         return root
     }

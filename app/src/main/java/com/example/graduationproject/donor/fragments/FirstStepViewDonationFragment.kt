@@ -45,7 +45,7 @@ class FirstStepViewDonationFragment : Fragment() {
         root.radio_electronic.visibility = View.GONE
 
         val b = arguments
-        if (b != null){
+        if (b != null) {
             charity_id = b.getInt("charity_id")
             donation_type_id = b.getInt("donation_type_id")
             campaign_id = b.getInt("campaign_id", 0)
@@ -55,7 +55,8 @@ class FirstStepViewDonationFragment : Fragment() {
             campaign_image = b.getString("campaign_image")!!
 
             root.campaign_name.text = campaign_name
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+campaign_image).into(root.campaign_image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + campaign_image)
+                .into(root.campaign_image)
         }
 
 
@@ -75,30 +76,23 @@ class FirstStepViewDonationFragment : Fragment() {
         }
 
         root.next.setOnClickListener {
-//            val b = arguments
             val fragment = SecondStepViewDonationElectronicFragment()
-            bundle.putString("previous_fragment","firstStep")
+            bundle.putString("previous_fragment", "firstStep")
 
-            //bundle.putInt("charity_id", charity_id)
-//            bundle.putInt("charity_id", charity_id)
-//            bundle.putInt("donation_type_id", donation_type_id)
-//            bundle.putInt("campaign_id", campaign_id)
-
-            fragment.arguments=bundle
+            fragment.arguments = bundle
             if (selected_type != null && selected_type == "electronic") {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.mainContainer, fragment)
                     .addToBackStack(null).commit()
             } else if (selected_type != null && selected_type == "manual") {
                 val fragment = SecondStepViewDonationManualFragment()
-                //bundle.putInt("charity_id", charity_id)
                 bundle.putInt("charity_id", charity_id)
                 bundle.putInt("donation_type_id", donation_type_id)
                 bundle.putInt("campaign_id", campaign_id)
                 bundle.putString("campaign_name", campaign_name)
                 bundle.putString("campaign_image", campaign_image)
 
-                fragment.arguments=bundle
+                fragment.arguments = bundle
 
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.mainContainer, fragment)
@@ -116,20 +110,23 @@ class FirstStepViewDonationFragment : Fragment() {
         val response = retrofitInstance.getPaymentLinks(id)
 
         response.enqueue(object : Callback<PaymentLinksJson> {
-            override fun onResponse(call: Call<PaymentLinksJson>, response: Response<PaymentLinksJson>) {
+            override fun onResponse(
+                call: Call<PaymentLinksJson>,
+                response: Response<PaymentLinksJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
                     Log.e("data", data.toString())
-                    if (data != null){
+                    if (data != null) {
                         radio_electronic.visibility = View.VISIBLE
-                        if (data.paypal_link != null){
+                        if (data.paypal_link != null) {
                             bundle.putString("paypal", data.paypal_link)
                         }
-                        if (data.visa_link != null){
+                        if (data.visa_link != null) {
                             bundle.putString("visa", data.visa_link)
                         }
-                        if (data.creditcard_link != null){
+                        if (data.creditcard_link != null) {
                             bundle.putString("card", data.creditcard_link)
                         }
                     }

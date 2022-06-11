@@ -78,13 +78,8 @@ class HomeFragment : Fragment() {
             addCampaign = requireArguments().getBoolean("addCampaign")
             if (addCampaign) {
                 getDialog()
-            } else {
-                // requireActivity().charity_nav_bottom.alpha = 1f
-                // root.home_expandable_layout.isExpanded = false
             }
         }
-
-        //getDonationType()
 
         if (root.expandable_fab_layout.isOpen()) {
             root.expandable_fab.efabColor = resources.getColor(R.color.white)
@@ -156,7 +151,6 @@ class HomeFragment : Fragment() {
                         option = FabOption(expandable_fab_layout.context, Orientation.PORTRAIT)
                         option.setOnClickListener {
                             option.id = donation_type.id
-                            Log.e("donationType", option.id.toString())
                             var bundle = Bundle()
                             bundle.putString("donationType", option.id.toString())
                             var fragment = AddCampaignFragment()
@@ -166,7 +160,10 @@ class HomeFragment : Fragment() {
                                 .commit()
                         }
 
-                        option.fabOptionIcon = BitmapDrawable(resources,getBitmapFromURL(RetrofitInstance.IMAGE_URL + donation_type.image))
+                        option.fabOptionIcon = BitmapDrawable(
+                            resources,
+                            getBitmapFromURL(RetrofitInstance.IMAGE_URL + donation_type.image)
+                        )
                         option.fabOptionColor = resources.getColor(R.color.white)
                         option.label.labelText = donation_type.name
                         expandable_fab_layout.addView(option)
@@ -205,7 +202,6 @@ class HomeFragment : Fragment() {
     fun getDialog() {
         var view = layoutInflater.inflate(R.layout.campaign_added_dialog, null)
         val campaignBottomSheet = BottomSheetDialog(this.requireContext())
-        //campaignDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         campaignBottomSheet.setContentView(view)
         campaignBottomSheet.setCanceledOnTouchOutside(false)
         view.close_dialog.setOnClickListener {
@@ -258,13 +254,13 @@ class HomeFragment : Fragment() {
             .permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-            val url = URL(src)
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.doInput = true
-            connection.connect()
-            var input = connection.inputStream
+        val url = URL(src)
+        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        connection.doInput = true
+        connection.connect()
+        var input = connection.inputStream
 
-            return BitmapFactory.decodeStream(input)
+        return BitmapFactory.decodeStream(input)
 
     }
 

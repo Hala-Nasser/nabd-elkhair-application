@@ -1,20 +1,15 @@
 package com.example.graduationproject.donor
 
 import android.app.ActivityOptions
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import com.example.graduationproject.PrivacyPolicyActivity
+import com.example.graduationproject.AboutActivity
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.R
 import com.example.graduationproject.charity.activites.CompleteSignupActivity
@@ -24,16 +19,16 @@ import kotlinx.android.synthetic.main.activity_sign_up.email
 import kotlinx.android.synthetic.main.activity_sign_up.password
 
 
-class SignUpActivity : AppCompatActivity(){
+class SignUpActivity : AppCompatActivity() {
 
-    var user_address: String?=null
+    var user_address: String? = null
     var isAllFieldsChecked = false
 
-    lateinit var user_name:String
-    lateinit var user_email:String
-    lateinit var user_phone:String
-    lateinit var user_password:String
-    lateinit var user_confirm_password:String
+    lateinit var user_name: String
+    lateinit var user_email: String
+    lateinit var user_phone: String
+    lateinit var user_password: String
+    lateinit var user_confirm_password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +53,9 @@ class SignUpActivity : AppCompatActivity(){
             isAllFieldsChecked = CheckAllFields()
 
             if (isAllFieldsChecked) {
-                if (isDonor){
+                if (isDonor) {
                     sendUserData(CompleteSignUpActivity())
-                }else{
+                } else {
                     sendUserData(CompleteSignupActivity())
                 }
             }
@@ -75,7 +70,7 @@ class SignUpActivity : AppCompatActivity(){
                     SignInActivity()
                 )
                 Log.e("sign up", "donor")
-            }else{
+            } else {
                 GeneralChanges().prepareFadeTransition(
                     this,
                     SignInActivity()
@@ -84,17 +79,17 @@ class SignUpActivity : AppCompatActivity(){
         }
 
         privacy_policy.setOnClickListener {
-            GeneralChanges().prepareFadeTransition(this, PrivacyPolicyActivity())
+            GeneralChanges().prepareFadeTransition(this, AboutActivity())
         }
 
 
-        if (isDonor){
+        if (isDonor) {
             val locations = resources.getStringArray(R.array.donor_location_array)
             val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, locations)
             autoCompleteTextView.setAdapter(arrayAdapter)
 
 
-        }else{
+        } else {
             val locations = resources.getStringArray(R.array.charity_location_array)
             val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, locations)
             autoCompleteTextView.setAdapter(arrayAdapter)
@@ -103,7 +98,7 @@ class SignUpActivity : AppCompatActivity(){
 
     }
 
-    private fun sendUserData(activity:AppCompatActivity) {
+    private fun sendUserData(activity: AppCompatActivity) {
         var option = ActivityOptions.makeSceneTransitionAnimation(this)
         var intent = Intent(this, activity::class.java)
         intent.putExtra("name", user_name)
@@ -124,12 +119,16 @@ class SignUpActivity : AppCompatActivity(){
 
         if (!Validation().validatePassword(password, password_layout)) return false
 
-        if (!Validation().validateConfirmPassword(confirm_password, confirm_password_layout, password.text.toString())) return false
+        if (!Validation().validateConfirmPassword(
+                confirm_password,
+                confirm_password_layout,
+                password.text.toString()
+            )
+        ) return false
 
         if (!Validation().validateLocation(autoCompleteTextView, location_layout)) return false
         return true
     }
-
 
 
 }

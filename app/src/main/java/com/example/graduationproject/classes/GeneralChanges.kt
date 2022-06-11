@@ -20,43 +20,38 @@ class GeneralChanges {
 
     fun setStatusBarTransparent(activity: Activity) {
         if (Build.VERSION.SDK_INT >= 21) {
-            activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            activity.window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             val window = activity.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.rgb(16,177,177)
+            window.statusBarColor = Color.rgb(16, 177, 177)
         }
     }
 
-    fun fadeTransition(activity: Activity){
-        var transition = TransitionInflater.from(activity).inflateTransition(R.transition.fade_transition)
+    fun fadeTransition(activity: Activity) {
+        var transition =
+            TransitionInflater.from(activity).inflateTransition(R.transition.fade_transition)
         activity.window.enterTransition = transition
     }
 
-    fun prepareFadeTransitionWithData(currentActivity: Activity, activity: Activity,key:String?,value:String?){
+    fun prepareFadeTransition(currentActivity: Activity, activity: Activity) {
         var option = ActivityOptions.makeSceneTransitionAnimation(currentActivity)
         var intent = Intent(currentActivity, activity::class.java)
-        intent.putExtra(key,value)
-        currentActivity.startActivity(intent,option.toBundle())
+        currentActivity.startActivity(intent, option.toBundle())
     }
 
-    fun prepareFadeTransition(currentActivity: Activity, activity: Activity){
-        var option = ActivityOptions.makeSceneTransitionAnimation(currentActivity)
-        var intent = Intent(currentActivity, activity::class.java)
-        currentActivity.startActivity(intent,option.toBundle())
-    }
-
-    fun showDialog(progressDialog:ProgressDialog, message:String) {
+    fun showDialog(progressDialog: ProgressDialog, message: String) {
         progressDialog.setMessage(message)
         progressDialog.setCancelable(false)
         progressDialog.show()
     }
 
-    fun hideDialog(progressDialog:ProgressDialog,){
-        if(progressDialog.isShowing)
+    fun hideDialog(progressDialog: ProgressDialog) {
+        if (progressDialog.isShowing)
             progressDialog.dismiss()
     }
 
-    fun getFromCalendar(myFormat:String,strDate: String, field: Int): Int {
+    fun getFromCalendar(myFormat: String, strDate: String, field: Int): Int {
         var result = -1
         try {
             val locale = Locale("ar", "SA")

@@ -31,11 +31,8 @@ class Splash : AppCompatActivity() {
 
         progressBar = findViewById(R.id.progress_bar)
 
-        // Start lengthy operation in a background thread
-
         Thread {
             doWork()
-           // startApp()
             finish()
         }.start()
     }
@@ -52,9 +49,10 @@ class Splash : AppCompatActivity() {
             }
             progress += 1
 
-            if (progress == 91){
+            if (progress == 91) {
                 runOnUiThread {
-                    startApp()                }
+                    startApp()
+                }
             }
         }
     }
@@ -62,17 +60,18 @@ class Splash : AppCompatActivity() {
     private fun startApp() {
         if (luncherManager.isFirstTime()) {
             luncherManager.setFirstLunch(false)
-        runOnUiThread(Runnable {
-        runOnUiThread {
-            GeneralChanges().prepareFadeTransition(this, OnBoardingActivity())
-        }
-        })
+            runOnUiThread(Runnable {
+                runOnUiThread {
+                    GeneralChanges().prepareFadeTransition(this, OnBoardingActivity())
+                }
+            })
         } else {
             runOnUiThread(Runnable {
-            GeneralChanges().prepareFadeTransition(this, ChoiceActivity())
-        })
+                GeneralChanges().prepareFadeTransition(this, ChoiceActivity())
+            })
         }
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         exitProcess(1)

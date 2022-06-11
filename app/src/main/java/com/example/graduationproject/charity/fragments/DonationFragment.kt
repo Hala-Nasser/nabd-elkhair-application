@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,19 +48,21 @@ class DonationFragment : Fragment() {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_donation, container, false)
 
-
-
-        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val user_image = sharedPref.getString("charity_image", "")
         token = sharedPref.getString("charity_token", "")!!
         progressDialog = ProgressDialog(activity)
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
         getDonationsCount()
-        Picasso.get().load(RetrofitInstance.IMAGE_URL+user_image).into(root.donation_profile_image)
+        Picasso.get().load(RetrofitInstance.IMAGE_URL + user_image)
+            .into(root.donation_profile_image)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragmentsAndTitles(DonationWithCampaignFragment(),"تبرع بحملة")
-        sectionsPagerAdapter.addFragmentsAndTitles(DonationWithoutCampaignFragment(),"تبرع بدون حملة")
+        sectionsPagerAdapter.addFragmentsAndTitles(DonationWithCampaignFragment(), "تبرع بحملة")
+        sectionsPagerAdapter.addFragmentsAndTitles(
+            DonationWithoutCampaignFragment(),
+            "تبرع بدون حملة"
+        )
         root.donation_viewpager.adapter = sectionsPagerAdapter
 
         root.tab_layout.setupWithViewPager(root.donation_viewpager)
@@ -74,11 +77,12 @@ class DonationFragment : Fragment() {
                             getCampaignDonations()
                         }
                         1 -> {
-                           getDonations()
+                            getDonations()
                         }
 
                     }
                 }
+
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
@@ -112,11 +116,15 @@ class DonationFragment : Fragment() {
         val response = retrofitInstance.getDonationsCount("Bearer $token")
 
         response.enqueue(object : Callback<DonationCountJson> {
-            override fun onResponse(call: Call<DonationCountJson>, response: Response<DonationCountJson>) {
+            override fun onResponse(
+                call: Call<DonationCountJson>,
+                response: Response<DonationCountJson>
+            ) {
                 val data = response.body()
                 if (response.isSuccessful) {
                     campaign_donation_count.text = data!!.data.donationWithCampainCount.toString()
-                    without_campaign_donation_count.text = data.data.donationWithoutCampainCount.toString()
+                    without_campaign_donation_count.text =
+                        data.data.donationWithoutCampainCount.toString()
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())
                 }
@@ -136,14 +144,17 @@ class DonationFragment : Fragment() {
         val response = retrofitInstance.getCampaignDonations("Bearer $token")
 
         response.enqueue(object : Callback<CampaignDonationJson> {
-            override fun onResponse(call: Call<CampaignDonationJson>, response: Response<CampaignDonationJson>) {
+            override fun onResponse(
+                call: Call<CampaignDonationJson>,
+                response: Response<CampaignDonationJson>
+            ) {
                 val data = response.body()
                 if (response.isSuccessful) {
 
-                    if(data!!.data.isEmpty()){
+                    if (data!!.data.isEmpty()) {
                         no_donations.visibility = View.VISIBLE
                         rv_donation_with_campaign.visibility = View.GONE
-                    }else{
+                    } else {
                         no_donations.visibility = View.GONE
                         rv_donation_with_campaign.visibility = View.VISIBLE
 
@@ -153,7 +164,11 @@ class DonationFragment : Fragment() {
                         )
                         rv_donation_with_campaign.setHasFixedSize(true)
                         var donationAdapter =
-                            CampaignDonationAdapter(requireActivity(), data!!.data,requireActivity().supportFragmentManager)
+                            CampaignDonationAdapter(
+                                requireActivity(),
+                                data!!.data,
+                                requireActivity().supportFragmentManager
+                            )
                         rv_donation_with_campaign.adapter = donationAdapter
                     }
 
@@ -183,10 +198,10 @@ class DonationFragment : Fragment() {
                 val data = response.body()
                 if (response.isSuccessful) {
 
-                    if(data!!.data.isEmpty()){
+                    if (data!!.data.isEmpty()) {
                         no_without_donations.visibility = View.VISIBLE
                         rv_donation_without_campaign.visibility = View.GONE
-                    }else{
+                    } else {
                         no_without_donations.visibility = View.GONE
                         rv_donation_without_campaign.visibility = View.VISIBLE
                         rv_donation_without_campaign.layoutManager = LinearLayoutManager(
@@ -195,7 +210,12 @@ class DonationFragment : Fragment() {
                         )
                         rv_donation_without_campaign.setHasFixedSize(true)
                         val donationAdapter =
-                            DonationAdapter(requireActivity(), data!!.data,"DonationFragment",requireActivity().supportFragmentManager)
+                            DonationAdapter(
+                                requireActivity(),
+                                data!!.data,
+                                "DonationFragment",
+                                requireActivity().supportFragmentManager
+                            )
                         rv_donation_without_campaign.adapter = donationAdapter
                     }
 

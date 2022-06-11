@@ -13,9 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.graduationproject.PrivacyPolicyActivity
+import com.example.graduationproject.AboutActivity
 import com.example.graduationproject.R
-import com.example.graduationproject.api.charityApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.logout.LogoutJson
 import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.charity.activites.PaymentsMethodActivity
@@ -23,12 +22,7 @@ import com.example.graduationproject.charity.adapters.PaymentLinksAdapter
 import com.example.graduationproject.charity.models.PaymentLink
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.SignInActivity
-import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.network.RetrofitInstance
-import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
-import kotlinx.android.synthetic.main.activity_charity_complete_signup.rv_complete_signup_donation_type
-import kotlinx.android.synthetic.main.activity_charity_main.*
-import kotlinx.android.synthetic.main.fragment_notifications_settings.view.*
 import kotlinx.android.synthetic.main.fragment_payment_settings.*
 import kotlinx.android.synthetic.main.fragment_payment_settings.view.*
 import retrofit2.Call
@@ -53,7 +47,7 @@ class PaymentSettingsFragment : Fragment() {
         token = sharedPref.getString("charity_token", "")!!
 
         root.payment_settings_privacy_policy.setOnClickListener {
-            var i = Intent(requireContext(), PrivacyPolicyActivity::class.java)
+            var i = Intent(requireContext(), AboutActivity::class.java)
             startActivity(i)
         }
 
@@ -70,8 +64,8 @@ class PaymentSettingsFragment : Fragment() {
         return root
     }
 
-    fun getAlertDialog(){
-        var alertDialog= AlertDialog.Builder(requireContext())
+    fun getAlertDialog() {
+        var alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("تسجيل الخروج")
         alertDialog.setMessage("هل تريد تسجيل الخروج فعلاً!!")
         alertDialog.setCancelable(false)
@@ -84,9 +78,11 @@ class PaymentSettingsFragment : Fragment() {
         }
 
         alertDialog.setNegativeButton("لا,شكراً") { dialogInterface, i ->
-            Log.e("ok","ok")
+            Log.e("ok", "ok")
         }
-        alertDialog.create().show()
+        var alertDialogCreate = alertDialog.create()
+        alertDialogCreate.window!!.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        alertDialogCreate.show()
     }
 
     fun logout() {
@@ -98,9 +94,9 @@ class PaymentSettingsFragment : Fragment() {
         response.enqueue(object : Callback<LogoutJson> {
             override fun onResponse(call: Call<LogoutJson>, response: Response<LogoutJson>) {
                 if (response.isSuccessful) {
-                    Log.e("Logout",response.message())
+                    Log.e("Logout", response.message())
                     val i = Intent(requireActivity(), SignInActivity()::class.java)
-                    i.putExtra("Donor",false)
+                    i.putExtra("Donor", false)
                     startActivity(i)
                     requireActivity().finish()
                     GeneralChanges().hideDialog(progressDialog!!)
@@ -125,18 +121,21 @@ class PaymentSettingsFragment : Fragment() {
         val response = retrofitInstance.getPaymentLinks("Bearer $token")
 
         response.enqueue(object : Callback<PaymentLinksJson> {
-            override fun onResponse(call: Call<PaymentLinksJson>, response: Response<PaymentLinksJson>) {
+            override fun onResponse(
+                call: Call<PaymentLinksJson>,
+                response: Response<PaymentLinksJson>
+            ) {
                 var list = ArrayList<PaymentLink>()
                 if (response.isSuccessful) {
 
                     val data = response.body()
                     //val data = response.body()!!.data
 
-                    if (data!!.status){
-                        if (data.data == null){
+                    if (data!!.status) {
+                        if (data.data == null) {
                             rv_payments_link.visibility = View.GONE
                             empty_payment.visibility = View.VISIBLE
-                        }else {
+                        } else {
                             rv_payments_link.visibility = View.VISIBLE
                             empty_payment.visibility = View.GONE
                             Log.e("data", data.data.toString())
@@ -175,10 +174,14 @@ class PaymentSettingsFragment : Fragment() {
                             )
                             rv_payments_link.setHasFixedSize(true)
                             var paymentLinksAdapter =
-                                PaymentLinksAdapter(requireActivity(), list, requireActivity().supportFragmentManager)
+                                PaymentLinksAdapter(
+                                    requireActivity(),
+                                    list,
+                                    requireActivity().supportFragmentManager
+                                )
                             rv_payments_link.adapter = paymentLinksAdapter
                         }
-                    }else{
+                    } else {
                         Log.e("is successful", "status false")
                     }
 

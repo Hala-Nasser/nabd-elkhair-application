@@ -11,17 +11,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.graduationproject.PrivacyPolicyActivity
+import com.example.graduationproject.AboutActivity
 import com.example.graduationproject.R
-import com.example.graduationproject.api.charityApi.fcm.FCMJson
 import com.example.graduationproject.api.donorApi.logout.LogoutJson
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.donor.fragments.ChangePasswordFragment
 import com.example.graduationproject.network.RetrofitInstance
-import kotlinx.android.synthetic.main.activity_charity_main.*
 import kotlinx.android.synthetic.main.fragment_general_settings.view.*
-import kotlinx.android.synthetic.main.fragment_settings.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,7 +57,7 @@ class GeneralSettingsFragment : Fragment() {
         }
 
         root.charity_privacy_policy.setOnClickListener {
-            var i = Intent(requireContext(),PrivacyPolicyActivity::class.java)
+            var i = Intent(requireContext(), AboutActivity::class.java)
             startActivity(i)
         }
 
@@ -69,11 +66,11 @@ class GeneralSettingsFragment : Fragment() {
             getAlertDialog()
         }
 
-            return root
+        return root
     }
 
-    fun getAlertDialog(){
-        var alertDialog= AlertDialog.Builder(requireContext())
+    fun getAlertDialog() {
+        var alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("تسجيل الخروج")
         alertDialog.setMessage("هل تريد تسجيل الخروج فعلاً!!")
         alertDialog.setCancelable(false)
@@ -86,9 +83,10 @@ class GeneralSettingsFragment : Fragment() {
         }
 
         alertDialog.setNegativeButton("لا,شكراً") { dialogInterface, i ->
-            Log.e("ok","ok")
         }
-        alertDialog.create().show()
+        var alertDialogCreate = alertDialog.create()
+        alertDialogCreate.window!!.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        alertDialogCreate.show()
     }
 
     fun logout() {
@@ -100,9 +98,9 @@ class GeneralSettingsFragment : Fragment() {
         response.enqueue(object : Callback<LogoutJson> {
             override fun onResponse(call: Call<LogoutJson>, response: Response<LogoutJson>) {
                 if (response.isSuccessful) {
-                    Log.e("Logout",response.message())
+                    Log.e("Logout", response.message())
                     val i = Intent(requireActivity(), SignInActivity()::class.java)
-                    i.putExtra("Donor",false)
+                    i.putExtra("Donor", false)
                     startActivity(i)
                     requireActivity().finish()
                     GeneralChanges().hideDialog(progressDialog!!)

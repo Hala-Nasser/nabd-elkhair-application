@@ -59,8 +59,14 @@ class DonationReceivedFragment : Fragment() {
         GeneralChanges().showDialog(progressDialog!!, "جاري التحميل ....")
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragmentsAndTitles(DonationNotReceivedFragment(),"التبرعات الغير مستلمة")
-        sectionsPagerAdapter.addFragmentsAndTitles(DonationTabReceivedFragment(),"التبرعات المستلمة")
+        sectionsPagerAdapter.addFragmentsAndTitles(
+            DonationNotReceivedFragment(),
+            "التبرعات الغير مستلمة"
+        )
+        sectionsPagerAdapter.addFragmentsAndTitles(
+            DonationTabReceivedFragment(),
+            "التبرعات المستلمة"
+        )
         root.donation_received_viewpager.adapter = sectionsPagerAdapter
 
         root.donation_received_tab_layout.setupWithViewPager(root.donation_received_viewpager)
@@ -80,6 +86,7 @@ class DonationReceivedFragment : Fragment() {
 
                     }
                 }
+
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
@@ -122,10 +129,10 @@ class DonationReceivedFragment : Fragment() {
                 val data = response.body()
                 if (response.isSuccessful) {
 
-                    if(data!!.data.isEmpty()){
+                    if (data!!.data.isEmpty()) {
                         no_donations.visibility = View.VISIBLE
                         rv_donation_tab_notReceived.visibility = View.GONE
-                    }else{
+                    } else {
                         no_donations.visibility = View.GONE
                         rv_donation_tab_notReceived.visibility = View.VISIBLE
                         rv_donation_tab_notReceived.layoutManager = LinearLayoutManager(
@@ -134,7 +141,12 @@ class DonationReceivedFragment : Fragment() {
                         )
                         rv_donation_tab_notReceived.setHasFixedSize(true)
                         val donationAdapter =
-                            DonationAdapter(requireActivity(), data!!.data,"DonationNotReceivedFragment",requireActivity().supportFragmentManager)
+                            DonationAdapter(
+                                requireActivity(),
+                                data!!.data,
+                                "DonationNotReceivedFragment",
+                                requireActivity().supportFragmentManager
+                            )
                         rv_donation_tab_notReceived.adapter = donationAdapter
                     }
 
@@ -163,12 +175,12 @@ class DonationReceivedFragment : Fragment() {
             override fun onResponse(call: Call<DonationJson>, response: Response<DonationJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
-                    Log.e("enter tab received","yes")
+                    Log.e("enter tab received", "yes")
 
-                    if(data!!.data.isEmpty()){
+                    if (data!!.data.isEmpty()) {
                         no_donations.visibility = View.VISIBLE
                         rv_donation_tab_received.visibility = View.GONE
-                    }else{
+                    } else {
                         no_donations.visibility = View.GONE
                         rv_donation_tab_received.visibility = View.VISIBLE
                         rv_donation_tab_received.layoutManager = LinearLayoutManager(
@@ -177,7 +189,11 @@ class DonationReceivedFragment : Fragment() {
                         )
                         rv_donation_tab_received.setHasFixedSize(true)
                         val donationAdapter =
-                            DonationAdapter(requireActivity(), data!!.data,"DonationReceivedFragment",requireActivity().supportFragmentManager
+                            DonationAdapter(
+                                requireActivity(),
+                                data!!.data,
+                                "DonationReceivedFragment",
+                                requireActivity().supportFragmentManager
                             )
                         rv_donation_tab_received.adapter = donationAdapter
                     }

@@ -38,9 +38,9 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        requireActivity().nav_bottom.visibility=View.VISIBLE
+        requireActivity().nav_bottom.visibility = View.VISIBLE
 
-        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val user_id = sharedPref.getInt("user_id", 0)
 
         progressDialog = ProgressDialog(activity)
@@ -59,8 +59,9 @@ class ProfileFragment : Fragment() {
         })
 
         root.settings.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,SettingsFragment()).addToBackStack(null).commit()
-            requireActivity().nav_bottom.visibility=View.GONE
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, SettingsFragment()).addToBackStack(null).commit()
+            requireActivity().nav_bottom.visibility = View.GONE
         }
 
 
@@ -78,7 +79,7 @@ class ProfileFragment : Fragment() {
             override fun onResponse(call: Call<ProfileJson>, response: Response<ProfileJson>) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(profile_image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(profile_image)
                     username.text = data.name
                     email.text = data.email
                     campaign_count.text = data.capmaign_donations_count.toString()
@@ -107,21 +108,30 @@ class ProfileFragment : Fragment() {
         val response = retrofitInstance.getDonationType()
 
         response.enqueue(object : Callback<DonationTypeJson> {
-            override fun onResponse(call: Call<DonationTypeJson>, response: Response<DonationTypeJson>) {
+            override fun onResponse(
+                call: Call<DonationTypeJson>,
+                response: Response<DonationTypeJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
                     donation_type_ids.add(0)
                     profile_tab_layout.addTab(profile_tab_layout.newTab().setText("الكل"), true)
 
-                    for (donation_type in data){
+                    for (donation_type in data) {
                         donation_type_ids.add(donation_type.id)
-                        profile_tab_layout.addTab(profile_tab_layout.newTab().setText(donation_type.name), false)
+                        profile_tab_layout.addTab(
+                            profile_tab_layout.newTab().setText(donation_type.name), false
+                        )
                     }
 
                     TabLayoutSettings().setTabMargin(profile_tab_layout, 10, 10, 100)
 
-                    val adapter = PagerAdapterMyDonation(childFragmentManager, profile_tab_layout.tabCount, donation_type_ids)
+                    val adapter = PagerAdapterMyDonation(
+                        childFragmentManager,
+                        profile_tab_layout.tabCount,
+                        donation_type_ids
+                    )
                     campaigns_profile_viewpager.adapter = adapter
                     campaigns_profile_viewpager.offscreenPageLimit = 1
                     campaigns_profile_viewpager.addOnPageChangeListener(

@@ -31,8 +31,7 @@ class NotificationFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
 
-        val sharedPref= requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-
+        val sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val user_id = sharedPref.getInt("user_id", 0)
 
         getNotifications(user_id)
@@ -49,20 +48,25 @@ class NotificationFragment : Fragment() {
         val response = retrofitInstance.getNotifications(id)
 
         response.enqueue(object : Callback<NotificationJson> {
-            override fun onResponse(call: Call<NotificationJson>, response: Response<NotificationJson>) {
+            override fun onResponse(
+                call: Call<NotificationJson>,
+                response: Response<NotificationJson>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
                     Log.e("data", data.toString())
-                    if (data.isEmpty()){
+                    if (data.isEmpty()) {
                         rv_notifications.visibility = View.GONE
                         no_notification.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         rv_notifications.visibility = View.VISIBLE
                         no_notification.visibility = View.GONE
 
-                        rv_notifications.layoutManager = LinearLayoutManager(activity,
-                            RecyclerView.VERTICAL,false)
+                        rv_notifications.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
+                        )
                         rv_notifications.setHasFixedSize(true)
                         val notificationAdapter =
                             NotificationAdapter(activity, data)

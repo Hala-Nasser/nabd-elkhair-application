@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.graduationproject.api.donorApi.campaignAccordingToDonationType.DonationType
 import com.example.graduationproject.donor.fragments.CampaignsAccordingToDonationTypeFragment
 
-class PageAdapterDonationType(fm: FragmentManager, var numOfTabs: Int, var data: ArrayList<Int>) : FragmentStatePagerAdapter(fm) {
+class PageAdapterDonationType(fm: FragmentManager, var numOfTabs: Int, var data: ArrayList<Int>) :
+    FragmentStatePagerAdapter(fm) {
 
     override fun getCount(): Int {
         return numOfTabs

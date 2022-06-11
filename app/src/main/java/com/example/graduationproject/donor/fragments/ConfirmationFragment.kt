@@ -18,7 +18,8 @@ class ConfirmationFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_confirmation, container, false)
 
         root.go_to_main.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,HomeFragment()).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, HomeFragment()).commit()
 
         }
         return root

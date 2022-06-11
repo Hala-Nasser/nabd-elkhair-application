@@ -43,6 +43,7 @@ import com.example.graduationproject.api.donorApi.charities.CharitiesJson
 import com.example.graduationproject.api.donorApi.charities.Data
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -81,12 +82,23 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         getCharities()
 
         root.campaigns_viewpager.isSaveEnabled = false
-        root.search.setOnSearchClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, SearchResultsFragment()).addToBackStack(null).commit()
-            requireActivity().nav_bottom.visibility = View.GONE
-        }
+        root.search_field.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (v.text.isEmpty()) {
 
+                } else {
+                    var f = SearchResultsFragment()
+                    var b = Bundle()
+                    b.putString("keyword", v.text.toString())
+                    f.arguments = b
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.mainContainer, f).addToBackStack(null).commit()
+                    requireActivity().nav_bottom.visibility = View.GONE
+                    return@OnEditorActionListener true
+                }
+            }
+            false
+        })
 
         root.donor_home_tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -97,6 +109,7 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 SetUnSelectView(root.donor_home_tab_layout, tab.position)
             }
+
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
@@ -112,8 +125,6 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
         b.putString("charity_image", data.image)
         b.putString("charity_address", data.address)
         b.putString("charity_description", data.about)
-        //b.putStringArrayList("charity_donation_type", data.donationTypes as  ArrayList<String>)
-
         b.putString("charity_phone", data.phone)
 
         fragment.arguments = b
@@ -197,12 +208,20 @@ class HomeFragment : Fragment(), CharitiesAdapter.onCharityItemClickListener {
                 if (response.isSuccessful) {
                     val data = response.body()!!.data
 
-                    rv_all_charities.layoutManager =
-                        LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-                    rv_all_charities.setHasFixedSize(true)
-                    val charitiesAdapter =
-                        CharitiesAdapter(activity, data, this@HomeFragment)
-                    rv_all_charities.adapter = charitiesAdapter
+                    if (data.isEmpty()) {
+                        no_charities.visibility = View.VISIBLE
+                        rv_all_charities.visibility = View.GONE
+                    } else {
+                        no_charities.visibility = View.GONE
+                        rv_all_charities.visibility = View.VISIBLE
+
+                        rv_all_charities.layoutManager =
+                            LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+                        rv_all_charities.setHasFixedSize(true)
+                        val charitiesAdapter =
+                            CharitiesAdapter(activity, data, this@HomeFragment)
+                        rv_all_charities.adapter = charitiesAdapter
+                    }
 
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

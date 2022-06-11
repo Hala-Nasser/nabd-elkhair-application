@@ -11,9 +11,7 @@ import android.webkit.WebView
 import kotlinx.android.synthetic.main.fragment_web_view.view.*
 import java.lang.Exception
 
-class WebViewFragment : Fragment()
-    //, IOnBackPressed
-{
+class WebViewFragment : Fragment() {
     var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
@@ -24,29 +22,20 @@ class WebViewFragment : Fragment()
         val root = inflater.inflate(R.layout.fragment_web_view, container, false)
 
         val b = arguments
-        if (b != null){
+        if (b != null) {
             var link = b.getString("link")
-            // WebViewClient allows you to handle
-            // onPageFinished and override Url loading.
+
             root.webView.webViewClient = WebViewClient()
-
-            // this will load the url of the website
             root.webView.loadUrl(link!!)
-
-            // this will enable the javascript settings
             root.webView.settings.javaScriptEnabled = true
-
-            // if you want to enable zoom feature
             root.webView.settings.setSupportZoom(true)
         }
 
         return root
     }
 
-    // Overriding WebViewClient functions
     inner class WebViewClient : android.webkit.WebViewClient() {
 
-        // Load the URL
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             Log.e("should override", "url loading")
             view.loadUrl(url)
@@ -55,7 +44,6 @@ class WebViewFragment : Fragment()
 
         override fun onLoadResource(view: WebView?, url: String?) {
             if (progressDialog == null) {
-                // in standard case YourActivity.this
                 progressDialog = ProgressDialog(activity)
                 progressDialog!!.setMessage("جاري التحميل ...")
                 progressDialog!!.show()

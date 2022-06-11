@@ -39,12 +39,10 @@ class CampaignDetailsFragment : Fragment() {
     var campaign_image = ""
     var campaign_date = ""
     lateinit var campaign_charity: Charity
-    lateinit var dialog :Dialog
-    lateinit var v :View
-    //var donation_type_clicked = false
+    lateinit var dialog: Dialog
+    lateinit var v: View
 
-    var campaign_donation_type= mutableListOf<DonationType>()
-
+    var campaign_donation_type = mutableListOf<DonationType>()
 
 
     override fun onCreateView(
@@ -62,18 +60,18 @@ class CampaignDetailsFragment : Fragment() {
             campaign_image = b.getString("campaign_image")!!
             campaign_date = b.getString("campaign_date")!!
             campaign_charity = b.getParcelable("campaign_charity")!!
-//            val donation_type : DonationType = b.getParcelable("campaign_donation_type")!!
             campaign_donation_type = mutableListOf()
             campaign_donation_type = b.getParcelableArrayList("campaign_donation_type")!!
             Log.e("DT get from bundle", campaign_donation_type.toString())
-            //campaign_donation_type.add(donation_type)
 
 
             root.campaign_name.text = campaign_name
             root.campaign_description.text = campaign_description
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+campaign_image).into(root.campaign_image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + campaign_image)
+                .into(root.campaign_image)
             root.campaign_date.text = campaign_date
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+campaign_charity.image).into(root.campaign_charity.charity_image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + campaign_charity.image)
+                .into(root.campaign_charity.charity_image)
             root.campaign_charity.charity_name.text = campaign_charity.name
             root.campaign_charity.charity_location.text = campaign_charity.address
 
@@ -89,44 +87,51 @@ class CampaignDetailsFragment : Fragment() {
             }
             v.choose.setOnClickListener {
                 Log.e("item selected position", lastCheckedPos.toString())
-                if (typeSelected != null){
-                    if (typeSelected!!.name == "مال"){
+                if (typeSelected != null) {
+                    if (typeSelected!!.name == "مال") {
                         val fragment = FirstStepViewDonationFragment()
-                        val b=Bundle()
+                        val b = Bundle()
                         b.putInt("charity_id", campaign_charity.id)
                         b.putInt("donation_type_id", typeSelected!!.id)
                         b.putInt("campaign_id", campaign_id)
                         b.putString("campaign_name", campaign_name)
                         b.putString("campaign_image", campaign_image)
-                        fragment.arguments=b
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
-                    }else{
+                        fragment.arguments = b
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
+                    } else {
 
                         val fragment = SecondStepViewDonationManualFragment()
-                        val b=Bundle()
+                        val b = Bundle()
                         b.putInt("charity_id", campaign_charity.id)
                         b.putInt("donation_type_id", typeSelected!!.id)
                         b.putInt("campaign_id", campaign_id)
                         b.putString("campaign_image", campaign_image)
                         b.putString("campaign_name", campaign_name)
-                        b.putString("previous_fragment","campaignDetails")
-                        fragment.arguments=b
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack(null).commit()
+                        b.putString("previous_fragment", "campaignDetails")
+                        fragment.arguments = b
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.mainContainer, fragment).addToBackStack(null).commit()
 
                     }
                     lastCheckedPos = -1
                     typeSelected = null
                     dialog.dismiss()
-                }else{
-                    Toast.makeText(requireActivity(),"قم باختيار نوع التبرع أولاً", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "قم باختيار نوع التبرع أولاً",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
             }
 
-            v.rv_donation_type.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL,false)
+            v.rv_donation_type.layoutManager =
+                LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
             v.rv_donation_type.setHasFixedSize(true)
             val donationAdapter =
-                DonationTypeAdapter(activity, campaign_donation_type,"CampaignDetailsFragment")
+                DonationTypeAdapter(activity, campaign_donation_type, "CampaignDetailsFragment")
             v.rv_donation_type.adapter = donationAdapter
 
         }
@@ -135,13 +140,11 @@ class CampaignDetailsFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-
-
         return root
     }
 
-    fun getDialog(){
-        v= layoutInflater.inflate(R.layout.dialog_item,null)
+    fun getDialog() {
+        v = layoutInflater.inflate(R.layout.dialog_item, null)
         dialog = Dialog(this.requireContext())
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setContentView(v)

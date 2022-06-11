@@ -41,10 +41,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ProfileFragment : Fragment(){
+class ProfileFragment : Fragment() {
     var progressDialog: ProgressDialog? = null
     var token = ""
-    lateinit var sharedPref:SharedPreferences
+    lateinit var sharedPref: SharedPreferences
     var img = ""
     var name = ""
     var email = ""
@@ -55,7 +55,7 @@ class ProfileFragment : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         var root = inflater.inflate(R.layout.fragment_charity_profile, container, false)
-        requireActivity().charity_nav_bottom.visibility=View.VISIBLE
+        requireActivity().charity_nav_bottom.visibility = View.VISIBLE
 
         sharedPref = requireActivity().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         token = sharedPref.getString("charity_token", "")!!
@@ -65,8 +65,8 @@ class ProfileFragment : Fragment(){
         profile()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        sectionsPagerAdapter.addFragmentsAndTitles(AboutCharityFragment(),"عن الجمعية")
-        sectionsPagerAdapter.addFragmentsAndTitles(CharityComplaintsFragment(),"شكاوي")
+        sectionsPagerAdapter.addFragmentsAndTitles(AboutCharityFragment(), "عن الجمعية")
+        sectionsPagerAdapter.addFragmentsAndTitles(CharityComplaintsFragment(), "شكاوي")
 
 
         root.charity_profile_view_pager.adapter = sectionsPagerAdapter
@@ -75,7 +75,7 @@ class ProfileFragment : Fragment(){
         root.charity_profile_view_pager.setPageTransformer(true, ZoomOutPageTransformer())
 
         var tabLayout = TabLayoutSettings()
-        tabLayout.setTabMargin(root.charity_profile_tab_layout,12,12,270)
+        tabLayout.setTabMargin(root.charity_profile_tab_layout, 12, 12, 270)
 
         var onPageChangeListener: ViewPager.OnPageChangeListener =
             object : ViewPager.OnPageChangeListener {
@@ -88,6 +88,7 @@ class ProfileFragment : Fragment(){
 
                     }
                 }
+
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
@@ -112,7 +113,8 @@ class ProfileFragment : Fragment(){
 
         root.charity_settings_icon.setOnClickListener {
             val sharedPref = requireActivity().getSharedPreferences(
-                "sharedPref", Context.MODE_PRIVATE)
+                "sharedPref", Context.MODE_PRIVATE
+            )
 
             val editor = sharedPref.edit()
             editor.putString("image", img)
@@ -120,12 +122,14 @@ class ProfileFragment : Fragment(){
             editor.putString("email", email)
             editor.apply()
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.charityContainer,CharitySettingsFragment()).addToBackStack(null).commit()
+                .replace(R.id.charityContainer, CharitySettingsFragment()).addToBackStack(null)
+                .commit()
         }
 
         root.charity_donation_received.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.charityContainer,DonationReceivedFragment()).addToBackStack(null).commit()
+                .replace(R.id.charityContainer, DonationReceivedFragment()).addToBackStack(null)
+                .commit()
         }
 
         return root
@@ -146,7 +150,7 @@ class ProfileFragment : Fragment(){
                     name = data.name
                     email = data.email
                     about = data.about
-                    Picasso.get().load(RetrofitInstance.IMAGE_URL+img).into(charity_profile_image)
+                    Picasso.get().load(RetrofitInstance.IMAGE_URL + img).into(charity_profile_image)
                     charity_profile_name.text = name
                     charity_profile_email.text = email
                     GeneralChanges().hideDialog(progressDialog!!)
@@ -180,12 +184,12 @@ class ProfileFragment : Fragment(){
             override fun onResponse(call: Call<ComplaintJson>, response: Response<ComplaintJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
-                    Log.e("complaints",data!!.data.toString())
+                    Log.e("complaints", data!!.data.toString())
 
-                    if(data.data!!.isEmpty()){
+                    if (data.data!!.isEmpty()) {
                         no_complaints.visibility = View.VISIBLE
                         rv_charity_complaints.visibility = View.GONE
-                    }else{
+                    } else {
                         no_complaints.visibility = View.GONE
                         rv_charity_complaints.visibility = View.VISIBLE
                         rv_charity_complaints.layoutManager = LinearLayoutManager(
@@ -194,7 +198,7 @@ class ProfileFragment : Fragment(){
                         )
                         rv_charity_complaints.setHasFixedSize(true)
                         val donationAdapter =
-                            ComplaintAdapter(requireActivity(),data.data)
+                            ComplaintAdapter(requireActivity(), data.data)
                         rv_charity_complaints.adapter = donationAdapter
                     }
 

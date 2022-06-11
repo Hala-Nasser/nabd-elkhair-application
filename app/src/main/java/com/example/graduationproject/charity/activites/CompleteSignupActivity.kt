@@ -204,7 +204,6 @@ class CompleteSignupActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
 
                     val data = response.body()
-                    //val data = response.body()!!.data
 
                     if (data!!.status) {
                         Log.e("data", data.data.toString())

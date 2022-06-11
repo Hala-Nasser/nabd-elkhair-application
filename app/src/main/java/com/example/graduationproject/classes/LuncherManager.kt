@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 
 
-
-
 class LuncherManager(activity: Activity) {
 
     private val PREF_NAME = "LunchManger"

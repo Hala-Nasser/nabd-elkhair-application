@@ -17,12 +17,12 @@ import com.squareup.picasso.Picasso
 import kotlin.math.log
 
 var lastCheckedPos = -1
-var typeSelected : DonationType? = null
+var typeSelected: DonationType? = null
 
 class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?, var from: String) :
     RecyclerView.Adapter<DonationTypeAdapter.MyViewHolder>() {
 
-    var list  : ArrayList<Int> = ArrayList()
+    var list: ArrayList<Int> = ArrayList()
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image = itemView.findViewById<ImageView>(R.id.donation_type_image)
@@ -31,7 +31,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
         var clicked = true
 
         fun initialize(data: DonationType) {
-            Picasso.get().load(RetrofitInstance.IMAGE_URL+data.image).into(image)
+            Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
             title.text = data.name
 
         }
@@ -53,32 +53,31 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
     }
 
     override fun onBindViewHolder(holder: DonationTypeAdapter.MyViewHolder, position: Int) {
-        // holder.photo.setImageResource(data[position].photo)
         holder.initialize(data!![position])
         when (from) {
-           "EditProfile" -> {
-               Log.e("types", donationTypes.toString())
-               for (element in donationTypes){
-                   if (element == data!![position].id){
-                       holder.clicked = false
-                       holder.cardView.apply {
-                           strokeColor = resources.getColor(R.color.app_color)
-                           cardElevation = 3f
-                           setCardBackgroundColor(resources.getColor(R.color.white))
-                       }
-                       list.add(element)
-                   }
-               }
-               changeCardStyle(
-                   holder,
-                   R.color.app_color,
-                   R.color.white,
-                   3f,
-                   R.color.white,
-                   position
-               )
+            "EditProfile" -> {
+                Log.e("types", donationTypes.toString())
+                for (element in donationTypes) {
+                    if (element == data!![position].id) {
+                        holder.clicked = false
+                        holder.cardView.apply {
+                            strokeColor = resources.getColor(R.color.app_color)
+                            cardElevation = 3f
+                            setCardBackgroundColor(resources.getColor(R.color.white))
+                        }
+                        list.add(element)
+                    }
+                }
+                changeCardStyle(
+                    holder,
+                    R.color.app_color,
+                    R.color.white,
+                    3f,
+                    R.color.white,
+                    position
+                )
 
-           }
+            }
             "CompleteSignup" -> {
 
                 changeCardStyle(
@@ -98,8 +97,6 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
                     this.notifyDataSetChanged()
                 }
 
-                Log.e("pos", position.toString())
-                Log.e("last", lastCheckedPos.toString())
                 if (position == lastCheckedPos) {
                     Log.e("onBind", "equal")
                     holder.cardView.apply {
@@ -124,10 +121,6 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
         clickedCardBackground: Int,
         position: Int
     ) {
-//        DrawableCompat.setTint(
-//            DrawableCompat.wrap(holder.image.drawable),
-//            ContextCompat.getColor(activity!!, tintColor)
-//        )
         holder.cardView.setOnClickListener {
             if (holder.clicked) {
                 holder.clicked = false
@@ -146,7 +139,7 @@ class DonationTypeAdapter(var activity: Context?, var data: List<DonationType>?,
                 }
                 list.remove(data!![position].id)
             }
-            Log.e("donationTypes",list.toString())
+            Log.e("donationTypes", list.toString())
 
         }
     }
