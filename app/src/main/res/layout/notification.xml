@@ -9,10 +9,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:paddingHorizontal="10dp"
-        android:paddingBottom="10dp"
         android:paddingTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/notification_app_logo"
@@ -26,35 +26,36 @@
             android:id="@+id/notification_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="العنوان"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/notification_app_logo"
+            android:text="العنوان"
             android:textColor="@color/black"
-            android:layout_toEndOf="@id/notification_app_logo"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/notification_time"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_marginHorizontal="5dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:text="3:00"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="15sp" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/notification_time"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_marginHorizontal="5dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:text="3:00"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="15sp" />-->
 
         <TextView
             android:id="@+id/notification_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="هذا هو محتوى الاشعار"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_marginHorizontal="10dp"
             android:layout_below="@id/notification_title"
-            android:layout_toEndOf="@id/notification_app_logo"/>
+            android:layout_marginHorizontal="10dp"
+            android:layout_toEndOf="@id/notification_app_logo"
+            android:text="هذا هو محتوى الاشعار"
+            android:textColor="@color/black"
+            android:lines="1"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 

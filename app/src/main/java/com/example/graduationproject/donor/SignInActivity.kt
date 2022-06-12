@@ -29,6 +29,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.FrameLayout
+import com.example.graduationproject.charity.activites.CompleteSignupActivity
 import com.example.graduationproject.classes.Validation
 import com.google.android.material.snackbar.BaseTransientBottomBar
 
@@ -57,6 +58,11 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
         GeneralChanges().setStatusBarTransparent(this)
         GeneralChanges().fadeTransition(this)
+
+
+        if (intent.getStringExtra("previous") != null){
+            Validation().showSnackBar(findViewById(R.id.parent_layout), "تم التسجيل بنجاح. انتظر تفعيل حسابك")
+        }
 
         val sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val isDonor = sharedPref.getBoolean("isDonor", false)

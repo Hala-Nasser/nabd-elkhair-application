@@ -18,6 +18,7 @@ import com.example.graduationproject.api.donorApi.donationType.DonationTypeJson
 import com.example.graduationproject.classes.FileUtil
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.Validation
+import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.donor.adapters.DonationTypeAdapter
 import com.example.graduationproject.network.RetrofitInstance
 import com.vansuita.pickimage.bundle.PickSetup
@@ -169,7 +170,6 @@ class CompleteSignupActivity : AppCompatActivity() {
                         charityLoginToApp(email,password)
 
                     } else {
-                        GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(
                             findViewById(R.id.charity_parent_layout),
                             data.message
@@ -280,7 +280,14 @@ class CompleteSignupActivity : AppCompatActivity() {
 
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
-                        Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
+                        if (data.message == "تعذر تسجيل الدخول بسبب تعطيل حسابك"){
+                            GeneralChanges().prepareFadeTransitionSignIn(
+                                this@CompleteSignupActivity,
+                                SignInActivity()
+                            )
+                        }else{
+                            Validation().showSnackBar(findViewById(R.id.charity_parent_layout), data.message)
+                        }
 
                     }
 
