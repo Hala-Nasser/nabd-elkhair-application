@@ -40,6 +40,13 @@ class GeneralChanges {
         currentActivity.startActivity(intent, option.toBundle())
     }
 
+    fun prepareFadeTransitionSignIn(currentActivity: Activity, activity: Activity) {
+        var option = ActivityOptions.makeSceneTransitionAnimation(currentActivity)
+        var intent = Intent(currentActivity, activity::class.java)
+        intent.putExtra("previous", "complete sign up")
+        currentActivity.startActivity(intent, option.toBundle())
+    }
+
     fun showDialog(progressDialog: ProgressDialog, message: String) {
         progressDialog.setMessage(message)
         progressDialog.setCancelable(false)

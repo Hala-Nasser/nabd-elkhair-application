@@ -119,16 +119,22 @@ class FirstStepViewDonationFragment : Fragment() {
 
                     Log.e("data", data.toString())
                     if (data != null) {
-                        radio_electronic.visibility = View.VISIBLE
-                        if (data.paypal_link != null) {
-                            bundle.putString("paypal", data.paypal_link)
+
+                        if (data.paypal_link != null || data.visa_link != null || data.creditcard_link != null){
+                            radio_electronic.visibility = View.VISIBLE
+                            if (data.paypal_link != null) {
+                                bundle.putString("paypal", data.paypal_link)
+                            }
+                            if (data.visa_link != null) {
+                                bundle.putString("visa", data.visa_link)
+                            }
+                            if (data.creditcard_link != null) {
+                                bundle.putString("card", data.creditcard_link)
+                            }
+                        }else{
+                            radio_electronic.visibility = View.GONE
                         }
-                        if (data.visa_link != null) {
-                            bundle.putString("visa", data.visa_link)
-                        }
-                        if (data.creditcard_link != null) {
-                            bundle.putString("card", data.creditcard_link)
-                        }
+
                     }
 
                 } else {
