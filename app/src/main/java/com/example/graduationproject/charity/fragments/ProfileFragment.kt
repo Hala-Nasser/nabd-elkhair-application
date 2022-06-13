@@ -82,6 +82,10 @@ class ProfileFragment : Fragment() {
 
                 override fun onPageScrollStateChanged(state: Int) {
                     when (state) {
+                        0->{
+                            profile()
+                            profile_charity_about.text = about
+                        }
                         1 -> {
                             getComplaints()
                         }
@@ -98,6 +102,10 @@ class ProfileFragment : Fragment() {
 
                 override fun onPageSelected(position: Int) {
                     when (position) {
+                        0->{
+                            profile()
+                            profile_charity_about.text = about
+                        }
                         1 -> {
                             getComplaints()
                         }
