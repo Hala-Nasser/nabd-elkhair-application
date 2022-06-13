@@ -22,7 +22,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="65dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -36,8 +36,9 @@
 
                 <ImageView
                     android:id="@+id/back"
-                    android:layout_width="30dp"
+                    android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
 
@@ -61,6 +62,7 @@
                 android:id="@+id/campaign_name_details"
                 android:layout_width="match_parent"
                 android:paddingStart="20dp"
+                android:textDirection="rtl"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:text="تقديم الاكل للعائلات المحتاجة"
@@ -76,6 +78,7 @@
                 android:layout_marginTop="15sp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:textDirection="rtl"
                 android:textAlignment="textStart"
                 android:lineSpacingExtra="5dp"
                 android:text="@string/hint"

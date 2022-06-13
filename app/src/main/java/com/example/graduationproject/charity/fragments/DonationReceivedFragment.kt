@@ -29,7 +29,6 @@ import kotlinx.android.synthetic.main.fragment_charity_settings.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.*
 import kotlinx.android.synthetic.main.fragment_donation.view.tab_layout
 import kotlinx.android.synthetic.main.fragment_donation_not_received.*
-import kotlinx.android.synthetic.main.fragment_donation_not_received.no_donations
 import kotlinx.android.synthetic.main.fragment_donation_received.view.*
 import kotlinx.android.synthetic.main.fragment_donation_received.view.back
 import kotlinx.android.synthetic.main.fragment_donation_requests.*
@@ -130,10 +129,10 @@ class DonationReceivedFragment : Fragment() {
                 if (response.isSuccessful) {
 
                     if (data!!.data.isEmpty()) {
-                        no_donations.visibility = View.VISIBLE
+                        no_notReceived_donations.visibility = View.VISIBLE
                         rv_donation_tab_notReceived.visibility = View.GONE
                     } else {
-                        no_donations.visibility = View.GONE
+                        no_notReceived_donations.visibility = View.GONE
                         rv_donation_tab_notReceived.visibility = View.VISIBLE
                         rv_donation_tab_notReceived.layoutManager = LinearLayoutManager(
                             activity,
@@ -178,10 +177,10 @@ class DonationReceivedFragment : Fragment() {
                     Log.e("enter tab received", "yes")
 
                     if (data!!.data.isEmpty()) {
-                        no_donations.visibility = View.VISIBLE
+                        no_received_donations.visibility = View.VISIBLE
                         rv_donation_tab_received.visibility = View.GONE
                     } else {
-                        no_donations.visibility = View.GONE
+                        no_received_donations.visibility = View.GONE
                         rv_donation_tab_received.visibility = View.VISIBLE
                         rv_donation_tab_received.layoutManager = LinearLayoutManager(
                             activity,
