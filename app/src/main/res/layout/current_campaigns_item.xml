@@ -62,6 +62,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
                         android:ellipsize="end"
+                        android:textDirection="rtl"
                         android:fontFamily="@font/tajawal_bold"
                         android:lines="1"
                         android:text="تقديم الأكل للعائلات المحتاجة للفقراء و المساكين"
