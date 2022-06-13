@@ -107,7 +107,7 @@ class CharityCampaignDetailsFragment : Fragment() {
         root.campaign_time_details.text = campaignTime
 
 
-        if (b.getParcelableArrayList<Data>("campaign_donation") == null) {
+        if (b.getParcelableArrayList<Data>("campaign_donation").isNullOrEmpty()) {
             root.rv_donors.visibility = View.GONE
             root.nodonors_txt.visibility = View.VISIBLE
         } else {
