@@ -16,7 +16,6 @@ import com.example.graduationproject.charity.adapters.DonationAdapter
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.network.RetrofitInstance
 import kotlinx.android.synthetic.main.fragment_donation_tab_received.*
-import kotlinx.android.synthetic.main.fragment_donation_tab_received.no_donations
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

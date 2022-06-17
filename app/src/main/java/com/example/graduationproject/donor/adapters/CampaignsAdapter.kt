@@ -41,10 +41,13 @@ class CampaignsAdapter(
                     Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
                     name.text = data.name
                     val locale = Locale("ar", "SA")
-                    var originalDate =
-                        SimpleDateFormat("EEEE، d MMMM y", locale).parse(data.expiry_date)
-                    var formattedDate = SimpleDateFormat("d MMMM y", locale).format(originalDate)
-                    date.text = formattedDate
+                    if (data.expiry_date.isNotEmpty()) {
+                        var originalDate =
+                            SimpleDateFormat("EEEE، d MMMM y", locale).parse(data.expiry_date)
+                        var formattedDate =
+                            SimpleDateFormat("d MMMM y", locale).format(originalDate)
+                        date.text = formattedDate
+                    }
                 }
                 "CharityCampaigns" -> {
                     Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
@@ -55,10 +58,13 @@ class CampaignsAdapter(
                     Picasso.get().load(RetrofitInstance.IMAGE_URL + data.image).into(image)
                     name.text = data.name
                     val locale = Locale("ar", "SA")
-                    var originalDate =
-                        SimpleDateFormat("EEEE، d MMMM y", locale).parse(data.expiry_date)
-                    var formattedDate = SimpleDateFormat("d MMMM y", locale).format(originalDate)
-                    date.text = formattedDate
+                    if (data.expiry_date.isNotEmpty()){
+                        var originalDate =
+                            SimpleDateFormat("EEEE، d MMMM y", locale).parse(data.expiry_date)
+                        var formattedDate = SimpleDateFormat("d MMMM y", locale).format(originalDate)
+                        date.text = formattedDate
+                    }
+
                     if (from == "DonorHome")
                         charity.text = data.charity.name
                 }

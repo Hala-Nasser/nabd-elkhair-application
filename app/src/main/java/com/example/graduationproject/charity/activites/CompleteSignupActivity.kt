@@ -174,6 +174,7 @@ class CompleteSignupActivity : AppCompatActivity() {
                             findViewById(R.id.charity_parent_layout),
                             data.message
                         )
+                        GeneralChanges().hideDialog(progressDialog!!)
                     }
 
                 } else {
@@ -256,15 +257,14 @@ class CompleteSignupActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     Log.e("Charity", data.toString())
-
+                    val sharedPref = this@CompleteSignupActivity.getSharedPreferences(
+                        "sharedPref", Context.MODE_PRIVATE
+                    )
+                    val editor = sharedPref.edit()
                     if (data!!.status) {
 
                         val user_id = data.data.id
-                        val sharedPref = this@CompleteSignupActivity.getSharedPreferences(
-                            "sharedPref", Context.MODE_PRIVATE
-                        )
 
-                        val editor = sharedPref.edit()
                         editor.putString("from", "charity")
                         editor.putInt("charity_id", user_id)
                         editor.putString("charity_image", data.data.image)
@@ -273,10 +273,10 @@ class CompleteSignupActivity : AppCompatActivity() {
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)
 
-                        GeneralChanges().prepareFadeTransition(
-                            this@CompleteSignupActivity,
-                            CharityMainActivity()
-                        )
+                            GeneralChanges().prepareFadeTransition(
+                                this@CompleteSignupActivity,
+                                CharityMainActivity()
+                            )
 
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
