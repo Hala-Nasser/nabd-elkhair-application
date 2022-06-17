@@ -30,6 +30,7 @@ import android.view.ViewGroup
 
 import android.widget.FrameLayout
 import com.example.graduationproject.charity.activites.CompleteSignupActivity
+import com.example.graduationproject.charity.activites.PaymentsMethodActivity
 import com.example.graduationproject.classes.Validation
 import com.google.android.material.snackbar.BaseTransientBottomBar
 
@@ -51,6 +52,7 @@ class SignInActivity : AppCompatActivity() {
     lateinit var user_email: String
     lateinit var user_password: String
     var isAllFieldsChecked = false
+    var isFirstLogin = "false"
     var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -192,12 +194,19 @@ class SignInActivity : AppCompatActivity() {
                         Log.e("Charity id in signin", user_id.toString())
                         editor.apply()
                         GeneralChanges().hideDialog(progressDialog!!)
-
-                        GeneralChanges().prepareFadeTransition(
-                            this@SignInActivity,
-                            CharityMainActivity()
-                        )
-
+                        Log.e("isFirstLogin",isFirstLogin)
+                        if (data.data.first_login==1){
+                            GeneralChanges().prepareFadeTransition(
+                                this@SignInActivity,
+                                CharityMainActivity()
+                            )
+                            Log.e("PaymenttLogin",isFirstLogin.toString())
+                        }else
+                            GeneralChanges().prepareFadeTransition(
+                                this@SignInActivity,
+                                PaymentsMethodActivity()
+                            )
+                        Log.e("CharityMaintLogin",isFirstLogin.toString())
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)
