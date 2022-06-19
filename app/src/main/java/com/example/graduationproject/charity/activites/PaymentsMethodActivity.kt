@@ -21,6 +21,7 @@ import com.example.graduationproject.api.donorApi.paymentLinks.PaymentLinksJson
 import com.example.graduationproject.charity.fragments.*
 import com.example.graduationproject.classes.GeneralChanges
 import com.example.graduationproject.classes.Validation
+import com.example.graduationproject.donor.SignInActivity
 import com.example.graduationproject.network.RetrofitInstance
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.activity_charity_complete_signup.*
@@ -79,6 +80,10 @@ class PaymentsMethodActivity : AppCompatActivity() ,View.OnClickListener{
                 jawalPal_txt.text.toString()
             }else ""
             Log.e("links","$paypal_link,$visa_link,$jawalPal_link")
+            if (paypal_link == "" && visa_link == "" && jawalPal_link==""){
+                GeneralChanges().hideDialog(progressDialog!!)
+                Validation().showSnackBar(payment_layout, "يرجى إدخال رابط دفع واحد عالأقل")
+            }else
             addPaymentLinks(paypal_link,visa_link,jawalPal_link)
         }
 
@@ -109,7 +114,8 @@ class PaymentsMethodActivity : AppCompatActivity() ,View.OnClickListener{
                     if (data!!.status){
                         Log.e("payment Links",data.toString())
                         GeneralChanges().hideDialog(progressDialog!!)
-                        GeneralChanges().prepareFadeTransition(this@PaymentsMethodActivity, CharityMainActivity())
+                        GeneralChanges().prepareFadeTransitionSignIn(
+                            this@PaymentsMethodActivity, SignInActivity())
 
                     }
                     else {

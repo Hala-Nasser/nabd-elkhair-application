@@ -11,7 +11,6 @@ data class CharityWithToken(
     val email_verified_at: Any,
     val fcm_token: Any,
     val first_activiation: Int,
-    val first_login: Int,
     val id: Int,
     val image: String,
     val name: String,
