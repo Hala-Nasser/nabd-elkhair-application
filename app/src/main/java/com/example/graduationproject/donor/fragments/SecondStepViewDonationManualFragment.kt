@@ -58,6 +58,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
     var city = ""
     var address = ""
     var phone = ""
+    var description = ""
     var time = ""
 
     override fun onCreateView(
@@ -94,6 +95,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
         root.city_layout.isActivated = false
         root.address_layout.isActivated = false
         root.phone_layout.isActivated = false
+        root.description_layout.isActivated = false
+        root.time_layout.isActivated = false
 
 
         root.residential_layout.setOnClickListener {
@@ -114,7 +117,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 root.expandable_layout_2,
                 root.expandable_layout_3,
                 root.expandable_layout_4,
-                root.expandable_layout_5
+                root.expandable_layout_5,
+                root.expandable_layout_6
             )
 
         }
@@ -156,7 +160,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 root.expandable_layout_1,
                 root.expandable_layout_3,
                 root.expandable_layout_4,
-                root.expandable_layout_5
+                root.expandable_layout_5,
+                root.expandable_layout_6
             )
 
         }
@@ -185,7 +190,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 root.expandable_layout_1,
                 root.expandable_layout_2,
                 root.expandable_layout_4,
-                root.expandable_layout_5
+                root.expandable_layout_5,
+                root.expandable_layout_6
             )
 
         }
@@ -214,19 +220,20 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 root.expandable_layout_1,
                 root.expandable_layout_2,
                 root.expandable_layout_3,
-                root.expandable_layout_5
+                root.expandable_layout_5,
+                root.expandable_layout_6
             )
 
         }
 
         root.phone_edit_text.addTextChangedListener {
             if (root.phone_edit_text.text.isNotEmpty() && root.phone_edit_text.text.toString() != " ") {
-                root.time_layout.isActivated = true
+                root.description_layout.isActivated = true
             }
         }
 
-        root.time_layout.setOnClickListener {
-            if (root.time_layout.isActivated) {
+        root.description_layout.setOnClickListener {
+            if (root.description_layout.isActivated) {
                 root.expandable_layout_5.isExpanded = !root.expandable_layout_5.isExpanded
             }
         }
@@ -234,11 +241,42 @@ class SecondStepViewDonationManualFragment : Fragment() {
         root.expandable_layout_5.setOnExpansionUpdateListener { _, _ ->
             layoutStyle(
                 root.image5,
-                R.drawable.time,
-                R.drawable.time_grey,
+                R.drawable.description,
+                R.drawable.description_grey,
                 root.title5,
                 root.sub_title5,
                 root.indicator5,
+                root.expandable_layout_5,
+                root.expandable_layout_1,
+                root.expandable_layout_2,
+                root.expandable_layout_3,
+                root.expandable_layout_4,
+                root.expandable_layout_6
+            )
+
+        }
+
+        root.description_edit_text.addTextChangedListener {
+            if (root.description_edit_text.text.isNotEmpty() && root.description_edit_text.text.toString() != " ") {
+                root.time_layout.isActivated = true
+            }
+        }
+
+        root.time_layout.setOnClickListener {
+            if (root.time_layout.isActivated) {
+                root.expandable_layout_6.isExpanded = !root.expandable_layout_6.isExpanded
+            }
+        }
+
+        root.expandable_layout_6.setOnExpansionUpdateListener { _, _ ->
+            layoutStyle(
+                root.image6,
+                R.drawable.time,
+                R.drawable.time_grey,
+                root.title6,
+                root.sub_title6,
+                root.indicator6,
+                root.expandable_layout_6,
                 root.expandable_layout_5,
                 root.expandable_layout_1,
                 root.expandable_layout_2,
@@ -278,6 +316,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
                 root.city_edit_text.text.toString().isNotEmpty() &&
                 root.address_edit_text.text.toString().isNotEmpty() &&
                 root.phone_edit_text.text.toString().isNotEmpty() &&
+                root.description_edit_text.text.toString().isNotEmpty() &&
                 root.date.text.toString().isNotEmpty() &&
                 root.time_text.text.toString().isNotEmpty()
             ) {
@@ -302,6 +341,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
                             district,
                             city,
                             address,
+                            description,
                             time
                         )
                     }
@@ -363,12 +403,14 @@ class SecondStepViewDonationManualFragment : Fragment() {
         city = city_edit_text.text.toString()
         address = address_edit_text.text.toString()
         phone = phone_edit_text.text.toString()
+        description = description_edit_text.text.toString()
         time = "$date  " + time_text.text.toString()
 
         v.residential_district.text = district
         v.city.text = city
         v.location.text = address
         v.phone_number.text = phone
+        v.description.text = description
         v.r_time.text = time
 
         dialog.setContentView(v)
@@ -389,7 +431,8 @@ class SecondStepViewDonationManualFragment : Fragment() {
         layout2: ExpandableLayout,
         layout3: ExpandableLayout,
         layout4: ExpandableLayout,
-        layout5: ExpandableLayout
+        layout5: ExpandableLayout,
+        layout6: ExpandableLayout
     ) {
 
         if (layout.isExpanded) {
@@ -401,6 +444,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
             layout3.isExpanded = false
             layout4.isExpanded = false
             layout5.isExpanded = false
+            layout6.isExpanded = false
         } else {
             image.setImageResource(falseImageResource)
             title.setTextColor(resources.getColor(R.color.light_grey))
@@ -419,6 +463,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
         donor_district: String,
         donor_city: String,
         donor_address: String,
+        description: String,
         date_time: String
     ) {
         var body = MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -428,6 +473,7 @@ class SecondStepViewDonationManualFragment : Fragment() {
             .addFormDataPart("donor_district", donor_district)
             .addFormDataPart("donor_city", donor_city)
             .addFormDataPart("donor_address", donor_address)
+            .addFormDataPart("description", description)
             .addFormDataPart("date_time", date_time)
         if (campaign_id != 0) {
             body.addFormDataPart("campaign_id", campaign_id.toString())

@@ -9,6 +9,7 @@ data class Data(
     val donor_address: String,
     val donor_city: String,
     val donor_district: String,
+    val description: String,
     val donor_id: Int,
     val donor_phone: String,
     val id: Int,

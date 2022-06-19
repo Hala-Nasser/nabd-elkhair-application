@@ -195,6 +195,27 @@
                 android:textColor="@color/black_transparent_94"
                 android:layout_marginTop="20dp"/>
 
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                style="@style/TextInputLayoutStyle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                >-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/notification_settings_sign_out"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/tajawal_medium"-->
+<!--                    android:inputType="none"-->
+<!--                    android:text="تسجيل خروج"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="false"-->
+<!--                    android:cursorVisible="false"-->
+<!--                    android:textColor="@color/app_color"-->
+<!--                    android:textSize="15sp" />-->
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
