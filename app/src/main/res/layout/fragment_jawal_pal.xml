@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="51dp"
             android:inputType="textWebEmailAddress"
-            android:hint="JawalPal.Me/Example"
+            android:hint="MasterCard.Me/Example"
             android:background="@android:color/transparent"
             android:gravity="center"
             android:textDirection="rtl"

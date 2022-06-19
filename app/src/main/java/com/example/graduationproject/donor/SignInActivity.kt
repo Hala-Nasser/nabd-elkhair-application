@@ -193,20 +193,12 @@ class SignInActivity : AppCompatActivity() {
                         editor.putString("charity_token", data.data.token)
                         Log.e("Charity id in signin", user_id.toString())
                         editor.apply()
+
                         GeneralChanges().hideDialog(progressDialog!!)
-                        Log.e("isFirstLogin",isFirstLogin)
-                        if (data.data.first_login==1){
                             GeneralChanges().prepareFadeTransition(
                                 this@SignInActivity,
                                 CharityMainActivity()
                             )
-                            Log.e("PaymenttLogin",isFirstLogin.toString())
-                        }else
-                            GeneralChanges().prepareFadeTransition(
-                                this@SignInActivity,
-                                PaymentsMethodActivity()
-                            )
-                        Log.e("CharityMaintLogin",isFirstLogin.toString())
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         Validation().showSnackBar(findViewById(R.id.parent_layout), data.message)

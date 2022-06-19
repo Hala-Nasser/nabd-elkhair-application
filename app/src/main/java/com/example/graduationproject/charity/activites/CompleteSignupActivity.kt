@@ -167,7 +167,20 @@ class CompleteSignupActivity : AppCompatActivity() {
 
                     if (data!!.status) {
 
-                        charityLoginToApp(email,password)
+                        val user_id = data.data.id
+                        val sharedPref = this@CompleteSignupActivity.getSharedPreferences(
+                            "sharedPref", Context.MODE_PRIVATE
+                        )
+
+                        val editor = sharedPref.edit()
+                        editor.putString("from", "charity")
+                        editor.putInt("charity_id", user_id)
+                        editor.apply()
+                        GeneralChanges().prepareFadeTransition(
+                            this@CompleteSignupActivity,
+                            PaymentsMethodActivity()
+                        )
+
 
                     } else {
                         Validation().showSnackBar(
@@ -281,10 +294,7 @@ class CompleteSignupActivity : AppCompatActivity() {
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)
                         if (data.message == "تعذر تسجيل الدخول بسبب تعطيل حسابك"){
-                            GeneralChanges().prepareFadeTransitionSignIn(
-                                this@CompleteSignupActivity,
-                                SignInActivity()
-                            )
+
                         }else{
                             Validation().showSnackBar(findViewById(R.id.charity_parent_layout), data.message)
                         }
