@@ -87,20 +87,27 @@ class DonationRequestsFragment : Fragment() {
             override fun onResponse(call: Call<DonationJson>, response: Response<DonationJson>) {
                 val data = response.body()
                 if (response.isSuccessful) {
-
-                    rv_donation_requests.layoutManager = LinearLayoutManager(
-                        activity,
-                        RecyclerView.VERTICAL, false
-                    )
-                    rv_donation_requests.setHasFixedSize(true)
-                    donationAdapter =
-                        RequestDonationAdapter(
-                            requireActivity(),
-                            data!!.data,
-                            this@DonationRequestsFragment
+                    if(data!!.data.isNotEmpty()){
+                        no_donation_requests.visibility = View.GONE
+                        rv_donation_requests.visibility = View.VISIBLE
+                        rv_donation_requests.layoutManager = LinearLayoutManager(
+                            activity,
+                            RecyclerView.VERTICAL, false
                         )
-                    rv_donation_requests.adapter = donationAdapter
-                    onActivityStateChanged = donationAdapter.registerActivityState()
+                        rv_donation_requests.setHasFixedSize(true)
+                        donationAdapter =
+                            RequestDonationAdapter(
+                                requireActivity(),
+                                data!!.data,
+                                this@DonationRequestsFragment
+                            )
+                        rv_donation_requests.adapter = donationAdapter
+                        onActivityStateChanged = donationAdapter.registerActivityState()
+                    }else{
+                        no_donation_requests.visibility = View.VISIBLE
+                        rv_donation_requests.visibility = View.GONE
+                    }
+
                     GeneralChanges().hideDialog(progressDialog!!)
                 } else {
                     Log.e("error Body", response.errorBody()?.charStream()?.readText().toString())

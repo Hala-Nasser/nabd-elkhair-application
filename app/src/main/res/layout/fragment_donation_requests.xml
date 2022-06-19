@@ -46,54 +46,18 @@
 
         </RelativeLayout>
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <ProgressBar-->
-<!--                android:id="@+id/progress_countdown"-->
-<!--                style="@style/CircularDeterminateProgressBar"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:max="60"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView_countdown"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/tajawal_bold"-->
-<!--                android:text="00:00"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="17sp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/progress_countdown"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/progress_countdown"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/progress_countdown"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/progress_countdown" />-->
-
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/start_count"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/colored_button"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="بدء"
+        <TextView
+            android:id="@+id/no_donation_requests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/tajawal_medium"
+            android:text="لا يوجد تبرعات"
+            android:textColor="@color/black"
+            android:textSize="24sp"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/tajawal_bold"  />
+            android:visibility="gone"
+            android:layout_marginTop="30dp"
+         />
 
 
         <androidx.recyclerview.widget.RecyclerView
