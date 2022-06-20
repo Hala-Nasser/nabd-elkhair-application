@@ -21,6 +21,7 @@ data class Data(
     val donor_district: String,
     val donor_id: Int,
     val donor_phone: String,
+    val description: String,
     val id: Int,
     val milli: Long,
     val date: String,

@@ -137,6 +137,7 @@ class DonationAdapter(
         view.bs_received_date.text = donation.date_time
         view.bs_donor_prefecture.text = donation.donor_district
         view.bs_donor_city.text = donation.donor_city
+        view.description.text = donation.description
         view.bs_donor_address.text = donation.donor_address
         view.bs_donor_phone.text = donation.donor_phone
         bottomSheetDialog.show()
