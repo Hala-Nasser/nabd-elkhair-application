@@ -2,6 +2,7 @@ package com.example.graduationproject.donor.fragments
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -88,7 +89,9 @@ class ChangePasswordFragment : Fragment() {
                 if (response.isSuccessful) {
                     val data = response.body()
                     if (data!!.status) {
-                        activity!!.onBackPressed()
+                        val i = Intent(requireActivity(), SignInActivity()::class.java)
+                        startActivity(i)
+                        requireActivity().finish()
                         GeneralChanges().hideDialog(progressDialog!!)
                     } else {
                         GeneralChanges().hideDialog(progressDialog!!)

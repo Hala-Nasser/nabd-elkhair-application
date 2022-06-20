@@ -563,6 +563,7 @@
                             android:fontFamily="@font/tajawal_medium"
                             android:paddingHorizontal="10dp"
                             android:text=""
+                            android:inputType="phone"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
 

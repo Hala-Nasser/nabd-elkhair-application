@@ -3,36 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_button"
-    android:layout_margin="5dp"
+    android:id="@+id/parent"
     android:layoutDirection="rtl">
 
-    <RelativeLayout
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:paddingHorizontal="10dp"-->
+<!--        android:paddingTop="5dp"-->
+<!--        android:paddingBottom="10dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/notification_app_logo"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:src="@drawable/logo" />-->
+
+    <TextView
+        android:id="@+id/notification_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp">
-
-        <ImageView
-            android:id="@+id/notification_app_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/notification_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/notification_app_logo"
-            android:text="العنوان"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:text="العنوان"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
         <!--        <TextView-->
         <!--            android:id="@+id/notification_time"-->
@@ -45,18 +44,15 @@
         <!--            android:textColor="@color/black"-->
         <!--            android:textSize="15sp" />-->
 
-        <TextView
-            android:id="@+id/notification_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/notification_title"
-            android:layout_marginHorizontal="10dp"
-            android:layout_toEndOf="@id/notification_app_logo"
-            android:text="هذا هو محتوى الاشعار"
-            android:textColor="@color/black"
-            android:lines="1"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/notification_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notification_title"
+        android:layout_marginHorizontal="10dp"
+        android:lines="1"
+        android:text="هذا هو محتوى الاشعار"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     </RelativeLayout>
-
-</RelativeLayout>

@@ -133,7 +133,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteView.setTextColor(R.id.notification_title, Color.BLACK)
         remoteView.setTextViewText(R.id.notification_title, title)
         remoteView.setTextViewText(R.id.notification_message, message)
-        remoteView.setImageViewResource(R.id.notification_app_logo, R.drawable.logo)
+       // remoteView.setImageViewResource(R.id.notification_app_logo, R.drawable.logo)
 
         return remoteView
     }
@@ -142,7 +142,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val intent = Intent(this, DonorMainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         var builder: NotificationCompat.Builder =
             NotificationCompat.Builder(applicationContext, channelId)
