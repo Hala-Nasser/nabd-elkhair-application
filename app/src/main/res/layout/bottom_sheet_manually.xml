@@ -269,19 +269,41 @@
             android:layout_marginTop="5dp"
             android:background="@color/black_transparent_19" />
 
-        <!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/accept_donation"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginVertical="40dp"-->
-<!--            android:background="@drawable/colored_button"-->
-<!--            android:gravity="center"-->
-<!--            android:text="قبول"-->
-<!--            android:fontFamily="@font/tajawal_bold"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="18sp"-->
-<!--             />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="وصف التبرع"
+                android:textColor="@color/grey_bottom_dialog"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/tajawal_medium"
+                android:text="مبلغ من المال قدره 50 شيكل"
+                android:textAlignment="viewStart"
+                android:textColor="@color/app_color_transparent_86"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black_transparent_19" />
+
 
 
     </LinearLayout>
